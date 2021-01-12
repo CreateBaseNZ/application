@@ -124,13 +124,13 @@ h1 {
 .project-card {
   flex: 1 1 0;
   background: $lightest;
-  border-radius: 15px;
+  border-radius: 1rem;
   margin: 0 2vw;
   display: grid;
   grid-template-columns: auto min-content;
   grid-template-rows: min-content auto;
   position: relative;
-  padding: 1rem;
+  padding: 1.5rem;
   overflow: hidden;
   .tags-container {
     display: flex;
@@ -159,28 +159,33 @@ h1 {
   }
   .progress-trophy {
     position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
     i {
       color: $gold;
     }
-    .icon-wrap {
+    .trophy-wrapper {
       display: flex;
       justify-content: flex-end;
-      align-items: flex-end;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      overflow: hidden;
-      height: 10px;
-    }
-    .trophy-back {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      opacity: 0.25;
+      align-items: flex-start;
+      position: relative;
+      .trophy-back {
+        opacity: 0.25;
+      }
+      .trophy-container {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        height: 10px;
+      }
     }
   }
   .project-info {
-    background: $darkest;
+    background: blue;
   }
   .progress-number {
     background: green;
@@ -193,12 +198,13 @@ h1 {
     width: 100%;
     background: $red;
   }
-  &:first-of-type {
-    margin-left: 0;
-    margin-right: 1vw;
+  &:nth-child(2) {
+    margin-left: 2vw;
   }
-  &:last-of-type {
-    margin-left: 1vw;
-    margin-right: 0;
+  &:nth-last-child(2) {
+    margin-right: 2vw;
+  }
+  &:only-child {
+    margin: 0;
   }
 }
