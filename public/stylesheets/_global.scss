@@ -141,7 +141,7 @@ span {
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  transition: box-shadow 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out, margin 0.1s ease-out;
   &::after {
     position: absolute;
     content: '';
@@ -222,7 +222,8 @@ span {
     .project-name {
       font-weight: 600;
       font-size: 1.5rem;
-      line-height: 150%;
+      line-height: 100%;
+      margin: 0.1em 0;
     }
     .project-about {
       font-size: 0.625rem;
@@ -257,8 +258,6 @@ span {
     left: 0;
     height: 10px;
     width: 80%;
-    background: linear-gradient(45deg, $red 0%, #FF8A00 33%, $red 66%, #FF8A00 100%);
-    background-size: 400% 400%;
     animation: wavy 1.5s ease infinite;
     &::after {
       content: '';
@@ -271,6 +270,7 @@ span {
     }
   }
   &:hover {
+    margin: -2px 0 2px 0;
     .progress-bar::after { opacity: 0; }
   }
   &:first-child {
@@ -282,7 +282,8 @@ span {
     margin-right: 0;
   }
   &:only-child {
-    margin: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

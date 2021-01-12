@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   max-height: 100%;
-  padding-right: 4vw;
+  padding-right: 3vw;
 }
 
 .profile-container {
@@ -40,6 +40,7 @@ h2 {
 }
 
 .recom-container {
+  padding-top: 2vh;
   display: flex;
   flex: 1 1 20vh;
 }
@@ -49,6 +50,92 @@ h2 {
   display: flex;
   flex-direction: column;
   max-height: 100%;
-  padding-left: 4vw;
-  background: grey;
+  padding: 0 3vw;
 }
+
+.stats-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat {
+  flex: 0 1 auto;
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F8A3A8;
+  border-radius: 1.25rem;
+  height: 20vh;
+  .stat-img {
+    height: 100%;
+    width: 25%;
+    object-fit: contain;
+  }
+  .stat-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    .stat-title {
+      font-weight: 500;
+      font-size: 1.25rem;
+      color: $lightest;
+      line-height: 105%;
+      margin-bottom: 0.5em;
+    }
+    .stat-about {
+      font-size: 0.625rem;
+      color: $lightest;
+      line-height: 150%;
+    }
+  }
+  .stat-fig-container {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .stat-fig-val {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.5em;
+      width: 2.5em;
+      color: #F8A3A8;
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: $lightest;
+      border-radius: 33%;
+    }
+    .stat-fig-text {
+      margin-top: 1em;
+      color: $lightest;
+      text-transform: uppercase;
+      font-size: 0.5625rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+    }
+  }
+}
+
+#stat-unleash {
+  background: #F8A3A8;
+  .stat-fig-container > .stat-fig-val { color: #F8A3A8; }
+}
+
+#stat-champ {
+  background: #9CDCAA;
+  .stat-fig-container > .stat-fig-val { color: #9CDCAA; }
+}
+
+#stat-task {
+  background: #96CAF7;
+  .stat-fig-container > .stat-fig-val { color: #96CAF7; }
+}
+
+// .shop-container {
+//   display: flex;
+// }
