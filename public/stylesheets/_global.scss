@@ -12,6 +12,7 @@ $blue-mid: #209CE2;
 $blue-dark: #0A73DC;
 $green: #18DBAC;
 $red: #FA6F6F;
+$orange: #FF9F46;
 $bg-grey: #FBFBFB;
 
 * {
@@ -158,15 +159,12 @@ span {
       justify-content: center;
       align-items: center;
       font-size: 0.7rem;
-      // color: $red;
       margin-right: 0.5em;
       margin-bottom: 0.4em;
       padding: 0.4em 1.5em;
       border-radius: 999px;
-      // border: solid thin $red;
     }
     .progress-tag {
-      // background-color: $red;
       span {
         color: $lightest;
       }
@@ -250,7 +248,6 @@ span {
     align-self: flex-end;
     font-size: 1.5rem;
     font-weight: 600;
-    // color: $red;
     line-height: 150%;
   }
   .progress-bar {
@@ -260,7 +257,7 @@ span {
     left: 0;
     height: 10px;
     width: 80%;
-    // background: linear-gradient(45deg, $red 0%, #FF8A00 33%, $red 66%, #FF8A00 100%);
+    background: linear-gradient(45deg, $red 0%, #FF8A00 33%, $red 66%, #FF8A00 100%);
     background-size: 400% 400%;
     animation: wavy 1.5s ease infinite;
     &::after {
@@ -268,14 +265,12 @@ span {
       position: absolute;
       top: 0;
       left: 0;
-      // background: $red;
       height: 100%;
       width: 100%;
       transition: opacity 1s linear;
     }
   }
   &:hover {
-    // box-shadow: 0 2em 4em -3em $red;
     .progress-bar::after { opacity: 0; }
   }
   &:first-child {
@@ -354,22 +349,88 @@ span {
 .project-card.red {
   .tags-container > .project-tag { 
     border: thin solid $red;
+  }
+  .tags-container > .project-tag,
+  .project-info > .current-task,
+  .progress-number {
     color: $red;
   }
-  .tags-container > .progress-tag { background-color: $red; }
-  .project-info > .current-task { color: $red; }
-  .progress-number { color: $red; }
-  .progress-bar { background: linear-gradient(45deg, $red 0%, #FF8A00 33%, $red 66%, #FF8A00 100%); }
-  .progress-bar::after { background: $red; }
-  .progress-bar::after { background: $red; }
+  .tags-container > .progress-tag,
+  .progress-bar::after {
+    background-color: $red; 
+  }
+  .progress-bar { 
+    background: linear-gradient(45deg, $red 0%, $orange 33%, $red 66%, $orange 100%); 
+    background-size: 400% 400%;
+  }
   &:hover { box-shadow: 0 2em 4em -3em $red; }
+}
+
+.project-card.green {
+  .tags-container > .project-tag { 
+    border: thin solid $green;
+  }
+  .tags-container > .project-tag,
+  .project-info > .current-task,
+  .progress-number {
+    color: $green;
+  }
+  .tags-container > .progress-tag,
+  .progress-bar::after {
+    background-color: $green; 
+  }
+  .progress-bar { 
+    background: linear-gradient(45deg, $green 0%, $blue-light 33%, $green 66%, $blue-light 100%); 
+    background-size: 400% 400%;
+  }
+  &:hover { box-shadow: 0 2em 4em -3em $green; }
+}
+
+.project-card.orange {
+  .tags-container > .project-tag { 
+    border: thin solid $orange;
+  }
+  .tags-container > .project-tag,
+  .project-info > .current-task,
+  .progress-number {
+    color: $orange;
+  }
+  .tags-container > .progress-tag,
+  .progress-bar::after {
+    background-color: $orange; 
+  }
+  .progress-bar { 
+    background: linear-gradient(45deg, $orange 0%, $gold 33%, $orange 66%, $gold 100%); 
+    background-size: 400% 400%;
+  }
+  &:hover { box-shadow: 0 2em 4em -3em $orange; }
+}
+
+.project-card.blue {
+  .tags-container > .project-tag { 
+    border: thin solid $blue-light;
+  }
+  .tags-container > .project-tag,
+  .project-info > .current-task,
+  .progress-number {
+    color: $blue-light;
+  }
+  .tags-container > .progress-tag,
+  .progress-bar::after {
+    background-color: $blue-light; 
+  }
+  .progress-bar { 
+    background: linear-gradient(45deg, $blue-light 0%, #B09AED 33%, $blue-light 66%, #B09AED 100%); 
+    background-size: 400% 400%;
+  }
+  &:hover { box-shadow: 0 2em 4em -3em $blue-light; }
 }
 
 @keyframes wavy {
   0% {
-    background-position: 100% 0%
+    background-position: 100% 0%;
   }
   100% {
-    background-position: 15% 100%
+    background-position: 15% 100%;
   }
 }
