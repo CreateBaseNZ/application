@@ -25,11 +25,36 @@
 <!--<body onload="home.initialise();">-->
 
 <body>
-
-  <nav>
-    Hello
-  </nav>
-
+  <div class="wrap">
+    <nav>
+      <img src="..\public\images\logo-icon.png" alt="logo">
+    </nav>
+    
+    <div class="sign-up-wrap">
+      <h1>Unleash your inner creator</h1>
+      <form action="post">
+        <label for="email">Email Address</label>
+        <input type="text" id="email" name="email">
+  
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+  
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="password"
+               minlength="8" required>
+  
+        <label for="confirm-pass">Confirm Password</label>
+        <input type="confirm-password" id="confirm-pass" name="confirm-pass"
+               minlength="8" required>
+      </form>
+  
+      <p>By signing up, you confirm that you accept our</p>
+      <p><a href="">Terms and Conditions</a> and <a href="">Privacy Policy</a></p>
+  
+      <button>Sign up</button>
+      <button>Log in</button>
+    </div>
+  </div>
 
   </div>
   <!-- ==========================JS========================== -->

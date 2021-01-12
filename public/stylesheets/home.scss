@@ -1,1 +1,16 @@
 @import "global";
+
+// Mobile
+// nav{
+//     margin: 5em;
+// }
+
+.sign-up-wrap{
+    border: thin solid red;
+    display: flex;
+    flex-direction: column;
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+}

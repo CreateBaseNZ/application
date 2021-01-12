@@ -90,4 +90,12 @@ h1 {
       -ms-flex: 1 0 0px;
           flex: 1 0 0;
 }
-/*# sourceMappingURL=settings.css.map */
+
+body {
+  background-color: red;
+}
+
+.sign-up-wrap {
+  border: thin solid red;
+}
+/*# sourceMappingURL=home.css.map */
