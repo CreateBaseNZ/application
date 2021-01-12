@@ -3,8 +3,9 @@ MODULES
 ========================================================== */
 
 const express = require("express");
-const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
+const mongoose = require("mongoose");
 
 /* ==========================================================
 VARIABLES
@@ -12,6 +13,14 @@ VARIABLES
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const app = express();
+
+/* ==========================================================
+DATABASE
+========================================================== */
+
+mongoose.connect(process.env.MONGODB_URL, {
+  useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true
+});
 
 /* ==========================================================
 SERVER
