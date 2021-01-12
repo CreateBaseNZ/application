@@ -1,24 +1,13 @@
 @import "global";
 
-.ui-container {
-  display: flex;
-  flex-direction: row;
-}
-
 .db-left {
   max-height: 100%;
   width: 55vw;
-  display: flex;
-  flex-direction: column;
   padding-right: 2vw;
 }
 
 .profile-container {
   flex: 1 1 25vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
   .db-dp {
     object-fit: cover;
     height: 20vh;
@@ -28,10 +17,6 @@
   }
   .trophy-case {
     max-width: 320px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
   }
 }
 
@@ -41,14 +26,11 @@ h2 {
 
 .recent-container {
   flex: 1 1 27vh;
-  display: flex;
   padding: 2vh 0;
-  background: blue;
 }
 
 .recom-container {
   flex: 1 1 20vh;
-  display: flex;
   background: red;
 }
 

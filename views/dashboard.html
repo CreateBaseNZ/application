@@ -36,16 +36,16 @@
     <a href="/" class="logout"><i class="material-icons-outlined md-36 md-light">logout</i></a>
   </nav>
 
-  <div class="ui-wrapper">
-    <div class="header-container">
+  <div class="ui-wrapper d-flex flex-column">
+    <div class="header-container d-flex flex-row justify-content-start align-items-end">
       <h1>Welcome back, <span id="h1-name">Jane</span></h1>
     </div>
-    <div class="ui-container">
-      <div class="db-left">
+    <div class="ui-container d-flex flex-row">
+      <div class="db-left d-flex flex-column">
 
-        <div class="profile-container">
+        <div class="profile-container d-flex flex-row justify-content-evenly align-items-center">
           <img class="db-dp" src="/public/images/dp-example.jpg" alt="Display picture">
-          <div class="trophy-case">
+          <div class="trophy-case d-flex justify-content-center align-items-center flex-wrap">
             <div class="badge trophy">
               <img src="/public/images/badges/Trophy.png" alt="Trophy">
             </div>
@@ -69,15 +69,20 @@
 
         <h2 class="small-caps">Recent projects</h2>
 
-        <div class="recent-container">
+        <div class="recent-container d-flex">
 
           <div class="project-card in-progress small">
-            <div class="tags-container">
-              <div class="project-tag">80%</div>
-              <div class="project-tag">AI</div>
-              <div class="project-tag">+3 More</div>
+            <div class="tags-container d-flex flex-row">
+              <div class="project-tag d-flex justify-content-center align-items-center in-progress-tag"><i class="material-icons-outlined md-light">timer</i><span>80%</span></div>
+              <div class="project-tag justify-content-center align-items-center">AI</div>
+              <div class="project-tag justify-content-center align-items-center" justify-content-center align-items-center>+3 More</div>
             </div>
-            <div class="progress-trophy"></div>
+            <div class="progress-trophy">
+              <i class="material-icons-round trophy-back">emoji_events</i>
+              <div class="icon-wrap d-flex justify-content-end align-items-end">
+                <i class="material-icons-round">emoji_events</i>
+              </div>
+            </div>
             <div class="project-info">
               <div class="project-rating">4.8</div>
               <div class="project-name">Machine Vision</div>
@@ -87,12 +92,12 @@
             <div class="progress-number">80%</div>
             <div class="progress-bar"></div>
           </div>
-          
+
           <div class="project-card in-progress small">
-            <div class="tags-container">
-              <div class="project-tag">80%</div>
-              <div class="project-tag">AI</div>
-              <div class="project-tag">+3 More</div>
+            <div class="tags-container d-flex flex-row">
+              <div class="project-tag d-flex justify-content-center align-items-center in-progress-tag"><i class="material-icons-outlined md-light">timer</i><span>80%</span></div>
+              <div class="project-tag justify-content-center align-items-center">AI</div>
+              <div class="project-tag justify-content-center align-items-center" justify-content-center align-items-center>+3 More</div>
             </div>
             <div class="progress-trophy"></div>
             <div class="project-info">
@@ -109,7 +114,7 @@
         
         <h2 class="small-caps">Recommended</h2>
 
-        <div class="recom-container">
+        <div class="recom-container d-flex">
           
         </div>
 
