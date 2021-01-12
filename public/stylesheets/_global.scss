@@ -139,7 +139,17 @@ span {
   padding: 1.5rem;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
   transition: box-shadow 0.2s ease-out;
+  &::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: $lighter;
+  }
   .tags-container {
     display: flex;
     flex-wrap: wrap;
@@ -155,7 +165,7 @@ span {
       border-radius: 999px;
       border: solid thin $red;
     }
-    .in-progress-tag {
+    .progress-tag {
       background-color: $red;
       span {
         color: $lightest;
@@ -221,7 +231,7 @@ span {
       color: $dark;
       line-height: 150%;
     }
-    .project-current-task {
+    .current-task {
       display: flex;
       align-items: center;
       font-size: 0.875rem;
@@ -244,14 +254,15 @@ span {
     line-height: 150%;
   }
   .progress-bar {
+    z-index: 2;
     position: absolute;
     bottom: 0;
     left: 0;
     height: 10px;
-    width: 100%;
+    width: 80%;
     background: linear-gradient(45deg, $red 0%, #FF8A00 33%, $red 66%, #FF8A00 100%);
     background-size: 400% 400%;
-    animation: wavy 2s ease infinite;
+    animation: wavy 1.5s ease infinite;
     &::after {
       content: '';
       position: absolute;
@@ -277,6 +288,66 @@ span {
   }
   &:only-child {
     margin: 0;
+  }
+}
+
+.project-card.in-progress {
+  .project-about,
+  .recom-icon {
+    display: none;
+  }
+}
+
+.project-card.new {
+  .progress-number,
+  .progress-bar {
+    opacity: 0;
+  }
+  &::after,
+  .current-task,
+  .progress-tag,
+  .trophy-wrapper {
+    display: none;
+  }
+}
+
+.project-card.small {
+  .project-info {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .progress-number {
+    display: none;
+  }
+}
+
+.project-card.large {
+  .progress-tag {
+    display: none;
+  }
+}
+
+.project-card.completed {
+  .progress-tag,
+  .recom-icon,
+  .current-task {
+    display: none;
+  }
+  .progress-trophy>.trophy-wrapper>.trophy-container {
+    height: auto;
+  }
+  & > * {
+    opacity: 0.5;
+    transition: opacity 0.2s ease-out;
+  }
+  .progress-trophy {
+    opacity: 1;
+  }
+  .progress-bar {
+    width: 100%;
+  }
+  &:hover > * {
+    opacity: 1;
   }
 }
 
