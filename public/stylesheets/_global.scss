@@ -6,7 +6,9 @@ $dark: #786D97;
 $darker: #1A1039;
 $darkest: #000000;
 $gold: #FDD135;
-$blue: #36C4E8;
+$blue-light: #36C4E8;
+$blue-mid: #209CE2;
+$blue-dark: #0A73DC;
 $green: #18DBAC;
 $red: #FA6F6F;
 $bg-grey: #FBFBFB;
@@ -65,4 +67,42 @@ h1 {
   width: 100%;
   height: 100%;
   flex: 1 0 0;
+}
+
+.badge{
+  position: relative;
+  cursor: pointer;
+  &::after {
+    content: 'Hello';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, calc(-50% - 2px));
+    color: $lightest;
+    opacity: 0;
+    text-transform: uppercase;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  &:hover {
+    img {
+      filter: brightness(0.8) blur(1px);
+    }
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.badge.trophy::after { content: 'Trophy'; }
+.badge.medal::after { content: 'Medal'; }
+.badge.console::after { content: 'Console'; }
+.badge.loyal::after { content: 'Loyal'; }
+.badge.graduation::after { content: 'Grad'; }
+.badge.empty::after { content: 'Empty'; }
+
+.small-caps {
+  
 }
