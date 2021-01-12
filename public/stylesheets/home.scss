@@ -1,16 +1,76 @@
 @import "global";
 
-// Mobile
-// nav{
-//     margin: 5em;
-// }
+// Mobile view
+body{
+    position: relative;
+}
+nav{
+    position: absolute;
+    z-index: 1;
+    padding: 3em 0 0 10vw ;
+}
+.wrap{
+    padding: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-input{
+    background-color: $lightbluetint;
+    padding: 1.3em;
+    border-radius: 1em;
+}
+
+.main-cta{
+    background-color: $blue-mid;
+    color: $lightest;
+}
+
+.secondary-cta{
+    background-color: $lightest;
+    color: $blue-light;
+    border: thin solid $blue-light;
+}
+
+.small-text{
+    font-size: 0.8em;
+    color: $light;
+}
+
+.quick-link{
+    color: $blue-dark;
+}
 
 .sign-up-wrap{
-    border: thin solid red;
     display: flex;
     flex-direction: column;
+}
+
+.sign-up-container{
+    display: flex;
+    flex-direction: column;
+    h1{
+        font-size: 2em;
+        padding: 2em 0 1em;
+    }
     form{
         display: flex;
         flex-direction: column;
     }
+    .disclaimer-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 3em;
+        line-height: 130%;
+    }
+    .user-input{
+        margin-bottom: 1.5em;
+    }
+}
+
+// Tablet View
+@media only screen and (min-width: 850px){
+    
 }
