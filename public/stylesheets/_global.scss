@@ -193,7 +193,18 @@ h1 {
   flex: 1 0 0;
 }
 
-.badge{
+// ----- ICONS -----
+
+.md-18 { font-size: 18px; }
+.md-24 { font-size: 24px; }
+.md-36 { font-size: 36px; }
+.md-48 { font-size: 48px; }
+.md-light { color: $lightest; }
+
+
+// ----- BADGES ----- 
+
+.badge {
   position: relative;
   cursor: pointer;
   &::after {
@@ -206,9 +217,9 @@ h1 {
     color: $lightest;
     opacity: 0;
     text-transform: uppercase;
-    font-size: 8px;
+    font-size: 0.5rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.125em;
   }
   &:hover {
     img {
@@ -227,6 +238,71 @@ h1 {
 .badge.graduation::after { content: 'Grad'; }
 .badge.empty::after { content: 'Empty'; }
 
-// .small-caps {
-  
-// }
+// ----- FONT STYLES -----
+
+h1 {
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  font-size: 3em;
+}
+
+.small-caps {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: $light;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+// ----- PROJECT CARDS -----
+
+.project-card {
+  flex: 1 1 0;
+  background: $lightest;
+  border-radius: 15px;
+  margin: 0 2vw;
+  display: grid;
+  grid-template-columns: auto min-content;
+  grid-template-rows: min-content auto;
+  position: relative;
+  padding: 1rem;
+  .tags-container {
+    display: flex;
+    .project-tag {
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $red;
+      margin-right: 0.5em;
+      padding: 0.5em 1.5em;
+      border-radius: 999px;
+      border: solid thin $red;
+    }
+  }
+  .progress-trophy {
+    background: gold;
+  }
+  .project-info {
+    background: $darkest;
+  }
+  .progress-number {
+    background: green;
+  }
+  .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background: coral;
+  }
+  &:first-of-type {
+    margin-left: 0;
+    margin-right: 1vw;
+  }
+  &:last-of-type {
+    margin-left: 1vw;
+    margin-right: 0;
+  }
+}

@@ -10,6 +10,7 @@
   width: 55vw;
   display: flex;
   flex-direction: column;
+  padding-right: 2vw;
 }
 
 .profile-container {
@@ -34,15 +35,21 @@
   }
 }
 
+h2 {
+  width: 100%;
+}
 
 .recent-container {
-  flex: 1 1 24vh;
-  background: $green;
+  flex: 1 1 27vh;
+  display: flex;
+  padding: 2vh 0;
+  background: blue;
 }
 
 .recom-container {
-  flex: 1 1 23vh;
-  background: $blue;
+  flex: 1 1 20vh;
+  display: flex;
+  background: red;
 }
 
 .db-right {
