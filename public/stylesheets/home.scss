@@ -5,24 +5,31 @@ body{
     position: relative;
 }
 nav{
-    position: absolute;
-    z-index: 1;
-    padding: 3em 0 0 9vw;
+    align-self: flex-start;
+    a{
+        height: 100%;
+        width: 100%;
+        img{
+            height: 2em;
+            width: 2em;
+        }
+    }
 }
 .wrap{
-    padding: 10vw;
+    padding: 5vh 10vw;
     display: flex;
-    justify-content: center;
     align-items: center;
-    border: thin solid black;
+    flex-direction: column;
     width: 100vw;
     z-index: 10;
+    overflow-y: scroll;
 }
 
 .user-input{
     background-color: $lightbluetint;
     padding: 1.3em;
     border-radius: 1em;
+    width: 100%;
 }
 .cta-button{
     cursor: pointer;
@@ -54,17 +61,12 @@ nav{
     color: $blue-dark;
 }
 
-.sign-up-wrap{
-    display: flex;
-    flex-direction: column;
-    // border: thin solid red;
-}
 .sign-up-container{
     display: flex;
     flex-direction: column;
     h1{
         font-size: 2em;
-        padding: 2em 0 1em;
+        padding: 1em 0;
     }
     form{
         display: flex;
@@ -78,8 +80,8 @@ nav{
         line-height: 130%;
         text-align: center;
     }
-    .user-input{
-        margin-bottom: 1.5em;
+    .user-input-container{
+        padding-bottom: 1.5em;
     }
 }
 
@@ -124,7 +126,6 @@ nav{
     border-radius: 100%;
 }
 .box-grid{
-    // border: thin solid red;
     top: 0;
     right: 1vw;
     img{
@@ -133,7 +134,6 @@ nav{
     }
 }
 .box-grid-sml{
-    // border: thin solid red;
     bottom: 32%;
     right: 50%;
     img{
@@ -168,7 +168,6 @@ nav{
     from { transform: rotate(-360deg);}
 }
 
-
 // // Tablet View
 // @media only screen and (min-width: 850px){
 //     .sign-up-container{
@@ -192,21 +191,39 @@ nav{
 // }
 
 // Desktop View
-@media only screen and (min-width: 1200px){
+@media only screen and (min-width: 1300px){
+    nav{
+        margin-right: 3em;
+        align-self: flex-start;
+        a{
+            height: 100%;
+            width: 100%;
+            img{
+                height: 2em;
+                width: 2em;
+            }
+        }
+    }
     .wrap{
+        padding: 10vh 10vw;
+        display: flex;
+        flex-direction: row;
         justify-content: space-between;
+        width: 100vw;
+        z-index: 10;
+        overflow-y: scroll;
     }
     .sign-up-container{
         max-width: 28em;
         margin-right: 2em;
         h1{
             font-size: 2.5em;
+            padding-bottom: 1em;
             letter-spacing: 0.05em;
         }
     }
     .demo{
         display: flex;
-        // border: thin solid red;
         flex-wrap: wrap;
         width: 50%;
         margin:1.5em 3em 0;
