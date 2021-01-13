@@ -227,6 +227,7 @@ nav{
         flex-wrap: wrap;
         width: 50%;
         margin:1.5em 3em 0;
+        animation: fade-up 2.3s cubic-bezier(.17,.67,.42,1);
     }
     .demo-img{
         position: relative;
@@ -237,14 +238,21 @@ nav{
         }
         .first-stat{
             transform: translateX(3em);
+            animation: shift-right-first 1.5s cubic-bezier(.17,.67,.42,1);
         }
         .second-stat{
             transform: translateX(1.5em);
+            animation: shift-right-second 1.5s cubic-bezier(.17,.67,.42,1);
+        }
+        .third-stat{
+            transform: translateX(0);
+            animation: shift-right-third 1.5s cubic-bezier(.17,.67,.42,1);
         }
         .card-hover{
             position: absolute;
             bottom: -1em;
             left: -2.5em;
+            animation: shift-left 1.5s cubic-bezier(.17,.67,.42,1);
         }
     }
     .tagline-container{
@@ -256,6 +264,57 @@ nav{
             letter-spacing: 0.02em;
             font-weight: 500;
             color: $dark;
+        }
+    }
+
+    @keyframes fade-up {
+        0% { 
+            transform: translateY(3em);
+            opacity: 0;
+        }
+        100% { 
+            transform: translateY(0);
+            opacity: 100%;
+        }
+    }
+    @keyframes shift-right-first {
+        0% { 
+            transform: translateX(-1em);
+            // opacity: 0;
+        }
+        100% { 
+            transform: translateX(3em);
+            // opacity: 100%;
+        }
+    }
+    @keyframes shift-right-second {
+        0% { 
+            transform: translateX(-1em);
+            // opacity: 0;
+        }
+        100% { 
+            transform: translateX(1.5em);
+            // opacity: 100%;
+        }
+    }
+    @keyframes shift-right-third {
+        0% { 
+            transform: translateX(-1.5em);
+            // opacity: 0;
+        }
+        100% { 
+            transform: translateX(0);
+            // opacity: 100%;
+        }
+    }
+    @keyframes shift-left {
+        0% { 
+            transform: translateX(1.5em);
+            // opacity: 0;
+        }
+        100% { 
+            transform: translateX(0);
+            // opacity: 100%;
         }
     }
 }
