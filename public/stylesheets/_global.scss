@@ -26,6 +26,7 @@ $bg-grey: #FBFBFB;
   color: $darker;
   letter-spacing: 0;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
