@@ -7,13 +7,16 @@ body{
 nav{
     position: absolute;
     z-index: 1;
-    padding: 3em 0 0 10vw ;
+    padding: 3em 0 0 9vw;
 }
 .wrap{
     padding: 10vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: thin solid black;
+    width: 100vw;
+    z-index: 10;
 }
 
 .user-input{
@@ -21,23 +24,32 @@ nav{
     padding: 1.3em;
     border-radius: 1em;
 }
-
+.cta-button{
+    cursor: pointer;
+}
 .main-cta{
     background-color: $blue-mid;
     color: $lightest;
+    transition: background-color ease 0.3s;
+    &:hover{
+        background-color: $blue-dark;
+    }
 }
-
 .secondary-cta{
     background-color: $lightest;
     color: $blue-light;
     border: thin solid $blue-light;
+    transition: border ease 0.3s, color ease 0.3s;
+    &:hover{
+        border: thin solid $blue-dark;
+        color: $blue-dark;
+    }
 }
 
 .small-text{
     font-size: 0.8em;
     color: $light;
 }
-
 .quick-link{
     color: $blue-dark;
 }
@@ -45,8 +57,8 @@ nav{
 .sign-up-wrap{
     display: flex;
     flex-direction: column;
+    // border: thin solid red;
 }
-
 .sign-up-container{
     display: flex;
     flex-direction: column;
@@ -62,15 +74,171 @@ nav{
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 3em;
+        padding-bottom: 2em;
         line-height: 130%;
+        text-align: center;
     }
     .user-input{
         margin-bottom: 1.5em;
     }
 }
 
-// Tablet View
-@media only screen and (min-width: 850px){
-    
+.demo{
+    display: none;
+}
+
+.background{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    overflow: hidden;
+}
+
+.bg-item{
+    position: absolute;
+}
+.topleft{
+    top: -180vh;
+    left: -155vw;
+    img{
+        height: 320vh;
+        width: 230vw;
+    }
+    animation: wave 250s infinite linear;
+}
+.botright{
+    bottom: -220vh;
+    right: -155vw;
+    img{
+        height: 300vh;
+        width: 230vw;
+    }
+    animation: wave 150s infinite linear;
+}
+.bg-circle{
+    top: -30vh;
+    right: -10vw;
+    height: 35vw;
+    width: 35vw;
+    background-color: #F8EBFB;
+    border-radius: 100%;
+}
+.box-grid{
+    // border: thin solid red;
+    top: 0;
+    right: 1vw;
+    img{
+        width: 12vw;
+        height: 20vh;
+    }
+}
+.box-grid-sml{
+    // border: thin solid red;
+    bottom: 32%;
+    right: 50%;
+    img{
+        width: 110%;
+        height: 110%;
+    }
+}
+.bg-triangle{
+    bottom: -18em;
+    right: 20%;
+}
+.bg-triangle-outline{
+    bottom: -18em;
+    right: 30%;
+    width: 44em;
+}
+.tagline-container{
+    display: none;
+    .tagline{
+        font-size: 1.5em;
+        font-weight: 500;
+        color: $dark;
+    }
+}
+
+@keyframes wave {
+    from { transform: rotate(0deg);}
+    from { transform: rotate(360deg);}
+}
+@keyframes wave-anti {
+    from { transform: rotate(0deg);}
+    from { transform: rotate(-360deg);}
+}
+
+
+// // Tablet View
+// @media only screen and (min-width: 850px){
+//     .sign-up-container{
+//         margin-right: 2em;
+//         h1{
+//             font-size: 2.5em;
+//             letter-spacing: 0.05em;
+//         }
+//     }
+//     .tagline-container{
+//         margin: 3em 0 0 2em;
+//         display: block;
+//         width: 100%;
+//         .tagline{
+//             font-size: 1.9em;
+//             letter-spacing: 0.02em;
+//             font-weight: 500;
+//             color: $dark;
+//         }
+//     }
+// }
+
+// Desktop View
+@media only screen and (min-width: 1200px){
+    .wrap{
+        justify-content: space-between;
+    }
+    .sign-up-container{
+        max-width: 28em;
+        margin-right: 2em;
+        h1{
+            font-size: 2.5em;
+            letter-spacing: 0.05em;
+        }
+    }
+    .demo{
+        display: flex;
+        // border: thin solid red;
+        flex-wrap: wrap;
+        width: 50%;
+        margin:1.5em 3em 0;
+    }
+    .demo-img{
+        position: relative;
+        .stats-hover{
+            position: absolute;
+            top: 0;
+            right: -2em;
+        }
+        .first-stat{
+            transform: translateX(3em);
+        }
+        .second-stat{
+            transform: translateX(1.5em);
+        }
+        .card-hover{
+            position: absolute;
+            bottom: -1em;
+            left: -2.5em;
+        }
+    }
+    .tagline-container{
+        margin: 3em 0 0 2em;
+        display: block;
+        width: 90%;
+        .tagline{
+            font-size: 1.7em;
+            letter-spacing: 0.02em;
+            font-weight: 500;
+            color: $dark;
+        }
+    }
 }
