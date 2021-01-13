@@ -1,5 +1,6 @@
 document.getElementById('sort-filter-btn').addEventListener('click', () => {
   document.getElementById('sort-filter-btn').classList.toggle('focus');
+  document.getElementById('sort-filter-btn').style.pointerEvents = 'none';
   document.getElementById('sort-filter-menu').classList.toggle('hide');
   document.getElementById('sort-filter-menu').focus();
 })
@@ -7,6 +8,7 @@ document.getElementById('sort-filter-btn').addEventListener('click', () => {
 document.getElementById('sort-filter-menu').addEventListener('focusout', () => {
   document.getElementById('sort-filter-btn').classList.toggle('focus');
   document.getElementById('sort-filter-menu').classList.toggle('hide');
+  document.getElementById('sort-filter-btn').style.pointerEvents = 'auto';
 })
 // /* ========================================================================================
 // VARIABLES - PROJECTS
