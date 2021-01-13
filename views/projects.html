@@ -57,7 +57,7 @@
           </div>
         </div>
         <button id="sort-filter-menu" class="hide sort-filter-menu field">
-          <div class="sort-filter-column">
+          <div id="sort-column" class="sort-filter-column">
             <div class="sort-filter-header">Sort by</div>
             <label for="sort-default" class="opt radio-opt">
               <input type="radio" id="sort-default" name="sort" value="default" checked="checked">
@@ -85,40 +85,40 @@
               <div class="radio-custom"></div>
             </label>
           </div>
-          <div class="sort-filter-column">
+          <div id="filter-column" class="sort-filter-column">
             <div class="sort-filter-header">Filter</div>
-            <label class="opt switch-opt">
-              <input type="checkbox">
+            <label for="filter-easy" class="opt switch-opt">
+              <input type="checkbox" id="filter-easy" checked="checked">
               <span title="Easy">Easy</span>
               <div class="switch-custom"></div>
             </label>
-            <label class="opt switch-opt">
-              <input type="checkbox">
+            <label for="filter-medium" class="opt switch-opt">
+              <input type="checkbox" id="filter-medium">
               <span title="Medium">Medium</span>
               <div class="switch-custom"></div>
             </label>
-            <label class="opt switch-opt">
-              <input type="checkbox">
+            <label for="filter-hard" class="opt switch-opt">
+              <input type="checkbox" id="filter-hard">
               <span title="Hard">Hard</span>
               <div class="switch-custom"></div>
             </label>
-            <label class="opt switch-opt">
-              <input type="checkbox">
+            <label for="filter-robotics" class="opt switch-opt">
+              <input type="checkbox" id="filter-robotics" checked="checked">
               <span title="Robotics">Robotics</span>
               <div class="switch-custom"></div>
             </label>
-            <label class="opt switch-opt">
-              <input type="checkbox">
+            <label for="filter-ai" class="opt switch-opt">
+              <input type="checkbox" id="filter-ai">
               <span title="AI">AI</span>
               <div class="switch-custom"></div>
             </label>
-            <label class="opt switch-opt">
-              <input type="checkbox">
+            <label for="filter-vehicles" class="opt switch-opt">
+              <input type="checkbox" id="filter-vehicles">
               <span title="Vehicles">Vehicles</span>
               <div class="switch-custom"></div>
             </label>
           </div>
-          <div class="sort-filter-column">
+          <div id="view-column" class="sort-filter-column">
             <div class="sort-filter-header">View</div>
             <label for="view-in-progress" class="opt radio-opt">
               <input type="radio" id="view-in-progress" name="view" value="in-progress">

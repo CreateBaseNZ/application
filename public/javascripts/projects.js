@@ -1,15 +1,41 @@
 document.getElementById('sort-filter-btn').addEventListener('click', () => {
-  document.getElementById('sort-filter-btn').classList.toggle('focus');
-  document.getElementById('sort-filter-btn').style.pointerEvents = 'none';
-  document.getElementById('sort-filter-menu').classList.toggle('hide');
-  document.getElementById('sort-filter-menu').focus();
+  document.getElementById('sort-filter-btn').classList.toggle('focus')
+  document.getElementById('sort-filter-btn').style.pointerEvents = 'none'
+  document.getElementById('sort-filter-menu').classList.toggle('hide')
+  document.getElementById('sort-filter-menu').focus()
 })
 
-document.getElementById('sort-filter-menu').addEventListener('focusout', () => {
-  document.getElementById('sort-filter-btn').classList.toggle('focus');
-  document.getElementById('sort-filter-menu').classList.toggle('hide');
-  document.getElementById('sort-filter-btn').style.pointerEvents = 'auto';
+// document.getElementById('sort-filter-menu').addEventListener('focusout', () => {
+//   document.getElementById('sort-filter-btn').classList.toggle('focus');
+//   document.getElementById('sort-filter-menu').classList.toggle('hide');
+//   document.getElementById('sort-filter-btn').style.pointerEvents = 'auto';
+// })
+
+sortSelect = document.querySelector('.sort-select')
+
+document.getElementById('sort-column').querySelectorAll('.opt').forEach(function (btn) {
+  btn.querySelector('input').addEventListener('change', () => {
+    sortSelect.innerHTML = btn.querySelector('span').innerHTML
+  })
 })
+
+viewSelect = document.querySelector('.view-select')
+
+document.getElementById('view-column').querySelectorAll('.opt').forEach(function (btn) {
+  btn.querySelector('input').addEventListener('change', () => {
+    viewSelect.innerHTML = btn.querySelector('span').innerHTML
+  })
+})
+
+filterSelect = document.querySelector('.filter-select')
+
+document.getElementById('filter-column').querySelectorAll('.opt').forEach(function (btn) {
+  const trigger = btn.querySelector('input')
+  trigger.addEventListener('change', () => {
+    trigger.checked ? filterSelect.innerHTML = parseInt(filterSelect.innerHTML) + 1 : filterSelect.innerHTML = parseInt(filterSelect.innerHTML) - 1
+  })
+})
+
 // /* ========================================================================================
 // VARIABLES - PROJECTS
 // ======================================================================================== */
