@@ -3,3 +3,30 @@
 .ui-container {
   flex-direction: column;
 }
+
+.section {
+  width: 100%;
+  margin-bottom: 2vw;
+  display: flex;
+}
+
+.delete-container {
+  justify-content: flex-end;
+  .delete-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    background: transparent;
+    color: $light;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 120%;
+    transition: color 0.1s ease-out;
+    i {
+      margin-right: 0.5em;
+    }
+    &:hover {
+      color: $red;
+    }
+  }
+}

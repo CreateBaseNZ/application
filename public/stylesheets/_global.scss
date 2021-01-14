@@ -79,6 +79,7 @@ body {
 .md-36 { font-size: 36px; }
 .md-48 { font-size: 48px; }
 .md-light { color: $lightest; }
+i { color: inherit; }
 
 
 // ----- BADGES ----- 
@@ -163,6 +164,9 @@ span {
   cursor: pointer;
   position: relative;
   transition: box-shadow 0.2s ease-out, margin 0.1s ease-out;
+  & > * {
+    pointer-events: none;
+  }
   &::after {
     position: absolute;
     content: '';
@@ -237,7 +241,6 @@ span {
         margin-left: 2px;
         margin-bottom: 0.05em;
         font-size: 1em;
-        color: inherit;
       }
     }
     .project-name {
@@ -259,7 +262,6 @@ span {
       color: $red;
       line-height: 150%;
       i {
-        color: inherit;
         margin-left: 0.5em;
         margin-bottom: 0.05em;
         font-size: inherit;
@@ -271,6 +273,7 @@ span {
     font-size: 1.5rem;
     font-weight: 600;
     line-height: 150%;
+    color: $darker;
   }
   .progress-bar {
     z-index: 2;
@@ -305,15 +308,17 @@ span {
 }
 
 .project-card.new {
-  .progress-number,
-  .progress-bar {
-    opacity: 0;
+  .project-info {
+    grid-column-start: 1;
+    grid-column-end: 3;
   }
   &::after,
   .current-task,
   .progress-tag,
   .trophy-wrapper,
-  .recom-icon {
+  .recom-icon,
+  .progress-number,
+  .progress-bar {
     display: none;
   }
 }
@@ -343,8 +348,7 @@ span {
 .project-card.completed {
   .progress-tag,
   .recom-icon,
-  .current-task,
-  .progress-number {
+  .current-task {
     display: none;
   }
   .progress-trophy>.trophy-wrapper>.trophy-container {
@@ -356,10 +360,6 @@ span {
   }
   .progress-trophy {
     opacity: 1;
-  }
-  .project-info {
-    grid-column-start: 1;
-    grid-column-end: 3;
   }
   .progress-bar {
     width: 100%;
@@ -375,7 +375,7 @@ span {
   }
   .tags-container > .project-tag,
   .project-info > .current-task,
-  .progress-number {
+  &.completed > .progress-number {
     color: $red;
   }
   .tags-container > .progress-tag,
@@ -395,7 +395,7 @@ span {
   }
   .tags-container > .project-tag,
   .project-info > .current-task,
-  .progress-number {
+  &.completed > .progress-number {
     color: $green;
   }
   .tags-container > .progress-tag,
@@ -415,7 +415,7 @@ span {
   }
   .tags-container > .project-tag,
   .project-info > .current-task,
-  .progress-number {
+  &.completed > .progress-number {
     color: $orange;
   }
   .tags-container > .progress-tag,
@@ -435,7 +435,7 @@ span {
   }
   .tags-container > .project-tag,
   .project-info > .current-task,
-  .progress-number {
+  &.completed > .progress-number {
     color: $blue-light;
   }
   .tags-container > .progress-tag,
@@ -456,4 +456,28 @@ span {
   100% {
     background-position: 15% 100%;
   }
+}
+
+.emitter {
+  visibility: hidden;
+  background-color: #222;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  top: 40%;
+  left: 0%;
+  pointer-events: none;
+}
+.dot-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  z-index: 5000;
+  pointer-events: none;
+}
+.dot {
+  position: absolute;
+  pointer-events: none; /*performance optimization*/
 }
