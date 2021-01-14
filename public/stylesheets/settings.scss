@@ -1,4 +1,5 @@
 @import "global";
+$field-height: 4em;
 
 h2 {
   font-size: 1.5em;
@@ -57,7 +58,7 @@ input[type=text] {
   cursor: pointer;
   width: 100%;
   margin-bottom: 2vw;
-  padding: 3em 4vw 2em 3vw;
+  padding: 2.5em 4vw 1.5em 3vw;
   display: flex;
   font-size: 1rem;
   border-radius: 1em;
@@ -68,10 +69,9 @@ input[type=text] {
   }
   .edit-btn {
     position: absolute;
-    top: 3rem;
+    top: 2.5rem;
     right: 3vw;
     transform: translate(0, -100%);
-    color: $blue-light;
     display: flex;
     align-items: center;
     i {
@@ -87,7 +87,6 @@ input[type=text] {
   flex-direction: column;
   justify-content: flex-end;
   i {
-    color: $blue-light;
     margin-bottom: 0.25em;
   }
 }
@@ -95,35 +94,23 @@ input[type=text] {
 .panel-right {
   width: 80%;
   border-left: medium solid $lighter;
-  // background: blue;
   padding-left: 5vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 5em;
-  .avatar {
-    width: 8em;
-    height: 8em;
-    border-radius: 50%;
-    object-fit: cover;
-    grid-row-start: 1;
-    grid-row-end: 3;
-  }
+  grid-auto-rows: $field-height;
   .input-container {
     display: flex;
     flex-direction: column;
   }
-  .input-container.no-title {
-    justify-content: center;
-  }
   .badges-container {
-    width: 12.5em;
+    width: 10em;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
     .badge {
-      width: 2.5em;
-      height: 2.5em;
+      width: calc(#{$field-height}/2);
+      height: calc(#{$field-height}/2);
       img {
         width: 100%;
         height: 100%;
@@ -131,6 +118,8 @@ input[type=text] {
     }
   }
 }
+
+
 
 .switch-opt {
   align-self: flex-start;
@@ -143,8 +132,8 @@ input[type=text] {
 }
 
 .icon-container {
-  height: 3em;
-  width: 3em;
+  height: calc(#{$field-height} * 0.75);
+  width: calc(#{$field-height} * 0.75);
   border-radius: 33%;
   display: flex;
   justify-content: center;
@@ -152,6 +141,36 @@ input[type=text] {
   i {
     font-size: 1.5em;
   }
+}
+
+.acc-container {
+  .panel-left > i,
+  .edit-btn {
+    color: $blue-light; 
+  }
+}
+
+.bill-container {
+  .panel-left > i,
+  .edit-btn {
+    color: $green; 
+  }
+}
+
+.address-container {
+  .panel-left > i,
+  .edit-btn {
+    color: $orange; 
+  }
+}
+
+.avatar {
+  width: calc(#{$field-height} * 1.75);
+  height: calc(#{$field-height} * 1.75);
+  border-radius: 50%;
+  object-fit: cover;
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
 
 .icon-container.paypal {
