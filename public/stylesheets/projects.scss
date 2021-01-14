@@ -2,6 +2,7 @@
 
 .ui-container {
   flex-direction: column;
+  padding: 0 calc(#{$horiz-space}/2) $vert-space calc(#{$horiz-space}/2);
 }
 
 .fields-container {
@@ -11,6 +12,7 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+  padding: 0 calc(#{$horiz-space}/2);
 }
 
 .field {
@@ -25,6 +27,8 @@
   min-width: 250px;
   position: relative;
   &:hover {
+    transition: background-color 0.1s ease-out;
+    background: $lightbluetint;
     & ~ .search-placeholder {
       color: $blue-light;
     }
@@ -52,7 +56,7 @@
   pointer-events: none;
   position: absolute;
   top: 0;
-  left: 1.5em;
+  left: calc(1.5em + #{$horiz-space}/2);
   height: 100%;
   display: flex;
   align-items: center;
@@ -83,7 +87,6 @@
   display: flex;
   align-items: center;
   border: thin solid transparent;
-  transition: width 0.2s ease-out;
   & > * {
     color: $light;
     font-weight: 500;
@@ -102,6 +105,8 @@
     border-left: thin solid $light;
   }
   &:hover {
+    background: $lightbluetint;
+    transition: background-color 0.1s ease-out;
     & > * {
       color: $blue-light;
     }
@@ -125,11 +130,12 @@
   display: flex;
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: calc(#{$horiz-space}/2);
   padding: 1.5em 0.5em;
   background: $lightest;
-  box-shadow: 0 1em 6em -4em $blue-light;
+  box-shadow: 0 1em 4em -2em $dark;
   transform: translateY(calc(100% + 1em));
+  z-index: 50;
   .sort-filter-column {
     display: flex;
     flex-direction: column;
@@ -153,60 +159,34 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    &:hover {
-      span {
-        font-weight: 500;
-      }
-    }
     input {
       display: none;
       &:checked ~ span {
-        font-weight: 600;
+        opacity: 1;
+        font-weight: 500;
       }
     }
-    span::after {
-      display: block;
-      content: attr(title);
-      font-weight: 700;
-      height: 1px;
-      overflow: hidden;
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
+    span {
+      color: $darker;
+      opacity: 0.8;
+      &::after {
+        display: block;
+        content: attr(title);
+        font-weight: 700;
+        height: 1px;
+        overflow: hidden;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
     }
-  }
-  .opt {
     &:hover {
-      .radio-custom {
-        background: $lighter;
+      span {
+        opacity: 1;
       }
-    }
-    input {
-      &:checked ~ .radio-custom::after {
-        content: '';
-        height: 0.75em;
-        width: 0.75em;
-        border-radius: 50%;
-        background: $blue-light;
-      }
-    }
-    .radio-custom {
-      margin-left: 2.75em;
-      height: 1.35em;
-      width: 1.35em;
-      border-radius: 50%;
-      border: solid thin $lighter;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
   .radio-opt {
-    &:hover {
-      .radio-custom {
-        background: $lighter;
-      }
-    }
     input {
       &:checked ~ .radio-custom::after {
         content: '';
@@ -226,16 +206,17 @@
       align-items: center;
       justify-content: center;
     }
-  }
-  .switch-opt {
     &:hover {
       .radio-custom {
         background: $lighter;
       }
     }
+  }
+  .switch-opt {
     input {
       &:checked ~ .switch-custom {
         background: $blue-light;
+        opacity: 1;
       }
       &:checked ~ .switch-custom::after {
         margin-left: 0.75em;
@@ -251,6 +232,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0.5;
       transition: background-color 0.3s ease-out;
       &::after {
         content: '';
@@ -262,17 +244,48 @@
         transition: margin 0.3s ease-out;
       }
     }
+    &:hover {
+      .switch-custom {
+        opacity: 1;
+      }
+    }
   }
 }
 
 .projects-container {
   width: 100%;
-  background: red;
-  position: relative;
-}
-
-.pages-container {
-  height: 2rem;
-  width: 100%;
-  // background: red;
+  height: 100%;
+  padding: 1vh calc(#{$horiz-space} / 2 - 8px) 0 calc(#{$horiz-space} / 2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1.5vmax;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $lighter;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    background: $lightbluetint;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $light;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $blue-mid;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1.5em;
+    grid-column-start: 1;
+  }
+  .project-card {
+    height: 20vh;
+  }
 }

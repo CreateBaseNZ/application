@@ -39,6 +39,12 @@ h2 {
   display: flex;
   flex: 1 1 27vh;
   padding: 1.5vh 0 2.5vh 0;
+  .project-card:first-child {
+    margin-right: 1vw;
+  }
+  .project-card:last-child {
+    margin-left: 1vw;
+  }
 }
 
 .recom-container {
@@ -51,7 +57,7 @@ h2 {
   width: 50vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   height: 100%;
 }
 

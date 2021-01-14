@@ -14,6 +14,8 @@ $green: #18DBAC;
 $red: #FA6F6F;
 $orange: #FF9F46;
 $bg-grey: #FBFBFB;
+$horiz-space: 3vw;
+$vert-space: 4vh;
 
 * {
   margin: 0;
@@ -40,7 +42,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 8vh 6vw;
+  padding: $vert-space $horiz-space;
   max-width: calc(100% - 150px);
   flex: 1 1 auto;
   background: $bg-grey;
@@ -51,6 +53,7 @@ body {
   justify-content: flex-start;
   align-items: flex-end;
   width: 100%;
+  padding: $vert-space $horiz-space 0 $horiz-space;
   flex: 0 0 8vh;
 }
 
@@ -59,6 +62,7 @@ body {
   width: 100%;
   min-height: 72vh;
   flex: 1 1 0;
+  padding: 0 $horiz-space $vert-space $horiz-space;
 }
 
 .hide {
@@ -142,7 +146,6 @@ span {
   flex: 1 1 0;
   background: $lightest;
   border-radius: 1rem;
-  margin: 0 2vw;
   display: grid;
   grid-template-columns: auto min-content;
   grid-template-rows: min-content auto;
@@ -280,20 +283,9 @@ span {
     }
   }
   &:hover {
-    margin: -2px 0 2px 0;
+    margin-top: -2px;
+    margin-bottom: 2px;
     .progress-bar::after { opacity: 0; }
-  }
-  &:first-child {
-    margin-left: 0;
-    margin-right: 1vw;
-  }
-  &:last-child {
-    margin-left: 1vw;
-    margin-right: 0;
-  }
-  &:only-child {
-    margin-left: 0;
-    margin-right: 0;
   }
 }
 
@@ -336,7 +328,8 @@ span {
 .project-card.completed {
   .progress-tag,
   .recom-icon,
-  .current-task {
+  .current-task,
+  .progress-number {
     display: none;
   }
   .progress-trophy>.trophy-wrapper>.trophy-container {
@@ -348,6 +341,10 @@ span {
   }
   .progress-trophy {
     opacity: 1;
+  }
+  .project-info {
+    grid-column-start: 1;
+    grid-column-end: 3;
   }
   .progress-bar {
     width: 100%;
