@@ -10,7 +10,6 @@ VARIABLES
 ========================================================== */
 
 const router = new express.Router();
-const email = require("../configs/email.js");
 const options = { root: path.join(__dirname, "../views") };
 
 /* ==========================================================
@@ -46,8 +45,6 @@ router.get("/orders", (req, res) => res.sendFile("orders.html", options));
 // @desc
 // @access  PRIVATE
 router.get("/settings", (req, res) => res.sendFile("settings.html", options));
-
-router.post("/test/email", (req, res) => email.send());
 
 /* ==========================================================
 EXPORT

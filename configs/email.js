@@ -17,31 +17,32 @@ let email = {
 FUNCTIONS
 ========================================================== */
 
-email.send = async () => {
-  const transporterOptions = {
-    host: process.env.AWS_SMTP_HOST,
-    port: process.env.AWS_SMTP_PORT,
-    secure: true,
-    auth: {
-      user: process.env.AWS_SMTP_USERNAME,
-      pass: process.env.AWS_SMTP_PASSWORD
+email.send = (object = {}) => {
+  return new Promise(async (resolve, reject) => {
+    const transporterOptions = {
+      host: process.env.AWS_SMTP_HOST,
+      port: process.env.AWS_SMTP_PORT,
+      secure: true,
+      auth: {
+        user: process.env.AWS_SMTP_USERNAME,
+        pass: process.env.AWS_SMTP_PASSWORD
+      }
+    };
+    const transporter = nodemailer.createTransport(transporterOptions);
+    const message = {
+      from: `"CreateBase" <${process.env.EMAIL_ADDRESS}>`,
+      to: object.email,
+      subject: object.subject,
+      text: object.text,
+      html: object.html
+    };
+    try {
+      await transporter.sendMail(message);
+    } catch (error) {
+      return reject({ status: "error", content: error });
     }
-  };
-  const transporter = nodemailer.createTransport(transporterOptions);
-  const message = {
-    from: `"CreateBase" <${process.env.EMAIL_ADDRESS}>`,
-    to: `carlvelasco96@gmail.com`,
-    subject: "test SMTP",
-    text: "test Text",
-    html: "<div>Test HTML</div>"
-  };
-  console.log(message);
-  try {
-    await transporter.sendMail(message);
-  } catch (error) {
-    return console.log("failed test");
-  }
-  return console.log("succeeded test");
+    return resolve();
+  });
 };
 
 /* ==========================================================
