@@ -85,9 +85,11 @@ body {
 
 .badge {
   position: relative;
-  cursor: pointer;
+  img {
+    transition: filter 0.1s ease-out;
+  }
   &::after {
-    content: 'Hello';
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
@@ -99,6 +101,7 @@ body {
     font-size: 0.5rem;
     font-weight: 700;
     letter-spacing: 0.125em;
+    transition: opacity 0.1s ease-out;
   }
   &:hover {
     img {
@@ -115,7 +118,12 @@ body {
 .badge.console::after { content: 'Console'; }
 .badge.loyal::after { content: 'Loyal'; }
 .badge.graduation::after { content: 'Grad'; }
-.badge.empty::after { content: 'Empty'; }
+.badge.empty {
+  cursor: pointer;
+  &::after {
+    content: 'Click to add';
+  }
+}
 
 // ----- FONT STYLES -----
 
@@ -304,8 +312,15 @@ span {
   &::after,
   .current-task,
   .progress-tag,
-  .trophy-wrapper {
+  .trophy-wrapper,
+  .recom-icon {
     display: none;
+  }
+}
+
+.project-card.new.recom {
+  .recom-icon {
+    display: inline-block;
   }
 }
 
