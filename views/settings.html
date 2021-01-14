@@ -40,22 +40,104 @@
       <h1>Settings</h1>
     </div>
     <div class="ui-container">
-      <div class="section delete-container">
-        <button class="delete-btn"><i class="material-icons md-18">person_off</i> <span>Delete account</span></button>
+      <div class="delete-container">
+        <button class="delete-btn">
+          <i class="material-icons-round md-18">person_off</i>
+          <span>Delete account</span></button>
       </div>
-      <div class="section acc-container"></div>
-      <div class="section bill-container"></div>
-      <div class="section add-container"></div>
+      <div class="section acc-container">
+        <h3 class="edit-btn"><i class="material-icons-round">edit</i> Edit</h3>
+        <div class="panel-left">
+          <i class="material-icons-round md-24">person</i> 
+          <h2>Account</h2>
+        </div>
+        <div class="panel-right">
+          <img src="/public/images/dp-example.jpg" class="avatar" alt="Avatar">
+          <div class="input-container">
+            <h3>Name</h3>
+            <input type="text" id="name" placeholder="-">
+          </div>
+          <div class="input-container">
+            <h3>Email</h3>
+            <input type="text" id="email" placeholder="-">
+          </div>
+          <div class="input-container">
+            <h3>Location</h3>
+            <input type="text" id="loc" placeholder="-">
+          </div>
+          <div class="input-container">
+            <h3>Password</h3>
+            <input type="text" id="pass" placeholder="-">
+          </div>
+          <div class="badges-container">
+            <div class="badge"><img src="/public/images/badges/Trophy.png" alt="Trophy"></div>
+            <div class="badge"><img src="/public/images/badges/Medal.png" alt="Medal"></div>
+            <div class="badge"><img src="/public/images/badges/Console.png" alt="Console"></div>
+            <div class="badge"><img src="/public/images/badges/Loyal.png" alt="Loyal"></div>
+            <div class="badge"><img src="/public/images/badges/Graduation.png" alt="Grad"></div>
+          </div>
+          <div class="input-container">
+            <h3>Mailing List</h3>
+            <label for="mail" class="opt switch-opt blue-opt">
+              <input type="checkbox" id="mail" checked="checked">
+              <span>Subscribed</span>
+              <div class="switch-custom"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="section bill-container">
+        <div class="panel-left">
+          <i class="material-icons-round md-24">payment</i> 
+          <h2>Billing info</h2>
+        </div>
+        <div class="panel-right">
+          <div class="input-container">
+            <h3>Card number</h3>
+            <input type="text" id="card-num" placeholder="-">
+          </div>
+          <div class="input-container">
+            <h3>Card holder name</h3>
+            <input type="text" id="card-name" placeholder="-">
+          </div>
+          <div class="input-container no-title">
+            <label for="paypal" class="opt switch-opt green-opt">
+              <input type="checkbox" id="paypal" checked="checked">
+              <div class="icon-container paypal"><i class="fab fa-paypal"></i></div>
+              <div class="switch-custom"></div>
+            </label>
+          </div>
+          <div class="input-container">
+            <h3>Expiration date</h3>
+            <input type="text" id="card-exp" placeholder="-">
+          </div>
+          <div class="input-container">
+            <h3>CVV</h3>
+            <input type="text" id="card-cvv" placeholder="-">
+          </div>
+          <div class="input-container no-title">
+            <label for="paypal" class="opt switch-opt green-opt">
+              <input type="checkbox" id="paypal" checked="checked">
+              <div class="icon-container stripe"><i class="fab fa-stripe"></i></div>
+              <div class="switch-custom"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="section add-container">
+        <div class="panel-left"></div>
+        <div class="panel-right"></div>
+      </div>
     </div>
   </div>
 
   </div>
   <!-- ==========================JS========================== -->
   <!-- -----------------------SOURCED------------------------ -->
-
+  <script async src="https://kit.fontawesome.com/b382730141.js" crossorigin="anonymous"></script>
   <!-- ------------------------CUSTOM------------------------ -->
-  <!-- <script async src="/public/javascripts/nav.min.js"></script>
-  <script async src="/public/javascripts/settings.min.js"></script> -->
+  <!-- <script async src="/public/javascripts/nav.min.js"></script> -->
+  <script async src="/public/javascripts/settings.js"></script>
 </body>
 
 </html>

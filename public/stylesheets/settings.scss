@@ -1,17 +1,39 @@
 @import "global";
 
+h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 0.75em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: $light;
+  text-transform: uppercase;
+}
+
+input[type=text] {
+  font-size: 1em;
+  line-height: 200%;
+  font-weight: 500;
+  &::placeholder {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+}
+
 .ui-container {
   flex-direction: column;
 }
 
-.section {
-  width: 100%;
-  margin-bottom: 2vw;
-  display: flex;
-}
-
 .delete-container {
+  width: 100%;
+  display: flex;
+  margin-bottom: 0.5em;
   justify-content: flex-end;
+  background: transparent;
   .delete-btn {
     cursor: pointer;
     display: flex;
@@ -28,5 +50,119 @@
     &:hover {
       color: $red;
     }
+  }
+}
+
+.section {
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 2vw;
+  padding: 3em 4vw 2em 3vw;
+  display: flex;
+  font-size: 1rem;
+  border-radius: 1em;
+  background: $lightest;
+  position: relative;
+  & > * {
+    pointer-events: none;
+  }
+  .edit-btn {
+    position: absolute;
+    top: 3rem;
+    right: 3vw;
+    transform: translate(0, -100%);
+    color: $blue-light;
+    display: flex;
+    align-items: center;
+    i {
+      font-size: inherit;
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.panel-left {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  i {
+    color: $blue-light;
+    margin-bottom: 0.25em;
+  }
+}
+
+.panel-right {
+  width: 80%;
+  border-left: medium solid $lighter;
+  // background: blue;
+  padding-left: 5vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 5em;
+  .avatar {
+    width: 8em;
+    height: 8em;
+    border-radius: 50%;
+    object-fit: cover;
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  .input-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .input-container.no-title {
+    justify-content: center;
+  }
+  .badges-container {
+    width: 12.5em;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    .badge {
+      width: 2.5em;
+      height: 2.5em;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.switch-opt {
+  align-self: flex-start;
+  width: auto;
+  justify-content: flex-start;
+  span {
+    opacity: 1;
+    font-weight: 500;
+  }
+}
+
+.icon-container {
+  height: 3em;
+  width: 3em;
+  border-radius: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  i {
+    font-size: 1.5em;
+  }
+}
+
+.icon-container.paypal {
+  background: rgba(0, 113, 187, 0.1);
+  i {
+    color: #0079C1;
+  }
+}
+.icon-container.stripe {
+  background: rgba(103, 114, 229, 0.1);
+  i {
+    color: #6772E5;
   }
 }

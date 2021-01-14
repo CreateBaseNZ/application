@@ -147,7 +147,6 @@ span {
       height: 0.75em;
       width: 0.75em;
       border-radius: 50%;
-      background: $blue-light;
     }
   }
   .radio-custom {
@@ -169,7 +168,6 @@ span {
 .switch-opt {
   input {
     &:checked ~ .switch-custom {
-      background: $blue-light;
       opacity: 1;
     }
     &:checked ~ .switch-custom::after {
@@ -205,6 +203,23 @@ span {
   }
 }
 
+.opt.blue-opt {
+  input {
+    &:checked ~ .radio-custom::after,
+    &:checked ~ .switch-customer::after {
+      background: $blue-light;
+    }
+  }
+}
+
+.opt.green-opt {
+  input {
+    &:checked ~ .radio-custom::after,
+    &:checked ~ .switch-customer::after {
+      background: $green;
+    }
+  }
+}
 
 // ----- PROJECT CARDS -----
 
