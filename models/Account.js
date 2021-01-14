@@ -112,7 +112,7 @@ AccountSchema.statics.build = function (object = {}, save = true) {
     // SEND ACCOUNT VERIFICATION EMAIL
     let emailObject;
     try {
-      emailObject = await this.draftVerificationEmail();
+      emailObject = await this.draftVerificationEmail(account, user);
     } catch (data) {
       return reject(data);
     }

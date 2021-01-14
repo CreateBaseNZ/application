@@ -35,7 +35,7 @@ const LocalAccountSignup = new LocalStrategy({
     // Declare and initialise variables
     const name = req.body.name;
     // Create an account instance
-    const object = { type: "user", email, password, name: req.name };
+    const object = { type: "user", email, password, name };
     let account;
     try {
       account = await Account.build(object);

@@ -6,6 +6,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
+const passport = require("passport");
 
 /* ==========================================================
 VARIABLES
@@ -51,11 +52,22 @@ app.use((req, res, next) => {
 });
 
 /* ==========================================================
+AUTHENTICATION
+========================================================== */
+
+app.use(passport.initialize());
+app.use(passport.session());
+require("./configs/passport.js");
+
+/* ==========================================================
 ROUTERS
 ========================================================== */
 
 const generalRouter = require("./routes/general.js");
 app.use(generalRouter);
+
+const homeRouter = require("./routes/home.js");
+app.use(homeRouter);
 
 /* ==========================================================
 END

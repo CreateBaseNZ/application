@@ -30,104 +30,111 @@
       <a href="https://createbase.co.nz/"><img src="..\public\images\logo.svg" alt="logo"></a>
     </nav>
 
-      <div class="user-form-wrap">
-        <div class="sign-up-container">
-          <h1>Unleash your inner creator</h1>
-          <form action="post">
-            <div class="user-input-container">
-              <!-- <label for="email">Email Address</label> -->
-              <input type="text" id="email" name="email" placeholder="Email Address" class="user-input">
-            </div>
-      
-            <div class="user-input-container">
-              <!-- <label for="name">Name</label> -->
-              <input type="text" id="name" name="name" placeholder="Name" class="user-input">
-            </div>
-      
-            <div class="user-input-container">
-              <!-- <label for="pass">Password</label> -->
-              <input type="password" id="password" name="password" minlength="8"  placeholder="Password" class="user-input password-input" required>
-              <span id="togglePassword"><i class="material-icons md-36">visibility</i></span>
-            </div>
-      
-            <div class="user-input-container">
-              <!-- <label for="confirm-pass">Confirm Password</label> -->
-              <input type="password" id="confirmPass" name="confirm-pass" minlength="8"  placeholder="Confirm Password" class="user-input password-input" required>
-              <span id="togglePasswordConfirm"><i class="material-icons md-36">visibility</i></span>
-            </div>
-          </form>
-      
-          <div class="disclaimer-container">
-            <p class="small-text">By signing up, you confirm that you accept our</p>
-            <p class="small-text"><a href="https://createbase.co.nz/terms-and-conditions" class="quick-link">Terms and Conditions</a> and <a href="https://createbase.co.nz/privacy-policy" class="quick-link">Privacy Policy</a></p>
-          </div>
-      
+    <div class="user-form-wrap">
+      <div class="sign-up-container">
+        <h1>Unleash your inner creator</h1>
+        <form id="sign-up-form" action="/signup/submit" method="POST">
           <div class="user-input-container">
-            <button id="signUp" class="user-input main-cta cta-button">Sign up</button>
+            <!-- <label for="email">Email Address</label> -->
+            <input type="text" id="email" name="email" placeholder="Email Address" class="user-input">
           </div>
+
           <div class="user-input-container">
-            <button  id="login" class="user-input secondary-cta cta-button">Log in</button>
+            <!-- <label for="name">Name</label> -->
+            <input type="text" id="name" name="name" placeholder="Name" class="user-input">
           </div>
+
+          <div class="user-input-container">
+            <!-- <label for="pass">Password</label> -->
+            <input type="password" id="password" name="password" minlength="8" placeholder="Password"
+              class="user-input password-input" required>
+            <span id="togglePassword"><i class="material-icons md-36">visibility</i></span>
+          </div>
+
+          <div class="user-input-container">
+            <!-- <label for="confirm-pass">Confirm Password</label> -->
+            <input type="password" id="confirmPass" name="confirm-pass" minlength="8" placeholder="Confirm Password"
+              class="user-input password-input" required>
+            <span id="togglePasswordConfirm"><i class="material-icons md-36">visibility</i></span>
+          </div>
+        </form>
+
+        <div class="disclaimer-container">
+          <p class="small-text">By signing up, you confirm that you accept our</p>
+          <p class="small-text"><a href="https://createbase.co.nz/terms-and-conditions" class="quick-link">Terms and
+              Conditions</a> and <a href="https://createbase.co.nz/privacy-policy" class="quick-link">Privacy Policy</a>
+          </p>
         </div>
-  
-        <div class="login-container inactive">
-          <div class="title-container">
-            <button id="login-back-btn" class="back-btn"><i class="material-icons md-36">arrow_back_ios</i></button>
-            <h2>Start creating</h2>
-          </div>
-          <form action="post">
-            <div class="user-input-container">
-              <!-- <label for="email">Email Address</label> -->
-              <input type="text" id="loginemail" name="email" placeholder="Email Address" class="user-input">
-            </div>
-      
-            <div class="user-input-container">
-              <!-- <label for="pass">Password</label> -->
-              <input type="login-password" id="login-password" name="login-password" minlength="8"  placeholder="Password" class="user-input password-input" required>
-              <span id="toggleLoginPassword"><i class="material-icons md-36">visibility</i></span>
-            </div>
-          </form>
-  
-          <div class="user-input-container">
-            <button  id="login" class="user-input main-cta cta-button">Log in</button>
-          </div>
-          <div class="login-settings-container left-input-container">
-            <div class="remember-check-container">
-              <label class="checkbox path">
-                  <input type="checkbox" id="remember-checkbox">
-                  <svg viewBox="0 0 21 21">
-                      <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
-                  </svg>
-              </label>
-              <p class="nonactive-p" id="remember-text">Remember Me</p>
-            </div>
-  
-            <div class="forgot-password-container">
-              <button class="forgot-pass-btn">Forgot Password?</button>
-            </div>
-          </div>
+
+        <div class="user-input-container">
+          <button id="signUp" class="user-input main-cta cta-button" onclick="signup.submit();">Sign up</button>
         </div>
-  
-        <div class="recover-container left-input-container inactive">
-          <div class="title-container">
-            <button id="recover-back-btn" class="back-btn"><i class="material-icons md-36">arrow_back_ios</i></button>
-            <h2>Recover Password</h2>
-          </div>
-          <form action="post">
-            <div class="user-input-container">
-              <input type="text" id="recover-email" name="recover-email" placeholder="Email Address" class="user-input">
-            </div>
-          </form>
-  
+        <div class="user-input-container">
+          <button id="login" class="user-input secondary-cta cta-button">Log in</button>
+        </div>
+      </div>
+
+      <div class="login-container inactive">
+        <div class="title-container">
+          <button id="login-back-btn" class="back-btn"><i class="material-icons md-36">arrow_back_ios</i></button>
+          <h2>Start creating</h2>
+        </div>
+        <form action="post">
           <div class="user-input-container">
-            <button  id="recover-pass-btn" class="user-input main-cta cta-button">Email recovery link</button>
+            <!-- <label for="email">Email Address</label> -->
+            <input type="text" id="loginemail" name="email" placeholder="Email Address" class="user-input">
           </div>
-  
-          <div class="recover-msg-container">
-            <p></p>
+
+          <div class="user-input-container">
+            <!-- <label for="pass">Password</label> -->
+            <input type="login-password" id="login-password" name="login-password" minlength="8" placeholder="Password"
+              class="user-input password-input" required>
+            <span id="toggleLoginPassword"><i class="material-icons md-36">visibility</i></span>
+          </div>
+        </form>
+
+        <div class="user-input-container">
+          <button id="login" class="user-input main-cta cta-button">Log in</button>
+        </div>
+        <div class="login-settings-container left-input-container">
+          <div class="remember-check-container">
+            <label class="checkbox path">
+              <input type="checkbox" id="remember-checkbox">
+              <svg viewBox="0 0 21 21">
+                <path
+                  d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
+                </path>
+              </svg>
+            </label>
+            <p class="nonactive-p" id="remember-text">Remember Me</p>
+          </div>
+
+          <div class="forgot-password-container">
+            <button class="forgot-pass-btn">Forgot Password?</button>
           </div>
         </div>
       </div>
+
+      <div class="recover-container left-input-container inactive">
+        <div class="title-container">
+          <button id="recover-back-btn" class="back-btn"><i class="material-icons md-36">arrow_back_ios</i></button>
+          <h2>Recover Password</h2>
+        </div>
+        <form action="post">
+          <div class="user-input-container">
+            <input type="text" id="recover-email" name="recover-email" placeholder="Email Address" class="user-input">
+          </div>
+        </form>
+
+        <div class="user-input-container">
+          <button id="recover-pass-btn" class="user-input main-cta cta-button">Email recovery link</button>
+        </div>
+
+        <div class="recover-msg-container">
+          <p></p>
+        </div>
+      </div>
+    </div>
 
     <div class="demo">
       <div class="demo-img">
