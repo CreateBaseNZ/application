@@ -131,6 +131,28 @@ router.post("/login/validate", async (req, res) => {
   return res.send({ status: "succeeded", content: "" });
 });
 
+// @route   POST /request-password-change
+// @desc
+// @access  STRICTLY PUBLIC
+router.post("/request-password-change", async (req, res) => {
+  // Declare variables
+  const email = req.body.email;
+  // Validate email
+  let account;
+  try {
+    account = await Account.validateEmail(email, true);
+  } catch (data) {
+    return res.send(data);
+  }
+  // Process the change password request
+  try {
+    await Account.forgotPassword(account);
+  } catch (data) {
+    return res.send(data);
+  }
+  // Success handler
+  return res.send({ status: "succeeded", content: "" });
+});
 
 /* ==========================================================
 EXPORT

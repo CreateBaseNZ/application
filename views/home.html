@@ -123,13 +123,14 @@
           <h2>Recover Password</h2>
         </div>
         <form action="post">
-          <div class="user-input-container input-validation" data-error-msg="Invalid Email">
+          <div id="change-password-email-error" class="user-input-container input-validation" data-error-msg="">
             <input type="text" id="recover-email" name="recover-email" placeholder="Email Address" class="user-input">
           </div>
         </form>
 
         <div class="user-btn-container">
-          <button id="recover-pass-btn" class="user-input main-cta cta-button">Email recovery link</button>
+          <button id="recover-pass-btn" class="user-input main-cta cta-button"
+            onclick="forgotPassword.initiate();">Email recovery link</button>
         </div>
 
         <div class="recover-msg-container">

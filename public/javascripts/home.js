@@ -16,6 +16,10 @@ let login = {
     submit: undefined
 }
 
+let forgotPassword = {
+    initiate: undefined
+}
+
 /* ==========================================================
 FUNCTIONS
 ========================================================== */
@@ -350,4 +354,38 @@ login.submit = async () => {
     }
     // Success handler
     return document.querySelector("#login-form").submit();
+}
+
+/* ----------------------------------------------------------
+FORGOT PASSWORD
+---------------------------------------------------------- */
+
+forgotPassword.initiate = async () => {
+    const email = document.querySelector("#recover-email").value;
+    let error = "";
+    let emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // Validate inputs
+    if (!email) {
+        valid = false;
+        error = "Email required";
+    } else if (!emailRE.test(String(email).toLowerCase())) {
+        valid = false;
+        error = "Invalid email";
+    }
+    // Send request for password change
+    let data;
+    try {
+        data = (await axios.post("/request-password-change", { email }))["data"];
+    } catch (error) {
+        data = { status: "error", content: error };
+    }
+    if (data.status === "failed") {
+        error = data.content;
+    } else if (data.status === "error") {
+        console.log(data.content);
+    }
+    // Update the error field
+    document.querySelector("#change-password-email-error").setAttribute("data-error-msg", error);
+    // Success handler
+    return;
 }
