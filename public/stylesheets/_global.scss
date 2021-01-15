@@ -59,7 +59,6 @@ body {
 
 .ui-container {
   display: flex;
-  width: 100%;
   min-height: 72vh;
   flex: 1 1 0;
   padding: 0 $horiz-space $vert-space $horiz-space;
@@ -529,7 +528,7 @@ span {
     transition: filter 0.1s ease-out;
   }
   &::after {
-    content: '';
+    content: attr(caption);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -553,15 +552,50 @@ span {
   }
 }
 
-.badge.trophy::after { content: 'Trophy'; }
-.badge.medal::after { content: 'Medal'; }
-.badge.console::after { content: 'Console'; }
-.badge.loyal::after { content: 'Loyal'; }
-.badge.graduation::after { content: 'Grad'; }
+// .badge.trophy::after { content: attr('caption'); }
+// .badge.medal::after { content: 'Medal'; }
+// .badge.console::after { content: 'Console'; }
+// .badge.loyal::after { content: 'Loyal'; }
+// .badge.graduation::after { content: 'Grad'; }
 .badge.empty {
   cursor: pointer;
   &::after {
-    content: 'Click to add';
+    content: 'Click to edit';
+  }
+}
+
+.scrollable {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $lighter;
+    border: 0px none transparent;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    background: $lightbluetint;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $light;
+    border: 0px none transparent;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $blue-mid;
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: $blue-mid;
+  }
+  &::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
   }
 }
 

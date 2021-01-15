@@ -1,23 +1,41 @@
-document.getElementById('name').value = 'Jane Doe'
-document.getElementById('email').value = 'jane.doe@gmail.com'
-document.getElementById('pass').value = 'Lorem ipsum password'
-document.getElementById('street').value = '16 Dapple Place'
-document.getElementById('zip').value = '2019'
-document.getElementById('city').value = 'Auckland'
-document.getElementById('state').value = 'Auckland'
-document.getElementById('country').value = 'New Zealand'
+import Sortable from '../../node_modules/sortablejs/modular/sortable.core.esm.js';
+
+const badges = ['trophy', 'medal', 'console', 'loyal', 'grad'];
+const trophyCase = document.querySelector('.badges-container');
+for (var i = 0; i < 10; i++) {
+  const badge = badges[Math.floor(Math.random()*badges.length)];
+  var el = document.createElement('div');
+  el.className = 'badge ' + badge;
+  el.setAttribute('caption', badge);
+  var img = document.createElement('img');
+  img.src = '/public/images/badges/' + badge + '.png';
+  el.appendChild(img);
+  trophyCase.appendChild(el);
+}
+
+document.getElementById('name').value = 'Jane Doe';
+document.getElementById('email').value = 'jane.doe@gmail.com';
+document.getElementById('pass').value = 'Lorem ipsum password';
+document.getElementById('street').value = '16 Dapple Place';
+document.getElementById('zip').value = '2019';
+document.getElementById('city').value = 'Auckland';
+document.getElementById('state').value = 'Auckland';
+document.getElementById('country').value = 'New Zealand';
+
+
+
 
 document.querySelectorAll('.section').forEach(function (el) {
   el.addEventListener('click', function (e) {
     if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
       // save changes
-      this.classList.toggle('edit-mode')
+      this.classList.toggle('edit-mode');
     } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
       // revert to original
-      this.classList.toggle('edit-mode')
+      this.classList.toggle('edit-mode');
     } else if (!this.classList.contains('edit-mode')) {
       // enable edit mode
-      this.classList.toggle('edit-mode')
+      this.classList.toggle('edit-mode');
     }
   })
 })
@@ -27,8 +45,8 @@ const pass = document.getElementById('pass');
 
 passVis.addEventListener('click', function (e) {
   const type = pass.getAttribute('type') === 'password' ? 'text' : 'password';
-  pass.setAttribute('type', type)
-  this.classList.toggle('visible')
+  pass.setAttribute('type', type);
+  this.classList.toggle('visible');
 })
 
 const passConfVis = document.getElementById('pass-conf-vis');
@@ -36,8 +54,8 @@ const passConf = document.getElementById('pass-conf');
 
 passConfVis.addEventListener('click', function (e) {
   const type = passConf.getAttribute('type') === 'password' ? 'text' : 'password';
-  passConf.setAttribute('type', type)
-  this.classList.toggle('visible')
+  passConf.setAttribute('type', type);
+  this.classList.toggle('visible');
 })
 
 // /* ========================================================================================
