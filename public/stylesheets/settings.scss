@@ -2,6 +2,10 @@
 $field-height: 4em;
 $bez: cubic-bezier(.15,.51,.51,.97);
 
+.ui-container {
+  padding-right: calc(#{$horiz-space} / 2);
+}
+
 h2 {
   font-size: 1.5em;
   font-weight: 600;
@@ -28,8 +32,42 @@ input[type=password] {
   }
 }
 
-.ui-container {
+.scroll-wrapper {
+  width: 100%;
+  height: 100%;
+  padding-right: calc(#{$horiz-space} / 2);
+  display: flex;
   flex-direction: column;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $lighter;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    background: $lightbluetint;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $light;
+    border-radius: 99px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: $blue-mid;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1.5em;
+    grid-column-start: 1;
+  }
+  .project-card {
+    height: 20vh;
+  }
 }
 
 .delete-container {
@@ -102,7 +140,7 @@ input[type=password] {
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-  transition: width 0.4s $bez;
+  transition: width 0.4s $bez, opacity 0.4s ease-out;
   i {
     margin-bottom: 0.25em;
   }
@@ -127,13 +165,56 @@ input[type=password] {
       transition: background-color 0.4s ease-out, line-height 0.4s $bez, padding-left 0.4s $bez;
     }
   }
-  .save-container {
+  .btn-container {
     grid-column-start: 1;
     grid-column-end: 4;
-    height: $field-height;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
+    overflow: hidden;
+    padding-top: 2px;
+    height: 0;
+    opacity: 0;
+    transition: height 0.4s $bez, opacity 0.4s ease-out;
+    button {
+      visibility: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75em;
+      letter-spacing: 0.15em;
+      padding: 1em 1.75em;
+      border-radius: 1.25em;
+    }
+    .save-btn {
+      color: $lightest;
+      font-weight: 600;
+      margin-left: 1em;
+      transition: margin 0.1s ease-out, box-shadow 0.1s ease-out;
+      &::after {
+        content: 'Save';
+        margin-left: 0.5em;
+      }
+      &:hover {
+        margin-top: -2px;
+        margin-bottom: 2px;
+      }
+    }
+    .cancel-btn {
+      opacity: 0.5;
+      color: $dark;
+      background: transparent;
+      border: thin solid $lighter;
+      transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+      &::after {
+        content: 'Cancel';
+      }
+      &:hover {
+        background: $lighter;
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -168,6 +249,12 @@ input[type=password] {
   &.edit-mode {
     box-shadow: 0 2em 4em -4em $blue-light;
   }
+  .btn-container > .save-btn { 
+    background: $blue-light;
+    &:hover {
+      box-shadow: 0 0.5em 1em -0.5em $blue-light;
+    }
+  }
 }
 
 .bill-container {
@@ -179,6 +266,12 @@ input[type=password] {
   &.edit-mode {
     box-shadow: 0 2em 4em -4em $green;
   }
+  .btn-container > .save-btn { 
+    background: $green; 
+    &:hover {
+      box-shadow: 0 0.5em 1em -0.5em $green;
+    }
+  }
 }
 
 .address-container {
@@ -189,6 +282,12 @@ input[type=password] {
   &:hover,
   &.edit-mode {
     box-shadow: 0 2em 4em -4em $orange;
+  }
+  .btn-container > .save-btn {
+    background: $orange; 
+    &:hover {
+      box-shadow: 0 0.5em 1em -0.5em $orange;
+    }
   }
 }
 
@@ -223,8 +322,8 @@ input[type=password] {
   position: relative;
   .vis-icon {
     position: absolute;
-    top: calc(2.7em);
-    right: calc(4em * 0.75 + 1.2em);
+    top: 2.7em;
+    right: 1.2em;
     transform: translateY(-50%);
     color: $light;
     opacity: 0;
@@ -272,6 +371,7 @@ input[type=password] {
   }
   .panel-left {
     width: 0;
+    opacity: 0;
   }
   .panel-right {
     width: 100%;
@@ -292,6 +392,13 @@ input[type=password] {
           background: $lightbluetint;
           color: $blue-light;
         }
+      }
+    }
+    .btn-container {
+      height: $field-height;
+      opacity: 1;
+      button {
+        visibility: visible;
       }
     }
     .pass-container > .vis-icon {
