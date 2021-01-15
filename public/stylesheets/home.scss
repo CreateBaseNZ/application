@@ -34,7 +34,7 @@ nav{
       transition: color 0.1s ease-out;
     }
     &:hover::placeholder {
-      color: $blue-mid;
+      color: $darker;
     }
     &:focus::placeholder {
       color: $light;
