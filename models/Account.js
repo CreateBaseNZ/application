@@ -335,7 +335,7 @@ AccountSchema.statics.validateEmail = function (email = "", exist = true) {
       if (!account) return reject({ status: "failed", content: "email is not registered" });
     } else {
       // Check if email is already in use
-      if (account) return reject({ status: "failed", content: "email is registered" });
+      if (account) return reject({ status: "failed", content: "email is already registered" });
     }
     // Success handler
     return resolve(account);

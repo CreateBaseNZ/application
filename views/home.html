@@ -33,7 +33,7 @@
     <div class="user-form-wrap">
       <div class="sign-up-container">
         <h1>Unleash your inner creator</h1>
-        <form id="sign-up-form" action="/signup/submit" method="POST">
+        <form id="sign-up-form" action="/signup/submit" method="POST" autocomplete="off">
           <div id="sign-up-email-error" class="user-input-container input-validation" data-error-msg="">
             <!-- <label for="email">Email Address</label> -->
             <input type="text" id="email" name="email" placeholder="Email Address" class="user-input">
@@ -46,8 +46,8 @@
 
           <div id="sign-up-password-error" class="user-input-container input-validation" data-error-msg="">
             <!-- <label for="pass">Password</label> -->
-            <input type="password" id="password" name="password" minlength="8" placeholder="Password"
-              class="user-input password-input" required>
+            <input autocomplete="new-password" type="password" id="password" name="password" minlength="8"
+              placeholder="Password" class="user-input password-input" required>
             <span id="togglePassword"><i class="material-icons md-36">visibility</i></span>
             <div id="sign-up-password-strength" class="pass-strength weak-pass"></div>
           </div>

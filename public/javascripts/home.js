@@ -243,7 +243,10 @@ signup.submit = async () => {
         console.log(data.content);
         return document.querySelector("#signUp").removeAttribute("disabled");
     } else if (data.status === "failed") {
-        console.log(data.content);
+        const error = data.content;
+        document.querySelector("#sign-up-email-error").setAttribute("data-error-msg", error.email);
+        document.querySelector("#sign-up-name-error").setAttribute("data-error-msg", error.name);
+        document.querySelector("#sign-up-password-error").setAttribute("data-error-msg", error.password);
         return document.querySelector("#signUp").removeAttribute("disabled");
     }
     // Success handler
@@ -297,7 +300,7 @@ login.collect = () => {
 
 // @type    STANDARD
 // @desc
-login.validate = async () => {
+login.validate = async (object = {}) => {
     // Declare variables
     let valid = true;
     let error = { email: "", password: "" }
@@ -340,9 +343,11 @@ login.submit = async () => {
         console.log(data.content);
         return document.querySelector("#login").removeAttribute("disabled");
     } else if (data.status === "failed") {
-        console.log(data.content);
+        const error = data.content;
+        document.querySelector("#login-email-error").setAttribute("data-error-msg", error.email);
+        document.querySelector("#login-password-error").setAttribute("data-error-msg", error.password);
         return document.querySelector("#login").removeAttribute("disabled");
     }
     // Success handler
-    //return document.querySelector("#login-form").submit();
+    return document.querySelector("#login-form").submit();
 }
