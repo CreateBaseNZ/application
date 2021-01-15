@@ -2,6 +2,21 @@
 
 .main-page{
     display: flex;
+    padding: 0;
+}
+
+.wrap{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.left-column{
+    flex: 50%;
+    padding: $vert-space 2em 0 $horiz-space;
+}
+.right-column{
+    flex: 50%;
 }
 
 .header-container{
@@ -9,7 +24,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 45%;
     p{
     font-size: 14px;
     font-style: normal;
@@ -50,15 +64,16 @@
 
 .ui-container {
     flex-direction: row;
-    padding: 0 calc(#{$horiz-space}/2) $vert-space calc(#{$horiz-space}/2);
+    padding: 0;
     justify-content: space-between;
+    width: 100%;
 }
 
 .inbox-list-container{
     border: thin solid red;
     height:100%;
-    flex: 0 0 45%;
-    padding: 4vh 3vw 0 2vw;
+    width: 100%;
+    padding: 4vh 3vw;
 }
 
 .notif-wrap{
