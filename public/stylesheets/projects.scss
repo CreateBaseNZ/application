@@ -1,8 +1,9 @@
 @import "global";
 
 .ui-container {
+  padding-right: calc(#{$horiz-space}/2);
   flex-direction: column;
-  padding: 0 calc(#{$horiz-space}/2) $vert-space calc(#{$horiz-space}/2);
+  // padding: 0  $vert-space calc(#{$horiz-space}/2);
 }
 
 .fields-container {
@@ -12,7 +13,6 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 0 calc(#{$horiz-space}/2);
 }
 
 .field {
@@ -157,29 +157,11 @@
 .projects-container {
   width: 100%;
   height: 100%;
-  padding: 1vh calc(#{$horiz-space} / 2) 0 calc(#{$horiz-space} / 2);
+  padding-top: 1vh;
+  padding-right: calc(#{$horiz-space}/2);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5vmax;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-track {
-    background: $lighter;
-    border-radius: 99px;
-  }
-  &::-webkit-scrollbar-track:hover {
-    background: $lightbluetint;
-    border-radius: 99px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: $light;
-    border-radius: 99px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: $blue-mid;
-  }
   &::after {
     content: '';
     display: block;

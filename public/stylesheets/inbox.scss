@@ -20,40 +20,6 @@
     flex: 0 0 50%;
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-}
-::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
-}
-::-webkit-scrollbar-thumb {
-    background: $blue-mid;
-    border: 0px none #ffffff;
-    border-radius: 50px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: $blue-mid;
-}
-::-webkit-scrollbar-thumb:active {
-    background: $blue-mid;
-}
-::-webkit-scrollbar-track {
-    background: $lighter;
-    border: 0px none #ffffff;
-    border-radius: 50px;
-}
-::-webkit-scrollbar-track:hover {
-    background: darken($lighter, 10%);
-}
-// ::-webkit-scrollbar-track:active {
-//     background: $blue-mid;
-// }
-::-webkit-scrollbar-corner {
-    background: transparent;
-}
-
 .header-container{
     display: flex;
     justify-content: space-between;
