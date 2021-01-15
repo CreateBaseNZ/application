@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const session = require("express-session");
 
 /* ==========================================================
 VARIABLES
@@ -55,6 +56,13 @@ app.use((req, res, next) => {
 AUTHENTICATION
 ========================================================== */
 
+// Session
+app.use(session({
+  secret: process.env.SESSION_SECRET, saveUninitialized: true,
+  resave: true, rolling: true, sameSite: "none"
+}));
+
+// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 require("./configs/passport.js");

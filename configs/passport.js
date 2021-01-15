@@ -48,7 +48,38 @@ const LocalAccountSignup = new LocalStrategy({
 });
 
 // Enable use of the local strategy
-passport.use("local-account-signup", LocalAccountSignup)
+passport.use("local-account-signup", LocalAccountSignup);
+
+/* ==========================================================
+LOCAL STRATEGY - ACCOUNT LOGIN
+========================================================== */
+
+const LocalAccountLogin = new LocalStrategy({
+  // By default, local strategy uses username and password, we will override with email
+  usernameField: "email",
+  passwordField: "password"
+}, async (email, password, done) => {
+  // Fetch the account associated with the email
+  let account;
+  try {
+    account = await Account.findOne({ email });
+  } catch (error) {
+    return done(null, false);
+  }
+  // Compare the entered password with the accounts password
+  let match;
+  try {
+    match = await account.validatePassword(password);
+  } catch (data) {
+    return done(null, false);
+  }
+  if (!match) return done(null, false);
+  // Success handler
+  return done(null, account);
+});
+
+// Enable use of the local strategy
+passport.use("local-account-login", LocalAccountLogin);
 
 /* ==========================================================
 END

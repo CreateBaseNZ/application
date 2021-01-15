@@ -6,7 +6,14 @@ let signup = {
     collect: undefined,
     validate: undefined,
     submit: undefined,
-    scorePassword: undefined
+    scorePassword: undefined,
+    passwordStrength: undefined
+}
+
+let login = {
+    collect: undefined,
+    validate: undefined,
+    submit: undefined
 }
 
 /* ==========================================================
@@ -155,7 +162,7 @@ recoverBackBtn.addEventListener('click', function (e) {
 })
 
 /* ----------------------------------------------------------
-REGISTRATION
+SIGNUP
 ---------------------------------------------------------- */
 
 // @type    STANDARD
@@ -208,8 +215,12 @@ signup.validate = (object = {}) => {
         valid = false;
         error.confirmPassword = "Please do not match";
     }
+    // Add/remove error messages
+    document.querySelector("#sign-up-email-error").setAttribute("data-error-msg", error.email);
+    document.querySelector("#sign-up-name-error").setAttribute("data-error-msg", error.name);
+    document.querySelector("#sign-up-password-error").setAttribute("data-error-msg", error.password);
+    document.querySelector("#sign-up-confirm-password-error").setAttribute("data-error-msg", error.confirmPassword);
     // Return validity
-    console.log(error);
     return valid;
 }
 
@@ -263,4 +274,75 @@ signup.scorePassword = (password) => {
     score += (variationCount - 1) * 10;
     // Return the total score
     return score;
+}
+
+// @type    STANDARD
+// @desc    
+signup.passwordStrength = (password) => {
+
+}
+
+/* ----------------------------------------------------------
+LOGIN
+---------------------------------------------------------- */
+
+// @type    STANDARD
+// @desc
+login.collect = () => {
+    const email = document.querySelector("#loginemail").value;
+    const password = document.querySelector("#login-password").value;
+    const remember = document.querySelector("#remember-checkbox").checked;
+    return { email, password, remember };
+}
+
+// @type    STANDARD
+// @desc
+login.validate = async () => {
+    // Declare variables
+    let valid = true;
+    let error = { email: "", password: "" }
+    let emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // Validate inputs
+    if (!object.email) {
+        valid = false;
+        error.email = "Email required";
+    } else if (!emailRE.test(String(object.email).toLowerCase())) {
+        valid = false;
+        error.email = "Invalid email";
+    }
+    if (!object.password) {
+        valid = false;
+        error.password = "Password required";
+    }
+    // Add/remove error messages
+    document.querySelector("#login-email-error").setAttribute("data-error-msg", error.email);
+    document.querySelector("#login-password-error").setAttribute("data-error-msg", error.password);
+    // Return validity
+    return valid;
+}
+
+// @type    ASNYC
+// @desc
+login.submit = async () => {
+    document.querySelector("#login").setAttribute("disabled", "");
+    // Collect inputs
+    const object = login.collect();
+    // Client-side validation
+    if (!login.validate(object)) return document.querySelector("#login").removeAttribute("disabled");
+    // Server-side validation
+    let data;
+    try {
+        data = (await axios.post("/login/validate", object))["data"];
+    } catch (error) {
+        data = { status: "error", content: error };
+    }
+    if (data.status === "error") {
+        console.log(data.content);
+        return document.querySelector("#login").removeAttribute("disabled");
+    } else if (data.status === "failed") {
+        console.log(data.content);
+        return document.querySelector("#login").removeAttribute("disabled");
+    }
+    // Success handler
+    //return document.querySelector("#login-form").submit();
 }

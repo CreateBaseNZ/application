@@ -388,8 +388,21 @@ AccountSchema.statics.generateVerificationCode = function () {
 }
 
 /* ==========================================================
-METHOD
+METHODS
 ========================================================== */
+
+AccountSchema.methods.validatePassword = function (password = "") {
+  return new Promise(async (resolve, reject) => {
+    let match;
+    try {
+      match = await bcrypt.compare(password, this.password);
+    } catch (error) {
+      return reject({ status: "error", content: error });
+    }
+    // Success handler
+    return resolve(match);
+  });
+}
 
 /* ==========================================================
 EXPORT
