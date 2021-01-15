@@ -375,7 +375,7 @@ forgotPassword.initiate = async () => {
     // Send request for password change
     let data;
     try {
-        data = (await axios.post("/request-password-change", { email }))["data"];
+        data = (await axios.post("/change-password/request", { email }))["data"];
     } catch (error) {
         data = { status: "error", content: error };
     }

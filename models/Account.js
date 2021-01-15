@@ -211,10 +211,10 @@ AccountSchema.statics.validatePassword = function (password = "") {
 PASSWORD
 ---------------------------------------------------------- */
 
-// @func  forgotPassword
+// @func  initialiseChangePassword
 // @type  STATICS - PROMISE - ASYNC
 // @desc
-AccountSchema.statics.forgotPassword = function (account = {}) {
+AccountSchema.statics.initialiseChangePassword = function (account = {}) {
   return new Promise(async (resolve, reject) => {
     // Prepare the change password code and status
     account.changePassword.code = this.generateVerificationCode();
@@ -228,7 +228,7 @@ AccountSchema.statics.forgotPassword = function (account = {}) {
     // Draft the email that will be sent to the user
     let emailObject;
     try {
-      emailObject = await this.draftForgotPasswordEmail(account);
+      emailObject = await this.draftChangePasswordEmail(account);
     } catch (data) {
       return reject(data);
     }
@@ -244,10 +244,10 @@ AccountSchema.statics.forgotPassword = function (account = {}) {
   });
 }
 
-// @func  draftForgotPasswordEmail
+// @func  draftChangePasswordEmail
 // @type  STATICS - PROMISE - ASYNC
 // @desc
-AccountSchema.statics.draftForgotPasswordEmail = function (account = {}) {
+AccountSchema.statics.draftChangePasswordEmail = function (account = {}) {
   return new Promise(async (resolve, reject) => {
     // Fetch user
     let user;
@@ -400,6 +400,45 @@ li{
     }
     // Return the email object
     return resolve({ subject, text, html: inline });
+  });
+}
+
+// @func  changePassword
+// @type  STATICS - PROMISE - ASYNC
+// @desc
+AccountSchema.statics.changePassword = function (object = {}, save = true) {
+  return new Promise(async (resolve, reject) => {
+    // VALIDATION
+    // Validate email
+    let account;
+    try {
+      account = await this.validateEmail(object.email);
+    } catch (data) {
+      return reject(data);
+    }
+    // Validate password
+    try {
+      await this.validatePassword(object.password);
+    } catch (data) {
+      return reject(data);
+    }
+    // Validate code
+    const match = account.changePassword.code === object.code;
+    if (!match) return reject({ status: "failed", content: "Incorrect code" });
+    if (!account.changePassword.status) return reject({ status: "failed", content: "Code expired" });
+    // UPDATE
+    account.password = object.password;
+    account.changePassword.status = false;
+    // Save
+    if (save) {
+      try {
+        await account.save();
+      } catch (error) {
+        return reject({ status: "error", content: error });
+      }
+    }
+    // SUCCESS
+    return resolve();
   });
 }
 
@@ -571,7 +610,11 @@ li{
 // @func  verify
 // @type  STATICS - PROMISE - ASYNC
 // @desc
+AccountSchema.statics.verify = function (object = {}, save = true) {
+  return new Promise(async (resolve, reject) => {
 
+  });
+}
 
 /* ----------------------------------------------------------
 OTHER
