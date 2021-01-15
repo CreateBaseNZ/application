@@ -205,8 +205,8 @@ span {
 
 .opt.blue-opt {
   input {
-    &:checked ~ .radio-custom::after,
-    &:checked ~ .switch-customer::after {
+    &:checked ~ .radio-custom,
+    &:checked ~ .switch-custom {
       background: $blue-light;
     }
   }
@@ -214,8 +214,8 @@ span {
 
 .opt.green-opt {
   input {
-    &:checked ~ .radio-custom::after,
-    &:checked ~ .switch-customer::after {
+    &:checked ~ .radio-custom,
+    &:checked ~ .switch-custom {
       background: $green;
     }
   }

@@ -18,4 +18,3 @@ const config = {
 document.querySelectorAll('.project-card.completed').forEach(function (card) {
   card.addEventListener('mouseenter', () => confetti(card, config))
 })
-

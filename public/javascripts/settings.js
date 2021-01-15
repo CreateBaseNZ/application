@@ -1,5 +1,32 @@
 document.getElementById('name').value = 'Jane Doe'
 document.getElementById('email').value = 'jane.doe@gmail.com'
+document.getElementById('pass').value = 'Lorem ipsum password'
+
+document.querySelectorAll('.section').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    if (e.target.classList.contains('save-btn') || !this.classList.contains('edit-mode')) {
+      this.classList.toggle('edit-mode')
+    }
+  })
+})
+
+const passVis = document.getElementById('pass-vis');
+const pass = document.getElementById('pass');
+
+passVis.addEventListener('click', function (e) {
+  const type = pass.getAttribute('type') === 'password' ? 'text' : 'password';
+  pass.setAttribute('type', type)
+  this.classList.toggle('visible')
+})
+
+const passConfVis = document.getElementById('pass-conf-vis');
+const passConf = document.getElementById('pass-conf');
+
+passConfVis.addEventListener('click', function (e) {
+  const type = passConf.getAttribute('type') === 'password' ? 'text' : 'password';
+  passConf.setAttribute('type', type)
+  this.classList.toggle('visible')
+})
 
 // /* ========================================================================================
 // VARIABLES

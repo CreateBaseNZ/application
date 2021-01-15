@@ -46,7 +46,7 @@
           <span>Delete account</span></button>
       </div>
       <div class="section acc-container">
-        <h3 class="edit-btn"><i class="material-icons-round">edit</i> Edit</h3>
+        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
           <i class="material-icons-round md-24">person</i> 
           <h2>Account</h2>
@@ -65,9 +65,10 @@
             <h3>Location</h3>
             <input type="text" id="loc" placeholder="-">
           </div>
-          <div class="input-container">
+          <div class="input-container pass-container">
             <h3>Password</h3>
-            <input type="text" id="pass" placeholder="-">
+            <input type="password" id="pass" placeholder="-">
+            <div class="vis-icon"><i id="pass-vis" class="material-icons-round md-18">visibility</i></div>
           </div>
           <div class="badges-container">
             <div class="badge"><img src="/public/images/badges/Trophy.png" alt="Trophy"></div>
@@ -84,10 +85,15 @@
               <div class="switch-custom"></div>
             </label>
           </div>
+          <div id="pass-conf-container" class="input-container pass-container">
+            <h3>Confirm Password</h3>
+            <input type="password" id="pass-conf" placeholder="-">
+            <div class="vis-icon"><i id="pass-conf-vis" class="material-icons-round md-18">visibility</i></div>
+          </div>
         </div>
       </div>
-      <div class="section bill-container">
-        <h3 class="edit-btn"><i class="material-icons-round">edit</i> Edit</h3>
+      <!-- <div class="section bill-container">
+        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
           <i class="material-icons-round md-24">payment</i> 
           <h2>Billing info</h2>
@@ -124,9 +130,9 @@
             </label>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="section address-container">
-        <h3 class="edit-btn"><i class="material-icons-round">edit</i> Edit</h3>
+        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
           <i class="material-icons-round md-24">markunread_mailbox</i> 
           <h2>Address</h2>
