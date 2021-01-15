@@ -213,7 +213,7 @@ signup.validate = (object = {}) => {
         error.confirmPassword = "Please confirm your password";
     } else if (object.confirmPassword !== object.password) {
         valid = false;
-        error.confirmPassword = "Please do not match";
+        error.confirmPassword = "Password do not match";
     }
     // Add/remove error messages
     document.querySelector("#sign-up-email-error").setAttribute("data-error-msg", error.email);
