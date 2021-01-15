@@ -30,6 +30,7 @@ nav{
     padding: 1.3em;
     border-radius: 1em;
     width: 100%;
+    // position: relative;
     &::placeholder {
       transition: color 0.1s ease-out;
     }
@@ -40,9 +41,36 @@ nav{
       color: $light;
     }
 }
+.input-validation{
+    position: relative;
+    &:after{
+        content: attr(data-error-msg);
+        position: absolute;
+        bottom: 0.5em;
+        left: 1em;
+        color: $red;
+        font-size: 0.7em;
+        z-index: 15;
+        display: block;
+    }
+}
+.shake{
+    animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+}
+.pass-strength{
+    position: absolute;
+    bottom: 0.5em;
+    left: 1em;
+    font-size: 0.7em;
+    z-index: 15;
+    display: block;
+    color: $red;
+}
+
 .password-input{
     padding: 1.3em 3.3em 1.3em 1.3em;
 }
+
 .cta-button{
     cursor: pointer;
 }
@@ -86,13 +114,11 @@ nav{
     color: $blue-dark;
 }
 
-
 .inactive{
     visibility: hidden;
     cursor: none;
     pointer-events: none;
 }
-
 .no-interaction{
     cursor: none;
     pointer-events: none;
@@ -109,6 +135,16 @@ nav{
         align-items: center;
     }
 }
+
+.user-input-container{
+    padding-bottom: 1.8em;
+    position: relative;
+}
+
+.user-btn-container{
+    padding-bottom: 0.8rem;
+}
+
 .sign-up-container{
     // visibility: hidden;
     display: flex;
@@ -126,13 +162,11 @@ nav{
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 2em;
+        padding: 0.5em 0 1.5em;
         line-height: 130%;
         text-align: center;
     }
     .user-input-container{
-        padding-bottom: 1.5em;
-        position: relative;
         span{
             position: absolute;
             display: flex;
@@ -172,8 +206,6 @@ nav{
         flex-direction: column;
     }
     .user-input-container{
-        padding-bottom: 1.5em;
-        position: relative;
         span{
             position: absolute;
             display: flex;
@@ -309,10 +341,6 @@ nav{
     form{
         display: flex;
         flex-direction: column;
-    }
-    .user-input-container{
-        padding-bottom: 1.5em;
-        position: relative;
     }
     .back-btn{
         width: 100%;
@@ -466,6 +494,24 @@ nav{
     };
 }
 
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(1px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-2px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(2px, 0, 0);
+    }
+  }
+
 // // Tablet View
 // @media only screen and (min-width: 850px){
 //     .sign-up-container{
@@ -561,7 +607,7 @@ nav{
         display: flex;
         flex-wrap: wrap;
         width: 50%;
-        margin:1.5em 3em 0;
+        margin:1.5em 1em 0 7em;
     }
     .demo-img{
         animation: fade-up 2.3s cubic-bezier(.17,.67,.42,1);
