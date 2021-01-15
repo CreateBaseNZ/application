@@ -36,6 +36,17 @@ togglePasswordConfirm.addEventListener('click', function (e) {
     this.firstChild.classList.toggle('icon-selected');
 });
 
+const togglePasswordLogin = document.querySelector('#toggleLoginPassword');
+const passwordLogin = document.querySelector('#login-password');
+
+togglePasswordLogin.addEventListener('click', function (e) {
+    // toggle the type attribute
+    const type = passwordLogin.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordLogin.setAttribute('type', type);
+    // toggle the eye icon
+    this.firstChild.classList.toggle('icon-selected');
+});
+
 // Remember me checkbox
 const rememberMe = document.querySelector('#remember-checkbox');
 const rememberText = document.querySelector('#remember-text');
