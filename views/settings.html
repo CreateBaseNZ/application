@@ -32,7 +32,7 @@
       <a href="/settings" class="active-tab"><i class="material-icons md-36 md-light">admin_panel_settings</i></a>
       <a href="/inbox"><i class="material-icons-outlined md-36 md-light">notifications</i></a>
     </div>
-    <a href="/" class="logout"><i class="material-icons-outlined md-36 md-light">logout</i></a>
+    <a href="/logout" class="logout"><i class="material-icons-outlined md-36 md-light">logout</i></a>
   </nav>
 
   <div class="main-page">
@@ -40,132 +40,137 @@
       <h1>Settings</h1>
     </div>
     <div class="ui-container">
-      <div class="delete-container">
-        <button class="delete-btn">
-          <i class="material-icons-round md-18">person_off</i>
-          <span>Delete account</span></button>
-      </div>
-      <div class="section acc-container">
-        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
-        <div class="panel-left">
-          <i class="material-icons-round md-24">person</i> 
-          <h2>Account</h2>
+      <div class="scroll-wrapper">
+        <div class="delete-container">
+          <button class="delete-btn">
+            <i class="material-icons-round md-18">person_off</i>
+            <span>Delete account</span></button>
         </div>
-        <div class="panel-right">
-          <img src="/public/images/dp-example.jpg" class="avatar" alt="Avatar">
-          <div class="input-container">
-            <h3>Name</h3>
-            <input type="text" id="name" placeholder="-">
+        <div class="section acc-container">
+          <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
+          <div class="panel-left">
+            <i class="material-icons-round md-24">person</i> 
+            <h2>Account</h2>
           </div>
-          <div class="input-container">
-            <h3>Email</h3>
-            <input type="text" id="email" placeholder="-">
-          </div>
-          <div class="input-container">
-            <h3>Location</h3>
-            <input type="text" id="loc" placeholder="-">
-          </div>
-          <div class="input-container pass-container">
-            <h3>Password</h3>
-            <input type="password" id="pass" placeholder="-">
-            <div class="vis-icon"><i id="pass-vis" class="material-icons-round md-18">visibility</i></div>
-          </div>
-          <div class="badges-container">
-            <div class="badge"><img src="/public/images/badges/Trophy.png" alt="Trophy"></div>
-            <div class="badge"><img src="/public/images/badges/Medal.png" alt="Medal"></div>
-            <div class="badge"><img src="/public/images/badges/Console.png" alt="Console"></div>
-            <div class="badge"><img src="/public/images/badges/Loyal.png" alt="Loyal"></div>
-            <div class="badge"><img src="/public/images/badges/Graduation.png" alt="Grad"></div>
-          </div>
-          <div class="input-container">
-            <h3>Mailing List</h3>
-            <label for="mail" class="opt switch-opt blue-opt">
-              <input type="checkbox" id="mail" checked="checked">
-              <span>Subscribed</span>
-              <div class="switch-custom"></div>
-            </label>
-          </div>
-          <div id="pass-conf-container" class="input-container pass-container">
-            <h3>Confirm Password</h3>
-            <input type="password" id="pass-conf" placeholder="-">
-            <div class="vis-icon"><i id="pass-conf-vis" class="material-icons-round md-18">visibility</i></div>
-          </div>
-          <div class="save-container">
-            <button class="save-btn">
-              <i class="material-icons-round md-18">check</i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- <div class="section bill-container">
-        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
-        <div class="panel-left">
-          <i class="material-icons-round md-24">payment</i> 
-          <h2>Billing info</h2>
-        </div>
-        <div class="panel-right">
-          <div class="input-container">
-            <h3>Card number</h3>
-            <input type="text" id="card-num" placeholder="-">
-          </div>
-          <div class="input-container">
-            <h3>Card holder name</h3>
-            <input type="text" id="card-name" placeholder="-">
-          </div>
-          <div class="input-container">
-            <label for="paypal" class="opt switch-opt green-opt">
-              <input type="checkbox" id="paypal" checked="checked">
-              <div class="icon-container paypal"><i class="fab fa-paypal"></i></div>
-              <div class="switch-custom"></div>
-            </label>
-          </div>
-          <div class="input-container">
-            <h3>Expiration date</h3>
-            <input type="text" id="card-exp" placeholder="-">
-          </div>
-          <div class="input-container">
-            <h3>CVV</h3>
-            <input type="text" id="card-cvv" placeholder="-">
-          </div>
-          <div class="input-container">
-            <label for="paypal" class="opt switch-opt green-opt">
-              <input type="checkbox" id="paypal" checked="checked">
-              <div class="icon-container stripe"><i class="fab fa-stripe"></i></div>
-              <div class="switch-custom"></div>
-            </label>
+          <div class="panel-right">
+            <img src="/public/images/dp-example.jpg" class="avatar" alt="Avatar">
+            <div class="input-container">
+              <h3>Name</h3>
+              <input type="text" id="name" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Email</h3>
+              <input type="text" id="email" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Location</h3>
+              <input type="text" id="loc" placeholder="-">
+            </div>
+            <div class="input-container pass-container">
+              <h3>Password</h3>
+              <input type="password" id="pass" placeholder="-">
+              <div class="vis-icon"><i id="pass-vis" class="material-icons-round md-18">visibility</i></div>
+            </div>
+            <div class="badges-container">
+              <div class="badge"><img src="/public/images/badges/Trophy.png" alt="Trophy"></div>
+              <div class="badge"><img src="/public/images/badges/Medal.png" alt="Medal"></div>
+              <div class="badge"><img src="/public/images/badges/Console.png" alt="Console"></div>
+              <div class="badge"><img src="/public/images/badges/Loyal.png" alt="Loyal"></div>
+              <div class="badge"><img src="/public/images/badges/Graduation.png" alt="Grad"></div>
+            </div>
+            <div class="input-container">
+              <h3>Mailing List</h3>
+              <label for="mail" class="opt switch-opt blue-opt">
+                <input type="checkbox" id="mail" checked="checked">
+                <span>Subscribed</span>
+                <div class="switch-custom"></div>
+              </label>
+            </div>
+            <div id="pass-conf-container" class="input-container pass-container">
+              <h3>Confirm Password</h3>
+              <input type="password" id="pass-conf" placeholder="-">
+              <div class="vis-icon"><i id="pass-conf-vis" class="material-icons-round md-18">visibility</i></div>
+            </div>
+            <div class="btn-container">
+              <button class="cancel-btn"></button>
+              <button class="save-btn"><i class="material-icons-round md-18">check</i></button>
+            </div>
           </div>
         </div>
-      </div> -->
-      <div class="section address-container">
-        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
-        <div class="panel-left">
-          <i class="material-icons-round md-24">markunread_mailbox</i> 
-          <h2>Address</h2>
-        </div>
-        <div class="panel-right">
-          <div class="input-container">
-            <h3>Street address</h3>
-            <input type="text" id="street" placeholder="-">
+        <!-- <div class="section bill-container">
+          <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
+          <div class="panel-left">
+            <i class="material-icons-round md-24">payment</i> 
+            <h2>Billing info</h2>
           </div>
-          <div class="input-container">
-            <h3>Unit</h3>
-            <input type="text" id="unit" placeholder="-">
+          <div class="panel-right">
+            <div class="input-container">
+              <h3>Card number</h3>
+              <input type="text" id="card-num" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Card holder name</h3>
+              <input type="text" id="card-name" placeholder="-">
+            </div>
+            <div class="input-container">
+              <label for="paypal" class="opt switch-opt green-opt">
+                <input type="checkbox" id="paypal" checked="checked">
+                <div class="icon-container paypal"><i class="fab fa-paypal"></i></div>
+                <div class="switch-custom"></div>
+              </label>
+            </div>
+            <div class="input-container">
+              <h3>Expiration date</h3>
+              <input type="text" id="card-exp" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>CVV</h3>
+              <input type="text" id="card-cvv" placeholder="-">
+            </div>
+            <div class="input-container">
+              <label for="paypal" class="opt switch-opt green-opt">
+                <input type="checkbox" id="paypal" checked="checked">
+                <div class="icon-container stripe"><i class="fab fa-stripe"></i></div>
+                <div class="switch-custom"></div>
+              </label>
+            </div>
           </div>
-          <div class="input-container">
-            <h3>Zip code</h3>
-            <input type="text" id="zip" placeholder="-">
+        </div> -->
+        <div class="section address-container">
+          <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
+          <div class="panel-left">
+            <i class="material-icons-round md-24">markunread_mailbox</i> 
+            <h2>Address</h2>
           </div>
-          <div class="input-container">
-            <h3>Town / city</h3>
-            <input type="text" id="city" placeholder="-">
-          </div>
-          <div class="input-container">
-            <h3>State</h3>
-            <input type="text" id="state" placeholder="-">
-          </div>
-          <div class="input-container">
-            <h3>Country</h3>
-            <input type="text" id="country" placeholder="-">
+          <div class="panel-right">
+            <div class="input-container">
+              <h3>Street address</h3>
+              <input type="text" id="street" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Unit</h3>
+              <input type="text" id="unit" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Zip code</h3>
+              <input type="text" id="zip" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Town / city</h3>
+              <input type="text" id="city" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>State</h3>
+              <input type="text" id="state" placeholder="-">
+            </div>
+            <div class="input-container">
+              <h3>Country</h3>
+              <input type="text" id="country" placeholder="-">
+            </div>
+            <div class="btn-container">
+              <button class="cancel-btn"></button>
+              <button class="save-btn"><i class="material-icons-round md-18">check</i></button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,10 +1,22 @@
 document.getElementById('name').value = 'Jane Doe'
 document.getElementById('email').value = 'jane.doe@gmail.com'
 document.getElementById('pass').value = 'Lorem ipsum password'
+document.getElementById('street').value = '16 Dapple Place'
+document.getElementById('zip').value = '2019'
+document.getElementById('city').value = 'Auckland'
+document.getElementById('state').value = 'Auckland'
+document.getElementById('country').value = 'New Zealand'
 
 document.querySelectorAll('.section').forEach(function (el) {
   el.addEventListener('click', function (e) {
-    if (e.target.classList.contains('save-btn') || !this.classList.contains('edit-mode')) {
+    if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
+      // save changes
+      this.classList.toggle('edit-mode')
+    } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
+      // revert to original
+      this.classList.toggle('edit-mode')
+    } else if (!this.classList.contains('edit-mode')) {
+      // enable edit mode
       this.classList.toggle('edit-mode')
     }
   })
