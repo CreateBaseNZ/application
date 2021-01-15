@@ -55,6 +55,19 @@ nav{
         color: $blue-dark;
     }
 }
+.back-btn{
+    background-color: transparent;
+    display: flex;
+    transform: translateX(-1em);
+    cursor: pointer;
+    i{
+        color: $blue-light;
+        transition: color ease 0.3s;
+        &:hover{
+            color: $blue-dark;
+        }
+    }
+}
 
 .small-text{
     font-size: 0.8em;
@@ -64,10 +77,34 @@ nav{
     color: $blue-dark;
 }
 
+
+.inactive{
+    visibility: hidden;
+    cursor: none;
+    pointer-events: none;
+}
+
+.no-interaction{
+    cursor: none;
+    pointer-events: none;
+}
+
+.user-form-wrap{
+    position: relative;
+}
+.left-input-container{
+    .title-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
 .sign-up-container{
     // visibility: hidden;
     display: flex;
     flex-direction: column;
+    width: 100%;
     h1{
         font-size: 2em;
         padding: 1em 0;
@@ -111,17 +148,15 @@ nav{
 }
 
 .login-container{
-    visibility: hidden;
     display: flex;
     flex-direction: column;
     position: absolute;
-    width: 40vw;
-    border: thin solid red;
-    margin: 8vw;
+    top: 5%;
+    width: 100%;
     h2{
         font-size: 2.5em;
         font-weight: 600;
-        padding: 1em 0;
+        padding: 0.5em 0 1em;
     }
     form{
         display: flex;
@@ -154,7 +189,6 @@ nav{
     .login-settings-container{
         display: flex;
         align-items: center;
-        border: thin solid red;
         justify-content: space-between;
     }
     .remember-check-container{
@@ -171,6 +205,18 @@ nav{
         .nonactive-p{
             color: $blue-light;
             font-weight: 400;
+        }
+    }
+    #remember-text{
+        cursor: pointer;
+    }
+    .forgot-password-container{
+        display: flex;
+        align-items: center;
+        .forgot-pass-btn{
+            background-color: transparent;
+            color: $blue-dark;
+            cursor: pointer;
         }
     }
     .checkbox {
@@ -237,6 +283,31 @@ nav{
                 transition: stroke-dasharray .6s, stroke-dashoffset .6s;
             }
         }
+    }
+}
+
+.recover-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    h2{
+        font-size: 2em;
+        font-weight: 600;
+        padding: 0.5em 0 1em;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    .user-input-container{
+        padding-bottom: 1.5em;
+        position: relative;
+    }
+    .back-btn{
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -328,10 +399,22 @@ nav{
 }
 
 .slide-left{
-    animation: left-screen-left 2s cubic-bezier(.17,.67,.42,1);
+    animation: screen-left 1.5s cubic-bezier(.17,.67,.42,1);
 }
 
-@keyframes left-screen-left{
+.enter-screen-right{
+    animation: enter-screen-right 1s cubic-bezier(.17,.67,.42,1);
+}
+
+.slide-right{
+    animation: screen-right 1.5s cubic-bezier(.17,.67,.42,1);
+}
+
+.enter-screen-left{
+    animation: enter-screen-left 1s cubic-bezier(.17,.67,.42,1);
+}
+
+@keyframes screen-left{
     0% {
     };
     40% {
@@ -340,6 +423,37 @@ nav{
     100%{
         transform: translateX(-10em);
         opacity: 0;
+    };
+}
+@keyframes enter-screen-right{
+    0% {
+        transform: translateX(3em);
+        opacity: 0;
+    };
+    100%{
+        transform: translateX(0em);
+        opacity: 1;
+    };
+}
+@keyframes screen-right{
+    0% {
+    };
+    40% {
+        opacity: 0;
+    };
+    100%{
+        transform: translateX(10em);
+        opacity: 0;
+    };
+}
+@keyframes enter-screen-left{
+    0% {
+        transform: translateX(-3em);
+        opacity: 0;
+    };
+    100%{
+        transform: translateX(0em);
+        opacity: 1;
     };
 }
 
@@ -399,7 +513,7 @@ nav{
     }
     .sign-up-container{
         max-width: 28em;
-        margin-right: 2em;
+        // margin-right: 2em;
         h1{
             font-size: 2.5em;
             padding-bottom: 1em;
@@ -407,7 +521,32 @@ nav{
         }
     }
     .login-container{
-        max-width: 28em;
+        // max-width: 28em;
+        // width: 25vw;
+        // top:50%;
+        // margin: 0 5vw;
+        width: 100%;
+        top: 20%;
+        // transform: translateY(-50%);
+        // padding-right: 2em;
+        h2{
+            font-size: 2.5em;
+            padding: 0.5em 0 1em;
+        }
+    }
+    .recover-container{
+        // max-width: 28em;
+        // margin-right: 2em;
+        width: 100%;
+        top: 25%;
+        // top:50%;
+        // margin: 0 5vw;
+        // transform: translateY(-50%);
+        // border: thin solid blue;
+        h2{
+            font-size: 2.5em;
+            padding: 0.5em 0 1em;
+        }
     }
     .demo{
         display: flex;

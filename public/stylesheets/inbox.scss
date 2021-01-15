@@ -1,1 +1,136 @@
 @import "global";
+
+.main-page{
+    display: flex;
+}
+
+.header-container{
+    border: thin solid red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 45%;
+    p{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: $light;
+    }
+    .opt {
+        // border: thin solid red;
+        font-weight: 500;
+        input {
+          &:checked ~ span {
+            font-weight: 500;
+          }
+        }
+        span {
+            transition: opacity ease 0.2s;
+            color: $dark;
+            &::after {
+            font-weight: 500;
+            }
+        }
+      }
+    .switch-opt {
+    input {
+        &:checked ~ .switch-custom {
+        background: $blue-light;
+        }
+    }
+    .switch-custom {
+        background: $light;
+        transition: background-color 0.3s ease-out, opacity ease 0.2s ;
+        }
+    }
+}
+
+.ui-container {
+    flex-direction: row;
+    padding: 0 calc(#{$horiz-space}/2) $vert-space calc(#{$horiz-space}/2);
+    justify-content: space-between;
+}
+
+.inbox-list-container{
+    border: thin solid red;
+    height:100%;
+    flex: 0 0 45%;
+    padding: 4vh 3vw 0 2vw;
+}
+
+.notif-wrap{
+    .date-text{
+        font-size: 0.9em;
+        color: $light;
+    }
+    .date-group{
+        // border: thin solid red;
+        padding-bottom: 1.5em;
+        p{
+            font-size: 0.8em;
+            color: $light;
+        }
+    }
+    .single-notif-container{
+        padding: 2em;
+        display: flex;
+        align-items: center;
+        background-color: $lightest;
+        border-radius: 0.2em;
+        transition: box-shadow ease 0.2s;
+        box-shadow:0px 4px 8px 1px $lighter;
+        cursor: pointer;
+        &:hover{
+            -webkit-box-shadow:0px 4px 8px 1px #E4E4E4; 
+            box-shadow:0px 4px 8px 1px #E4E4E4;
+        }
+        .notif-dp{
+            // border: thin solid blue;
+            display: flex;
+            margin-right: 1.5em;
+            img{
+                height: 2em;
+                width: 2em; 
+                object-fit: cover;
+                border-radius: 100%;
+            }
+        }
+        .notif-content-container{
+            // border: thin solid black;
+            .notif-title-container{
+                // border: thin solid blue;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 0.3em;
+                .notif-title{
+                    color: $darker;
+                    font-weight: 500;
+                    font-size: 0.9em;
+                }
+            }
+            .contents-container{
+                color: $light;
+                font-weight: 400;
+                font-size: 0.8em;
+                min-width: 10vw;
+                width: 24vw;
+                max-width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+    }
+}
+
+.inbox-detail-container{
+    border: thin solid blue;
+    height:100%;
+    flex: 0 0 50%;
+}
