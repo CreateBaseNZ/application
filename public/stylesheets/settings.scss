@@ -114,6 +114,7 @@ input[type=password] {
   padding-left: 5vw;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  column-gap: calc(#{$field-height} * 0.75);
   transition: width 0.4s $bez, border-left 0.4s $bez, padding-left 0.4s $bez;
   .input-container {
     height: $field-height;
@@ -123,9 +124,16 @@ input[type=password] {
     input {
       background: transparent;
       border-radius: 0.75em;
-      margin-right: calc(#{$field-height} * 0.75);
       transition: background-color 0.4s ease-out, line-height 0.4s $bez, padding-left 0.4s $bez;
     }
+  }
+  .save-container {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: $field-height;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 
@@ -191,6 +199,7 @@ input[type=password] {
   object-fit: cover;
   grid-row-start: 1;
   grid-row-end: 3;
+  transition: height 0.4s $bez, width 0.4s $bez;
 }
 
 .badges-container {
@@ -291,6 +300,10 @@ input[type=password] {
     #pass-conf-container {
       visibility: visible;
       opacity: 1;
+    }
+    .avatar {
+      height: calc(#{$field-height} * 1.5 * 1.75);
+      width: calc(#{$field-height} * 1.5 * 1.75);
     }
   }
 }
