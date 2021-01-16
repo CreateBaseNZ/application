@@ -74,8 +74,8 @@ ROUTERS
 const generalRouter = require("./routes/general.js");
 app.use(generalRouter);
 
-const homeRouter = require("./routes/home.js");
-app.use(homeRouter);
+const accountRouter = require("./routes/account.js");
+app.use(accountRouter);
 
 /* ==========================================================
 END

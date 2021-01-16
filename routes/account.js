@@ -154,7 +154,7 @@ router.post("/change-password/request", async (req, res) => {
   return res.send({ status: "succeeded", content: "" });
 });
 
-// @route   POST /change-password
+// @route   POST /change-password/submit
 // @desc
 // @access  STRICTLY PUBLIC
 router.post("/change-password/submit", async (req, res) => {
@@ -165,6 +165,39 @@ router.post("/change-password/submit", async (req, res) => {
   // Change password
   try {
     await Account.changePassword({ email, password, code });
+  } catch (data) {
+    return res.send(data);
+  }
+  // Success handler
+  return res.send({ status: "succeeded", content: "" });
+});
+
+// @route   POST /verify-account/request
+// @desc
+// @access  STRICTLY PUBLIC
+router.post("/verify-account/request", async (req, res) => {
+  // Declare variables
+  const email = req.user.email;
+  // Send email verification
+  try {
+    await Account.sendVerificationEmail(email);
+  } catch (data) {
+    return res.send(data);
+  }
+  // Success handler
+  return res.send({ status: "succeeded", content: "" });
+});
+
+// @route   POST /verify-account/submit
+// @desc
+// @access  STRICTLY PUBLIC
+router.post("/verify-account/submit", async (req, res) => {
+  // Declare variables
+  const email = req.body.email;
+  const code = req.body.code;
+  // Verify account
+  try {
+    await Account.verify({ email, code });
   } catch (data) {
     return res.send(data);
   }

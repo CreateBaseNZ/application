@@ -86,7 +86,7 @@ AccountSchema.statics.build = function (object = {}, save = true) {
       return reject(data);
     }
     // GENERATE VERIFICATION CODE
-    const verificationCode = this.generateVerificationCode();
+    const verificationCode = this.generateCode();
     object.verification = { code: verificationCode };
     // SET DATES
     const date = moment().tz("Pacific/Auckland").format();
@@ -217,7 +217,7 @@ PASSWORD
 AccountSchema.statics.initialiseChangePassword = function (account = {}) {
   return new Promise(async (resolve, reject) => {
     // Prepare the change password code and status
-    account.changePassword.code = this.generateVerificationCode();
+    account.changePassword.code = this.generateCode();
     account.changePassword.status = true;
     // Save the changes in account
     try {
@@ -451,7 +451,41 @@ VERIFICATION
 // @desc
 AccountSchema.statics.sendVerificationEmail = function (email = "") {
   return new Promise(async (resolve, reject) => {
-
+    // Fetch the account and user
+    let account;
+    try {
+      account = await this.validateEmail(email);
+    } catch (data) {
+      return reject(data);
+    }
+    let user;
+    try {
+      user = await User.findOne({ owner: account._id });
+    } catch (error) {
+      return reject({ status: "error", content: error });
+    }
+    // Generate a new code
+    account.verification.code = this.generateCode();
+    try {
+      await account.save();
+    } catch (error) {
+      return reject({ status: "error", content: error });
+    }
+    // Send account verification
+    let emailObject;
+    try {
+      emailObject = await this.draftVerificationEmail(account, user);
+    } catch (data) {
+      return reject(data);
+    }
+    emailObject.email = account.email;
+    try {
+      await email.send(emailObject);
+    } catch (data) {
+      return reject(data);
+    }
+    // Success handler
+    return resolve();
   });
 }
 
@@ -612,7 +646,30 @@ li{
 // @desc
 AccountSchema.statics.verify = function (object = {}, save = true) {
   return new Promise(async (resolve, reject) => {
-
+    // VALIDATE
+    // Validate email
+    let account;
+    try {
+      account = await this.validateEmail(object.email);
+    } catch (data) {
+      return reject(data);
+    }
+    // Validate code
+    if (account.verification.status) return reject({ status: "failed", content: "Account is already verified" });
+    const match = account.verification.code === object.code;
+    if (!match) return reject({ status: "failed", content: "Incorrect code" });
+    // UPDATE
+    account.verification.status = true;
+    // Save
+    if (save) {
+      try {
+        await account.save();
+      } catch (error) {
+        return reject({ status: "error", content: error });
+      }
+    }
+    // SUCCESS
+    return resolve();
   });
 }
 
@@ -620,10 +677,10 @@ AccountSchema.statics.verify = function (object = {}, save = true) {
 OTHER
 ---------------------------------------------------------- */
 
-// @func  generateVerificationCode
+// @func  generateCode
 // @type  STATICS
 // @desc
-AccountSchema.statics.generateVerificationCode = function () {
+AccountSchema.statics.generateCode = function () {
   return String(Math.floor(100000 + Math.random() * 900000));
 }
 
