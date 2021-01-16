@@ -413,3 +413,18 @@ input[type=password] {
     } 
   }
 }
+
+.badge-edit-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 50vh;
+  display: flex;
+  .badge-menu {
+
+  }
+  .badge-info {
+    
+  }
+}

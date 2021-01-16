@@ -2,6 +2,7 @@ import Sortable from '../../node_modules/sortablejs/modular/sortable.core.esm.js
 
 const badges = ['trophy', 'medal', 'console', 'loyal', 'grad'];
 const trophyCase = document.querySelector('.badges-container');
+const badgeMenu = document.querySelector('.badge-menu');
 for (var i = 0; i < 10; i++) {
   const badge = badges[Math.floor(Math.random()*badges.length)];
   var el = document.createElement('div');
@@ -11,6 +12,18 @@ for (var i = 0; i < 10; i++) {
   img.src = '/public/images/badges/' + badge + '.png';
   el.appendChild(img);
   trophyCase.appendChild(el);
+  badgeMenu.appendChild(el);
+}
+
+for (var i = 0; i < 50; i++) {
+  const badge = badges[Math.floor(Math.random()*badges.length)];
+  var el = document.createElement('div');
+  el.className = 'badge ' + badge;
+  el.setAttribute('caption', badge);
+  var img = document.createElement('img');
+  img.src = '/public/images/badges/' + badge + '.png';
+  el.appendChild(img);
+  badgeMenu.appendChild(el);
 }
 
 document.getElementById('name').value = 'Jane Doe';

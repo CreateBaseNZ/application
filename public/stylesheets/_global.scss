@@ -71,6 +71,16 @@ body {
   pointer-events: none !important;
 }
 
+.darken-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: $darkest;
+  opacity: 0.25;
+}
+
 // ----- ICONS -----
 
 .md-18 { font-size: 18px; }
