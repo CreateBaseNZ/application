@@ -1,10 +1,12 @@
 import Sortable from '../../node_modules/sortablejs/modular/sortable.core.esm.js';
 
-const badges = ['trophy', 'medal', 'console', 'loyal', 'grad'];
+const badges = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 const trophyCase = document.querySelector('.badges-container');
-const badgeMenu = document.querySelector('.badge-menu');
-for (var i = 0; i < 10; i++) {
-  const badge = badges[Math.floor(Math.random()*badges.length)];
+
+for (var i = 0; i < 8; i++) {
+  const rand = Math.floor(Math.random()*badges.length);
+  const badge = badges[rand];
+  badges.splice(rand, 1);
   var el = document.createElement('div');
   el.className = 'badge ' + badge;
   el.setAttribute('caption', badge);
@@ -12,11 +14,13 @@ for (var i = 0; i < 10; i++) {
   img.src = '/public/images/badges/' + badge + '.png';
   el.appendChild(img);
   trophyCase.appendChild(el);
-  badgeMenu.appendChild(el);
 }
 
+const badgeMenu = document.querySelector('.badge-menu');
+const badges2 = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
+
 for (var i = 0; i < 50; i++) {
-  const badge = badges[Math.floor(Math.random()*badges.length)];
+  const badge = badges2[Math.floor(Math.random()*badges2.length)];
   var el = document.createElement('div');
   el.className = 'badge ' + badge;
   el.setAttribute('caption', badge);

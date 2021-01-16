@@ -273,14 +273,10 @@ input[type=password] {
   overflow: hidden;
   transition: width 0.4s $bez;
   .badge {
-    pointer-events: none;
     width: calc(#{$field-height}/2);
     height: calc(#{$field-height}/2);
+    padding: calc(#{$field-height}/2 * 0.15);
     transition: width 0.4s $bez, height 0.4s $bez, opacity 0.2s ease-out;
-    img {
-      width: 100%;
-      height: 100%;
-    }
   }
   &::after {
     content: 'CONFIGURE';
@@ -414,17 +410,144 @@ input[type=password] {
   }
 }
 
-.badge-edit-window {
+.badge-edit-screen {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: calc(50% + 75px);
   transform: translate(-50%, -50%);
-  max-height: 50vh;
   display: flex;
-  .badge-menu {
+  flex-direction: column;
+  align-items: flex-end;
+}
 
+.badge-edit-window {
+  max-height: 60vh;
+  display: flex;
+  overflow: hidden;
+  border-radius: 2rem;
+  box-shadow: 0 1rem 2rem -1rem $dark;
+
+  .badge-menu {
+    position: relative;
+    background: $lightest;
+    height: 100%;
+    padding: 2.5rem;
+    width: 50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    max-height: inherit;
+    .drag-tooltip {
+      position: absolute;
+      right: 4rem;
+      font-size: 0.75rem;
+      color: $light;
+      transform: translateY(-100%);
+    }
+    .badge {
+      height: 7rem;
+      width: 7rem;
+      padding: calc(7rem * 0.15);
+    }
+    &::after {
+      content: '';
+      visibility: hidden;
+      flex-grow: 2;
+      height: 1px;
+      width: 1px;
+    }
   }
   .badge-info {
-    
+    position: relative;
+    background: $bg-grey;
+    width: 20rem;
+    padding: 3rem;
+    padding-right: calc(3rem + 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-image: url(/public/images/showcase.png);
+    background-size: cover;
   }
 }
+
+.badge-edit-btn {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > * {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    color: $lightest;
+  }
+  .done-btn {
+    background: #29E9BA;
+    margin-left: 1em;
+    box-shadow: 0 0.5em 1em 0em $green;
+    i {
+      margin-right: 0.15em;
+    }
+  }
+  .close-btn {
+    background: $red;
+    box-shadow: 0 0.5em 1em 0em rgba(250,111,111,0.75);
+  }
+}
+
+.badge-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  .badge-showcase {
+    width: 11rem;
+    height: 11rem;
+    padding: 1.65rem;
+    margin-bottom: 0.5rem;
+    align-self: center;
+  }
+  .badge-name {
+    font-size: 2rem;
+    color: $dark;
+    font-weight: 600;
+    line-height: 120%;
+  }
+  .badge-status {
+    font-size: 0.75rem;
+    color: $green;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+    display: none;
+    align-items: center;
+    i {
+      font-size: inherit;
+      margin-right: 0.5em;
+    }
+  }
+  .badge-about {
+    font-size: 0.75rem;
+    line-height: 175%;
+  }
+}
+
+.badge-details.badge-achieved > .badge-status { display: flex; }
+
+.badge-showcase.trophy { filter: drop-shadow(0 0.625rem 1.5625rem $trophy-col); }
+.badge-showcase.loyal { filter: drop-shadow(0 0.625rem 1.5625rem $loyal-col); }
+.badge-showcase.console { filter: drop-shadow(0 0.625rem 1.5625rem $console-col); }
+.badge-showcase.medal { filter: drop-shadow(0 0.625rem 1.5625rem $medal-col); }
+.badge-showcase.grad { filter: drop-shadow(0 0.625rem 1.5625rem $grad-col); }
+.badge-showcase.review { filter: drop-shadow(0 0.625rem 1.5625rem $review-col); }
+.badge-showcase.love { filter: drop-shadow(0 0.625rem 1.5625rem $love-col); }
+.badge-showcase.verified { filter: drop-shadow(0 0.625rem 1.5625rem $verified-col); }
+.badge-showcase.tour { filter: drop-shadow(0 0.625rem 1.5625rem $tour-col); }

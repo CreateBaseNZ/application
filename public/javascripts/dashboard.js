@@ -1,20 +1,23 @@
-const badges = ['trophy', 'medal', 'console', 'loyal', 'grad'];
+const badges = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 const trophyCase = document.querySelector('.trophy-case');
 
-for (var i = 0; i < 6; i++) {
-  const badge = badges[Math.floor(Math.random()*badges.length)];
+for (var i = 0; i < 8; i++) {
+  const rand = Math.floor(Math.random()*badges.length);
+  const badge = badges[rand];
+  badges.splice(rand, 1);
   var el = document.createElement('div');
-  el.className = 'badge ' + badge;
+  el.className = 'badge db-badge ' + badge;
   el.setAttribute('caption', badge);
   var img = document.createElement('img');
   img.src = '/public/images/badges/' + badge + '.png';
   el.appendChild(img);
   trophyCase.appendChild(el);
 }
-for (var i = 0; i < 4; i++) {
+
+for (var i = 0; i < 2; i++) {
   const badge = 'empty';
   var el = document.createElement('div');
-  el.className = 'badge ' + badge;
+  el.className = 'badge db-badge ' + badge;
   el.setAttribute('caption', badge);
   var img = document.createElement('img');
   img.src = '/public/images/badges/' + badge + '.png';

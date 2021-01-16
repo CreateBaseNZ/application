@@ -17,6 +17,16 @@ $bg-grey: #FBFBFB;
 $horiz-space: 3vw;
 $vert-space: 4vh;
 
+$trophy-col: #EEC1A9;
+$loyal-col: #C1DEAA;
+$console-col: #C7B6CF;
+$medal-col: #99D3D0;
+$grad-col: #DBAACD;
+$review-col: #D6CFC6;
+$love-col: #AABEF5;
+$verified-col: #BCC8D5;
+$tour-col: #ECD3A8;
+
 * {
   margin: 0;
   border: none;
@@ -533,32 +543,13 @@ span {
 // ----- BADGES ----- 
 
 .badge {
-  position: relative;
+  height: 5rem;
+  width: 5rem;
+  padding: 0.75rem;
   img {
-    transition: filter 0.1s ease-out;
-  }
-  &::after {
-    content: attr(caption);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    text-align: center;
-    transform: translate(-50%, calc(-50% - 2px));
-    color: $lightest;
-    opacity: 0;
-    text-transform: uppercase;
-    font-size: 0.5rem;
-    font-weight: 700;
-    letter-spacing: 0.125em;
-    transition: opacity 0.1s ease-out;
-  }
-  &:hover {
-    img {
-      filter: brightness(0.8) blur(1px);
-    }
-    &::after {
-      opacity: 1;
-    }
+    transform: rotate(-45deg);
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -567,12 +558,7 @@ span {
 // .badge.console::after { content: 'Console'; }
 // .badge.loyal::after { content: 'Loyal'; }
 // .badge.graduation::after { content: 'Grad'; }
-.badge.empty {
-  cursor: pointer;
-  &::after {
-    content: 'Click to edit';
-  }
-}
+
 
 .scrollable {
   overflow-y: auto;

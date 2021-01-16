@@ -21,8 +21,7 @@
   }
   .trophy-case {
     margin-left: 2vw;
-    max-width: 425px;
-    max-height: 170px;
+    height: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,6 +148,39 @@ h2 {
   .stat-fig-container > .stat-fig-val { color: #96CAF7; }
 }
 
-// .shop-container {
-//   display: flex;
-// }
+.db-badge {
+  position: relative;
+  img {
+    transition: filter 0.1s ease-out;
+  }
+  &::after {
+    content: attr(caption);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    color: $lightest;
+    opacity: 0;
+    text-transform: uppercase;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.125em;
+    transition: opacity 0.1s ease-out;
+  }
+  &:hover {
+    img {
+      filter: brightness(0.8) blur(1px);
+    }
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.db-badge.empty {
+  cursor: pointer;
+  &::after {
+    content: 'Click to edit';
+  }
+}
