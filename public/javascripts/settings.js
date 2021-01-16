@@ -1,5 +1,8 @@
 import Sortable from '../../node_modules/sortablejs/modular/sortable.core.esm.js';
 
+const darkenOverlay = document.querySelector('.darken-overlay');
+const badgeConfigScreen = document.querySelector('.badge-edit-screen');
+
 const badges = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 const trophyCase = document.querySelector('.badges-container');
 
@@ -16,11 +19,15 @@ for (var i = 0; i < 8; i++) {
   trophyCase.appendChild(el);
 }
 
+trophyCase.addEventListener('click', () => {
+  badgeConfigScreen.classList.toggle('hide')
+  darkenOverlay.classList.toggle('hide')
+})
+
 const badgeMenu = document.querySelector('.badge-menu');
 const badges2 = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 
-for (var i = 0; i < 50; i++) {
-  const badge = badges2[Math.floor(Math.random()*badges2.length)];
+badges2.forEach((badge) => {
   var el = document.createElement('div');
   el.className = 'badge ' + badge;
   el.setAttribute('caption', badge);
@@ -28,16 +35,16 @@ for (var i = 0; i < 50; i++) {
   img.src = '/public/images/badges/' + badge + '.png';
   el.appendChild(img);
   badgeMenu.appendChild(el);
-}
+})
 
-document.getElementById('name').value = 'Jane Doe';
-document.getElementById('email').value = 'jane.doe@gmail.com';
-document.getElementById('pass').value = 'Lorem ipsum password';
-document.getElementById('street').value = '16 Dapple Place';
-document.getElementById('zip').value = '2019';
-document.getElementById('city').value = 'Auckland';
-document.getElementById('state').value = 'Auckland';
-document.getElementById('country').value = 'New Zealand';
+document.querySelector('#name').value = 'Jane Doe';
+document.querySelector('#email').value = 'jane.doe@gmail.com';
+document.querySelector('#pass').value = 'Lorem ipsum password';
+document.querySelector('#street').value = '16 Dapple Place';
+document.querySelector('#zip').value = '2019';
+document.querySelector('#city').value = 'Auckland';
+document.querySelector('#state').value = 'Auckland';
+document.querySelector('#country').value = 'New Zealand';
 
 
 
@@ -66,13 +73,29 @@ passVis.addEventListener('click', function (e) {
   this.classList.toggle('visible');
 })
 
-const passConfVis = document.getElementById('pass-conf-vis');
-const passConf = document.getElementById('pass-conf');
+const passConfVis = document.querySelector('#pass-conf-vis');
+const passConf = document.querySelector('#pass-conf');
 
 passConfVis.addEventListener('click', function (e) {
   const type = passConf.getAttribute('type') === 'password' ? 'text' : 'password';
   passConf.setAttribute('type', type);
   this.classList.toggle('visible');
+})
+
+const badgeConfigDone = document.querySelector('.done-btn');
+const badgeConfigClose = document.querySelector('.close-btn');
+
+
+
+badgeConfigDone.addEventListener('click', () => {
+  // update config
+  badgeConfigScreen.classList.toggle('hide');
+  darkenOverlay.classList.toggle('hide');
+})
+badgeConfigClose.addEventListener('click', () => {
+  // revert to old config
+  badgeConfigScreen.classList.toggle('hide');
+  darkenOverlay.classList.toggle('hide');
 })
 
 // /* ========================================================================================

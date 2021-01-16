@@ -421,26 +421,28 @@ input[type=password] {
 }
 
 .badge-edit-window {
-  max-height: 60vh;
+  height: 60vh;
   display: flex;
+  align-items: flex-start;
   overflow: hidden;
   border-radius: 2rem;
   box-shadow: 0 1rem 2rem -1rem $dark;
+  background: $lightest;
 
   .badge-menu {
     position: relative;
     background: $lightest;
-    height: 100%;
-    padding: 2.5rem;
+    padding: 3rem;
     width: 50vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-wrap: wrap;
-    max-height: inherit;
+    max-height: 100%;
     .drag-tooltip {
       position: absolute;
-      right: 4rem;
+      left: 4rem;
       font-size: 0.75rem;
       color: $light;
       transform: translateY(-100%);
@@ -450,17 +452,11 @@ input[type=password] {
       width: 7rem;
       padding: calc(7rem * 0.15);
     }
-    &::after {
-      content: '';
-      visibility: hidden;
-      flex-grow: 2;
-      height: 1px;
-      width: 1px;
-    }
   }
   .badge-info {
     position: relative;
     background: $bg-grey;
+    height: 100%;
     width: 20rem;
     padding: 3rem;
     padding-right: calc(3rem + 8px);
@@ -486,14 +482,18 @@ input[type=password] {
     padding: 0.75rem 1.5rem;
     border-radius: 999px;
     color: $lightest;
+    transition: filter 0.2s ease-out;
+    i {
+      margin-right: 0.15em;
+    }
+    &:hover {
+      filter: brightness(0.95);
+    }
   }
   .done-btn {
     background: #29E9BA;
     margin-left: 1em;
     box-shadow: 0 0.5em 1em 0em $green;
-    i {
-      margin-right: 0.15em;
-    }
   }
   .close-btn {
     background: $red;
