@@ -28,31 +28,28 @@ const badgeMenu = document.querySelector('.badge-menu');
 const badges2 = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 
 badges2.forEach((badge) => {
-  var el = document.createElement('label');
-  el.htmlfor = 'config-' + badge;
-  el.className = 'badge ' + badge;
-  el.setAttribute('caption', badge);
+  var el = document.createElement('div');
+  el.className = 'config-badge ' + badge;
+  var label = document.createElement('label');
   var input = document.createElement('input');
   input.type = 'radio';
   input.id = 'config-' + badge;
   input.name = 'badge-config';
-  el.appendChild(input)
   var img = document.createElement('img');
   img.src = '/public/images/badges/' + badge + '.png';
-  el.appendChild(img);
+  label.appendChild(input)
+  label.appendChild(img)
+  el.appendChild(label)
   input.addEventListener('change', function() {
+    if (document.querySelector('.badge-details-show')) {
+      document.querySelector('.badge-details-show').classList.remove('badge-details-show')
+    }
     if (this.checked) {
-      document.querySelector('.' + '-details').classList.add('badge-info-show')
-    } else {
-      document.querySelector('.badge-info-show').classList.remove('badge-info-show')
+      document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
     }
   })
   badgeMenu.appendChild(el);
 })
-
-
-
-// badgeMenu.querySelector('.badge').querySelector('input').checked = true;
 
 document.querySelector('#name').value = 'Jane Doe';
 document.querySelector('#email').value = 'jane.doe@gmail.com';

@@ -487,15 +487,31 @@ input[type=password] {
       color: $light;
       transform: translateY(-100%);
     }
-    .badge {
+    .config-badge {
       height: 7rem;
       width: 7rem;
       padding: calc(7rem * 0.15);
-      input {
-        // display: none;
-      }
-      img {
+      label {
         cursor: pointer;
+        height: 100%;
+        width: 100%;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: filter 0.1s ease-out, margin 0.1s ease-out;
+        input {
+          display: none;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+        }
+        &:hover {
+          filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
+          margin-top: -2px;
+          margin-bottom: -2px;
+        }
       }
     }
   }
@@ -506,15 +522,12 @@ input[type=password] {
     width: 20rem;
     padding: 3rem;
     padding-right: calc(3rem + 8px);
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     background-image: url(/public/images/showcase.png);
     background-size: cover;
-  }
-  .badge-info.badge-info-show {
-    display: flex;
   }
 }
 
@@ -551,7 +564,7 @@ input[type=password] {
 }
 
 .badge-details {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -560,34 +573,45 @@ input[type=password] {
     width: 11rem;
     height: 11rem;
     padding: 1.65rem;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
     align-self: center;
+    animation: show-badge-large 1.6s forwards;
   }
   .badge-name {
     font-size: 2rem;
     color: $dark;
     font-weight: 600;
     line-height: 120%;
+    margin-bottom: 0.3rem;
   }
   .badge-status {
     font-size: 0.75rem;
     color: $green;
     font-weight: 700;
     letter-spacing: 0.05em;
-    line-height: 2.5rem;
+    line-height: 200%;
     text-transform: uppercase;
     display: none;
     align-items: center;
     i {
-      font-size: inherit;
+      font-size: 1rem;
       margin-right: 0.5em;
+      filter: drop-shadow(0 0 0.2em $green); 
+      animation: show-badge-tick 1.6s forwards;
+    }
+    span {
+      text-shadow: 0 0 1em $green;
+      animation: show-badge-achieved 1.6s forwards;
     }
   }
   .badge-about {
     font-size: 0.75rem;
     line-height: 175%;
+    margin-top: 0.6rem;
   }
 }
+
+.badge-details-show { display: flex; }
 
 .badge-details.badge-achieved > .badge-status { display: flex; }
 
@@ -600,3 +624,59 @@ input[type=password] {
 .badge-showcase.love { filter: drop-shadow(0 0.625rem 1.5625rem $love-col); }
 .badge-showcase.verified { filter: drop-shadow(0 0.625rem 1.5625rem $verified-col); }
 .badge-showcase.tour { filter: drop-shadow(0 0.625rem 1.5625rem $tour-col); }
+
+@keyframes show-badge-large {
+  0% {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+  }
+  60% {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    opacity: 1;
+  }
+  100% {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    opacity: 1;
+  }
+}
+
+@keyframes show-badge-tick {
+  0% {
+    opacity: 0;
+    margin-top: 2px;
+    margin-bottom: -2px;
+  }
+  60% {
+    opacity: 0;
+    margin-top: 2px;
+    margin-bottom: -2px;
+  }
+  80% {
+    opacity: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  100% {
+    opacity: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes show-badge-achieved {
+  0% {
+    opacity: 0;
+    margin-left: -2px;
+  }
+  80% {
+    opacity: 0;
+    margin-left: -2px;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 0;
+  }
+}
