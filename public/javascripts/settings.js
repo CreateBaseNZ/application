@@ -28,14 +28,31 @@ const badgeMenu = document.querySelector('.badge-menu');
 const badges2 = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 
 badges2.forEach((badge) => {
-  var el = document.createElement('div');
+  var el = document.createElement('label');
+  el.htmlfor = 'config-' + badge;
   el.className = 'badge ' + badge;
   el.setAttribute('caption', badge);
+  var input = document.createElement('input');
+  input.type = 'radio';
+  input.id = 'config-' + badge;
+  input.name = 'badge-config';
+  el.appendChild(input)
   var img = document.createElement('img');
   img.src = '/public/images/badges/' + badge + '.png';
   el.appendChild(img);
+  input.addEventListener('change', function() {
+    if (this.checked) {
+      document.querySelector('.' + '-details').classList.add('badge-info-show')
+    } else {
+      document.querySelector('.badge-info-show').classList.remove('badge-info-show')
+    }
+  })
   badgeMenu.appendChild(el);
 })
+
+
+
+// badgeMenu.querySelector('.badge').querySelector('input').checked = true;
 
 document.querySelector('#name').value = 'Jane Doe';
 document.querySelector('#email').value = 'jane.doe@gmail.com';

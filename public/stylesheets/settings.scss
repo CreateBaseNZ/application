@@ -2,11 +2,9 @@
 $field-height: 4em;
 $bez: cubic-bezier(.15,.51,.51,.97);
 
-.ui-container {
-  margin-right: calc(#{$horiz-space} / 2);
-  padding-right: calc(#{$horiz-space} / 2);
-  flex-direction: column;
-}
+// ==========================================
+// GENERAL STYLES
+// ==========================================
 
 h2 {
   font-size: 1.5em;
@@ -34,6 +32,20 @@ input[type=password] {
   }
 }
 
+// ==========================================
+// UI CONTAINER
+// ==========================================
+
+.ui-container {
+  margin-right: calc(#{$horiz-space} / 2);
+  padding-right: calc(#{$horiz-space} / 2);
+  flex-direction: column;
+}
+
+// ==========================================
+// DELETE ACCOUNT
+// ==========================================
+
 .delete-container {
   width: 100%;
   display: flex;
@@ -58,6 +70,10 @@ input[type=password] {
     }
   }
 }
+
+// ==========================================
+// SECTIONS
+// ==========================================
 
 .section {
   cursor: pointer;
@@ -182,6 +198,10 @@ input[type=password] {
   }
 }
 
+// ==========================================
+// BUTTONS & ICONS
+// ==========================================
+
 .switch-opt {
   align-self: flex-start;
   width: auto;
@@ -204,6 +224,10 @@ input[type=password] {
   }
 }
 
+// ==========================================
+// ACCOUNT SECTION
+// ==========================================
+
 .acc-container {
   .panel-left > i,
   .edit-btn {
@@ -217,40 +241,6 @@ input[type=password] {
     background: $blue-light;
     &:hover {
       box-shadow: 0 0.5em 1em -0.5em $blue-light;
-    }
-  }
-}
-
-.bill-container {
-  .panel-left > i,
-  .edit-btn {
-    color: $green; 
-  }
-  &:hover,
-  &.edit-mode {
-    box-shadow: 0 2em 4em -4em $green;
-  }
-  .btn-container > .save-btn { 
-    background: $green; 
-    &:hover {
-      box-shadow: 0 0.5em 1em -0.5em $green;
-    }
-  }
-}
-
-.address-container {
-  .panel-left > i,
-  .edit-btn {
-    color: $orange; 
-  }
-  &:hover,
-  &.edit-mode {
-    box-shadow: 0 2em 4em -4em $orange;
-  }
-  .btn-container > .save-btn {
-    background: $orange; 
-    &:hover {
-      box-shadow: 0 0.5em 1em -0.5em $orange;
     }
   }
 }
@@ -271,6 +261,7 @@ input[type=password] {
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
+  position: relative;
   transition: width 0.4s $bez;
   .badge {
     width: calc(#{$field-height}/2);
@@ -293,6 +284,14 @@ input[type=password] {
     border: thin solid $blue-light;
     opacity: 0;
     transition: opacity 0.2s ease-out;
+  }
+  &:hover {
+    .badge {
+      opacity: 0.5;
+    }
+    &::after {
+      opacity: 1;
+    }
   }
 }
 
@@ -327,6 +326,27 @@ input[type=password] {
   transition: opacity 0.4s ease-out;
 }
 
+// ==========================================
+// BILLING SECTION
+// ==========================================
+
+.bill-container {
+  .panel-left > i,
+  .edit-btn {
+    color: $green; 
+  }
+  &:hover,
+  &.edit-mode {
+    box-shadow: 0 2em 4em -4em $green;
+  }
+  .btn-container > .save-btn { 
+    background: $green; 
+    &:hover {
+      box-shadow: 0 0.5em 1em -0.5em $green;
+    }
+  }
+}
+
 .icon-container.paypal {
   background: rgba(0, 113, 187, 0.1);
   i {
@@ -339,6 +359,31 @@ input[type=password] {
     color: #6772E5;
   }
 }
+
+// ==========================================
+// ADDRESS SECTION
+// ==========================================
+
+.address-container {
+  .panel-left > i,
+  .edit-btn {
+    color: $orange; 
+  }
+  &:hover,
+  &.edit-mode {
+    box-shadow: 0 2em 4em -4em $orange;
+  }
+  .btn-container > .save-btn {
+    background: $orange; 
+    &:hover {
+      box-shadow: 0 0.5em 1em -0.5em $orange;
+    }
+  }
+}
+
+// ==========================================
+// SECTION EDIT MODE
+// ==========================================
 
 .section.edit-mode {
   cursor: auto;
@@ -398,17 +443,13 @@ input[type=password] {
         width: calc(#{$field-height}/2 * 1.5);
         height: calc(#{$field-height}/2 * 1.5);
       }
-      &:hover {
-        .badge {
-          opacity: 0.5;
-        }
-        &::after {
-        opacity: 1;
-        }
-      }
     } 
   }
 }
+
+// ==========================================
+// BADGE CONFIG SCREEN
+// ==========================================
 
 .badge-edit-screen {
   position: absolute;
@@ -428,7 +469,6 @@ input[type=password] {
   border-radius: 2rem;
   box-shadow: 0 1rem 2rem -1rem $dark;
   background: $lightest;
-
   .badge-menu {
     position: relative;
     background: $lightest;
@@ -451,6 +491,12 @@ input[type=password] {
       height: 7rem;
       width: 7rem;
       padding: calc(7rem * 0.15);
+      input {
+        // display: none;
+      }
+      img {
+        cursor: pointer;
+      }
     }
   }
   .badge-info {
@@ -460,12 +506,15 @@ input[type=password] {
     width: 20rem;
     padding: 3rem;
     padding-right: calc(3rem + 8px);
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     background-image: url(/public/images/showcase.png);
     background-size: cover;
+  }
+  .badge-info.badge-info-show {
+    display: flex;
   }
 }
 
