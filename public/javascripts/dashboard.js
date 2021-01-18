@@ -14,7 +14,7 @@ for (var i = 0; i < 8; i++) {
   trophyCase.appendChild(el);
 }
 
-for (var i = 0; i < 2; i++) {
+for (var i = 0; i < 4; i++) {
   const badge = 'empty';
   var el = document.createElement('div');
   el.className = 'badge db-badge ' + badge;
