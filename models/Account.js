@@ -43,6 +43,10 @@ const AccountSchema = new Schema({
   subscription: {
     newsletter: { type: Boolean, default: true },
     notification: { type: Boolean, default: true }
+  },
+  deactivated: {
+    status: { type: Boolean, default: true },
+    code: { type: String, default: "" }
   }
 });
 

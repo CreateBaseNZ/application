@@ -24,6 +24,18 @@ const strictlyPublicAccess = (req, res, next) => {
   }
 }
 
+const verifiedAccess = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    if (req.user.verification.status) {
+      return next();
+    } else {
+      return res.redirect("/verification");
+    }
+  } else {
+    return res.redirect("/");
+  }
+};
+
 /* ==========================================================
 ROUTES
 ========================================================== */
