@@ -16,10 +16,10 @@
   justify-content: space-evenly;
   align-items: center;
   flex: 1 1 25vh;
-  .db-dp {
+  .avatar {
     object-fit: cover;
-    height: 20vh;
-    width: 20vh;
+    height: 18vh;
+    width: 18vh;
     border-radius: 50%;
     box-shadow: 0 10px 30px -20px $darkest;
   }
@@ -41,7 +41,7 @@ h2 {
 .recent-container {
   display: flex;
   flex: 1 1 27vh;
-  padding: 1.5vh 0 2.5vh 0;
+  padding: 1vh 0 2.5vh 0;
   .project-card:first-child {
     margin-right: 1vw;
   }

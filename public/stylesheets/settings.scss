@@ -320,7 +320,9 @@ input[type=password] {
   }
 }
 
-.pass-conf-container {
+.input-container.pass-conf-container {
+  display: none;
+  height: 0;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.4s ease-out;
@@ -449,8 +451,10 @@ input[type=password] {
       opacity: 1;
     }
     .pass-conf-container {
+      display: flex;
       visibility: visible;
       opacity: 1;
+      height: $field-height;
     }
     .avatar {
       height: calc(#{$field-height} * 1.5 * 1.75);
@@ -601,7 +605,6 @@ input[type=password] {
     img {
       animation: show-badge-large 2s forwards;
     }
-    // animation: show-badge-large 2s forwards;
   }
   .badge-name {
     font-size: 2rem;

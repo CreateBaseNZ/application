@@ -16,13 +16,107 @@ for (var i = 0; i < 8; i++) {
 
 for (var i = 0; i < 4; i++) {
   const badge = 'empty';
-  var el = document.createElement('div');
+  var el = document.createElement('a');
+  el.href = '/settings';
   el.className = 'badge db-badge ' + badge;
   el.setAttribute('caption', badge);
   var img = document.createElement('img');
   img.src = '/public/images/badges/' + badge + '.png';
   el.appendChild(img);
   trophyCase.appendChild(el);
+}
+
+const recentContainer = document.querySelector('.recent-container');
+
+for (var i = 0; i < 2; i++) {
+  createProjectCard(recentContainer, 'small')
+}
+
+function createProjectCard(parentContainer, size) {
+
+  var card = document.createElement('div');
+  card.className = 'project-card in-progress blue ' + size
+  var tagsContainer = document.createElement('div')
+  tagsContainer.className = 'tags-container'
+  var tag1 = document.createElement('div')
+  tag1.className = 'project-tag progress-tag'
+  var progressIcon = document.createElement('div')
+  progressIcon.className = 'progress-tag-icon'
+  tag1.appendChild(progressIcon)
+  var progressSpan = document.createElement('span')
+  progressSpan.innerHTML = '80%'
+  tag1.appendChild(progressSpan)
+  tagsContainer.appendChild(tag1)
+  var tag2 = document.createElement('div')
+  tag2.className = 'project-tag'
+  tag2.innerHTML = 'AI'
+  tagsContainer.appendChild(tag2)
+  card.appendChild(tagsContainer)
+
+  var topRight = document.createElement('div')
+  topRight.className = 'progress-trophy'
+  var lightbulb = document.createElement('i')
+  lightbulb.className = 'material-icons-outlined recom-icon'
+  lightbulb.innerHTML = 'lightbulb'
+  topRight.appendChild(lightbulb)
+  var trophyWrapper = document.createElement('div')
+  trophyWrapper.className = 'trophy-wrapper'
+  var trophyBack = document.createElement('i')
+  trophyBack.className = 'material-icons-outlined trophy-back'
+  trophyBack.innerHTML = 'emoji_events'
+  trophyWrapper.appendChild(trophyBack)
+  var trophyContainer = document.createElement('div')
+  trophyContainer.className = 'trophy-container'
+  var trophy = document.createElement('i')
+  trophy.className = 'material-icons-round'
+  trophy.innerHTML = 'emoji_events'
+  trophyContainer.appendChild(trophy)
+  trophyWrapper.appendChild(trophyContainer)
+  topRight.appendChild(trophyWrapper)
+  card.appendChild(topRight)
+
+  var info = document.createElement('div')
+  info.className = 'project-info'
+  var rating = document.createElement('div')
+  rating.className = 'project-rating'
+  var ratingSpan = document.createElement('span')
+  ratingSpan.innerHTML = '4.8'
+  rating.appendChild(ratingSpan)
+  var ratingIcon = document.createElement('i')
+  ratingIcon.className = 'material-icons-round'
+  ratingIcon.innerHTML = 'star'
+  rating.appendChild(ratingIcon)
+  info.appendChild(rating)
+  var projectName = document.createElement('div')
+  projectName.className = 'project-name'
+  projectName.innerHTML = 'Machine Vision'
+  info.appendChild(projectName)
+  var about = document.createElement('div')
+  about.className = 'project-about'
+  about.innerHTML = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit'
+  info.appendChild(about)
+  var task = document.createElement('div')
+  task.className = 'current-task'
+  var taskSpan = document.createElement('span')
+  taskSpan.innerHTML = 'Lens calibration'
+  task.appendChild(taskSpan)
+  var taskIcon = document.createElement('i')
+  taskIcon.className = 'material-icons-round'
+  taskIcon.innerHTML = 'arrow_forward'
+  task.appendChild(taskIcon)
+  info.appendChild(task)
+  card.appendChild(info)
+
+  var number = document.createElement('div')
+  number.className = 'progress-number'
+  number.innerHTML = '80%'
+  card.appendChild(number)
+
+  var bar = document.createElement('div')
+  bar.className = 'progress-bar'
+  card.appendChild(bar)
+
+  parentContainer.appendChild(card)
 }
 
 
