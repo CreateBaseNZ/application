@@ -227,8 +227,8 @@ h2 {
     width: 100%;
     object-fit: cover;
     z-index: 0;
-    filter: none;
-    transition: filter 0.3s ease-out;
+    opacity: 0.85;
+    transition: opacity 0.2s ease-out;
   }
   i {
     z-index: 2;
@@ -244,11 +244,11 @@ h2 {
     height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: height 0.3s ease-out, opacity 0.3s ease-out;
+    transition: height 0.2s ease-out, opacity 0.2s ease-out;
   }
   &:hover {
     img {
-      filter: brightness(0.75);
+      opacity: 1;
     }
     .other-text {
       opacity: 1;
