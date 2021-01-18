@@ -51,14 +51,17 @@ badges2.forEach((badge) => {
   badgeMenu.appendChild(el);
 })
 
-document.querySelector('#name').value = 'Jane Doe';
-document.querySelector('#email').value = 'jane.doe@gmail.com';
-document.querySelector('#pass').value = 'Lorem ipsum password';
-document.querySelector('#street').value = '16 Dapple Place';
-document.querySelector('#zip').value = '2019';
-document.querySelector('#city').value = 'Auckland';
-document.querySelector('#state').value = 'Auckland';
-document.querySelector('#country').value = 'New Zealand';
+document.querySelector('#prof-name').value = 'J Doe';
+document.querySelector('#prof-email').value = 'j.doe@gmail.com';
+document.querySelector('#prof-loc').value = 'Auckland, NZ';
+
+document.querySelector('#acc-name').value = 'Jane Doe';
+document.querySelector('#acc-email').value = 'jane.doe@gmail.com';
+document.querySelector('#acc-pass').value = 'Lorem ipsum password';
+document.querySelector('#acc-street').value = '16 Dapple Place';
+document.querySelector('#acc-zip').value = '2019';
+document.querySelector('#acc-city').value = 'Auckland';
+document.querySelector('#acc-country').value = 'New Zealand';
 
 
 
@@ -78,8 +81,8 @@ document.querySelectorAll('.section').forEach(function (el) {
   })
 })
 
-const passVis = document.getElementById('pass-vis');
-const pass = document.getElementById('pass');
+const passVis = document.querySelector('#acc-pass-vis');
+const pass = document.querySelector('#acc-pass');
 
 passVis.addEventListener('click', function (e) {
   const type = pass.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -87,8 +90,8 @@ passVis.addEventListener('click', function (e) {
   this.classList.toggle('visible');
 })
 
-const passConfVis = document.querySelector('#pass-conf-vis');
-const passConf = document.querySelector('#pass-conf');
+const passConfVis = document.querySelector('#acc-pass-conf-vis');
+const passConf = document.querySelector('#acc-pass-conf');
 
 passConfVis.addEventListener('click', function (e) {
   const type = passConf.getAttribute('type') === 'password' ? 'text' : 'password';

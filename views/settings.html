@@ -45,46 +45,30 @@
           <i class="material-icons-round md-18">person_off</i>
           <span>Delete account</span></button>
       </div>
-      <div class="section acc-container">
+      <div class="section profile-container">
         <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
-          <i class="material-icons-round md-24">person</i> 
-          <h2>Account</h2>
+          <i class="material-icons-round md-24">public</i> 
+          <h2>Profile</h2>
         </div>
         <div class="panel-right">
           <img src="/public/images/dp-example.jpg" class="avatar" alt="Avatar">
           <div class="input-container">
-            <h3>Name</h3>
-            <input type="text" id="name" placeholder="-">
+            <h3>Display Name</h3>
+            <input type="text" id="prof-name" placeholder="-">
           </div>
           <div class="input-container">
-            <h3>Email</h3>
-            <input type="text" id="email" placeholder="-">
-          </div>
-          <div class="input-container">
-            <h3>Location</h3>
-            <input type="text" id="loc" placeholder="-">
-          </div>
-          <div class="input-container pass-container">
-            <h3>Password</h3>
-            <input type="password" id="pass" placeholder="-">
-            <div class="vis-icon"><i id="pass-vis" class="material-icons-round md-18">visibility</i></div>
+            <h3>Display Email</h3>
+            <input type="text" id="prof-email" placeholder="-">
           </div>
           <div class="badges-container">
           </div>
           <div class="input-container">
-            <h3>Mailing List</h3>
-            <label for="mail" class="opt switch-opt blue-opt">
-              <input type="checkbox" id="mail" checked="checked">
-              <span>Subscribed</span>
-              <div class="switch-custom"></div>
-            </label>
+            <h3>Location</h3>
+            <input type="text" id="prof-loc" placeholder="-">
           </div>
-          <div id="pass-conf-container" class="input-container pass-container">
-            <h3>Confirm Password</h3>
-            <input type="password" id="pass-conf" placeholder="-">
-            <div class="vis-icon"><i id="pass-conf-vis" class="material-icons-round md-18">visibility</i></div>
-          </div>
+
+
           <div class="btn-container">
             <button class="cancel-btn"></button>
             <button class="save-btn"><i class="material-icons-round md-18">check</i></button>
@@ -130,36 +114,75 @@
           </div>
         </div>
       </div> -->
-      <div class="section address-container">
+      <div class="section acc-container">
         <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
-          <i class="material-icons-round md-24">markunread_mailbox</i> 
-          <h2>Address</h2>
+          <i class="material-icons-round md-24">person</i> 
+          <h2>Account</h2>
         </div>
         <div class="panel-right">
           <div class="input-container">
+            <h3>Name</h3>
+            <input type="text" id="acc-name" placeholder="-">
+          </div>
+          <div class="input-container">
             <h3>Street address</h3>
-            <input type="text" id="street" placeholder="-">
+            <input type="text" id="acc-street" placeholder="-">
           </div>
           <div class="input-container">
             <h3>Unit</h3>
-            <input type="text" id="unit" placeholder="-">
+            <input type="text" id="acc-unit" placeholder="-">
           </div>
           <div class="input-container">
-            <h3>Zip code</h3>
-            <input type="text" id="zip" placeholder="-">
+            <h3>Email</h3>
+            <input type="text" id="acc-email" placeholder="-">
           </div>
           <div class="input-container">
             <h3>Town / city</h3>
-            <input type="text" id="city" placeholder="-">
+            <input type="text" id="acc-city" placeholder="-">
           </div>
           <div class="input-container">
             <h3>State</h3>
-            <input type="text" id="state" placeholder="-">
+            <input type="text" id="acc-state" placeholder="-">
+          </div>
+          <div class="input-container pass-container">
+            <h3>Password</h3>
+            <input type="password" id="acc-pass" placeholder="-">
+            <div class="vis-icon"><i id="acc-pass-vis" class="material-icons-round md-18">visibility</i></div>
+          </div>
+          <div class="input-container">
+            <h3>Zip code</h3>
+            <input type="text" id="acc-zip" placeholder="-">
           </div>
           <div class="input-container">
             <h3>Country</h3>
-            <input type="text" id="country" placeholder="-">
+            <input type="text" id="acc-country" placeholder="-">
+          </div>
+          <div class="input-container pass-container pass-conf-container">
+            <h3>Confirm Password</h3>
+            <input type="password" id="acc-pass-conf" placeholder="-">
+            <div class="vis-icon"><i id="acc-pass-conf-vis" class="material-icons-round md-18">visibility</i></div>
+          </div>
+          <div class="btn-container">
+            <button class="cancel-btn"></button>
+            <button class="save-btn"><i class="material-icons-round md-18">check</i></button>
+          </div>
+        </div>
+      </div>
+      <div class="section notifs-container">
+        <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
+        <div class="panel-left">
+          <i class="material-icons-round md-24">notifications</i> 
+          <h2>Notifications</h2>
+        </div>
+        <div class="panel-right">
+          <div class="input-container">
+            <h3>Mailing List</h3>
+            <label for="mail" class="opt switch-opt orange-opt">
+              <input type="checkbox" id="mail" checked="checked">
+              <span>Subscribed</span>
+              <div class="switch-custom"></div>
+            </label>
           </div>
           <div class="btn-container">
             <button class="cancel-btn"></button>

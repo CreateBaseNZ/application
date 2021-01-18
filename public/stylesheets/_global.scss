@@ -240,6 +240,15 @@ span {
   }
 }
 
+.opt.orange-opt {
+  input {
+    &:checked ~ .radio-custom,
+    &:checked ~ .switch-custom {
+      background: $orange;
+    }
+  }
+}
+
 // ----- PROJECT CARDS -----
 
 .project-card {

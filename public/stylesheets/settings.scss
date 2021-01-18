@@ -228,19 +228,19 @@ input[type=password] {
 // ACCOUNT SECTION
 // ==========================================
 
-.acc-container {
+.profile-container {
   .panel-left > i,
   .edit-btn {
-    color: $blue-light; 
+    color: $green; 
   }
   &:hover,
   &.edit-mode {
-    box-shadow: 0 2em 4em -4em $blue-light;
+    box-shadow: 0 2em 4em -4em $green;
   }
   .btn-container > .save-btn { 
-    background: $blue-light;
+    background: $green;
     &:hover {
-      box-shadow: 0 0.5em 1em -0.5em $blue-light;
+      box-shadow: 0 0.5em 1em -0.5em $green;
     }
   }
 }
@@ -274,14 +274,14 @@ input[type=password] {
     font-weight: 600;
     letter-spacing: 0.15em;
     font-size: 0.625em;
-    color: $blue-light;
+    color: $green;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     padding: 0.75em 1.25em;
     border-radius: 999px;
-    border: thin solid $blue-light;
+    border: thin solid $green;
     opacity: 0;
     transition: opacity 0.2s ease-out;
   }
@@ -320,7 +320,7 @@ input[type=password] {
   }
 }
 
-#pass-conf-container {
+.pass-conf-container {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.4s ease-out;
@@ -361,17 +361,38 @@ input[type=password] {
 }
 
 // ==========================================
-// ADDRESS SECTION
+// ACCOUNT SECTION
 // ==========================================
 
-.address-container {
+.acc-container {
+  .panel-left > i,
+  .edit-btn {
+    color: $blue-light; 
+  }
+  &:hover,
+  &.edit-mode {
+    box-shadow: 0 2em 4em -4em $blue-light;
+  }
+  .btn-container > .save-btn {
+    background: $blue-light; 
+    &:hover {
+      box-shadow: 0 0.5em 1em -0.5em $blue-light;
+    }
+  }
+}
+
+// ==========================================
+// NOTIFICATIONS SECTION
+// ==========================================
+
+.notifs-container {
   .panel-left > i,
   .edit-btn {
     color: $orange; 
   }
   &:hover,
   &.edit-mode {
-    box-shadow: 0 2em 4em -4em $orange;
+    box-shadow: 0 1.5em 4em -3em $orange;
   }
   .btn-container > .save-btn {
     background: $orange; 
@@ -427,7 +448,7 @@ input[type=password] {
     .pass-container > .vis-icon {
       opacity: 1;
     }
-    #pass-conf-container {
+    .pass-conf-container {
       visibility: visible;
       opacity: 1;
     }
@@ -528,6 +549,9 @@ input[type=password] {
     justify-content: flex-start;
     background-image: url(/public/images/showcase.png);
     background-size: cover;
+    &::-webkit-scrollbar-track {
+      display: none;
+    }
   }
 }
 
@@ -573,9 +597,11 @@ input[type=password] {
     width: 11rem;
     height: 11rem;
     padding: 1.65rem;
-    // margin-bottom: 0.5rem;
     align-self: center;
-    animation: show-badge-large 1.6s forwards;
+    img {
+      animation: show-badge-large 2s forwards;
+    }
+    // animation: show-badge-large 2s forwards;
   }
   .badge-name {
     font-size: 2rem;
@@ -583,6 +609,7 @@ input[type=password] {
     font-weight: 600;
     line-height: 120%;
     margin-bottom: 0.3rem;
+    animation: show-badge-name 2s forwards;
   }
   .badge-status {
     font-size: 0.75rem;
@@ -597,17 +624,18 @@ input[type=password] {
       font-size: 1rem;
       margin-right: 0.5em;
       filter: drop-shadow(0 0 0.2em $green); 
-      animation: show-badge-tick 1.6s forwards;
+      animation: show-badge-tick 2s forwards;
     }
     span {
       text-shadow: 0 0 1em $green;
-      animation: show-badge-achieved 1.6s forwards;
+      animation: show-badge-achieved 2s forwards;
     }
   }
   .badge-about {
     font-size: 0.75rem;
     line-height: 175%;
     margin-top: 0.6rem;
+    animation: show-badge-about 2s forwards;
   }
 }
 
@@ -628,12 +656,16 @@ input[type=password] {
 @keyframes show-badge-large {
   0% {
     margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: -1rem;
+    // margin-top: 1rem;
+    // margin-bottom: -0.5rem;
     opacity: 0;
   }
-  60% {
+  40% {
     margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
+    // margin-top: 0;
+    // margin-bottom: 0.5rem;
     opacity: 1;
   }
   100% {
@@ -670,13 +702,40 @@ input[type=password] {
   0% {
     opacity: 0;
     margin-left: -2px;
+    margin-right: 2px;
   }
   80% {
     opacity: 0;
     margin-left: -2px;
+    margin-right: 2px;
   }
   100% {
     opacity: 1;
     margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@keyframes show-badge-name {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1;
+  }
+}
+
+@keyframes show-badge-about {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
