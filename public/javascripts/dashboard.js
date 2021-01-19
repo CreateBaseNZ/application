@@ -213,7 +213,7 @@ dashboard.initialise = async () => {
     return console.log(data.content);
   }
   // Populate fields
-  document.querySelector("#h1-name").innerHTML = data.content.user.name;
+  document.querySelector("#h1-name").innerHTML = data.content.user.displayName ? data.content.user.displayName : "";
 }
 
 /* ==========================================================

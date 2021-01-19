@@ -17,8 +17,9 @@ MODEL
 const UserSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
+  displayName: { type: String, required: true },
+  displayEmail: { type: String, required: true },
   address: {
-    recipient: { type: String, default: "" },
     unit: { type: String, default: "" },
     streetNumber: { type: String, default: "" },
     streetName: { type: String, default: "" },
@@ -26,7 +27,8 @@ const UserSchema = new Schema({
     city: { type: String, default: "" },
     postcode: { type: String, default: "" },
     country: { type: String, default: "" }
-  }
+  },
+  location: { type: String, default: "" }
 });
 
 /* ==========================================================

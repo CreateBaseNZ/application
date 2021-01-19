@@ -1,5 +1,19 @@
 import Sortable from '../../node_modules/sortablejs/modular/sortable.core.esm.js';
 
+/* ==========================================================
+VARIABLES
+========================================================== */
+
+let settings = {
+  initialise: undefined,
+  fetch: undefined,
+  populate: undefined
+}
+
+/* ==========================================================
+FUNCTIONS
+========================================================== */
+
 const darkenOverlay = document.querySelector('.darken-overlay');
 const badgeConfigScreen = document.querySelector('.badge-edit-screen');
 
@@ -114,6 +128,60 @@ badgeConfigClose.addEventListener('click', () => {
   badgeConfigScreen.classList.toggle('hide');
   darkenOverlay.classList.toggle('hide');
 })
+
+settings.initialise = async () => {
+  // Fetch data
+  const data = await settings.fetch();
+  // Validate incoming data
+  if (data.status === "error") {
+    return console.log(data.content);
+  } else if (data.status === "failed") {
+    return console.log(data.content);
+  }
+  // Populate fields
+  settings.populate(data.content.account, data.content.user);
+}
+
+settings.populate = (account = {}, user = {}) => {
+  // Profile
+  document.querySelector("#prof-name").value = user.displayName ? user.displayName : "";
+  document.querySelector("#prof-email").value = user.displayEmail ? user.displayName : "";
+  document.querySelector("#prof-loc").value = user.location ? user.location : "";
+  // Account
+  document.querySelector("#acc-name").value = user.name;
+  document.querySelector("#acc-email").value = account.email;
+  document.querySelector("#acc-street").value = user.address.streetNumber ? user.address.streetNumber : "" + " " + user.address.streetName ? user.address.streetName : "";
+  document.querySelector("#acc-city").value = user.address.city ? user.address.city : "";
+  document.querySelector("#acc-zip").value = user.address.postcode ? user.address.postcode : "";
+  document.querySelector("#acc-unit").value = user.address.unit ? user.address.unit : "";
+  document.querySelector("#acc-state").value = user.address.suburb ? user.address.suburb : "";
+  document.querySelector("#acc-country").value = user.address.city ? user.address.city : "";
+  // Notifications
+  document.querySelector("#mail").checked = account.subscription.newsletter;
+}
+
+/* ==========================================================
+BACKEND REQUEST
+========================================================== */
+
+settings.fetch = () => {
+  return new Promise(async (resolve, reject) => {
+    // Fetch data
+    let data;
+    try {
+      data = (await axios.post("/settings"))["data"];
+    } catch (error) {
+      data = { status: "error", content: error };
+    }
+    return resolve(data);
+  });
+}
+
+/* ==========================================================
+EXECUTE
+========================================================== */
+
+settings.initialise();
 
 // /* ========================================================================================
 // VARIABLES

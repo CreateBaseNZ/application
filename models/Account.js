@@ -41,8 +41,7 @@ const AccountSchema = new Schema({
     visited: { type: String, required: true }
   },
   subscription: {
-    newsletter: { type: Boolean, default: true },
-    notification: { type: Boolean, default: true }
+    newsletter: { type: Boolean, default: true }
   },
   deactivated: {
     status: { type: Boolean, default: true },

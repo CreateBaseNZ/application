@@ -80,6 +80,9 @@ app.use(accountRouter);
 const dashboardRouter = require("./routes/dashboard.js");
 app.use(dashboardRouter);
 
+const settingsRouter = require("./routes/settings.js");
+app.use(settingsRouter);
+
 /* ==========================================================
 END
 ========================================================== */
