@@ -132,10 +132,6 @@ function createProjectCard(parentContainer, size) {
   parentContainer.appendChild(card)
 }
 
-/* ==========================================================
-BACKEND REQUESTS
-========================================================== */
-
 dashboard.initialise = async () => {
   // Fetch data
   const data = await dashboard.fetch();
@@ -148,6 +144,10 @@ dashboard.initialise = async () => {
   // Populate fields
   document.querySelector("#h1-name").innerHTML = data.content.user.name;
 }
+
+/* ==========================================================
+BACKEND REQUESTS
+========================================================== */
 
 dashboard.fetch = () => {
   return new Promise(async (resolve, reject) => {
@@ -162,7 +162,6 @@ dashboard.fetch = () => {
     return resolve(data);
   });
 }
-
 
 // /* ========================================================================================
 // VARIABLES
