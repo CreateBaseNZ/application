@@ -43,6 +43,11 @@ STATICS
 NotificationSchema.statics.build = function (object = {}, save = true) {
   return new Promise(async (resolve, reject) => {
     // VALIDATION
+
+    // CREATE NOTIFICATION
+
+    // SUCCESS HANDLER
+    return resolve();
   });
 }
 

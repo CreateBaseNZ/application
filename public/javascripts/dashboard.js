@@ -1,8 +1,21 @@
+/* ==========================================================
+VARIABLES
+========================================================== */
+
+let dashboard = {
+  initialise: undefined,
+  fetch: undefined
+}
+
+/* ==========================================================
+FUNCTIONS
+========================================================== */
+
 const badges = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
 const trophyCase = document.querySelector('.trophy-case');
 
 for (var i = 0; i < 8; i++) {
-  const rand = Math.floor(Math.random()*badges.length);
+  const rand = Math.floor(Math.random() * badges.length);
   const badge = badges[rand];
   badges.splice(rand, 1);
   var el = document.createElement('div');
@@ -117,6 +130,16 @@ function createProjectCard(parentContainer, size) {
   card.appendChild(bar)
 
   parentContainer.appendChild(card)
+}
+
+/* ==========================================================
+BACKEND REQUESTS
+========================================================== */
+
+dashboard.fetch = () => {
+  return new Promise(async (resolve, reject) => {
+
+  });
 }
 
 
@@ -478,7 +501,7 @@ function createProjectCard(parentContainer, size) {
 //     }
 
 //     el.querySelector('.db-order-delivery').querySelector('span').innerHTML = status
-    
+
 //     el.querySelector('.db-order-date').querySelector('span').innerHTML = orders.formatDate(order.date[order.status])
 //     if (order.shipping.address.option === 'new') {
 //       el.querySelector('.db-order-address').querySelector('span').innerHTML = `${order.shipping.address.new.city}, ${order.shipping.address.new.country}`
