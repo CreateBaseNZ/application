@@ -497,6 +497,7 @@ input[type=password] {
 }
 
 .badge-edit-window {
+  position: relative;
   height: 60vh;
   display: flex;
   align-items: flex-start;
@@ -504,6 +505,17 @@ input[type=password] {
   border-radius: 2rem;
   box-shadow: 0 1rem 2rem -1rem $dark;
   background: $lightest;
+  .close-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: $light;
+    transition: color 0.1s ease-out;
+    &:hover {
+      color: $red;
+    }
+  }
   .badge-menu {
     position: relative;
     background: $lightest;
@@ -582,7 +594,10 @@ input[type=password] {
   display: flex;
   align-items: center;
   justify-content: center;
-  & > * {
+  .done-btn {
+    background: #29E9BA;
+    margin-left: 1em;
+    box-shadow: 0 0.5em 1em 0em $green;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -597,15 +612,6 @@ input[type=password] {
     &:hover {
       filter: brightness(0.95);
     }
-  }
-  .done-btn {
-    background: #29E9BA;
-    margin-left: 1em;
-    box-shadow: 0 0.5em 1em 0em $green;
-  }
-  .close-btn {
-    background: $red;
-    box-shadow: 0 0.5em 1em 0em rgba(250,111,111,0.75);
   }
 }
 
