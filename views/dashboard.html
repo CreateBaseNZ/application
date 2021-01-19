@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/public/stylesheets/dashboard.min.css" />
 </head>
 
-<body onload="">
+<body onload="dashboard.initialise();">
 
   <nav>
     <a href="/dashboard" class="website">
@@ -42,7 +42,7 @@
 
   <div class="main-page">
     <div class="header-container">
-      <h1>Welcome back, <span id="h1-name">Jane</span></h1>
+      <h1>Welcome back, <span id="h1-name"></span></h1>
     </div>
     <div class="ui-container">
       <div class="db-left">

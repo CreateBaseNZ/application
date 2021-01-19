@@ -136,9 +136,30 @@ function createProjectCard(parentContainer, size) {
 BACKEND REQUESTS
 ========================================================== */
 
+dashboard.initialise = async () => {
+  // Fetch data
+  const data = await dashboard.fetch();
+  // Validate incoming data
+  if (data.status === "error") {
+    return console.log(data.content);
+  } else if (data.status === "failed") {
+    return console.log(data.content);
+  }
+  // Populate fields
+  document.querySelector("#h1-name").innerHTML = data.content.user.name;
+}
+
 dashboard.fetch = () => {
   return new Promise(async (resolve, reject) => {
-
+    // Fetch data
+    let data;
+    try {
+      data = (await axios.post("/dashboard"))["data"];
+    } catch (error) {
+      data = { status: "error", content: error };
+    }
+    // Resolve incoming data
+    return resolve(data);
   });
 }
 

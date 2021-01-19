@@ -51,7 +51,7 @@ ROUTES
 // @route   POST /dashboard
 // @desc
 // @access  VERIFIED
-router.post("/dashboard", verifiedContent, async (req, res) => {
+router.post("/dashboard", /*verifiedContent,*/ async (req, res) => {
   let account = req.user;
   let user;
   try {
