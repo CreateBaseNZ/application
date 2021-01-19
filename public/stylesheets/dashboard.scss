@@ -40,13 +40,27 @@ h2 {
 
 .recent-container {
   display: flex;
+  justify-content: center;
   flex: 1 1 27vh;
   padding: 1vh 0 2.5vh 0;
+  width: 100%;
   .project-card:first-child {
     margin-right: 1vw;
   }
   .project-card:last-child {
     margin-left: 1vw;
+  }
+  &:empty::after {
+    content: 'No recent projects';
+    font-size: 1rem;
+    color: $light;
+    font-weight: 500;
+    align-self: center;
+    opacity: 0.5;
+  }
+  .project-card:only-child {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

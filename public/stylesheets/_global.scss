@@ -279,6 +279,7 @@ span {
   }
   .tags-container {
     display: flex;
+    align-items: center;
     overflow: hidden;
     position: relative;
     .project-tag {
@@ -287,9 +288,10 @@ span {
       align-items: center;
       font-size: 0.7rem;
       margin-right: 0.5em;
-      margin-bottom: 0.4em;
+      // margin-bottom: 0.4em;
       padding: 0.4em 1.5em;
       border-radius: 999px;
+      white-space: nowrap;
     }
     .progress-tag {
       .progress-tag-icon {
@@ -299,6 +301,7 @@ span {
         width: 1.5em;
         margin-right: 0.25em;
         background-size: contain;
+        background-repeat: no-repeat;
       }
       span {
         color: $lightest;
@@ -311,33 +314,32 @@ span {
       right: 0;
       height: 100%;
       width: 1em;
-      background: linear-gradient(to left, $lightest, rgba(255,255,255,0));
+      background: linear-gradient(to left, $lightest 25%, rgba(255,255,255,0) 100%);
     }
   }
-  .progress-trophy {
+  .status-container {
     position: relative;
     display: flex;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: center;
     i {
       color: $gold;
     }
-    .trophy-wrapper {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
+    .trophy-container {
       position: relative;
-      .trophy-back {
-        opacity: 0.25;
-      }
-      .trophy-container {
+      height: 1.4rem;
+      width: 1.4rem;
+      img {
         position: absolute;
+        overflow: hidden;
         bottom: 0;
         right: 0;
-        overflow: hidden;
-        display: flex;
-        align-items: flex-end;
-        height: 10px;
+        width: 100%;
+        object-fit: cover;
+        object-position: 0 100%;
+      }
+      .trophy-back {
+        opacity: 0.25;
       }
     }
   }
@@ -367,6 +369,7 @@ span {
       font-size: 0.625rem;
       color: $dark;
       line-height: 150%;
+      overflow: hidden;
     }
     .current-task {
       display: flex;
@@ -414,9 +417,9 @@ span {
   }
 }
 
-.project-card.in-progress {
+.project-card.ongoing {
   .progress-tag > .progress-tag-icon {
-    background-image: url('../../public/images/timelapse.svg');
+    background-image: url('../../public/images/hourglass.svg');
   }
   .project-about,
   .recom-icon {
@@ -432,7 +435,7 @@ span {
   &::after,
   .current-task,
   .progress-tag,
-  .trophy-wrapper,
+  .trophy-container,
   .recom-icon,
   .progress-number,
   .progress-bar {
@@ -440,9 +443,27 @@ span {
   }
 }
 
-.project-card.new.recom {
+.project-card.recom {
+  &:hover {
+    .recom-icon {
+      filter: brightness(1.1);
+      text-shadow: 0 0 0.2em $gold;
+    }
+  }
   .recom-icon {
     display: inline-block;
+  }
+  .project-info {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  &::after,
+  .current-task,
+  .progress-tag,
+  .trophy-container,
+  .progress-number,
+  .progress-bar {
+    display: none;
   }
 }
 
@@ -470,15 +491,9 @@ span {
   .current-task {
     display: none;
   }
-  .progress-trophy>.trophy-wrapper>.trophy-container {
-    height: auto;
-  }
   & > * {
     opacity: 0.5;
     transition: opacity 0.2s ease-out;
-  }
-  .progress-trophy {
-    opacity: 1;
   }
   .progress-bar {
     width: 100%;

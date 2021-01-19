@@ -40,60 +40,130 @@ for (var i = 0; i < 4; i++) {
 }
 
 const recentContainer = document.querySelector('.recent-container');
+const recomContainer = document.querySelector('.recom-container');
 
-for (var i = 0; i < 2; i++) {
-  createProjectCard(recentContainer, 'small')
+
+jekts = [{
+  _id: 01,
+  name: 'Machine Vision',
+  rating: 4.8,
+  about: 'Machine vision is the technology and methods used to provide imaging-based automatic inspection and analysis for such applications as automatic inspection, process control, and robot guidance, usually in industry',
+  tags: ['AI', 'Signal Processing'],
+  tasks: ['Introduction', 'Configuration', 'Lens Calibration'],
+  colour: 'green'
+},
+{
+  _id: 02,
+  name: 'Bomb Defusal',
+  rating: 4.9,
+  about: 'Navigate through unfamiliar environments and identify the right wires to defuse',
+  tags: ['Vehicles', 'Robotics', 'Wiring'],
+  tasks: ['Lorem', 'Ipsum'],
+  colour: 'blue'
+},
+{
+  _id: 03,
+  name: 'Bomb Defusal',
+  rating: 4.9,
+  about: 'Navigate through unfamiliar environments and identify the right wires to defuse',
+  tags: ['Vehicles', 'Robotics', 'Wiring'],
+  tasks: ['Lorem', 'Ipsum'],
+  colour: 'red'
+}
+]
+
+function Project(userProject) {
+  this.id = userProject._id;
+  this.status = userProject.status;
+  this.progress = userProject.progress;
+  this.jekt = jekts.find(x => x._id === userProject.ref)
+  this.name = this.jekt.name
+  this.rating = this.jekt.rating
+  this.about = this.jekt.about
+  this.tags = this.jekt.tags
+  this.current = this.jekt.tasks[userProject.current]
+  this.colour = this.jekt.colour
 }
 
-function createProjectCard(parentContainer, size) {
+const ongoingEx = {
+  _id: 123456789,
+  status: 'ongoing',
+  progress: 0.5,
+  ref: 01,
+  current: 2,
+}
+
+const recomEx = {
+  _id: 12345678,
+  status: 'recom',
+  progress: 0.84,
+  ref: 02,
+  current: 0,
+}
+
+const completeEx = {
+  _id: 1234567,
+  status: 'completed',
+  progress: 1,
+  ref: 03,
+  current: 1,
+}
+
+createProjectCard(recentContainer, 'small', new Project(ongoingEx))
+createProjectCard(recentContainer, 'small', new Project(completeEx))
+createProjectCard(recomContainer, 'large', new Project(recomEx))
+
+function createProjectCard(parentContainer, size, project) {
 
   var card = document.createElement('div');
-  card.className = 'project-card in-progress blue ' + size
+  card.className = 'project-card ' + project.status + ' ' + size + ' ' + project.colour
   var tagsContainer = document.createElement('div')
   tagsContainer.className = 'tags-container'
-  var tag1 = document.createElement('div')
-  tag1.className = 'project-tag progress-tag'
+  var progressTag = document.createElement('div')
+  progressTag.className = 'project-tag progress-tag'
   var progressIcon = document.createElement('div')
   progressIcon.className = 'progress-tag-icon'
-  tag1.appendChild(progressIcon)
+  progressTag.appendChild(progressIcon)
   var progressSpan = document.createElement('span')
-  progressSpan.innerHTML = '80%'
-  tag1.appendChild(progressSpan)
-  tagsContainer.appendChild(tag1)
-  var tag2 = document.createElement('div')
-  tag2.className = 'project-tag'
-  tag2.innerHTML = 'AI'
-  tagsContainer.appendChild(tag2)
+  progressSpan.innerHTML = project.progress * 100 + '%'
+  progressTag.appendChild(progressSpan)
+  tagsContainer.appendChild(progressTag)
+
+  project.tags.forEach((tag) => {
+    const tagEl = document.createElement('div')
+    tagEl.className = 'project-tag'
+    tagEl.innerHTML = tag
+    tagsContainer.appendChild(tagEl)
+  })
+
   card.appendChild(tagsContainer)
 
-  var topRight = document.createElement('div')
-  topRight.className = 'progress-trophy'
+  var status = document.createElement('div')
+  status.className = 'status-container'
   var lightbulb = document.createElement('i')
   lightbulb.className = 'material-icons-outlined recom-icon'
   lightbulb.innerHTML = 'lightbulb'
-  topRight.appendChild(lightbulb)
-  var trophyWrapper = document.createElement('div')
-  trophyWrapper.className = 'trophy-wrapper'
-  var trophyBack = document.createElement('i')
-  trophyBack.className = 'material-icons-outlined trophy-back'
-  trophyBack.innerHTML = 'emoji_events'
-  trophyWrapper.appendChild(trophyBack)
+  status.appendChild(lightbulb)
   var trophyContainer = document.createElement('div')
   trophyContainer.className = 'trophy-container'
-  var trophy = document.createElement('i')
-  trophy.className = 'material-icons-round'
-  trophy.innerHTML = 'emoji_events'
-  trophyContainer.appendChild(trophy)
-  trophyWrapper.appendChild(trophyContainer)
-  topRight.appendChild(trophyWrapper)
-  card.appendChild(topRight)
+  var trophyBack = document.createElement('img')
+  trophyBack.className = 'trophy-back'
+  trophyBack.src = '/public/images/trophy.svg'
+  trophyContainer.appendChild(trophyBack)
+  var trophyFront = document.createElement('img')
+  trophyFront.className = 'trophy-front'
+  trophyFront.src = '/public/images/trophy.svg'
+  trophyFront.style.height = project.progress * 100 + '%'
+  trophyContainer.appendChild(trophyFront)
+  status.appendChild(trophyContainer)
+  card.appendChild(status)
 
   var info = document.createElement('div')
   info.className = 'project-info'
   var rating = document.createElement('div')
   rating.className = 'project-rating'
   var ratingSpan = document.createElement('span')
-  ratingSpan.innerHTML = '4.8'
+  ratingSpan.innerHTML = project.rating.toString()
   rating.appendChild(ratingSpan)
   var ratingIcon = document.createElement('i')
   ratingIcon.className = 'material-icons-round'
@@ -102,16 +172,16 @@ function createProjectCard(parentContainer, size) {
   info.appendChild(rating)
   var projectName = document.createElement('div')
   projectName.className = 'project-name'
-  projectName.innerHTML = 'Machine Vision'
+  projectName.innerHTML = project.name
   info.appendChild(projectName)
   var about = document.createElement('div')
   about.className = 'project-about'
-  about.innerHTML = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit'
+  about.innerHTML = project.about
   info.appendChild(about)
   var task = document.createElement('div')
   task.className = 'current-task'
   var taskSpan = document.createElement('span')
-  taskSpan.innerHTML = 'Lens calibration'
+  taskSpan.innerHTML = project.current
   task.appendChild(taskSpan)
   var taskIcon = document.createElement('i')
   taskIcon.className = 'material-icons-round'
@@ -122,11 +192,12 @@ function createProjectCard(parentContainer, size) {
 
   var number = document.createElement('div')
   number.className = 'progress-number'
-  number.innerHTML = '80%'
+  number.innerHTML = project.progress * 100 + '%'
   card.appendChild(number)
 
   var bar = document.createElement('div')
   bar.className = 'progress-bar'
+  bar.style.width = project.progress * 100 + '%'
   card.appendChild(bar)
 
   parentContainer.appendChild(card)
