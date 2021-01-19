@@ -1,7 +1,15 @@
+/* ==========================================================
+VARIABLES
+========================================================== */
+
 let global = {
   createProjectCard: undefined,
   enterKeyPress: undefined
 }
+
+/* ==========================================================
+FUNCTIONS
+========================================================== */
 
 global.createProjectCard = (parentContainer, size, project) => {
 
