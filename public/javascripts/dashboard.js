@@ -118,7 +118,6 @@ dashboard.loadBadges = () => {
     dashboard.badges.splice(rand, 1);
     var el = document.createElement('div');
     el.className = 'badge db-badge ' + badge;
-    el.setAttribute('caption', badge);
     var img = document.createElement('img');
     img.src = '/public/images/badges/' + badge + '.png';
     el.appendChild(img);
@@ -137,11 +136,17 @@ dashboard.loadBadges = () => {
     var el = document.createElement('a');
     el.href = '/settings';
     el.className = 'badge db-badge ' + badge;
-    el.setAttribute('caption', badge);
     var img = document.createElement('img');
     img.src = '/public/images/badges/' + badge + '.png';
     el.appendChild(img);
+    var caption = document.createElement('span')
+    caption.innerHTML = badge
+    el.appendChild(caption)
     dashboard.trophyCase.appendChild(el);
+    img.addEventListener('click', () => {
+      sessionStorage.setItem('dashboard', badge)
+      window.open('/settings', '_self')
+    })
   }
 }
 

@@ -170,7 +170,8 @@ settings.previousStyle = () => {
   if (sessionStorage.getItem('dashboard')) {
     settings.badgeConfigScreen.classList.toggle('hide')
     settings.darkenOverlay.classList.toggle('hide')
-    document.querySelector('.' + sessionStorage.getItem('dashboard') + '-details').classList.add('badge-details-show')
+    const info = document.querySelector('.' + sessionStorage.getItem('dashboard') + '-details')
+    if (info) info.classList.add('badge-details-show')
   }
   sessionStorage.clear()
 }
