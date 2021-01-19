@@ -17,8 +17,8 @@ MODEL
 const UserSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
-  displayName: { type: String, required: true },
-  displayEmail: { type: String, required: true },
+  displayName: { type: String, default: "" },
+  displayEmail: { type: String, default: "" },
   address: {
     unit: { type: String, default: "" },
     streetNumber: { type: String, default: "" },
@@ -59,6 +59,42 @@ UserSchema.statics.build = function (object = {}, save = true) {
     return resolve(user);
   });
 };
+
+// @func  reform
+// @type  STATICS - PROMISE - ASYNC
+// @desc  
+UserSchema.statics.reform = function (object = {}, save = true) {
+  return new Promise (async (resolve, reject) => {
+    // Fetch the user
+    let user;
+    try {
+      user = await this.findOne({owner: object.id});
+    } catch (error) {
+      return reject({status: "error", content: error});
+    }
+    // Update user
+    for (const property in object.update) {
+      if (property === "name") {
+        try {
+          await this.validateName(object.update.name);
+        } catch (data) {
+          return reject(data);
+        }
+      }
+      user[property] = object.update[property];
+    }
+    // Save user
+    if (save) {
+      try {
+        await user.save();
+      } catch (error) {
+        return reject({status: "error", content: error});
+      }
+    }
+    // Success handler
+    return resolve(user);
+  });
+}
 
 /* ----------------------------------------------------------
 VALIDATION

@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="/public/stylesheets/settings.min.css" />
 </head>
 
-<body onload="">
+<body onload="settings.initialise();">
 
   <nav>
     <a href="/dashboard" class="website">
@@ -75,7 +75,7 @@
 
           <div class="btn-container">
             <button class="cancel-btn"></button>
-            <button class="save-btn"><i class="material-icons-round md-18">check</i></button>
+            <button class="save-btn" onclick="settings.saveProfile();"><i class="material-icons-round md-18">check</i></button>
           </div>
         </div>
       </div>
@@ -333,7 +333,8 @@
   <script async src="https://kit.fontawesome.com/b382730141.js" crossorigin="anonymous"></script>
   <!-- ------------------------CUSTOM------------------------ -->
   <!-- <script async src="/public/javascripts/nav.min.js"></script> -->
-  <script async type="module" src="/public/javascripts/settings.js"></script>
+  <script async src="/public/javascripts/settings.js"></script>
+  <script async type="module" src="/public/javascripts/settingsm.js"></script>
 </body>
 
 </html>

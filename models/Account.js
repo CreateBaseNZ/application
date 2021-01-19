@@ -130,6 +130,37 @@ AccountSchema.statics.build = function (object = {}, save = true) {
   });
 };
 
+// @func  reform
+// @type  STATICS - PROMISE - ASYNC
+// @desc
+AccountSchema.statics.reform = function (object = {}, save = true) {
+  return new Promise (async (resolve, reject) => {
+    // Fetch account
+    let account;
+    try {
+      account = await this.fineOne({_id: object.id});
+    } catch (error) {
+      return reject({status: "error", content: error});
+    }
+    // Validate if account is found
+    if (!account) return reject({status: "failed", content: "No account found"});
+    // Update account
+    for (const property in object.update) {
+      account[property] = object.update[property];
+    }
+    // Save account
+    if (save) {
+      try {
+        await account.save();
+      } catch (error) {
+        return reject({status: "error", content: error});
+      }
+    }
+    // Success handler
+    return resolve(account);
+  });
+}
+
 /* ----------------------------------------------------------
 VALIDATION
 ---------------------------------------------------------- */

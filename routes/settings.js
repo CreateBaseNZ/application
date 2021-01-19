@@ -49,6 +49,31 @@ router.post("/settings", /*verifiedContent,*/ async (req, res) => {
   return res.send({ status: "succeeded", content: { account, user } });
 });
 
+router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
+  // Declare variables
+  let account = req.user;
+  let accountUpdate = req.body.accountUpdate;
+  let userUpdate = req.body.userUpdate;
+  // Update account
+  if (accountUpdate) {
+    try {
+      await Account.reform({id: account._id, update: accountUpdate});
+    } catch (data) {
+      return res.send(data);
+    }
+  }
+  // Update user
+  if (userUpdate) {
+    try {
+      await User.reform({id: account._id, update: userUpdate});
+    } catch (data) {
+      return res.send(data);
+    }
+  }
+  // Success handler
+  return res.send({status: "succeeded", content: ""});
+});
+
 /* ==========================================================
 EXPORT
 ========================================================== */
