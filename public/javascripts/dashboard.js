@@ -48,7 +48,7 @@ jekts = [{
   name: 'Machine Vision',
   rating: 4.8,
   about: 'Machine vision is the technology and methods used to provide imaging-based automatic inspection and analysis for such applications as automatic inspection, process control, and robot guidance, usually in industry',
-  tags: ['AI', 'Signal Processing'],
+  tags: ['Medium', 'AI', 'Signal Processing'],
   tasks: ['Introduction', 'Configuration', 'Lens Calibration'],
   colour: 'green'
 },
@@ -59,14 +59,14 @@ jekts = [{
   about: 'Navigate through unfamiliar environments and identify the right wires to defuse',
   tags: ['Vehicles', 'Robotics', 'Wiring'],
   tasks: ['Lorem', 'Ipsum'],
-  colour: 'blue'
+  colour: 'orange'
 },
 {
   _id: 03,
-  name: 'Bomb Defusal',
-  rating: 4.9,
-  about: 'Navigate through unfamiliar environments and identify the right wires to defuse',
-  tags: ['Vehicles', 'Robotics', 'Wiring'],
+  name: 'Sensors',
+  rating: 4.7,
+  about: 'Learn about a multitude of sensors, their capabilities, and use-cases',
+  tags: ['Robotics'],
   tasks: ['Lorem', 'Ipsum'],
   colour: 'red'
 }
@@ -96,7 +96,7 @@ const ongoingEx = {
 const recomEx = {
   _id: 12345678,
   status: 'recom',
-  progress: 0.84,
+  progress: null,
   ref: 02,
   current: 0,
 }
@@ -111,7 +111,7 @@ const completeEx = {
 
 createProjectCard(recentContainer, 'small', new Project(ongoingEx))
 createProjectCard(recentContainer, 'small', new Project(completeEx))
-createProjectCard(recomContainer, 'large', new Project(recomEx))
+createProjectCard(recomContainer, 'large', new Project(completeEx))
 
 function createProjectCard(parentContainer, size, project) {
 
@@ -120,9 +120,9 @@ function createProjectCard(parentContainer, size, project) {
   var tagsContainer = document.createElement('div')
   tagsContainer.className = 'tags-container'
   var progressTag = document.createElement('div')
-  progressTag.className = 'project-tag progress-tag'
+  progressTag.className = 'project-tag status-tag'
   var progressIcon = document.createElement('div')
-  progressIcon.className = 'progress-tag-icon'
+  progressIcon.className = 'status-tag-icon'
   progressTag.appendChild(progressIcon)
   var progressSpan = document.createElement('span')
   progressSpan.innerHTML = project.progress * 100 + '%'

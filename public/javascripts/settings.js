@@ -44,6 +44,7 @@ const badges2 = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review'
 badges2.forEach((badge) => {
   var el = document.createElement('div');
   el.className = 'config-badge ' + badge;
+  if (Math.random() > 0.5) el.classList.add('badge-achieved')
   var label = document.createElement('label');
   var input = document.createElement('input');
   input.type = 'radio';

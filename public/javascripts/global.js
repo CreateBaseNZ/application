@@ -19,3 +19,9 @@ document.querySelectorAll('.project-card.completed').forEach(function (card) {
   card.addEventListener('mouseenter', () => confetti(card, config))
 })
 
+document.querySelectorAll('.tags-container').forEach((container) => {
+  container.addEventListener('wheel', function(e) {
+    this.scrollLeft += e.deltaY * 0.25;
+  })
+})
+
