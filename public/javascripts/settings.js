@@ -13,6 +13,7 @@ let settings = {
   saveNotification: undefined,
   temp: undefined,
 
+  // TO DO: check if variables can be scoped as const
   badgeConfigScreen: document.querySelector('.badge-edit-screen'),
   badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
   badges2: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
@@ -49,8 +50,10 @@ settings.initialise = async () => {
 }
 
 settings.loadBadges = () => {
+
   for (var i = 0; i < 8; i++) {
-    const rand = Math.floor(Math.random()*settings.badges.length); // temp
+    // TO DO: load preview badges
+    const rand = Math.floor(Math.random()*settings.badges.length);
     const badge = settings.badges[rand];
     settings.badges.splice(rand, 1);
     var el = document.createElement('div');
@@ -63,10 +66,10 @@ settings.loadBadges = () => {
   }
 
   settings.badges2.forEach((badge) => {
+    // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
-    if (Math.random() > 0.5) el.classList.add('badge-achieved') // temp
-
+    if (Math.random() > 0.5) el.classList.add('badge-achieved')
     var label = document.createElement('label');
     var input = document.createElement('input');
     input.type = 'radio';
@@ -90,40 +93,51 @@ settings.loadBadges = () => {
 }
 
 settings.loadEventListeners = () => {
+
   settings.trophyCase.addEventListener('click', () => {
+    // Show badge config screen
     settings.badgeConfigScreen.classList.toggle('hide')
     settings.darkenOverlay.classList.toggle('hide')
   })
+
   settings.passVis.addEventListener('click', function (e) {
+    // Toggle password visibility
     const type = settings.pass.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.pass.setAttribute('type', type);
     this.classList.toggle('visible');
   })
+
   settings.passConfVis.addEventListener('click', function (e) {
+    // Toggle confirm password visibility
     const type = settings.passConf.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.passConf.setAttribute('type', type);
     this.classList.toggle('visible');
   })
+
   settings.badgeConfigDone.addEventListener('click', () => {
-    // TO DO: update config
+    // TO DO: post new badge config
+    // TO DO: update cached badge config
     settings.badgeConfigScreen.classList.toggle('hide');
     settings.darkenOverlay.classList.toggle('hide');
   })
+
   settings.badgeConfigClose.addEventListener('click', () => {
-    // TO DO: revert to old config
+    // TO DO: revert to cached badge config
     settings.badgeConfigScreen.classList.toggle('hide');
     settings.darkenOverlay.classList.toggle('hide');
   })
+
   document.querySelectorAll('.section').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
-        // TO DO: save changes
+        // TO DO: post new settings
+        // TO DO: update cached settings
         this.classList.toggle('edit-mode');
       } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
-        // TO DO: revert to original
+        // TO DO: revert to cached settings
         this.classList.toggle('edit-mode');
       } else if (!this.classList.contains('edit-mode')) {
-        // TO DO: enable edit mode
+        // Enable edit mode
         this.classList.toggle('edit-mode');
       }
     })

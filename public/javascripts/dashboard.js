@@ -4,79 +4,53 @@ VARIABLES
 
 let dashboard = {
   initialise: undefined,
-  fetch: undefined
+  fetch: undefined,
+  loadBadges: undefined,
+  loadProjects: undefined,
+
+  badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
+  jekts: [{
+    _id: 01,
+    name: 'Machine Vision',
+    rating: 4.8,
+    about: 'Machine vision is the technology and methods used to provide imaging-based automatic inspection and analysis for such applications as automatic inspection, process control, and robot guidance, usually in industry',
+    tags: ['Medium', 'AI', 'Signal Processing'],
+    tasks: ['Introduction', 'Configuration', 'Lens Calibration'],
+    colour: 'green'
+  },
+  {
+    _id: 02,
+    name: 'Bomb Defusal',
+    rating: 4.9,
+    about: 'Navigate through unfamiliar environments and identify the right wires to defuse',
+    tags: ['Vehicles', 'Robotics', 'Wiring'],
+    tasks: ['Lorem', 'Ipsum'],
+    colour: 'orange'
+  },
+  {
+    _id: 03,
+    name: 'Sensors',
+    rating: 4.7,
+    about: 'Learn about a multitude of sensors, their capabilities, and use-cases',
+    tags: ['Robotics'],
+    tasks: ['Lorem', 'Ipsum'],
+    colour: 'red'
+  }
+  ], // temp
+  recentContainer: document.querySelector('.recent-container'),
+  recomContainer: document.querySelector('.recom-container'),
+  trophyCase: document.querySelector('.trophy-case')
 }
 
 /* ==========================================================
 FUNCTIONS
 ========================================================== */
 
-const badges = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
-const trophyCase = document.querySelector('.trophy-case');
-
-for (var i = 0; i < 8; i++) {
-  const rand = Math.floor(Math.random() * badges.length);
-  const badge = badges[rand];
-  badges.splice(rand, 1);
-  var el = document.createElement('div');
-  el.className = 'badge db-badge ' + badge;
-  el.setAttribute('caption', badge);
-  var img = document.createElement('img');
-  img.src = '/public/images/badges/' + badge + '.png';
-  el.appendChild(img);
-  trophyCase.appendChild(el);
-}
-
-for (var i = 0; i < 4; i++) {
-  const badge = 'empty';
-  var el = document.createElement('a');
-  el.href = '/settings';
-  el.className = 'badge db-badge ' + badge;
-  el.setAttribute('caption', badge);
-  var img = document.createElement('img');
-  img.src = '/public/images/badges/' + badge + '.png';
-  el.appendChild(img);
-  trophyCase.appendChild(el);
-}
-
-const recentContainer = document.querySelector('.recent-container');
-const recomContainer = document.querySelector('.recom-container');
-
-
-jekts = [{
-  _id: 01,
-  name: 'Machine Vision',
-  rating: 4.8,
-  about: 'Machine vision is the technology and methods used to provide imaging-based automatic inspection and analysis for such applications as automatic inspection, process control, and robot guidance, usually in industry',
-  tags: ['Medium', 'AI', 'Signal Processing'],
-  tasks: ['Introduction', 'Configuration', 'Lens Calibration'],
-  colour: 'green'
-},
-{
-  _id: 02,
-  name: 'Bomb Defusal',
-  rating: 4.9,
-  about: 'Navigate through unfamiliar environments and identify the right wires to defuse',
-  tags: ['Vehicles', 'Robotics', 'Wiring'],
-  tasks: ['Lorem', 'Ipsum'],
-  colour: 'orange'
-},
-{
-  _id: 03,
-  name: 'Sensors',
-  rating: 4.7,
-  about: 'Learn about a multitude of sensors, their capabilities, and use-cases',
-  tags: ['Robotics'],
-  tasks: ['Lorem', 'Ipsum'],
-  colour: 'red'
-}
-]
-
 function Project(userProject) {
   this.id = userProject._id;
   this.status = userProject.status;
   this.progress = userProject.progress;
-  this.jekt = jekts.find(x => x._id === userProject.ref)
+  this.jekt = dashboard.jekts.find(x => x._id === userProject.ref)
   this.name = this.jekt.name
   this.rating = this.jekt.rating
   this.about = this.jekt.about
@@ -85,6 +59,7 @@ function Project(userProject) {
   this.colour = this.jekt.colour
 }
 
+// temp
 const ongoingEx = {
   _id: 123456789,
   status: 'ongoing',
@@ -93,6 +68,7 @@ const ongoingEx = {
   current: 2,
 }
 
+// temp
 const recomEx = {
   _id: 12345678,
   status: 'recom',
@@ -101,6 +77,7 @@ const recomEx = {
   current: 0,
 }
 
+// temp
 const completeEx = {
   _id: 1234567,
   status: 'completed',
@@ -109,111 +86,60 @@ const completeEx = {
   current: 1,
 }
 
-createProjectCard(recentContainer, 'small', new Project(ongoingEx))
-createProjectCard(recentContainer, 'small', new Project(completeEx))
-createProjectCard(recomContainer, 'large', new Project(recomEx))
 
-function createProjectCard(parentContainer, size, project) {
-
-  var card = document.createElement('div');
-  card.className = 'project-card ' + project.status + ' ' + size + ' ' + project.colour
-  var tagsContainer = document.createElement('div')
-  tagsContainer.className = 'tags-container'
-  var progressTag = document.createElement('div')
-  progressTag.className = 'project-tag status-tag'
-  var progressIcon = document.createElement('div')
-  progressIcon.className = 'status-tag-icon'
-  progressTag.appendChild(progressIcon)
-  var progressSpan = document.createElement('span')
-  progressSpan.innerHTML = project.progress * 100 + '%'
-  progressTag.appendChild(progressSpan)
-  tagsContainer.appendChild(progressTag)
-
-  project.tags.forEach((tag) => {
-    const tagEl = document.createElement('div')
-    tagEl.className = 'project-tag'
-    tagEl.innerHTML = tag
-    tagsContainer.appendChild(tagEl)
-  })
-
-  card.appendChild(tagsContainer)
-
-  var status = document.createElement('div')
-  status.className = 'status-container'
-  var lightbulb = document.createElement('i')
-  lightbulb.className = 'material-icons-outlined recom-icon'
-  lightbulb.innerHTML = 'lightbulb'
-  status.appendChild(lightbulb)
-  var trophyContainer = document.createElement('div')
-  trophyContainer.className = 'trophy-container'
-  var trophyBack = document.createElement('img')
-  trophyBack.className = 'trophy-back'
-  trophyBack.src = '/public/images/trophy.svg'
-  trophyContainer.appendChild(trophyBack)
-  var trophyFront = document.createElement('img')
-  trophyFront.className = 'trophy-front'
-  trophyFront.src = '/public/images/trophy.svg'
-  trophyFront.style.height = project.progress * 100 + '%'
-  trophyContainer.appendChild(trophyFront)
-  status.appendChild(trophyContainer)
-  card.appendChild(status)
-
-  var info = document.createElement('div')
-  info.className = 'project-info'
-  var rating = document.createElement('div')
-  rating.className = 'project-rating'
-  var ratingSpan = document.createElement('span')
-  ratingSpan.innerHTML = project.rating.toString()
-  rating.appendChild(ratingSpan)
-  var ratingIcon = document.createElement('i')
-  ratingIcon.className = 'material-icons-round'
-  ratingIcon.innerHTML = 'star'
-  rating.appendChild(ratingIcon)
-  info.appendChild(rating)
-  var projectName = document.createElement('div')
-  projectName.className = 'project-name'
-  projectName.innerHTML = project.name
-  info.appendChild(projectName)
-  var about = document.createElement('div')
-  about.className = 'project-about'
-  about.innerHTML = project.about
-  info.appendChild(about)
-  var task = document.createElement('div')
-  task.className = 'current-task'
-  var taskSpan = document.createElement('span')
-  taskSpan.innerHTML = project.current
-  task.appendChild(taskSpan)
-  var taskIcon = document.createElement('i')
-  taskIcon.className = 'material-icons-round'
-  taskIcon.innerHTML = 'arrow_forward'
-  task.appendChild(taskIcon)
-  info.appendChild(task)
-  card.appendChild(info)
-
-  var number = document.createElement('div')
-  number.className = 'progress-number'
-  number.innerHTML = project.progress * 100 + '%'
-  card.appendChild(number)
-
-  var bar = document.createElement('div')
-  bar.className = 'progress-bar'
-  bar.style.width = project.progress * 100 + '%'
-  card.appendChild(bar)
-
-  parentContainer.appendChild(card)
-}
+/* ==========================================================
+FUNCTIONS
+========================================================== */
 
 dashboard.initialise = async () => {
   // Fetch data
   const data = await dashboard.fetch();
   // Validate incoming data
   if (data.status === "error") {
-    return console.log(data.content);
+    console.log(data.content);
   } else if (data.status === "failed") {
-    return console.log(data.content);
+    console.log(data.content);
   }
+  // Load badges
+  dashboard.loadBadges()
+  // Load projects
+  dashboard.loadProjects()
   // Populate fields
-  document.querySelector("#h1-name").innerHTML = data.content.user.displayName ? data.content.user.displayName : "";
+  // document.querySelector("#h1-name").innerHTML = data.content.user.displayName ? data.content.user.displayName : "";
+}
+
+dashboard.loadBadges = () => {
+  // TO DO: load badges
+  for (var i = 0; i < 8; i++) {
+    const rand = Math.floor(Math.random() * dashboard.badges.length);
+    const badge = dashboard.badges[rand];
+    dashboard.badges.splice(rand, 1);
+    var el = document.createElement('div');
+    el.className = 'badge db-badge ' + badge;
+    el.setAttribute('caption', badge);
+    var img = document.createElement('img');
+    img.src = '/public/images/badges/' + badge + '.png';
+    el.appendChild(img);
+    dashboard.trophyCase.appendChild(el);
+  }
+  
+  for (var i = 0; i < 4; i++) {
+    const badge = 'empty';
+    var el = document.createElement('a');
+    el.href = '/settings';
+    el.className = 'badge db-badge ' + badge;
+    el.setAttribute('caption', badge);
+    var img = document.createElement('img');
+    img.src = '/public/images/badges/' + badge + '.png';
+    el.appendChild(img);
+    dashboard.trophyCase.appendChild(el);
+  }
+}
+
+dashboard.loadProjects = () => {
+  global.createProjectCard(dashboard.recentContainer, 'small', new Project(ongoingEx))
+  global.createProjectCard(dashboard.recentContainer, 'small', new Project(completeEx))
+  global.createProjectCard(dashboard.recomContainer, 'large', new Project(recomEx))
 }
 
 /* ==========================================================
@@ -233,6 +159,8 @@ dashboard.fetch = () => {
     return resolve(data);
   });
 }
+
+
 
 // /* ========================================================================================
 // VARIABLES
