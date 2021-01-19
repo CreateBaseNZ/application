@@ -20,56 +20,6 @@
     flex: 0 0 50%;
 }
 
-.archive-btn{
-    &::after{
-        content: 'Archive';
-        position: absolute;
-        bottom: -0.8em;
-        left: 50%;
-        transform: translateX(-50%);
-        font-weight: 600;
-        color: $light;
-        opacity: 0;
-        transition: opacity ease 0.2s, bottom ease 0.2s;
-    }
-    &:hover{
-        &::after{
-            bottom: -0.5em;
-            transform: translateX(-50%);
-            color: $magenta-light;
-            opacity: 1;
-        }
-        svg{
-            fill: $magenta-light;
-        }
-    }
-}
-
-.bin-btn{
-    &::after{
-        content: 'Bin';
-        position: absolute;
-        bottom: -0.8em;
-        left: 50%;
-        transform: translateX(-50%);
-        font-weight: 600;
-        color: $light;
-        opacity: 0;
-        transition: opacity ease 0.2s, bottom ease 0.2s;
-    }
-    &:hover{
-        &::after{
-            bottom: -0.5em;
-            transform: translateX(-50%);
-            color: $red;
-            opacity: 1;
-        }
-        svg{
-            fill: $red;
-        }
-    }
-}
-
 .icon-btn{
     cursor: pointer;
     svg{
@@ -525,8 +475,8 @@
                 }
             }
             .inbox-btn-container{
-                .inbox-btn-title {
-                    transition: color ease 0.2s;
+                .inbox-btn-title{
+                    transition: color ease 0.3s;
                 }
                 &:hover{
                     .inbox-btn{
@@ -541,7 +491,7 @@
             }
             .archive-btn-container{
                 .archive-btn-title{
-                  transition: color ease 0.2s;
+                    transition: color ease 0.3s;
                 }
                 &:hover{
                     .archive-btn{
@@ -555,8 +505,8 @@
                 }
             }
             .bin-btn-container{
-                .bin-btn-title {
-                    transition: color ease 0.2s;
+                .bin-btn-title{
+                    transition: color ease 0.3s;
                 }
                 &:hover{
                     .bin-btn{
@@ -626,4 +576,32 @@
             margin: 1em 0;
         }
     }
+}
+
+.slide-up{
+    animation: slide-up 0.8s cubic-bezier(.17,.67,.42,1)
+}
+.slide-down{
+    animation: slide-down 0.8s cubic-bezier(.17,.67,.42,1)
+}
+
+@keyframes slide-up{
+    0%{
+        transform: translateY(50%);
+        opacity:0;
+    };
+    100%{
+        transform: translateY(0);
+        opacity:1;
+    };
+}
+@keyframes slide-down{
+    0%{
+        transform: translateY(0);
+        opacity:1;
+    };
+    100%{
+        transform: translateY(50%);
+        opacity:0;
+    };
 }
