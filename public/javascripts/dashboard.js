@@ -111,7 +111,7 @@ const completeEx = {
 
 createProjectCard(recentContainer, 'small', new Project(ongoingEx))
 createProjectCard(recentContainer, 'small', new Project(completeEx))
-createProjectCard(recomContainer, 'large', new Project(completeEx))
+createProjectCard(recomContainer, 'large', new Project(recomEx))
 
 function createProjectCard(parentContainer, size, project) {
 

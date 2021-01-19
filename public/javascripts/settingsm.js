@@ -4,120 +4,19 @@
 FUNCTIONS
 ========================================================== */
 
-const darkenOverlay = document.querySelector('.darken-overlay');
-const badgeConfigScreen = document.querySelector('.badge-edit-screen');
+// document.querySelector('#prof-name').value = 'J Doe';
+// document.querySelector('#prof-email').value = 'j.doe@gmail.com';
+// document.querySelector('#prof-loc').value = 'Auckland, NZ';
 
-const badges = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
-const trophyCase = document.querySelector('.badges-container');
-
-for (var i = 0; i < 8; i++) {
-  const rand = Math.floor(Math.random()*badges.length);
-  const badge = badges[rand];
-  badges.splice(rand, 1);
-  var el = document.createElement('div');
-  el.className = 'badge ' + badge;
-  el.setAttribute('caption', badge);
-  var img = document.createElement('img');
-  img.src = '/public/images/badges/' + badge + '.png';
-  el.appendChild(img);
-  trophyCase.appendChild(el);
-}
-
-trophyCase.addEventListener('click', () => {
-  badgeConfigScreen.classList.toggle('hide')
-  darkenOverlay.classList.toggle('hide')
-})
-
-const badgeMenu = document.querySelector('.badge-menu');
-const badges2 = ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'];
-
-badges2.forEach((badge) => {
-  var el = document.createElement('div');
-  el.className = 'config-badge ' + badge;
-  var label = document.createElement('label');
-  var input = document.createElement('input');
-  input.type = 'radio';
-  input.id = 'config-' + badge;
-  input.name = 'badge-config';
-  var img = document.createElement('img');
-  img.src = '/public/images/badges/' + badge + '.png';
-  label.appendChild(input)
-  label.appendChild(img)
-  el.appendChild(label)
-  input.addEventListener('change', function() {
-    if (document.querySelector('.badge-details-show')) {
-      document.querySelector('.badge-details-show').classList.remove('badge-details-show')
-    }
-    if (this.checked) {
-      document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
-    }
-  })
-  badgeMenu.appendChild(el);
-})
-
-document.querySelector('#prof-name').value = 'J Doe';
-document.querySelector('#prof-email').value = 'j.doe@gmail.com';
-document.querySelector('#prof-loc').value = 'Auckland, NZ';
-
-document.querySelector('#acc-name').value = 'Jane Doe';
-document.querySelector('#acc-email').value = 'jane.doe@gmail.com';
-document.querySelector('#acc-pass').value = 'Lorem ipsum password';
-document.querySelector('#acc-street').value = '16 Dapple Place';
-document.querySelector('#acc-zip').value = '2019';
-document.querySelector('#acc-city').value = 'Auckland';
-document.querySelector('#acc-country').value = 'New Zealand';
+// document.querySelector('#acc-name').value = 'Jane Doe';
+// document.querySelector('#acc-email').value = 'jane.doe@gmail.com';
+// document.querySelector('#acc-pass').value = 'Lorem ipsum password';
+// document.querySelector('#acc-street').value = '16 Dapple Place';
+// document.querySelector('#acc-zip').value = '2019';
+// document.querySelector('#acc-city').value = 'Auckland';
+// document.querySelector('#acc-country').value = 'New Zealand';
 
 
-
-
-document.querySelectorAll('.section').forEach(function (el) {
-  el.addEventListener('click', function (e) {
-    if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
-      // save changes
-      this.classList.toggle('edit-mode');
-    } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
-      // revert to original
-      this.classList.toggle('edit-mode');
-    } else if (!this.classList.contains('edit-mode')) {
-      // enable edit mode
-      this.classList.toggle('edit-mode');
-    }
-  })
-})
-
-const passVis = document.querySelector('#acc-pass-vis');
-const pass = document.querySelector('#acc-pass');
-
-passVis.addEventListener('click', function (e) {
-  const type = pass.getAttribute('type') === 'password' ? 'text' : 'password';
-  pass.setAttribute('type', type);
-  this.classList.toggle('visible');
-})
-
-const passConfVis = document.querySelector('#acc-pass-conf-vis');
-const passConf = document.querySelector('#acc-pass-conf');
-
-passConfVis.addEventListener('click', function (e) {
-  const type = passConf.getAttribute('type') === 'password' ? 'text' : 'password';
-  passConf.setAttribute('type', type);
-  this.classList.toggle('visible');
-})
-
-const badgeConfigDone = document.querySelector('.done-btn');
-const badgeConfigClose = document.querySelector('.close-btn');
-
-
-
-badgeConfigDone.addEventListener('click', () => {
-  // update config
-  badgeConfigScreen.classList.toggle('hide');
-  darkenOverlay.classList.toggle('hide');
-})
-badgeConfigClose.addEventListener('click', () => {
-  // revert to old config
-  badgeConfigScreen.classList.toggle('hide');
-  darkenOverlay.classList.toggle('hide');
-})
 
 
 // /* ========================================================================================
