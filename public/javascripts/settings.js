@@ -36,12 +36,12 @@ settings.populate = (account = {}, user = {}) => {
   // Account
   document.querySelector("#acc-name").value = user.name;
   document.querySelector("#acc-email").value = account.email;
-  document.querySelector("#acc-street").value = user.address.streetNumber ? user.address.streetNumber : "" + " " + user.address.streetName ? user.address.streetName : "";
+  document.querySelector("#acc-street").value = user.address.street ? user.address.street : "";
   document.querySelector("#acc-city").value = user.address.city ? user.address.city : "";
   document.querySelector("#acc-zip").value = user.address.postcode ? user.address.postcode : "";
   document.querySelector("#acc-unit").value = user.address.unit ? user.address.unit : "";
   document.querySelector("#acc-state").value = user.address.suburb ? user.address.suburb : "";
-  document.querySelector("#acc-country").value = user.address.city ? user.address.city : "";
+  document.querySelector("#acc-country").value = user.address.country ? user.address.country : "";
   // Notifications
   document.querySelector("#mail").checked = account.subscription.newsletter;
 }
@@ -94,7 +94,29 @@ settings.saveAccount = async () => {
   let userUpdate = {
     name: document.querySelector("#acc-name").value,
     address: {
-      
+      unit: document.querySelector("#acc-unit").value,
+      street: document.querySelector("#acc-street").value,
+      suburb: document.querySelector("#acc-state").value,
+      city: document.querySelector("#acc-city").value,
+      postcode: document.querySelector("#acc-zip").value,
+      country: document.querySelector("#acc-country").value
     }
   }
+  // Validate input
+  
+  // Send update request
+  let data;
+  try {
+    data = (await axios.post("/settings/update", {userUpdate}));
+  } catch (error) {
+    data = {status: "error", content: error};
+  }
+  // Validation
+  if (data.status === "failed") {
+    return console.log(data.content);
+  } else if (data.status === "error") {
+    return console.log(data.content);
+  }
+  // Success handler
+  return;
 }

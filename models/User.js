@@ -21,8 +21,7 @@ const UserSchema = new Schema({
   displayEmail: { type: String, default: "" },
   address: {
     unit: { type: String, default: "" },
-    streetNumber: { type: String, default: "" },
-    streetName: { type: String, default: "" },
+    street: { type: String, default: "" },
     suburb: { type: String, default: "" },
     city: { type: String, default: "" },
     postcode: { type: String, default: "" },
