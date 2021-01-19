@@ -72,7 +72,10 @@ settings.loadBadges = () => {
     // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
-    if (Math.random() > 0.5) el.classList.add('badge-achieved')
+    if (Math.random() > 0.5) {
+      el.classList.add('badge-achieved')
+      document.querySelector('.' + badge + '-details').classList.add('badge-achieved')
+    }
     var label = document.createElement('label');
     var input = document.createElement('input');
     input.type = 'radio';

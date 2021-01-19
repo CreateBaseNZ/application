@@ -538,8 +538,7 @@ input[type=password] {
       height: 7rem;
       width: 7rem;
       padding: calc(7rem * 0.15);
-      opacity: 0.25;
-      transition: opacity 0.2s ease-out;
+      // transition: opacity 0.2s ease-out;
       label {
         cursor: pointer;
         height: 100%;
@@ -548,25 +547,28 @@ input[type=password] {
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: filter 0.1s ease-out, margin 0.1s ease-out;
         input {
           display: none;
+          &:checked ~ img {
+            opacity: 0.5;
+            margin: -2px -2px 0 0;
+          }
         }
         img {
           height: 100%;
           width: 100%;
+          opacity: 0.25;
+          transition: filter 0.1s ease-out, margin 0.1s ease-out, opacity 0.2s ease-out;
+          &:hover {
+            opacity: 1;
+            margin: -2px -2px 0 0;
+            filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
+          }
         }
-        &:hover {
-          filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
-          margin-top: -2px;
-          margin-bottom: -2px;
-        }
-      }
-      &:hover {
-        opacity: 1;
       }
     }
-    .config-badge.badge-achieved {
+    .config-badge.badge-achieved > label > img,
+    .config-badge.badge-achieved > label > input:checked ~ img {
       opacity: 1;
     }
   }
@@ -670,15 +672,15 @@ input[type=password] {
 
 .badge-details.badge-achieved > .badge-status { display: flex; }
 
-.badge-showcase.trophy { filter: drop-shadow(0 0.625rem 1.5625rem $trophy-col); }
-.badge-showcase.loyal { filter: drop-shadow(0 0.625rem 1.5625rem $loyal-col); }
-.badge-showcase.console { filter: drop-shadow(0 0.625rem 1.5625rem $console-col); }
-.badge-showcase.medal { filter: drop-shadow(0 0.625rem 1.5625rem $medal-col); }
-.badge-showcase.grad { filter: drop-shadow(0 0.625rem 1.5625rem $grad-col); }
-.badge-showcase.review { filter: drop-shadow(0 0.625rem 1.5625rem $review-col); }
-.badge-showcase.love { filter: drop-shadow(0 0.625rem 1.5625rem $love-col); }
-.badge-showcase.verified { filter: drop-shadow(0 0.625rem 1.5625rem $verified-col); }
-.badge-showcase.tour { filter: drop-shadow(0 0.625rem 1.5625rem $tour-col); }
+#config-trophy:checked ~ img ~ img, .badge-showcase.trophy { filter: drop-shadow(0 0.625rem 1.5625rem $trophy-col); }
+#config-loyal:checked ~ img, .badge-showcase.loyal { filter: drop-shadow(0 0.625rem 1.5625rem $loyal-col); }
+#config-console:checked ~ img, .badge-showcase.console { filter: drop-shadow(0 0.625rem 1.5625rem $console-col); }
+#config-medal:checked ~ img, .badge-showcase.medal { filter: drop-shadow(0 0.625rem 1.5625rem $medal-col); }
+#config-grad:checked ~ img, .badge-showcase.grad { filter: drop-shadow(0 0.625rem 1.5625rem $grad-col); }
+#config-review:checked ~ img, .badge-showcase.review { filter: drop-shadow(0 0.625rem 1.5625rem $review-col); }
+#config-love:checked ~ img, .badge-showcase.love { filter: drop-shadow(0 0.625rem 1.5625rem $love-col); }
+#config-verified:checked ~ img, .badge-showcase.verified { filter: drop-shadow(0 0.625rem 1.5625rem $verified-col); }
+#config-tour:checked ~ img, .badge-showcase.tour { filter: drop-shadow(0 0.625rem 1.5625rem $tour-col); }
 
 @keyframes show-badge-large {
   0% {
@@ -713,7 +715,7 @@ input[type=password] {
     margin-top: 2px;
     margin-bottom: -2px;
   }
-  80% {
+  70% {
     opacity: 1;
     margin-top: 0;
     margin-bottom: 0;
