@@ -20,55 +20,55 @@
     flex: 0 0 50%;
 }
 
-.archive-btn{
-    &::after{
-        content: 'Archive';
-        position: absolute;
-        bottom: -0.8em;
-        left: 50%;
-        transform: translateX(-50%);
-        font-weight: 600;
-        color: $light;
-        opacity: 0;
-        transition: opacity ease 0.2s, bottom ease 0.2s;
-    }
-    &:hover{
-        &::after{
-            bottom: -0.5em;
-            transform: translateX(-50%);
-            color: $magenta-light;
-            opacity: 1;
-        }
-        svg{
-            fill: $magenta-light;
-        }
-    }
-}
+// .archive-btn{
+//     &::after{
+//         content: 'Archive';
+//         position: absolute;
+//         bottom: -0.8em;
+//         left: 50%;
+//         transform: translateX(-50%);
+//         font-weight: 600;
+//         color: $light;
+//         opacity: 0;
+//         transition: opacity ease 0.2s, bottom ease 0.2s;
+//     }
+//     &:hover{
+//         &::after{
+//             bottom: -0.5em;
+//             transform: translateX(-50%);
+//             color: $magenta-light;
+//             opacity: 1;
+//         }
+//         svg{
+//             fill: $magenta-light;
+//         }
+//     }
+// }
 
-.bin-btn{
-    &::after{
-        content: 'Bin';
-        position: absolute;
-        bottom: -0.8em;
-        left: 50%;
-        transform: translateX(-50%);
-        font-weight: 600;
-        color: $light;
-        opacity: 0;
-        transition: opacity ease 0.2s, bottom ease 0.2s;
-    }
-    &:hover{
-        &::after{
-            bottom: -0.5em;
-            transform: translateX(-50%);
-            color: $red;
-            opacity: 1;
-        }
-        svg{
-            fill: $red;
-        }
-    }
-}
+// .bin-btn{
+//     &::after{
+//         content: 'Bin';
+//         position: absolute;
+//         bottom: -0.8em;
+//         left: 50%;
+//         transform: translateX(-50%);
+//         font-weight: 600;
+//         color: $light;
+//         opacity: 0;
+//         transition: opacity ease 0.2s, bottom ease 0.2s;
+//     }
+//     &:hover{
+//         &::after{
+//             bottom: -0.5em;
+//             transform: translateX(-50%);
+//             color: $red;
+//             opacity: 1;
+//         }
+//         svg{
+//             fill: $red;
+//         }
+//     }
+// }
 
 .icon-btn{
     cursor: pointer;
@@ -532,7 +532,7 @@
                         }
                     }
                     .inbox-btn-title{
-                        transition: color ease 0.2s;
+                        transition: color ease 0.3s;
                         color: $blue-mid;
                     }
                 }
@@ -545,7 +545,7 @@
                         }
                     }
                     .archive-btn-title{
-                        transition: color ease 0.2s;
+                        transition: color ease 0.3s;
                         color: $magenta-light;
                     }
                 }
@@ -558,7 +558,7 @@
                         }
                     }
                     .bin-btn-title{
-                        transition: color ease 0.2s;
+                        transition: color ease 0.3s;
                         color: $red;
                     }
                 }
@@ -573,7 +573,6 @@
             margin-right: 1.5em;
             position: relative;
             padding-bottom: 0.5em;
-            // border: thin solid red;
             img{
                 height: 3em;
                 width: 3em; 
