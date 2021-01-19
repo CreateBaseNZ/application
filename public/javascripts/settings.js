@@ -8,6 +8,7 @@ let settings = {
   loadBadges: undefined,
   loadEventListeners: undefined,
   populate: undefined,
+  previousStyle: undefined,
   saveProfile: undefined,
   saveAccount: undefined,
   saveNotification: undefined,
@@ -47,6 +48,8 @@ settings.initialise = async () => {
   settings.loadEventListeners()
   // Populate fields
   // settings.populate(data.content.account, data.content.user);
+  // Check if coming from another page
+  settings.previousStyle()
 }
 
 settings.loadBadges = () => {
@@ -116,7 +119,8 @@ settings.loadEventListeners = () => {
 
   settings.badgeConfigDone.addEventListener('click', () => {
     // TO DO: post new badge config
-    // TO DO: update cached badge config
+    // TO DO: update badge preview
+    // TO DO: update cache
     settings.badgeConfigScreen.classList.toggle('hide');
     settings.darkenOverlay.classList.toggle('hide');
   })
@@ -160,6 +164,15 @@ settings.populate = (account = {}, user = {}) => {
   document.querySelector("#acc-country").value = user.address.country ? user.address.country : "";
   // Notifications
   document.querySelector("#mail").checked = account.subscription.newsletter;
+}
+
+settings.previousStyle = () => {
+  if (sessionStorage.getItem('dashboard')) {
+    settings.badgeConfigScreen.classList.toggle('hide')
+    settings.darkenOverlay.classList.toggle('hide')
+    document.querySelector('.' + sessionStorage.getItem('dashboard') + '-details').classList.add('badge-details-show')
+  }
+  sessionStorage.clear()
 }
 
 /* ==========================================================

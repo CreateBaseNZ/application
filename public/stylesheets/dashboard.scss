@@ -187,14 +187,20 @@ h2 {
 .db-badge {
   position: relative;
   img {
+    cursor: pointer;
     transition: filter 0.1s ease-out;
+    &:hover {
+      filter: brightness(0.8) blur(1px);
+    }
+    &:hover ~ span {
+      opacity: 1;
+    }
   }
-  &::after {
-    content: attr(caption);
+  span {
+    pointer-events: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    text-align: center;
     transform: translate(-50%, -50%);
     color: $lightest;
     opacity: 0;
@@ -203,14 +209,6 @@ h2 {
     font-weight: 700;
     letter-spacing: 0.125em;
     transition: opacity 0.1s ease-out;
-  }
-  &:hover {
-    img {
-      filter: brightness(0.8) blur(1px);
-    }
-    &::after {
-      opacity: 1;
-    }
   }
 }
 
