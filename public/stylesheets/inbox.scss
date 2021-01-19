@@ -14,10 +14,68 @@
 
 .left-column{
     flex: 0 0 50%;
-    padding: $vert-space 2em 0 $horiz-space;
+    padding: $vert-space 0 0 $horiz-space;
 }
 .right-column{
     flex: 0 0 50%;
+}
+
+.archive-btn{
+    &::after{
+        content: 'Archive';
+        position: absolute;
+        bottom: -0.8em;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 600;
+        color: $light;
+        opacity: 0;
+        transition: opacity ease 0.2s, bottom ease 0.2s;
+    }
+    &:hover{
+        &::after{
+            bottom: -0.5em;
+            transform: translateX(-50%);
+            color: $magenta-light;
+            opacity: 1;
+        }
+        svg{
+            fill: $magenta-light;
+        }
+    }
+}
+
+.bin-btn{
+    &::after{
+        content: 'Bin';
+        position: absolute;
+        bottom: -0.8em;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 600;
+        color: $light;
+        opacity: 0;
+        transition: opacity ease 0.2s, bottom ease 0.2s;
+    }
+    &:hover{
+        &::after{
+            bottom: -0.5em;
+            transform: translateX(-50%);
+            color: $red;
+            opacity: 1;
+        }
+        svg{
+            fill: $red;
+        }
+    }
+}
+
+.icon-btn{
+    cursor: pointer;
+    svg{
+        transition: fill ease 0.3s;
+        fill: $light;
+    }
 }
 
 .header-container{
@@ -32,6 +90,137 @@
     letter-spacing: -0.01em;
     text-align: left;
     color: $light;
+    }
+    .inbox-tab-container{
+        display: flex;
+        align-items: center;
+        .inbox-tab-selector{
+            margin-left: 2.5em;
+            background-color: transparent;
+            cursor: pointer;
+            position: relative;
+            padding: 1em;
+            svg{
+                transition: fill ease 0.3s;
+                fill: $light;
+            }
+        }
+        .inbox-btn{
+            &::after{
+                content: 'Inbox';
+                position: absolute;
+                bottom: -0.8em;
+                left: 50%;
+                transform: translateX(-50%);
+                font-weight: 700;
+                color: $light;
+                opacity: 0;
+                transition: opacity ease 0.2s, bottom ease 0.2s;
+            }
+            &:hover{
+                &::after{
+                    bottom: -0.5em;
+                    transform: translateX(-50%);
+                    color: $blue-mid;
+                    opacity: 1;
+                }
+                svg{
+                    fill: $blue-mid;
+                }
+            }
+        }
+        
+        .archive-btn{
+            &::after{
+                content: 'Archive';
+                position: absolute;
+                bottom: -0.8em;
+                left: 50%;
+                transform: translateX(-50%);
+                font-weight: 600;
+                color: $light;
+                opacity: 0;
+                transition: opacity ease 0.2s, bottom ease 0.2s;
+            }
+            &:hover{
+                &::after{
+                    bottom: -0.5em;
+                    transform: translateX(-50%);
+                    color: $magenta-light;
+                    opacity: 1;
+                }
+                svg{
+                    fill: $magenta-light;
+                }
+            }
+        }
+        
+        .bin-btn{
+            &::after{
+                content: 'Bin';
+                position: absolute;
+                bottom: -0.8em;
+                left: 50%;
+                transform: translateX(-50%);
+                font-weight: 600;
+                color: $light;
+                opacity: 0;
+                transition: opacity ease 0.2s, bottom ease 0.2s;
+            }
+            &:hover{
+                &::after{
+                    bottom: -0.5em;
+                    transform: translateX(-50%);
+                    color: $red;
+                    opacity: 1;
+                }
+                svg{
+                    fill: $red;
+                }
+            }
+        }
+
+        .active-inbox{
+            &::after{
+                content: 'Inbox';
+                position: absolute;
+                bottom: -0.5em;
+                transform: translateX(-50%);
+                color: $blue-mid;
+                opacity: 1;
+            }
+            svg{
+                fill: $blue-mid;
+            }
+        }
+
+        .active-archive{
+            &::after{
+                content: 'Archive';
+                position: absolute;
+                bottom: -0.5em;
+                transform: translateX(-50%);
+                color: $magenta-light;
+                opacity: 1;
+            }
+            svg{
+                fill: $magenta-light;
+            }
+        }
+
+        .active-bin{
+            &::after{
+                content: 'Bin';
+                position: absolute;
+                bottom: -0.5em;
+                transform: translateX(-50%);
+                color: $red;
+                opacity: 1;
+            }
+            svg{
+                fill: $red;
+            }
+        }
     }
     .opt {
         // border: thin solid red;
@@ -63,17 +252,46 @@
 }
 
 .ui-container {
-    flex-direction: row;
+    flex-direction: column;
     padding: 0;
+    padding: 2vh 0 0 3vw;
     justify-content: space-between;
     width: 100%;
+    // border: thin solid red;
+}
+
+.disclaimer-text{
+    padding-bottom: 1.5em;
+    color: $blue-mid;
+}
+
+.select-all-container{
+    display: flex;
+    align-items: center;
+    padding-bottom: 2em;
+    p{
+        padding-left: 0.5em;
+        color: $blue-light;
+        font-weight: 300;
+        font-size: 0.8em;
+        font-weight: 500;
+        transition: color ease 0.1s, font-weight ease 0.1s;
+    }
+    .select-all-p{
+        color: $blue-light;
+        font-weight: 400;
+        font-weight: 500;
+    }
+}
+#remember-text{
+    cursor: pointer;
 }
 
 .inbox-list-container{
     // border: thin solid red;
-    height:80vh;
+    height:62vh;
     width: 100%;
-    padding: 4vh 3vw;
+    padding-right: 3vw;
     overflow-y: scroll;
 }
 
@@ -91,11 +309,45 @@
     }
 }
 
+
+.notif-dp{
+    // border: thin solid blue;
+    display: flex;
+    margin-right: 1.5em;
+    position: relative;
+    img{
+        height: 2em;
+        width: 2em; 
+        object-fit: cover;
+        border-radius: 100%;
+    }
+}
+
+.dp-sub-icon{
+    position: absolute;
+    bottom: -0.4em;
+    right: -0.5em;
+    height: 1em;
+    width: 1em;
+    background-color: $light;
+    border: 0.2em solid $lightest;
+    padding: 0.5em;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    i{
+        color: $lightest;
+        font-size: 0.8em;
+    }
+}
+
+
 .notif-wrap{
     padding-bottom: 2em;
     .date-text{
         font-size: 0.9em;
-        color: $light;
+        color: $dark;
     }
     .date-group{
         padding-bottom: 1.5em;
@@ -103,6 +355,13 @@
             font-size: 0.8em;
             color: $light;
         }
+    }
+    .selected-notif{
+        -webkit-box-shadow:0px 4px 8px 1px #E4E4E4 !important; 
+        box-shadow:0px 4px 8px 1px #E4E4E4 !important;
+    }
+    .non-active-notif{
+        opacity: 0.5;
     }
     .single-notif-container{
         padding: 2em;
@@ -117,17 +376,6 @@
         &:hover{
             -webkit-box-shadow:0px 4px 8px 1px #E4E4E4; 
             box-shadow:0px 4px 8px 1px #E4E4E4;
-        }
-        .notif-dp{
-            // border: thin solid blue;
-            display: flex;
-            margin-right: 1.5em;
-            img{
-                height: 2em;
-                width: 2em; 
-                object-fit: cover;
-                border-radius: 100%;
-            }
         }
         .notif-content-container{
             .notif-title-container{
@@ -154,6 +402,61 @@
                 text-overflow: ellipsis;
             }
         }
+        .checkbox-container{
+            padding-right: 1em;
+        }
+    }
+}
+
+.selected-notif-btn-container{
+    display: flex;
+    align-items: center;
+    padding-left:3vw;
+    // border: thin solid red;
+    height: 5em;
+    display: flex;
+    background-color: $bg-grey;
+}
+
+.selected-button-container{
+    margin-right: 1em;
+}
+
+.selected-notif-btn{
+    cursor: pointer;
+    min-width: 10em;
+    border-radius: 1em;
+    padding: 1em 2em;
+}
+
+.cancel-btn{
+    background-color: $blue-mid;
+    color: $lightest;
+    transition: background-color ease 0.3s;
+    &:hover{
+        background-color: $blue-dark;
+    }
+}
+
+.archive-selected-btn{
+    background-color: transparent;
+    color: $magenta-light;
+    border: thin solid $magenta-light;
+    transition: background-color ease 0.3s;
+    &:hover{
+        background-color: $magenta-light;
+        color: $lightest;
+    }
+}
+
+.delete-selected-btn{
+    background-color: transparent;
+    color: $red;
+    border: thin solid $red;
+    transition: background-color ease 0.3s;
+    &:hover{
+        background-color: $red;
+        color: $lightest;
     }
 }
 
@@ -168,50 +471,135 @@
     .detail-container{
         display: flex;
         flex-direction: column;
-        .trash-btn-container{
-            display: flex;
-            justify-content: flex-end;
-            button{
-                background-color: transparent;
-                display: flex;
-                cursor: pointer;
-                i{
-                    color: $light;
-                    font-size: 2em;
-                    transition: all ease 0.2s;
-                }
-                &:hover{
-                    i{
-                        color: $red;
-                    }
-                }
-            }
-        }
         .detail-header{
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             align-items: center;
             padding: 1.5em 0;
+            justify-content: space-between;
+            // border: thin solid red;
             .detail-title-p{
                 font-size: 1.5em;
                 font-weight: 600;
             }
             .detail-date-text{
                 font-size: 1em;
-                color: $light;
+                color: $dark;
             }
+        }
+        .header-text-container{
+            display: flex;
+            flex-direction: row;
+            // flex-wrap: wrap;
+            align-items: center;
+            // border: thin solid blue;
+        }
+        .notif-info{
+            // border: thin solid black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.5em;
+            .info-container{
+                display: flex;
+                align-items: center;
+            }
+            .inbox-button-wrap{
+                display: flex;
+                align-items: center;
+            }
+            .detail-btn-container{
+                cursor: pointer;
+                padding-left: 1em;
+                font-size: 0.9em;
+                display: flex;
+                align-content: center;
+                p{
+                    color:$light;
+                    line-height: 190%;            
+                }
+                button{
+                    font-size: 0.9em;
+                    background-color: transparent;
+                }
+            }
+            .inbox-btn-container{
+                &:hover{
+                    .inbox-btn{
+                        svg{
+                            fill: $blue-mid;
+                        }
+                    }
+                    .inbox-btn-title{
+                        transition: color ease 0.2s;
+                        color: $blue-mid;
+                    }
+                }
+            }
+            .archive-btn-container{
+                &:hover{
+                    .archive-btn{
+                        svg{
+                            fill: $blue-mid;
+                        }
+                    }
+                    .archive-btn-title{
+                        transition: color ease 0.2s;
+                        color: $magenta-light;
+                    }
+                }
+            }
+            .bin-btn-container{
+                &:hover{
+                    .bin-btn{
+                        svg{
+                            fill: $red;
+                        }
+                    }
+                    .bin-btn-title{
+                        transition: color ease 0.2s;
+                        color: $red;
+                    }
+                }
+            }
+        }
+        .tab-origin{
+            font-size: 0.8em;
+            color: $light;
         }
         .detail-dp{
             display: flex;
             margin-right: 1.5em;
+            position: relative;
+            padding-bottom: 0.5em;
+            // border: thin solid red;
             img{
                 height: 3em;
                 width: 3em; 
                 object-fit: cover;
                 border-radius: 100%;
             }
+            .dp-sub-icon{
+                position: absolute;
+                bottom: -0.4em;
+                right: -0.6em;
+                height: 2em;
+                width: 2em;
+                background-color: $light;
+                border: 0.2em solid $lightest;
+                padding: 0.5em;
+                border-radius: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;    
+                i{
+                    color: $lightest;
+                    font-size: 1em;
+                }
+            }
         }
+
         .divider{
             border-bottom: thin solid $lighter;
             width: 99%;
