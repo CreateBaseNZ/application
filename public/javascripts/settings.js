@@ -89,9 +89,11 @@ settings.loadBadges = () => {
     input.addEventListener('change', function() {
       if (document.querySelector('.badge-details-show')) {
         document.querySelector('.badge-details-show').classList.remove('badge-details-show')
+        document.querySelector('.badge-focus').classList.remove('badge-focus')
       }
       if (this.checked) {
         document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
+        document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
       }
     })
     el.addEventListener('dragstart', function(e) {

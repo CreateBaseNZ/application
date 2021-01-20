@@ -540,6 +540,8 @@ input[type=password] {
       height: 7rem;
       width: 7rem;
       padding: calc(7rem * 0.15);
+      border-radius: 33%;
+      transition: background-color 0.1s ease-out;
       label {
         cursor: pointer;
         height: 100%;
@@ -550,27 +552,23 @@ input[type=password] {
         justify-content: center;
         input {
           display: none;
-          &:checked ~ img {
-            opacity: 0.5;
-            margin: -2px -2px 0 0;
-          }
         }
         img {
           height: 100%;
           width: 100%;
           opacity: 0.25;
           transition: filter 0.1s ease-out, margin 0.1s ease-out, opacity 0.2s ease-out;
-          // &:hover {
-          //   opacity: 1;
-          //   margin: -2px -2px 0 0;
-          //   filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
-          // }
         }
       }
     }
-    .config-badge.badge-achieved > label > img,
-    .config-badge.badge-achieved > label > input:checked ~ img {
+    .config-badge.badge-achieved > label > img {
       opacity: 1;
+    }
+    .config-badge.badge-focus {
+      background: $lighter;
+      label > img {
+        margin: -2px -2px 0 0;
+      }
     }
     &.badge-hover-enabled > .config-badge > label > img:hover {
       opacity: 1;
