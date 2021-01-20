@@ -23,7 +23,8 @@
   }
   .trophy-case {
     margin-left: 2vw;
-    height: 10rem;
+    // height: 16vmin;
+    max-height: 22.5vmin;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,7 +75,7 @@ h2 {
 .db-right {
   width: 50vw;
   height: 100%;
-  padding-left: 6vw;
+  padding-left: 2vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -100,7 +101,7 @@ h2 {
 }
 
 .stat {
-  padding: 2rem 2vw 2rem 4vw;
+  padding: 2rem 2vw 2rem 2vw;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -110,6 +111,7 @@ h2 {
   width: 100%;
   position: relative;
   .stat-img {
+    display: none;
     position: absolute;
     top: 0;
     left: -4vw;
@@ -118,8 +120,8 @@ h2 {
     object-fit: contain;
   }
   .stat-text {
+    flex: 1 1 0;
     margin: 0 2vw;
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -128,16 +130,16 @@ h2 {
       font-size: 1.25rem;
       color: $lightest;
       line-height: 105%;
-      margin-bottom: 0.5em;
     }
     .stat-about {
+      display: none;
       font-size: 0.625rem;
       color: $lightest;
       line-height: 150%;
     }
   }
   .stat-fig-container {
-    width: 5vw;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -187,6 +189,10 @@ h2 {
 
 .db-badge {
   position: relative;
+  height: 7.5vmin;
+  width: 7.5vmin;
+  flex: 0 0 7.5vmin;
+  padding: calc(7.5vmin * 0.15);
   img {
     cursor: pointer;
     transition: filter 0.1s ease-out;
@@ -210,13 +216,6 @@ h2 {
     font-weight: 700;
     letter-spacing: 0.125em;
     transition: opacity 0.1s ease-out;
-  }
-}
-
-.db-badge.empty {
-  cursor: pointer;
-  &::after {
-    content: 'Click to edit';
   }
 }
 
@@ -278,8 +277,32 @@ h2 {
 
 @media only screen and (min-width: 1200px) {
 
+.db-right {
+  padding-left: 6vw;
+}
+
 .recent-container > .project-card:not(:first-child) {
   display: grid;
+}
+
+.stat {
+  padding: 2rem 2vw 2rem 4vw;
+  .stat-img {
+    display: block;
+  }
+  .stat-text {
+    margin: 0 2vw;
+    width: 100%;
+    .stat-title {
+      margin-bottom: 0.5em;
+    }
+    .stat-about {
+      display: block;
+    } 
+  }
+  .stat-fig-container {
+    width: 5vw;
+  }
 }
 
 }

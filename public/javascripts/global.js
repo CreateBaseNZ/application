@@ -105,7 +105,7 @@ global.createProjectCard = (parentContainer, size, project) => {
 
   parentContainer.appendChild(card)
 
-  card.addEventListener('mouseenter', () => confetti(card, global.confettiConfig))
+  if (project.status === 'completed') card.addEventListener('mouseenter', () => confetti(card, global.confettiConfig))
 }
 
 global.enterKeyPress = (input, func) => {
