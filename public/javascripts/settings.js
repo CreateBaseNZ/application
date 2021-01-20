@@ -5,13 +5,14 @@ VARIABLES
 let settings = {
   initialise: undefined,
   fetch: undefined,
+  fromPreviousPage: undefined,
   loadBadges: undefined,
   loadEventListeners: undefined,
   populate: undefined,
-  previousStyle: undefined,
-  saveProfile: undefined,
   saveAccount: undefined,
+  saveBadges: undefined,
   saveNotification: undefined,
+  saveProfile: undefined,
   temp: undefined,
 
   // TO DO: check if variables can be scoped as const
@@ -20,7 +21,7 @@ let settings = {
   badges2: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
   badgeConfigClose: document.querySelector('.close-btn'),
   badgeConfigDone: document.querySelector('.done-btn'),
-  badgeMenu: document.querySelector('.badge-menu'),
+  // badgeMenu: document.querySelector('.badge-menu'),
   darkenOverlay: document.querySelector('.darken-overlay'),
   pass: document.querySelector('#acc-pass'),
   passConf: document.querySelector('#acc-pass-conf'),
@@ -49,7 +50,7 @@ settings.initialise = async () => {
   // Populate fields
   // settings.populate(data.content.account, data.content.user);
   // Check if coming from another page
-  settings.previousStyle()
+  settings.fromPreviousPage()
 }
 
 settings.loadBadges = () => {
@@ -68,13 +69,14 @@ settings.loadBadges = () => {
     settings.trophyCase.appendChild(el);
   }
 
-  settings.badges2.forEach((badge) => {
+  settings.badges2.forEach((badge, ind) => {
     // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
-    if (Math.random() > 0.5) {
-      el.classList.add('badge-achieved')
+    if (ind < 4) {
       document.querySelector('.' + badge + '-details').classList.add('badge-achieved')
+    } else {
+      el.classList.add('badge-not-achieved')
     }
     var label = document.createElement('label');
     var input = document.createElement('input');
@@ -96,7 +98,7 @@ settings.loadBadges = () => {
         document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
       }
     })
-    settings.badgeMenu.appendChild(el);
+    ind < 4 ? document.querySelector('.badge-achieved-section').appendChild(el) : document.querySelector('.badge-not-achieved-section').appendChild(el)
   })
 }
 
@@ -122,8 +124,39 @@ settings.loadEventListeners = () => {
     this.classList.toggle('visible');
   })
 
+  document.querySelector('.profile-save').addEventListener('click', () => {
+    // Save Profile settings
+    settings.saveProfile();
+  })
+  
+  document.querySelector('.profile-cancel').addEventListener('click', () => {
+    // Cancel Profile settings
+    settings.cancelProfile();
+  })
+
+  document.querySelector('.account-save').addEventListener('click', () => {
+    // Save Account settings
+    settings.saveAccount();
+  })
+  
+  document.querySelector('.account-cancel').addEventListener('click', () => {
+    // Cancel Account settings
+    settings.cancelAccount();
+  })
+
+  document.querySelector('.notifs-save').addEventListener('click', () => {
+    // Save Notifications settings
+    settings.saveNotifs();
+  })
+  
+  document.querySelector('.notifs-cancel').addEventListener('click', () => {
+    // Cancel Notifications settings
+    settings.cancelNotifs();
+  })
+
   settings.badgeConfigDone.addEventListener('click', () => {
     // TO DO: post new badge config
+    settings.saveBadges()
     // TO DO: update badge preview
     // TO DO: update cache
     settings.badgeConfigScreen.classList.toggle('hide');
@@ -139,15 +172,14 @@ settings.loadEventListeners = () => {
   document.querySelectorAll('.section').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
-        // TO DO: post new settings
-        // TO DO: update cached settings
+        // Save button - enable edit mode
         this.classList.toggle('edit-mode');
       } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
-        // TO DO: revert to cached settings
-        this.classList.toggle('edit-mode');
+        // Cancel button - disable edit mode
+        this.classList.remove('edit-mode');
       } else if (!this.classList.contains('edit-mode')) {
-        // Enable edit mode
-        this.classList.toggle('edit-mode');
+        // Anywhere else - enable edit mode
+        this.classList.add('edit-mode');
       }
     })
   })
@@ -171,7 +203,7 @@ settings.populate = (account = {}, user = {}) => {
   document.querySelector("#mail").checked = account.subscription.newsletter;
 }
 
-settings.previousStyle = () => {
+settings.fromPreviousPage = () => {
   if (sessionStorage.getItem('dashboard')) {
     settings.badgeConfigScreen.classList.toggle('hide')
     settings.darkenOverlay.classList.toggle('hide')
@@ -180,6 +212,7 @@ settings.previousStyle = () => {
   }
   sessionStorage.clear()
 }
+
 
 /* ==========================================================
 BACKEND REQUEST
@@ -222,6 +255,13 @@ settings.saveProfile = async () => {
   }
   // Success handler
   return;
+}
+
+settings.saveBadges = async () => {
+  let data = [];
+  document.querySelector('.badge-achieved-section').querySelectorAll('.config-badge').forEach((badge) => {
+    data.push(badge.classList[1])
+  })
 }
 
 settings.saveAccount = async () => {
