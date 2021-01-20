@@ -681,11 +681,9 @@ input[type=password] {
     i {
       font-size: 1rem;
       margin-right: 0.5em;
-      filter: drop-shadow(0 0 0.2em $green); 
       animation: show-badge-tick 2s forwards;
     }
     span {
-      text-shadow: 0 0 1em $green;
       animation: show-badge-achieved 2s forwards;
     }
   }
@@ -701,7 +699,7 @@ input[type=password] {
 
 .badge-details.badge-achieved > .badge-status { display: flex; }
 
-#config-trophy:checked ~ img ~ img, .badge-showcase.trophy { filter: drop-shadow(0 0.625rem 1.5625rem $trophy-col); }
+#config-trophy:checked ~ img, .badge-showcase.trophy { filter: drop-shadow(0 0.625rem 1.5625rem $trophy-col); }
 #config-loyal:checked ~ img, .badge-showcase.loyal { filter: drop-shadow(0 0.625rem 1.5625rem $loyal-col); }
 #config-console:checked ~ img, .badge-showcase.console { filter: drop-shadow(0 0.625rem 1.5625rem $console-col); }
 #config-medal:checked ~ img, .badge-showcase.medal { filter: drop-shadow(0 0.625rem 1.5625rem $medal-col); }

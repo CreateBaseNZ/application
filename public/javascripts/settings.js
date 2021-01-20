@@ -211,9 +211,10 @@ settings.cacheData = () => {
 // Load styles 
 settings.fromPreviousPage = () => {
   const badge = sessionStorage.getItem('dashboard')
-  if (badge && badge !== 'empty') {
+  if (badge) {
     settings.badgeConfigScreen.classList.toggle('hide')
     settings.darkenOverlay.classList.toggle('hide')
+    if (badge !== 'Empty')
     document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
     document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
   }
