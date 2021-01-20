@@ -1,4 +1,11 @@
-//import Sortable from '/node_modules/sortablejs/modular/sortable.core.esm';
+import Sortable from '../../node_modules/sortablejs/modular/sortable.esm.js';
+
+var menu = document.querySelector('.badge-menu')
+new Sortable(menu, {
+  animation: 150,
+  ghostClass: 'blue-background-class'
+})
+
 
 /* ==========================================================
 FUNCTIONS

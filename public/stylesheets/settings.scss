@@ -516,6 +516,15 @@ input[type=password] {
       color: $red;
     }
   }
+  .drag-tooltip {
+    position: absolute;
+    top: 3rem;
+    left: 4rem;
+    font-size: 0.75rem;
+    color: $light;
+    transform: translateY(-100%);
+    z-index: 2;
+  }
   .badge-menu {
     position: relative;
     background: $lightest;
@@ -527,18 +536,10 @@ input[type=password] {
     align-items: flex-start;
     flex-wrap: wrap;
     max-height: 100%;
-    .drag-tooltip {
-      position: absolute;
-      left: 4rem;
-      font-size: 0.75rem;
-      color: $light;
-      transform: translateY(-100%);
-    }
     .config-badge {
       height: 7rem;
       width: 7rem;
       padding: calc(7rem * 0.15);
-      // transition: opacity 0.2s ease-out;
       label {
         cursor: pointer;
         height: 100%;
@@ -559,17 +560,22 @@ input[type=password] {
           width: 100%;
           opacity: 0.25;
           transition: filter 0.1s ease-out, margin 0.1s ease-out, opacity 0.2s ease-out;
-          &:hover {
-            opacity: 1;
-            margin: -2px -2px 0 0;
-            filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
-          }
+          // &:hover {
+          //   opacity: 1;
+          //   margin: -2px -2px 0 0;
+          //   filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
+          // }
         }
       }
     }
     .config-badge.badge-achieved > label > img,
     .config-badge.badge-achieved > label > input:checked ~ img {
       opacity: 1;
+    }
+    &.badge-hover-enabled > .config-badge > label > img:hover {
+      opacity: 1;
+      margin: -2px -2px 0 0;
+      filter: drop-shadow(-0.3rem 0.3rem 0.5rem rgba(0,0,0,0.1));
     }
   }
   .badge-info {
@@ -686,15 +692,15 @@ input[type=password] {
   0% {
     margin-top: 1rem;
     margin-bottom: -1rem;
-    // margin-top: 1rem;
-    // margin-bottom: -0.5rem;
     opacity: 0;
+  }
+  30% {
+    margin-top: 0;
+    margin-bottom: 0;
   }
   40% {
     margin-top: 0;
     margin-bottom: 0;
-    // margin-top: 0;
-    // margin-bottom: 0.5rem;
     opacity: 1;
   }
   100% {
@@ -710,12 +716,12 @@ input[type=password] {
     margin-top: 2px;
     margin-bottom: -2px;
   }
-  60% {
+  70% {
     opacity: 0;
     margin-top: 2px;
     margin-bottom: -2px;
   }
-  70% {
+  80% {
     opacity: 1;
     margin-top: 0;
     margin-bottom: 0;

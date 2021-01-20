@@ -94,6 +94,12 @@ settings.loadBadges = () => {
         document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
       }
     })
+    el.addEventListener('dragstart', function(e) {
+      settings.badgeMenu.classList.remove('badge-hover-enabled')
+    })
+    el.addEventListener('dragend', function(e) {
+      settings.badgeMenu.classList.add('badge-hover-enabled')
+    })
     settings.badgeMenu.appendChild(el);
   })
 }
