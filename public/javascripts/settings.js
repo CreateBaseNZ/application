@@ -4,6 +4,11 @@ VARIABLES
 
 let settings = {
   initialise: undefined,
+  cacheData: undefined,
+  cancelAccount: undefined,
+  cancelBadges: undefined,
+  cancelNotifications: undefined,
+  cancelProfile: undefined,
   fetch: undefined,
   fromPreviousPage: undefined,
   loadBadges: undefined,
@@ -11,22 +16,18 @@ let settings = {
   populate: undefined,
   saveAccount: undefined,
   saveBadges: undefined,
-  saveNotification: undefined,
+  saveNotifications: undefined,
   saveProfile: undefined,
   temp: undefined,
+  updateCache: undefined,
 
   // TO DO: check if variables can be scoped as const
   badgeConfigScreen: document.querySelector('.badge-edit-screen'),
   badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
-  badges2: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
-  badgeConfigClose: document.querySelector('.close-btn'),
-  badgeConfigDone: document.querySelector('.done-btn'),
-  // badgeMenu: document.querySelector('.badge-menu'),
+  cache: undefined,
   darkenOverlay: document.querySelector('.darken-overlay'),
   pass: document.querySelector('#acc-pass'),
   passConf: document.querySelector('#acc-pass-conf'),
-  passConfVis: document.querySelector('#acc-pass-conf-vis'),
-  passVis: document.querySelector('#acc-pass-vis'),
   trophyCase: document.querySelector('.badges-container')
 }
 
@@ -45,21 +46,20 @@ settings.initialise = async () => {
   }
   // Load badges
   settings.loadBadges()
-  // Add event listeners
-  settings.loadEventListeners()
   // Populate fields
   // settings.populate(data.content.account, data.content.user);
+  // Add event listeners
+  settings.loadEventListeners()
+  // Cache data
+  settings.cacheData()
   // Check if coming from another page
   settings.fromPreviousPage()
 }
 
 settings.loadBadges = () => {
 
-  for (var i = 0; i < 8; i++) {
-    // TO DO: load preview badges
-    const rand = Math.floor(Math.random()*settings.badges.length);
-    const badge = settings.badges[rand];
-    settings.badges.splice(rand, 1);
+  for (var i = 0; i < 4; i++) {
+    badge = settings.badges[i]
     var el = document.createElement('div');
     el.className = 'badge ' + badge;
     el.setAttribute('caption', badge);
@@ -69,7 +69,7 @@ settings.loadBadges = () => {
     settings.trophyCase.appendChild(el);
   }
 
-  settings.badges2.forEach((badge, ind) => {
+  settings.badges.forEach((badge, ind) => {
     // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
@@ -110,14 +110,14 @@ settings.loadEventListeners = () => {
     settings.darkenOverlay.classList.toggle('hide')
   })
 
-  settings.passVis.addEventListener('click', function (e) {
+  document.querySelector('#acc-pass-vis').addEventListener('click', function (e) {
     // Toggle password visibility
     const type = settings.pass.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.pass.setAttribute('type', type);
     this.classList.toggle('visible');
   })
 
-  settings.passConfVis.addEventListener('click', function (e) {
+  document.querySelector('#acc-pass-conf-vis').addEventListener('click', function (e) {
     // Toggle confirm password visibility
     const type = settings.passConf.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.passConf.setAttribute('type', type);
@@ -125,7 +125,7 @@ settings.loadEventListeners = () => {
   })
 
   document.querySelector('.profile-save').addEventListener('click', () => {
-    // Save Profile settings
+    // Save Profile settings and update cache
     settings.saveProfile();
   })
   
@@ -144,17 +144,17 @@ settings.loadEventListeners = () => {
     settings.cancelAccount();
   })
 
-  document.querySelector('.notifs-save').addEventListener('click', () => {
+  document.querySelector('.notifications-save').addEventListener('click', () => {
     // Save Notifications settings
-    settings.saveNotifs();
+    settings.saveNotifications();
   })
   
-  document.querySelector('.notifs-cancel').addEventListener('click', () => {
+  document.querySelector('.notifications-cancel').addEventListener('click', () => {
     // Cancel Notifications settings
-    settings.cancelNotifs();
+    settings.cancelNotifications();
   })
 
-  settings.badgeConfigDone.addEventListener('click', () => {
+  document.querySelector('.badge-config-done').addEventListener('click', () => {
     // TO DO: post new badge config
     settings.saveBadges()
     // TO DO: update badge preview
@@ -163,7 +163,7 @@ settings.loadEventListeners = () => {
     settings.darkenOverlay.classList.toggle('hide');
   })
 
-  settings.badgeConfigClose.addEventListener('click', () => {
+  document.querySelector('.badge-config-close').addEventListener('click', () => {
     // TO DO: revert to cached badge config
     settings.badgeConfigScreen.classList.toggle('hide');
     settings.darkenOverlay.classList.toggle('hide');
@@ -203,14 +203,26 @@ settings.populate = (account = {}, user = {}) => {
   document.querySelector("#mail").checked = account.subscription.newsletter;
 }
 
+// TO DO: cache data coming in
+settings.cacheData = () => {
+
+}
+
+// Load styles 
 settings.fromPreviousPage = () => {
-  if (sessionStorage.getItem('dashboard')) {
+  const badge = sessionStorage.getItem('dashboard')
+  if (badge && badge !== 'empty') {
     settings.badgeConfigScreen.classList.toggle('hide')
     settings.darkenOverlay.classList.toggle('hide')
-    const info = document.querySelector('.' + sessionStorage.getItem('dashboard') + '-details')
-    if (info) info.classList.add('badge-details-show')
+    document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
+    document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
   }
   sessionStorage.clear()
+}
+
+// TO DO: update cache
+settings.updateCache = () => {
+
 }
 
 
@@ -254,6 +266,7 @@ settings.saveProfile = async () => {
     return console.log(data.content);
   }
   // Success handler
+  settings.updateCache();
   return;
 }
 
@@ -262,6 +275,8 @@ settings.saveBadges = async () => {
   document.querySelector('.badge-achieved-section').querySelectorAll('.config-badge').forEach((badge) => {
     data.push(badge.classList[1])
   })
+  // TO DO: Post badge configuration
+  settings.updateCache();
 }
 
 settings.saveAccount = async () => {
@@ -293,5 +308,6 @@ settings.saveAccount = async () => {
     return console.log(data.content);
   }
   // Success handler
+  settings.updateCache();
   return;
 }

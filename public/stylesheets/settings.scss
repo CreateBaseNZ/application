@@ -404,7 +404,7 @@ input[type=password] {
 // NOTIFICATIONS SECTION
 // ==========================================
 
-.notifs-container {
+.notifications-container {
   .panel-left > i,
   .edit-btn {
     color: $orange; 
@@ -512,7 +512,7 @@ input[type=password] {
   border-radius: 2rem;
   box-shadow: 0 1rem 2rem -1rem $dark;
   background: $lightest;
-  .close-btn {
+  .badge-config-close {
     cursor: pointer;
     position: absolute;
     top: 1.5rem;
@@ -625,7 +625,7 @@ input[type=password] {
   display: flex;
   align-items: center;
   justify-content: center;
-  .done-btn {
+  .badge-config-done {
     background: #29E9BA;
     margin-left: 1em;
     box-shadow: 0 0.5em 1em 0em $green;
