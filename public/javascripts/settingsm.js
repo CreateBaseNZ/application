@@ -11,12 +11,6 @@ new Sortable(document.querySelector('.badge-menu'), {
   onEnd: function (evt) {
     document.documentElement.classList.remove("draggable-cursor");
     document.querySelector('.badge-menu').classList.add('badge-hover-enabled');
-  },
-  onChoose: function (evt) {
-    document.documentElement.classList.add("draggable-cursor");
-  },
-  onUnchoose: function (evt) {
-    document.documentElement.classList.remove("draggable-cursor");
   }
 })
 
