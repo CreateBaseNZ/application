@@ -225,6 +225,27 @@ settings.updateCache = () => {
 
 }
 
+// TO DO: load cached account data
+settings.cancelAccount = () => {
+  
+}
+
+// TO DO: load cached badges data
+settings.cancelBadges = () => {
+
+}
+
+// TO DO: load cached profile data
+settings.cancelProfile = () => {
+
+}
+
+// TO DO: load cached notifications data
+settings.cancelNotifications = () => {
+
+}
+
+
 
 /* ==========================================================
 BACKEND REQUEST
@@ -310,4 +331,8 @@ settings.saveAccount = async () => {
   // Success handler
   settings.updateCache();
   return;
+}
+
+settings.saveNotifications = () => {
+
 }
