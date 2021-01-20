@@ -96,12 +96,6 @@ settings.loadBadges = () => {
         document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
       }
     })
-    el.addEventListener('dragstart', function(e) {
-      settings.badgeMenu.classList.remove('badge-hover-enabled')
-    })
-    el.addEventListener('dragend', function(e) {
-      settings.badgeMenu.classList.add('badge-hover-enabled')
-    })
     settings.badgeMenu.appendChild(el);
   })
 }

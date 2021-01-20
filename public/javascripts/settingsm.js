@@ -1,9 +1,23 @@
 import Sortable from '../../node_modules/sortablejs/modular/sortable.esm.js';
 
-var menu = document.querySelector('.badge-menu')
-new Sortable(menu, {
+new Sortable(document.querySelector('.badge-menu'), {
   animation: 150,
-  ghostClass: 'blue-background-class'
+  ghostClass: 'blue-background-class',
+  forceFallback: true,
+  onStart: function (evt) {
+    document.documentElement.classList.add("draggable-cursor");
+    document.querySelector('.badge-menu').classList.remove('badge-hover-enabled');
+  },
+  onEnd: function (evt) {
+    document.documentElement.classList.remove("draggable-cursor");
+    document.querySelector('.badge-menu').classList.add('badge-hover-enabled');
+  },
+  onChoose: function (evt) {
+    document.documentElement.classList.add("draggable-cursor");
+  },
+  onUnchoose: function (evt) {
+    document.documentElement.classList.remove("draggable-cursor");
+  }
 })
 
 
