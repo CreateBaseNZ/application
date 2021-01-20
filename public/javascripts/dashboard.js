@@ -95,13 +95,13 @@ FUNCTIONS
 
 dashboard.initialise = async () => {
   // Fetch data
-  const data = await dashboard.fetch();
+  // const data = await dashboard.fetch();
   // Validate incoming data
-  if (data.status === "error") {
-    console.log(data.content);
-  } else if (data.status === "failed") {
-    console.log(data.content);
-  }
+  // if (data.status === "error") {
+  //   console.log(data.content);
+  // } else if (data.status === "failed") {
+  //   console.log(data.content);
+  // }
   // Load badges
   dashboard.loadBadges()
   // Load projects

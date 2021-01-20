@@ -3,6 +3,7 @@ VARIABLES
 ========================================================== */
 
 let global = {
+  confettiConfig: undefined,
   createProjectCard: undefined,
   enterKeyPress: undefined
 }
@@ -32,6 +33,10 @@ global.createProjectCard = (parentContainer, size, project) => {
     tagEl.className = 'project-tag'
     tagEl.innerHTML = tag
     tagsContainer.appendChild(tagEl)
+  })
+
+  tagsContainer.addEventListener('wheel', function(e) {
+    this.scrollLeft += e.deltaY * 0.25;
   })
 
   card.appendChild(tagsContainer)
@@ -99,6 +104,8 @@ global.createProjectCard = (parentContainer, size, project) => {
   card.appendChild(bar)
 
   parentContainer.appendChild(card)
+
+  card.addEventListener('mouseenter', () => confetti(card, global.confettiConfig))
 }
 
 global.enterKeyPress = (input, func) => {
@@ -108,3 +115,18 @@ global.enterKeyPress = (input, func) => {
     }
   })
 }
+
+global.confettiConfig = {
+  angle: 0,
+  spread: 90,
+  startVelocity: 20,
+  elementCount: 20,
+  width: "10px",
+  height: "10px",
+  perspective: "200px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+  duration: 2000,
+  stagger: 3,
+  dragFriction: 0.12,
+  random: Math.random
+};

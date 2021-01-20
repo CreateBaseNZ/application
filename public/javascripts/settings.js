@@ -183,6 +183,18 @@ settings.loadEventListeners = () => {
       }
     })
   })
+
+  new Sortable(document.querySelector('.badge-achieved-section'), {
+    animation: 150,
+    ghostClass: 'blue-background-class',
+    forceFallback: true,
+    onStart: function (evt) {
+      document.documentElement.classList.add("draggable-cursor");
+    },
+    onEnd: function (evt) {
+      document.documentElement.classList.remove("draggable-cursor");
+    }
+  })
 }
 
 settings.populate = (account = {}, user = {}) => {
