@@ -332,9 +332,6 @@ span {
   cursor: pointer;
   position: relative;
   transition: box-shadow 0.2s ease-out, margin 0.1s ease-out;
-  & > * {
-    // pointer-events: none;
-  }
   &::after {
     position: absolute;
     content: '';

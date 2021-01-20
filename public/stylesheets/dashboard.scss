@@ -1,8 +1,6 @@
 @import "global";
 
-.ui-container {
-  // padding-bottom: 0;
-}
+@media only screen and (min-width: 768px) {
 
 .db-left {
   width: 50vw;
@@ -61,6 +59,9 @@ h2 {
   .project-card:only-child {
     margin-left: 0;
     margin-right: 0;
+  }
+  .project-card:not(:first-child) {
+    display: none;
   }
 }
 
@@ -267,4 +268,18 @@ h2 {
       height: 1.5em;
     }
   }
+}
+
+}
+
+// =========================================
+// DESKTOP AND WIDESCREEN
+// =========================================
+
+@media only screen and (min-width: 1200px) {
+
+.recent-container > .project-card:not(:first-child) {
+  display: grid;
+}
+
 }

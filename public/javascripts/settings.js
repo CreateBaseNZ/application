@@ -214,11 +214,12 @@ settings.fromPreviousPage = () => {
   if (badge) {
     settings.badgeConfigScreen.classList.toggle('hide')
     settings.darkenOverlay.classList.toggle('hide')
-    if (badge !== 'Empty')
-    document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
-    document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
+    if (badge !== 'empty') {
+      document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
+      document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
+    }
+    sessionStorage.clear()
   }
-  sessionStorage.clear()
 }
 
 // TO DO: update cache
