@@ -25,7 +25,7 @@ const NotificationSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, required: true },
   type: { type: String, required: true },
   title: { type: String, required: true },
-  messange: { type: String, required: true },
+  message: { type: [String], required: true },
   date: { type: String, required: true },
   opened: { type: Boolean, required: true },
   status: { type: String, required: true }
