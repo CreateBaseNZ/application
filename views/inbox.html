@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="/public/stylesheets/inbox.min.css" />
 </head>
 
-<body onload="inbox.initialise();">
+<body onload="global.initialise(); inbox.initialise();">
 
   <nav>
     <a href="/dashboard" class="website desktop-el">
@@ -397,14 +397,14 @@
     </div>
   </div>
   
+  <div class="darken-overlay hide"></div>
   <!-- ==========================JS========================== -->
   <!-- -----------------------SOURCED------------------------ -->
   <script async src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script async src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <!-- ------------------------CUSTOM------------------------ -->
+  <script async src="/public/javascripts/global.js"></script>
   <script async src="/public/javascripts/inbox.js"></script>
-  <!--<script async src="/public/javascripts/nav.min.js"></script>
-  <script async src="/public/javascripts/inbox.min.js"></script>-->
 </body>
 
 </html>

@@ -36,7 +36,8 @@ nav {
       opacity: 1;
     }
   }
-  &:active > i {
+  &:active > i,
+  &:focus > i {
     border-radius: 33%;
     background: rgba(0,0,0,0.1);
   }
@@ -46,8 +47,19 @@ nav {
 }
 .nav-menu-tab.active-tab {
   i {
+    position: relative;
     color: $lightest;
     opacity: 1;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 0.75rem;
+      height: 2px;
+      background: $lightest;
+    }
   }
 }
 
@@ -96,7 +108,8 @@ nav {
     left: -5vw;
     transform: translateY(-50%);
   } 
-  &:active > i {
+  &:active > i,
+  &:focus > i {
     border-radius: 33%;
     background: rgba(0,0,0,0.1);
   }
@@ -116,6 +129,7 @@ nav {
   z-index: 101;
   border-radius: 1.25rem;
   overflow: hidden;
+  box-shadow: 0 10px 15px -10px rgba(104,84,217,0.5);
   .header-container {
     width: 100%;
     display: flex;
@@ -157,7 +171,8 @@ nav {
       span {
         line-height: 200%;
       }
-      &:active {
+      &:active,
+      &:focus {
         background: #ECF9FF;
         color: $blue-mid;
         opacity: 1;
@@ -257,7 +272,7 @@ nav {
 }
 
 
-.website-desktop {
+.website {
   width: 100%;
   .website-logo {
     height: 100%;
