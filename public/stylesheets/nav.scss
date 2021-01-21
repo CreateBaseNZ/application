@@ -12,6 +12,7 @@ nav {
   justify-content: space-between;
   background-color: $logo-purple;
   overflow: hidden;
+  padding: 0 5vw;
 }
 
 .nav-menu {
@@ -35,11 +36,9 @@ nav {
       opacity: 1;
     }
   }
-  &:active {
-    i {
-      border-radius: 33%;
-      background: rgba(0,0,0,0.1);
-    }
+  &:active > i {
+    border-radius: 33%;
+    background: rgba(0,0,0,0.1);
   }
 }
 .nav-menu-tab.desktop-el {
@@ -57,7 +56,6 @@ nav {
   &::after {
     opacity: 1;
     position: absolute;
-    content: '';
     top: 19px;
     right: 17px;
     height: 10px;
@@ -66,15 +64,39 @@ nav {
     background: $gold;
   }
 }
+.inbox-tab.unread {
+  &::after {
+    content: '';
+  }
+}
 
 .more-tab {
   opacity: 0.5;
   background: transparent;
-  padding: 0 8%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-left: thin solid rgba(255,255,255,0.5);
+  padding: 10px;
+  margin-left: 5vw;
+  position: relative;
+  i {
+    padding: 10px;
+  }
+  &::after {
+    position: absolute;
+    content: '';
+    height: 18px;
+    width: 1px;
+    background: $lightest;
+    opacity: 0.5;
+    top: 50%;
+    left: -5vw;
+    transform: translateY(-50%);
+  } 
+  &:active > i {
+    border-radius: 33%;
+    background: rgba(0,0,0,0.1);
+  }
 }
 
 .desktop-el {
@@ -143,10 +165,6 @@ nav {
   &::after {
     top: 35px;
     right: 35px;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background: $gold;
   }
 }
 
