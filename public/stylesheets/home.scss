@@ -148,6 +148,29 @@ nav{
     }
 }
 
+.user-input-container{
+    span{
+        position: absolute;
+        display: flex;
+        cursor: pointer;
+        right: 0.8rem;
+        top: 35%;
+        transform: translateY(-50%);
+        z-index: 1;
+        i{
+            color: $light;
+            font-size: 1.4em;
+            transition: color ease 0.3s;
+            &:hover{
+                color: $dark;
+            }
+        }
+    }
+    .icon-selected{
+        color: $dark;
+    }
+}
+
 .sign-up-container{
     // visibility: hidden;
     display: flex;
@@ -169,27 +192,28 @@ nav{
         line-height: 130%;
         text-align: center;
     }
-    .user-input-container{
-        span{
-            position: absolute;
-            display: flex;
-            cursor: pointer;
-            right: 0.8rem;
-            top: 35%;
-            transform: translateY(-50%);
-            z-index: 1;
-            i{
-                color: $light;
-                font-size: 1.4em;
-                transition: color ease 0.3s;
-                &:hover{
-                    color: $dark;
-                }
-            }
-        }
-        .icon-selected{
-            color: $dark;
-        }
+}
+
+.recover-pass-container{
+    // visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    h1{
+        font-size: 2em;
+        padding: 1em 0;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    .disclaimer-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em 0 1.5em;
+        line-height: 130%;
+        text-align: center;
     }
 }
 
@@ -207,28 +231,6 @@ nav{
     form{
         display: flex;
         flex-direction: column;
-    }
-    .user-input-container{
-        span{
-            position: absolute;
-            display: flex;
-            cursor: pointer;
-            right: 0.8rem;
-            top: 35%;
-            transform: translateY(-50%);
-            z-index: 1;
-            i{
-                color: $light;
-                font-size: 1.4em;
-                transition: color ease 0.3s;
-                &:hover{
-                    color: $dark;
-                }
-            }
-        }
-        .icon-selected{
-            color: $dark;
-        }
     }
     .login-settings-container{
         display: flex;
@@ -450,7 +452,30 @@ nav{
     40%, 60% {
       transform: translate3d(2px, 0, 0);
     }
-  }
+}
+#otp{
+    padding-bottom: 2em;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.code-input{
+        background-color: $lightbluetint;
+        padding: 1.3em;
+        border-radius: 1em;
+        width: 12%;
+        min-width: 2em;
+        // position: relative;
+        &::placeholder {
+          transition: color 0.1s ease-out;
+        }
+        &:hover::placeholder {
+          color: $darker;
+        }
+        &:focus::placeholder {
+          color: $light;
+        }
+}
 
 // // Tablet View
 // @media only screen and (min-width: 850px){
@@ -587,6 +612,30 @@ nav{
             font-weight: 500;
             color: $dark;
             animation: fade-up-short 3s cubic-bezier(.17,.67,.42,1);
+        }
+    }
+
+    .recover-pass-container{
+        // visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        margin: 0 auto;
+        h1{
+            font-size: 2em;
+            padding: 1em 0;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+        }
+        .disclaimer-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5em 0 1.5em;
+            line-height: 130%;
+            text-align: center;
         }
     }
 
