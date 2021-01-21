@@ -26,7 +26,6 @@ let settings = {
   badgeConfigScreen: document.querySelector('.badge-edit-screen'),
   badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
   cache: undefined,
-  darkenOverlay: document.querySelector('.darken-overlay'),
   pass: document.querySelector('#acc-pass'),
   passConf: document.querySelector('#acc-pass-conf'),
   trophyCase: document.querySelector('.badges-container')
@@ -108,7 +107,7 @@ settings.loadEventListeners = () => {
   settings.trophyCase.addEventListener('click', () => {
     // Show badge config screen
     settings.badgeConfigScreen.classList.toggle('hide')
-    settings.darkenOverlay.classList.toggle('hide')
+    global.darkenOverlay.classList.toggle('hide')
   })
 
   document.querySelector('#acc-pass-vis').addEventListener('click', function (e) {
@@ -161,13 +160,13 @@ settings.loadEventListeners = () => {
     // TO DO: update badge preview
     // TO DO: update cache
     settings.badgeConfigScreen.classList.toggle('hide');
-    settings.darkenOverlay.classList.toggle('hide');
+    global.darkenOverlay.classList.toggle('hide');
   })
 
   document.querySelector('.badge-config-close').addEventListener('click', () => {
     // TO DO: revert to cached badge config
     settings.badgeConfigScreen.classList.toggle('hide');
-    settings.darkenOverlay.classList.toggle('hide');
+    global.darkenOverlay.classList.toggle('hide');
   })
 
   document.querySelectorAll('.section').forEach(function (el) {
@@ -226,7 +225,7 @@ settings.fromPreviousPage = () => {
   const badge = sessionStorage.getItem('dashboard')
   if (badge) {
     settings.badgeConfigScreen.classList.toggle('hide')
-    settings.darkenOverlay.classList.toggle('hide')
+    global.darkenOverlay.classList.toggle('hide')
     if (badge !== 'empty') {
       document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
       document.querySelector('.config-badge.' + badge).classList.add('badge-focus')

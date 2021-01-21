@@ -8,7 +8,9 @@ let global = {
   enterKeyPress: undefined,
   initialise: undefined,
   navInit: undefined,
-  unreadStatus: undefined
+  unreadStatus: undefined,
+
+  darkenOverlay: document.querySelector('.darken-overlay')
 }
 
 /* ==========================================================
@@ -23,6 +25,30 @@ global.initialise = () => {
 global.navInit = () => {
   const route = window.location.pathname.split('/')[1]
   document.querySelector('.' + route + '-tab').classList.add('active-tab')
+
+  const moreMenu = document.querySelector('.nav-more-menu')
+  const moreMenuBtn = document.querySelector('.more-tab')
+
+  moreMenuBtn.addEventListener('click', function(e) {
+    e.preventDefault()
+    global.darkenOverlay.classList.toggle('hide')
+    moreMenu.classList.toggle('hide')
+    this.querySelector('input').checked = !this.querySelector('input').checked
+  })
+
+  global.darkenOverlay.addEventListener('click', function() {
+    if (!moreMenu.classList.contains('hide')) {
+      moreMenu.classList.add('hide')
+      document.querySelector('.darken-overlay').classList.add('hide')
+      moreMenuBtn.querySelector('input').checked = false
+    }
+  })
+
+  document.querySelector('.nav-more-close').addEventListener('click', () => {
+    moreMenu.classList.add('hide')
+    document.querySelector('.darken-overlay').classList.add('hide')
+    moreMenuBtn.querySelector('input').checked = false
+  })
 }
 
 global.createProjectCard = (parentContainer, size, project) => {

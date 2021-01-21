@@ -50,9 +50,41 @@
         <i class="material-icons-outlined md-36 md-light desktop-el">notifications</i>
       </a>
     </div>
-    <button class="more-tab mobile-el"><i class="material-icons-outlined md-18 md-light">more_vert</i></button>
+    <label for="more-menu-btn" class="more-tab mobile-el">
+      <input type="checkbox" id="more-menu-btn">
+      <i class="material-icons-outlined md-18 md-light">more_vert</i>
+    </label>
     <a href="/logout" class="logout desktop-el"><i class="material-icons-outlined md-36 md-light">logout</i></a>
   </nav>
+
+  <div class="nav-more-menu mobile-el hide">
+    <div class="header-container">
+      <img src="/public/images/logo-full-white.png" alt="CreateBase">
+      <i class="material-icons-round md-18 md-light nav-more-close">close</i>
+    </div>
+    <div class="more-menu-container">
+      <a href="https://www.facebook.com/" target="_blank" class="more-shop">
+        <i class="material-icons-round md-18">local_mall</i>
+        <span>Shop</span>
+      </a>
+      <a href="https://createbase.co.nz" target="_blank" class="more-info">
+        <i class="material-icons-round md-18">language</i>
+        <span>Info</span>
+      </a>
+      <a href="https://www.treatstock.com/c/createbase" target="_blank" class="more-3d-printing">
+        <i class="material-icons-round md-18">hvac</i>
+        <span>3d Printing</span>
+      </a>
+      <a href="/settings" class="more-settings">
+        <i class="material-icons-round md-18">settings</i>
+        <span>Settings</span>
+      </a>
+      <a href="/logout" class="more-logout">
+        <i class="material-icons-round md-18">logout</i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </div>
 
   <div class="main-page">
     <div class="header-container">

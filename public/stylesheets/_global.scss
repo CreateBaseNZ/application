@@ -16,8 +16,8 @@ $red: #fa6f6f;
 $orange: #FF9F46;
 $bg-grey: #FBFBFB;
 
-$horiz-space: 3vw;
-$vert-space: 4vh;
+$horiz-space: 5vw;
+$vert-space: 2vh;
 
 $trophy-col: #EEC1A9;
 $loyal-col: #C1DEAA;
@@ -56,11 +56,11 @@ body {
   display: flex;
   flex-direction: column;
   height: calc(100% - 60px);
-
   padding: $vert-space $horiz-space;
   flex: 1 1 auto;
-  background: $red;
   max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .header-container {
@@ -98,6 +98,7 @@ body {
 
 // ----- ICONS -----
 
+.md-12 { font-size: 12px; }
 .md-18 { font-size: 18px; }
 .md-24 { font-size: 24px; }
 .md-36 { font-size: 36px; }
@@ -732,9 +733,16 @@ span {
 
 @media only screen and (min-width: 768px) {
 
+$horiz-space: 3vw;
+$vert-space: 4vh;
+
 .main-page {
   max-width: calc(100% - 150px);
   height: 100%;
+}
+
+h1 {
+
 }
 
 }

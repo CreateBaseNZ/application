@@ -233,6 +233,7 @@ h2 {
   color: $lightest;
   cursor: pointer;
   img {
+    z-index: -1;
     position: absolute;
     top: 0;
     left: 0;
@@ -244,7 +245,7 @@ h2 {
     transition: opacity 0.2s ease-out;
   }
   i {
-    z-index: 2;
+    z-index: 0;
   }
   .other-text {
     z-index: 2;

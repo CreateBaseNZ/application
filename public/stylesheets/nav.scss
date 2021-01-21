@@ -71,7 +71,6 @@ nav {
 }
 
 .more-tab {
-  opacity: 0.5;
   background: transparent;
   display: flex;
   justify-content: center;
@@ -79,7 +78,11 @@ nav {
   padding: 10px;
   margin-left: 5vw;
   position: relative;
+  input {
+    display: none;
+  }
   i {
+    opacity: 0.5;
     padding: 10px;
   }
   &::after {
@@ -97,6 +100,87 @@ nav {
     border-radius: 33%;
     background: rgba(0,0,0,0.1);
   }
+  input:checked ~ i {
+    opacity: 1;
+  }
+}
+
+.nav-more-menu {
+  position: fixed;
+  bottom: 80px;
+  left: $horiz-space;
+  width: calc(100% - 2*#{$horiz-space});
+  display: flex;
+  flex-direction: column;
+  background: $lightest;
+  z-index: 101;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  .header-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $vert-space;
+    background: $logo-purple;
+    img {
+      height: 1rem;
+      width: auto;
+      object-fit: cover;
+      margin-left: 1rem;
+    }
+    i {
+      padding: 1rem;
+    }
+  }
+  .more-menu-container {
+    width: 100%;
+    font-size: 0.75rem;
+    padding: 0.5em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      color: $logo-purple;
+      opacity: 0.75;
+      font-size: inherit;
+      padding: 1em calc(#{$horiz-space}*2);
+      i {
+        width: 2.25em;
+        padding-right: 1em;
+        text-align: right;
+      }
+      span {
+        line-height: 200%;
+      }
+      &:active {
+        background: #ECF9FF;
+        color: $blue-mid;
+        opacity: 1;
+      }
+    }
+    .more-settings {
+      margin-bottom: 0.5em;
+    }
+    .more-logout {
+      margin-top: 0.5em;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        top: -0.5em;
+        left: calc(#{$horiz-space}*1.5);
+        transform: translateY(-50%);
+        width: calc(100% - #{$horiz-space}*3);
+        height: 1px;
+        background: $lighter;
+      }
+    }
+  }
 }
 
 .desktop-el {
@@ -104,6 +188,10 @@ nav {
 }
 
 @media only screen and (min-width: 768px) {
+
+nav {
+  z-index: 0;
+}
 
 .mobile-el {
   display: none;
