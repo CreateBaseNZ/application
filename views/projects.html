@@ -23,20 +23,35 @@
   <link rel="stylesheet" href="/public/stylesheets/projects.min.css" />
 </head>
 
-<body onload="">
+<body onload="global.initialise();">
 
   <nav>
-    <a href="/dashboard" class="website">
+    <a href="/dashboard" class="website desktop-el">
       <img src="/public/images/logo-white.svg" class="website-logo" alt="CreateBase">
     </a>
     <div class="nav-menu">
-      <a href="/dashboard"><i class="material-icons-outlined md-36 md-light">dashboard</i></a>
-      <a href="/projects" class="active-tab"><i class="material-icons md-36 md-light">games</i></a>
-      <!-- <a href="/orders"><i class="material-icons-outlined md-36 md-light">local_shipping</i></a> -->
-      <a href="/settings"><i class="material-icons-outlined md-36 md-light">settings</i></a>
-      <a href="/inbox" class="inbox-tab"><i class="material-icons-outlined md-36 md-light">notifications</i></a>
+      <a href="/dashboard" class="nav-menu-tab dashboard-tab">
+        <i class="material-icons-round md-18 md-light mobile-el">dashboard</i>
+        <i class="material-icons-round md-36 desktop-el">dashboard</i>
+        <i class="material-icons-outlined md-36 md-light desktop-el">dashboard</i>
+      </a>
+      <a href="/projects" class="nav-menu-tab projects-tab">
+        <i class="material-icons-round md-18 md-light mobile-el">games</i>
+        <i class="material-icons-round md-36 desktop-el">games</i>
+        <i class="material-icons-outlined md-36 md-light desktop-el">games</i>
+      </a>
+      <a href="/settings" class="nav-menu-tab settings-tab desktop-el">
+        <i class="material-icons-round md-36 desktop-el">settings</i>
+        <i class="material-icons-outlined md-36 md-light desktop-el">settings</i>
+      </a>
+      <a href="/inbox" class="nav-menu-tab inbox-tab">
+        <i class="material-icons-round md-18 md-light mobile-el">notifications</i>
+        <i class="material-icons-round md-36 desktop-el">notifications</i>
+        <i class="material-icons-outlined md-36 md-light desktop-el">notifications</i>
+      </a>
     </div>
-    <a href="/logout" class="logout"><i class="material-icons-outlined md-36 md-light">logout</i></a>
+    <button class="more-tab mobile-el"><i class="material-icons-outlined md-18 md-light">more_vert</i></button>
+    <a href="/logout" class="logout desktop-el"><i class="material-icons-outlined md-36 md-light">logout</i></a>
   </nav>
 
   <div class="main-page">

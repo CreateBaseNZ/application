@@ -1,6 +1,8 @@
 @import "global";
 
-@media only screen and (min-width: 768px) {
+
+
+@media only screen and (min-width: 320px) {
 
 .db-left {
   width: 50vw;
@@ -23,7 +25,6 @@
   }
   .trophy-case {
     margin-left: 2vw;
-    // height: 16vmin;
     max-height: 22.5vmin;
     display: flex;
     justify-content: center;
@@ -268,6 +269,12 @@ h2 {
     }
   }
 }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+
 
 }
 
