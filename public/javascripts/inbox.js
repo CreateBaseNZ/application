@@ -10,7 +10,13 @@ let inbox = {
   standard: undefined,
   time: undefined,
   date: undefined,
-  sort: undefined
+  sort: undefined,
+  open: undefined,
+  openedInbox: undefined,
+  openedArchive: undefined,
+  openedBin: undefined,
+  selectStatus: undefined,
+  changeStatus: undefined
 }
 
 /* ==========================================================
@@ -21,12 +27,12 @@ inbox.initialise = async () => {
   const data = await inbox.fetch();
   // Validate incoming data
   if (data.status === "error") {
-    console.log(data.content);
+    return console.log(data.content);
   } else if (data.status === "failed") {
-    console.log(data.content);
+    return console.log(data.content);
   }
   // Populate inbox
-
+  inbox.populate(data.content);
 }
 
 inbox.fetch = () => {
@@ -43,7 +49,49 @@ inbox.fetch = () => {
 
 inbox.populate = (objects = []) => {
   // Date division
-  let segments = [];
+  let segments = {
+    inbox: [],
+    archive: [],
+    bin: []
+  };
+  for (let i = 0; i < objects.length; i++) {
+    const object = objects[i];
+    const momentNow = moment();
+    const momentDate = moment(object.date);
+    const difference = momentNow.dayOfYear() - momentDate.dayOfYear();
+    let segment;
+    // Check if inbox is the first among the status
+    let open = false;
+    if (segments[object.status].length === 0) open = true;
+    if (difference < 7) {
+      // Set the segment where the notification summary will be added
+      if (difference === 0) {
+        segment = "Today";
+      } else {
+        segment = momentDate.format("dddd");
+      }
+    } else {
+      segment = momentDate.format("MMMM");
+    }
+    if (segments[object.status].indexOf(segment) === -1) {
+      // Segment doesn't exist
+      segments[object.status].push(segment);
+      const segmentHTML = `<div id="date-group-${object.status}-${segment}" class="date-group"><p>${segment}</p></div>`;
+      document.querySelector(`.notif-wrap-${object.status}`).insertAdjacentHTML("beforeend", segmentHTML);
+    }
+    const summary = inbox.summary(object);
+    let detail;
+    if (object.type === "standard") {
+      detail = inbox.standard(object);
+    }
+    document.querySelector(`#date-group-${object.status}-${segment}`).insertAdjacentHTML("beforeend", summary);
+    document.querySelector(`.${object.status}-detail-container`).insertAdjacentHTML("beforeend", detail);
+    // Evaluate
+    if (object.opened) document.querySelector(`#summary-${object._id}`).classList.add("non-active-notif");
+    if (open) inbox.open(object._id, object.status);
+  }
+  // Success Handler
+  return;
 }
 
 inbox.summary = (object = {}) => {
@@ -56,7 +104,7 @@ inbox.summary = (object = {}) => {
   }
   // Create notification summary
   const notification = `
-  <div class="single-notif-container selected-notif">
+  <div id="summary-${object._id}" class="single-notif-container">
     <div class="checkbox-container">
       <label class="checkbox path">
         <input type="checkbox" class="selec-checkbox" name="select">
@@ -68,7 +116,7 @@ inbox.summary = (object = {}) => {
       </label>
     </div>
     <div class="notif-dp">
-      <img src="..\public\images\logo.svg" alt="dp">
+      <img src="/public/images/logo.svg" alt="dp">
       <div class="dp-sub-icon">
         <i class="material-icons-outlined md-36 md-light">local_shipping</i>
       </div>
@@ -103,7 +151,7 @@ inbox.standard = (object = {}) => {
   }
   // Complete message
   const notification =
-  `<div id="detail-${object._id}" class="detail-container">
+  `<div id="detail-${object._id}" class="detail-container hide">
     <div class="detail-header">
       <div class="header-text-container">
         <div class="detail-notif-title-container">
@@ -111,7 +159,7 @@ inbox.standard = (object = {}) => {
           <div class="notif-info">
             <div class="info-container">
               <div class="detail-dp notif-dp">
-                <img src="..\public\images\logo.svg" alt="dp">
+                <img src="/public/images/logo.svg" alt="dp">
                 <div class="dp-sub-icon">
                   <i class="material-icons-outlined md-36 md-light">local_shipping</i>
                 </div>
@@ -172,6 +220,76 @@ inbox.sort = (notificationA, notificationB) => {
   } else {
     return 0;
   }
+}
+
+inbox.open = async (id, status) => {
+  // Update frontend
+  document.querySelector(`#summary-${id}`).classList.add("selected-notif");
+  document.querySelector(`#summary-${id}`).classList.remove("non-active-notif");
+  document.querySelector(`#detail-${id}`).classList.remove("hide");
+  if (status === "inbox" && inbox.openedInbox !== undefined) {
+    document.querySelector(`#summary-${inbox.openedInbox}`).classList.remove("selected-notif");
+    document.querySelector(`#summary-${inbox.openedInbox}`).classList.add("non-active-notif");
+    document.querySelector(`#detail-${inbox.openedInbox}`).classList.add("hide");
+  inbox.openedInbox = id;
+  } else if (status === "archive" && inbox.openedArchive !== undefined) {
+    document.querySelector(`#summary-${inbox.openedArchive}`).classList.remove("selected-notif");
+    document.querySelector(`#summary-${inbox.openedArchive}`).classList.add("non-active-notif");
+    document.querySelector(`#detail-${inbox.openedArchive}`).classList.add("hide");
+    inbox.openedArchive = id;
+  } else if (status === "bin" && inbox.openedBin !== undefined) {
+    document.querySelector(`#summary-${inbox.openedBin}`).classList.remove("selected-notif");
+    document.querySelector(`#summary-${inbox.openedBin}`).classList.add("non-active-notif");
+    document.querySelector(`#detail-${inbox.openedBin}`).classList.add("hide");
+    inbox.openedBin = id;
+  }
+  // Update backend
+  let data;
+  try {
+    data = (await axios.post("/notification-opened", { id }))["data"];
+  } catch (error) {
+    data = { status: "error", content: error };
+  }
+  // Success handler
+  return;
+}
+
+inbox.selectStatus = (status = "") => {
+  if (status === "inbox") {
+    document.querySelector(".inbox-btn").classList.add("active-inbox");
+    document.querySelector(".archive-btn").classList.remove("active-archive");
+    document.querySelector(".bin-btn").classList.remove("active-bin");
+    document.querySelector(".notif-wrap-inbox").classList.remove("hide");
+    document.querySelector(".notif-wrap-archive").classList.add("hide");
+    document.querySelector(".notif-wrap-bin").classList.add("hide");
+    document.querySelector(".inbox-detail-container").classList.remove("hide");
+    document.querySelector(".archive-detail-container").classList.add("hide");
+    document.querySelector(".bin-detail-container").classList.add("hide");
+  } else if (status === "archive") {
+    document.querySelector(".inbox-btn").classList.remove("active-inbox");
+    document.querySelector(".archive-btn").classList.add("active-archive");
+    document.querySelector(".bin-btn").classList.remove("active-bin");
+    document.querySelector(".notif-wrap-inbox").classList.add("hide");
+    document.querySelector(".notif-wrap-archive").classList.remove("hide");
+    document.querySelector(".notif-wrap-bin").classList.add("hide");
+    document.querySelector(".inbox-detail-container").classList.add("hide");
+    document.querySelector(".archive-detail-container").classList.remove("hide");
+    document.querySelector(".bin-detail-container").classList.add("hide");
+  } else if (status === "bin") {
+    document.querySelector(".inbox-btn").classList.remove("active-inbox");
+    document.querySelector(".archive-btn").classList.remove("active-archive");
+    document.querySelector(".bin-btn").classList.add("active-bin");
+    document.querySelector(".notif-wrap-inbox").classList.add("hide");
+    document.querySelector(".notif-wrap-archive").classList.add("hide");
+    document.querySelector(".notif-wrap-bin").classList.remove("hide");
+    document.querySelector(".inbox-detail-container").classList.add("hide");
+    document.querySelector(".archive-detail-container").classList.add("hide");
+    document.querySelector(".bin-detail-container").classList.remove("hide");
+  }
+}
+
+inbox.changeStatus = (object = {}) => {
+
 }
 
 /* ==========================================================

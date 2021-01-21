@@ -3,6 +3,7 @@ MODULES
 ========================================================== */
 
 const express = require("express");
+const mongoose = require("mongoose");
 
 /* ==========================================================
 VARIABLES
@@ -39,6 +40,41 @@ router.post("/notifications-unread", /*verifiedContent,*/ async (req, res) => {
   } else {
     return res.send({ status: "succeeded", content: false });
   }
+});
+
+router.post("/inbox", /*verifiedContent,*/ async (req, res) => {
+  let account = req.user;
+  let notifications;
+  try {
+    notifications = await Notification.find({ owner: account._id });
+  } catch (error) {
+    return res.send({ status: "error", content: error });
+  }
+  // Success handler
+  return res.send({ status: "succeeded", content: notifications });
+});
+
+router.post("/notification-opened", /*verifiedContent,*/ async (req, res) => {
+  let account = req.user;
+  let id = mongoose.Types.ObjectId(req.body.id);
+  let notification;
+  try {
+    notification = await Notification.findOne({ _id: id, owner: account._id });
+  } catch (error) {
+    return res.send({ status: "error", content: error });
+  }
+  // Check if notification is found
+  if (!notification) return res.send({ status: "failed", content: "No notification found" });
+  // Update opened
+  notification.opened = true;
+  // Save
+  try {
+    await notification.save();
+  } catch (error) {
+    return res.send({ status: "error", content: error });
+  }
+  // Success handler
+  return res.send({status: "succeeded", content: ""});
 });
 
 /* ==========================================================
