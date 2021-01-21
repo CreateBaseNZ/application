@@ -19,6 +19,7 @@ OTHER MODELS
 ========================================================== */
 
 const User = require("./User.js");
+const Mail = require("./Mail.js");
 
 /* ==========================================================
 MODEL
@@ -39,9 +40,6 @@ const AccountSchema = new Schema({
   date: {
     created: { type: String, required: true },
     visited: { type: String, required: true }
-  },
-  subscription: {
-    newsletter: { type: Boolean, default: true }
   },
   deactivated: {
     status: { type: Boolean, default: true },
@@ -122,6 +120,12 @@ AccountSchema.statics.build = function (object = {}, save = true) {
     emailObject.email = account.email;
     try {
       await email.send(emailObject);
+    } catch (data) {
+      return reject(data);
+    }
+    // TEMPORARY (TO BE PLACED AFTER VERIFICATION)
+    try {
+      await Mail.subscribe({ email: account.email });
     } catch (data) {
       return reject(data);
     }

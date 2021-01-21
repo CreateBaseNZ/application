@@ -16,6 +16,7 @@ MODELS
 
 const Account = require("../models/Account.js");
 const User = require("../models/User.js");
+const Mail = require("../models/Mail.js");
 
 /* ==========================================================
 MIDDLEWARES
@@ -45,8 +46,16 @@ router.post("/settings", /*verifiedContent,*/ async (req, res) => {
   } catch (error) {
     return res.send({ status: "error", content: error });
   }
+  // Check newsletter subscription status
+  let mail;
+  try {
+    mail = await Mail.findOne({ email: account.email });
+  } catch (error) {
+    return res.send({ status: "error", content: error });
+  }
+  notification = { newsletter: mail ? true : false };
   // Success handler
-  return res.send({ status: "succeeded", content: { account, user } });
+  return res.send({ status: "succeeded", content: { account, user, notification } });
 });
 
 router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
@@ -54,6 +63,7 @@ router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
   let account = req.user;
   let accountUpdate = req.body.accountUpdate;
   let userUpdate = req.body.userUpdate;
+  let notificationUpdate = req.body.notificationUpdate;
   // Update account
   if (accountUpdate) {
     try {
@@ -68,6 +78,25 @@ router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
       await User.reform({id: account._id, update: userUpdate});
     } catch (data) {
       return res.send(data);
+    }
+  }
+  // Update notification
+  if (notificationUpdate) {
+    // Update newsletter
+    if (notificationUpdate.newsletter !== undefined) {
+      if (notificationUpdate.newsletter) {
+        try {
+          await Mail.subscribe({ email: account.email, owner: account._id });
+        } catch (data) {
+          return res.send(data);
+        }
+      } else {
+        try {
+          await Mail.unsubscribe({ email: account.email });
+        } catch (daya) {
+          return res.send(data);
+        }
+      }
     }
   }
   // Success handler

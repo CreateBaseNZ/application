@@ -18,6 +18,7 @@ let settings = {
   saveBadges: undefined,
   saveNotifications: undefined,
   saveProfile: undefined,
+  subscribe: undefined,
   temp: undefined,
   updateCache: undefined,
 
@@ -47,7 +48,7 @@ settings.initialise = async () => {
   // Load badges
   settings.loadBadges()
   // Populate fields
-  // settings.populate(data.content.account, data.content.user);
+  settings.populate(data.content.account, data.content.user, data.content.notification);
   // Add event listeners
   settings.loadEventListeners()
   // Cache data
@@ -197,7 +198,7 @@ settings.loadEventListeners = () => {
   })
 }
 
-settings.populate = (account = {}, user = {}) => {
+settings.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
   document.querySelector("#prof-name").value = user.displayName ? user.displayName : "";
   document.querySelector("#prof-email").value = user.displayEmail ? user.displayName : "";
@@ -212,7 +213,7 @@ settings.populate = (account = {}, user = {}) => {
   document.querySelector("#acc-state").value = user.address.suburb ? user.address.suburb : "";
   document.querySelector("#acc-country").value = user.address.country ? user.address.country : "";
   // Notifications
-  document.querySelector("#mail").checked = account.subscription.newsletter;
+  document.querySelector("#mail").checked = notification.newsletter;
 }
 
 // TO DO: cache data coming in
@@ -290,7 +291,7 @@ settings.saveProfile = async () => {
   // Send update request
   let data;
   try {
-    data = (await axios.post("/settings/update", {userUpdate}));
+    data = (await axios.post("/settings/update", { userUpdate }))["data"];
   } catch (error) {
     data = {status: "error", content: error};
   }
@@ -332,7 +333,7 @@ settings.saveAccount = async () => {
   // Send update request
   let data;
   try {
-    data = (await axios.post("/settings/update", {userUpdate}));
+    data = (await axios.post("/settings/update", { userUpdate }))["data"];
   } catch (error) {
     data = {status: "error", content: error};
   }
@@ -347,6 +348,27 @@ settings.saveAccount = async () => {
   return;
 }
 
-settings.saveNotifications = () => {
+settings.saveNotifications = async () => {
+  // Collect input
+  let notificationUpdate = {
+    newsletter: document.querySelector("#mail").checked
+  }
+  // Validate input
 
+  // Send update request
+  let data;
+  try {
+    data = (await axios.post("/settings/update", { notificationUpdate }))["data"];
+  } catch (error) {
+    data = {status: "error", content: error};
+  }
+  // Validation
+  if (data.status === "failed") {
+    return console.log(data.content);
+  } else if (data.status === "error") {
+    return console.log(data.content);
+  }
+  // Success handler
+  settings.updateCache();
+  return;
 }
