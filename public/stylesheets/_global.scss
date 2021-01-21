@@ -49,16 +49,18 @@ body {
   height: 100vh;
   display: flex;
   overflow: hidden;
+  background: $bg-grey;
 }
 
 .main-page {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100% - 60px);
+
   padding: $vert-space $horiz-space;
-  max-width: calc(100% - 150px);
   flex: 1 1 auto;
-  background: $bg-grey;
+  background: $red;
+  max-width: 100%;
 }
 
 .header-container {
@@ -726,4 +728,13 @@ span {
   100% {
     background-position: 15% 100%;
   }
+}
+
+@media only screen and (min-width: 768px) {
+
+.main-page {
+  max-width: calc(100% - 150px);
+  height: 100%;
+}
+
 }
