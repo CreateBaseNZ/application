@@ -27,7 +27,8 @@ const NotificationSchema = new Schema({
   title: { type: String, required: true },
   messange: { type: String, required: true },
   date: { type: String, required: true },
-  status: { type: Boolean, required: true }
+  opened: { type: Boolean, required: true },
+  status: { type: String, required: true }
 });
 
 /* ==========================================================
@@ -45,9 +46,16 @@ NotificationSchema.statics.build = function (object = {}, save = true) {
     // VALIDATION
 
     // CREATE NOTIFICATION
-
+    const notification = new this(object);
+    if (save) {
+      try {
+        await notification.save();
+      } catch (error) {
+        return reject({ status: "error", content: error });
+      }
+    }
     // SUCCESS HANDLER
-    return resolve();
+    return resolve(notification);
   });
 }
 

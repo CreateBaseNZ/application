@@ -19,6 +19,8 @@ OTHER MODELS
 ========================================================== */
 
 const User = require("./User.js");
+const Mail = require("./Mail.js");
+const Notification = require("./Notification.js");
 
 /* ==========================================================
 MODEL
@@ -39,9 +41,6 @@ const AccountSchema = new Schema({
   date: {
     created: { type: String, required: true },
     visited: { type: String, required: true }
-  },
-  subscription: {
-    newsletter: { type: Boolean, default: true }
   },
   deactivated: {
     status: { type: Boolean, default: true },
@@ -125,6 +124,18 @@ AccountSchema.statics.build = function (object = {}, save = true) {
     } catch (data) {
       return reject(data);
     }
+    // TEMPORARY (TO BE PLACED AFTER VERIFICATION)
+    try {
+      await Mail.subscribe({ email: account.email, owner: account._id });
+    } catch (data) {
+      return reject(data);
+    }
+    // TEMPORARY (TO BE PLACED AFTER VERIFICATION)
+    try {
+      await this.welcomeNotification({ id: account._id });
+    } catch (data) {
+      return reject(data);
+    }
     // SUCCESS HANDLER
     return resolve(account);
   });
@@ -158,6 +169,32 @@ AccountSchema.statics.reform = function (object = {}, save = true) {
     }
     // Success handler
     return resolve(account);
+  });
+}
+
+// @func  welcomeNotification
+// @type  STATICS - PROMISE - ASYNC
+// @desc
+AccountSchema.statics.welcomeNotification = function (object = {}) {
+  return new Promise(async (resolve, reject) => {
+    // Create notification
+    const notification = {
+      owner: object.id,
+      type: "standard",
+      title: "Welcome to CreateBase",
+      messange: "Hello World",
+      date: moment().tz("Pacific/Auckland").format(),
+      opened: false,
+      status: "inbox"
+    }
+    // Build notification
+    try {
+      await Notification.build(notification);
+    } catch (data) {
+      return reject(data);
+    }
+    // Success handler
+    return resolve();
   });
 }
 
