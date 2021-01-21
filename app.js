@@ -83,6 +83,9 @@ app.use(dashboardRouter);
 const settingsRouter = require("./routes/settings.js");
 app.use(settingsRouter);
 
+const notificationsRouter = require("./routes/notifications.js");
+app.use(notificationsRouter);
+
 /* ==========================================================
 END
 ========================================================== */
