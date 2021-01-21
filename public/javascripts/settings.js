@@ -186,7 +186,7 @@ settings.loadEventListeners = () => {
 
   new Sortable(document.querySelector('.badge-achieved-section'), {
     animation: 150,
-    ghostClass: 'blue-background-class',
+    ghostClass: 'sortable-ghost',
     forceFallback: true,
     onStart: function (evt) {
       document.documentElement.classList.add("draggable-cursor");
@@ -310,6 +310,7 @@ settings.saveBadges = async () => {
   document.querySelector('.badge-achieved-section').querySelectorAll('.config-badge').forEach((badge) => {
     data.push(badge.classList[1])
   })
+  console.log(data)
   // TO DO: Post badge configuration
   settings.updateCache();
 }

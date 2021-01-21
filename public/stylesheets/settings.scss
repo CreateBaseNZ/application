@@ -619,6 +619,10 @@ input[type=password] {
   -o-user-drag: none;
   user-drag: none;
 }
+.sortable-ghost {
+  opacity: 0.25;
+}
+
 
 .badge-edit-btn {
   margin-top: 2rem;
