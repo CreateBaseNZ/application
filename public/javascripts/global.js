@@ -7,7 +7,8 @@ let global = {
   createProjectCard: undefined,
   enterKeyPress: undefined,
   initialise: undefined,
-  navInit: undefined
+  navInit: undefined,
+  unreadStatus: undefined
 }
 
 /* ==========================================================
@@ -15,7 +16,8 @@ FUNCTIONS
 ========================================================== */
 
 global.initialise = () => {
-  global.navInit()
+  global.navInit();
+  global.unreadStatus();
 }
 
 global.navInit = () => {
@@ -141,3 +143,25 @@ global.confettiConfig = {
   dragFriction: 0.12,
   random: Math.random
 };
+
+global.unreadStatus = async () => {
+  // Fetch data
+  let data;
+  try {
+    data = (await axios.post("/notifications-unread"))["data"];
+  } catch (error) {
+    data = { status: "error", content: error };
+  }
+  // Validate data
+  if (data.status === "failed") {
+    return console.log(data.content);
+  } else if (data.status === "error") {
+    return console.log(data.content);
+  }
+  // Execute actions
+  if (data.content) {
+    document.querySelector(".inbox-tab").classList.add("unread");
+  } else {
+    document.querySelector(".inbox-tab").classList.remove("unread");
+  }
+}
