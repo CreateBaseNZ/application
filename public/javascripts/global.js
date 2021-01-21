@@ -5,12 +5,23 @@ VARIABLES
 let global = {
   confettiConfig: undefined,
   createProjectCard: undefined,
-  enterKeyPress: undefined
+  enterKeyPress: undefined,
+  initialise: undefined,
+  navInit: undefined
 }
 
 /* ==========================================================
 FUNCTIONS
 ========================================================== */
+
+global.initialise = () => {
+  global.navInit()
+}
+
+global.navInit = () => {
+  const route = window.location.pathname.split('/')[1]
+  document.querySelector('.' + route + '-tab').classList.add('active-tab')
+}
 
 global.createProjectCard = (parentContainer, size, project) => {
 
