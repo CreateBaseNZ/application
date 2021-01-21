@@ -1,4 +1,4 @@
- /*  This is for switching back and forth the input box for user experience */
+ /*  Switching back and forth the input box for user experience */
  const inputs = document.querySelectorAll('.code-input');
  for (let i = 0; i < inputs.length; i++) {
      inputs[i].addEventListener('keydown', function (event) {
@@ -21,5 +21,4 @@
              inputs[i + 1].focus();
          }
      });
-
  }
