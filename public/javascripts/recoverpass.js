@@ -1,34 +1,4 @@
-// const e = require("express");
-
-/*  Switching back and forth the input box */
-//  const inputs = document.querySelectorAll('.code-input');
-//  for (let i = 0; i < inputs.length; i++) {
-//      inputs[i].addEventListener('keydown', function (event) {
-//          if (event.key === "Backspace") {
-//              inputs[i].value = '';
-//              if (i === (inputs.length - 1)){
-//                 console.log('last one')
-//             } else if (i !== 0 || i === (inputs.length - 2)) {
-//                 inputs[i - 1].focus();
-//                 console.log('yep')
-//             }
-//          } else if (event.key === "ArrowLeft" && i !== 0) {
-//              inputs[i - 1].focus();
-//          } else if (event.key === "ArrowRight" && i !== inputs.length - 1) {
-//              inputs[i + 1].focus();
-//          };
-//         //  console.log(i)
-//      });
-//      inputs[i].addEventListener('input', function () {
-//          inputs[i].value = inputs[i].value.toUpperCase(); // Converts to Upper case. Remove .toUpperCase() if conversion isnt required.
-//          if (i === inputs.length - 1 && inputs[i].value !== '') {
-//              return true;
-//          } else if (inputs[i].value !== '') {
-//              inputs[i + 1].focus();
-//          };
-//      });
-//  }
-
+// Code inputs functionality
 const form = document.querySelector('#recover-pass-form')
 const inputs = form.querySelectorAll('.code-input')
 const KEYBOARDS = {
@@ -51,9 +21,16 @@ function handleInput(e) {
 function handlePaste(e) {
   e.preventDefault()
   const paste = e.clipboardData.getData('text')
+  const pasteLength = paste.length
+  console.log(pasteLength)
   inputs.forEach((input, i) => {
     input.value = paste[i] || ''
   })
+  if (pasteLength > inputs.length){
+    inputs[(inputs.length)-1].focus()
+  } else {
+    inputs[pasteLength-1].focus()
+  }
 }
 
 function handleBackspace(e) { 
@@ -65,9 +42,7 @@ function handleBackspace(e) {
         return
       }
     input.previousElementSibling.focus()
-  }
-
-  
+  }  
 }
 
 function handleArrowLeft(e) {
@@ -108,4 +83,11 @@ inputs.forEach(input => {
   })
 })
 
+// disable control z - breaks inputs
+document.onkeydown = function(e) {
+    if (e.ctrlKey && e.key === 'z') {
+      e.preventDefault();
+    }
+  }
 
+// Code input validation
