@@ -24,7 +24,12 @@ global.initialise = () => {
 
 global.navInit = () => {
   const route = window.location.pathname.split('/')[1]
-  document.querySelector('.' + route + '-tab').classList.add('active-tab')
+  document.querySelectorAll('.' + route + '-tab').forEach((tab) => {
+    tab.classList.add('active-tab')
+  })
+  if (document.querySelector('.more-' + route)) {
+    document.querySelector('.more-' + route).classList.add('active-more-tab')
+  }
 
   const moreMenu = document.querySelector('.nav-more-menu')
   const moreMenuBtn = document.querySelector('.more-tab')

@@ -83,19 +83,10 @@ nav {
 }
 
 .more-tab {
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
   margin-left: 5vw;
   position: relative;
   input {
     display: none;
-  }
-  i {
-    opacity: 0.5;
-    padding: 10px;
   }
   &::after {
     position: absolute;
@@ -108,11 +99,6 @@ nav {
     left: -5vw;
     transform: translateY(-50%);
   } 
-  &:active > i,
-  &:focus > i {
-    border-radius: 33%;
-    background: rgba(0,0,0,0.1);
-  }
   input:checked ~ i {
     opacity: 1;
   }
@@ -176,6 +162,10 @@ nav {
         background: #ECF9FF;
         color: $blue-mid;
         opacity: 1;
+      }
+      &.active-more-tab {
+        opacity: 1;
+        font-weight: 600;
       }
     }
     .more-settings {
