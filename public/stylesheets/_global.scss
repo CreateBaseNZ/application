@@ -53,20 +53,18 @@ $tour-col: #ECD3A8;
 body {
   width: 100vw;
   height: 100vh;
-  display: flex;
   overflow: hidden;
+  display: flex;
   background: $bg-grey;
 }
 
 .main-page {
   display: flex;
   flex-direction: column;
+  width: 100%;
   height: calc(100% - 60px);
   padding: $vert-space-mobile $horiz-space-mobile;
-  flex: 1 1 auto;
-  max-width: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: auto;
 }
 
 .header-container {
@@ -74,7 +72,7 @@ body {
   justify-content: flex-start;
   align-items: flex-end;
   width: 100%;
-  padding: $vert-space-mobile $horiz-space-mobile 0 $horiz-space-mobile;
+  padding: calc(#{$vert-space-mobile}*2) $horiz-space-mobile 0 $horiz-space-mobile;
   flex: 0 0 8vh;
 }
 
@@ -741,9 +739,11 @@ span {
 @media only screen and (min-width: 768px) {
 
 .main-page {
-  max-width: calc(100% - 150px);
+  flex: 1 1 0;
   height: 100%;
   padding: $vert-space-tablet $horiz-space-tablet;
+  max-width: calc(100% - 150px);
+  overflow: hidden;
 }
 
 .header-container {
