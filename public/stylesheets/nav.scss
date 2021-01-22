@@ -107,8 +107,8 @@ nav {
 .nav-more-menu {
   position: fixed;
   bottom: 80px;
-  left: $horiz-space;
-  width: calc(100% - 2*#{$horiz-space});
+  left: $horiz-space-mobile;
+  width: calc(100% - 2*#{$horiz-space-mobile});
   display: flex;
   flex-direction: column;
   background: $lightest;
@@ -148,7 +148,7 @@ nav {
       color: $logo-purple;
       opacity: 0.75;
       font-size: inherit;
-      padding: 1em calc(#{$horiz-space}*2);
+      padding: 1em calc(#{$horiz-space-mobile}*2);
       i {
         width: 2.25em;
         padding-right: 1em;
@@ -178,9 +178,9 @@ nav {
         content: '';
         position: absolute;
         top: -0.5em;
-        left: calc(#{$horiz-space}*1.5);
+        left: calc(#{$horiz-space-mobile}*1.5);
         transform: translateY(-50%);
-        width: calc(100% - #{$horiz-space}*3);
+        width: calc(100% - #{$horiz-space-mobile}*3);
         height: 1px;
         background: $lighter;
       }

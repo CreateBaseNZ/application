@@ -16,8 +16,14 @@ $red: #fa6f6f;
 $orange: #FF9F46;
 $bg-grey: #FBFBFB;
 
-$horiz-space: 5vw;
-$vert-space: 2vh;
+$horiz-space-mobile: 5vw;
+$vert-space-mobile: 2vh;
+
+$horiz-space-tablet: 2vw;
+$vert-space-tablet: 4vh;
+
+$horiz-space-desktop: 3vw;
+$vert-space-desktop: 4vh;
 
 $trophy-col: #EEC1A9;
 $loyal-col: #C1DEAA;
@@ -56,7 +62,7 @@ body {
   display: flex;
   flex-direction: column;
   height: calc(100% - 60px);
-  padding: $vert-space $horiz-space;
+  padding: $vert-space-mobile $horiz-space-mobile;
   flex: 1 1 auto;
   max-width: 100%;
   overflow-x: hidden;
@@ -68,15 +74,16 @@ body {
   justify-content: flex-start;
   align-items: flex-end;
   width: 100%;
-  padding: $vert-space $horiz-space 0 $horiz-space;
+  padding: $vert-space-mobile $horiz-space-mobile 0 $horiz-space-mobile;
   flex: 0 0 8vh;
 }
 
 .ui-container {
   display: flex;
   min-height: 72vh;
-  flex: 1 1 0;
-  padding: 0 $horiz-space $vert-space $horiz-space;
+  margin: $vert-space-mobile 0;
+  flex: 1 0 auto;
+  padding: 0 $horiz-space-mobile $vert-space-mobile $horiz-space-mobile;
 }
 
 .hide {
@@ -733,16 +740,36 @@ span {
 
 @media only screen and (min-width: 768px) {
 
-$horiz-space: 3vw;
-$vert-space: 4vh;
-
 .main-page {
   max-width: calc(100% - 150px);
   height: 100%;
+  padding: $vert-space-tablet $horiz-space-tablet;
 }
 
-h1 {
+.header-container {
+  padding: $vert-space-tablet $horiz-space-tablet 0 $horiz-space-tablet;
+}
 
+.ui-container {
+  flex: 1 1 0;
+  margin: 0;
+  padding: 0 $horiz-space-tablet $vert-space-tablet $horiz-space-tablet;
+}
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+.main-page {
+  padding: $vert-space-desktop $horiz-space-desktop;
+}
+
+.header-container {
+  padding: $vert-space-desktop $horiz-space-desktop 0 $horiz-space-desktop;
+}
+
+.ui-container {
+  padding: 0 $horiz-space-desktop $vert-space-desktop $horiz-space-desktop;
 }
 
 }
