@@ -55,8 +55,8 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
   background: $bg-grey;
 }
 
@@ -64,7 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex: 0 0 calc(100vh - 60px);
+  height: calc(100vh - 60px);
   padding: $vert-space-mobile $horiz-space-mobile;
   overflow-y: scroll;
 }
@@ -741,6 +741,7 @@ span {
 @media only screen and (min-width: 768px) {
 
 body {
+  display: flex;
   flex-direction: row;
 }
 
