@@ -51,10 +51,12 @@ $tour-col: #ECD3A8;
 }
 
 body {
+  position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   background: $bg-grey;
 }
 
@@ -62,7 +64,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 60px);
+  flex: 0 0 calc(100vh - 60px);
   padding: $vert-space-mobile $horiz-space-mobile;
   overflow-y: scroll;
 }
@@ -737,6 +739,10 @@ span {
 }
 
 @media only screen and (min-width: 768px) {
+
+body {
+  flex-direction: row;
+}
 
 .main-page {
   flex: 1 1 0;
