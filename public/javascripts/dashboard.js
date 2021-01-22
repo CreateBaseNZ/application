@@ -78,7 +78,6 @@ const recomEx = {
   ref: 02,
   current: 0,
 }
-]
 
 // temp
 const completeEx = {
