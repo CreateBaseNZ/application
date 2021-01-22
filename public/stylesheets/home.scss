@@ -200,6 +200,7 @@ nav{
     flex-direction: column;
     width: 100%;
     max-width: 25em;
+    padding-bottom: 4em;
     h1{
         font-size: 2em;
         padding: 1em 0;
@@ -455,7 +456,7 @@ nav{
     }
 }
 #otp{
-    padding-bottom: 2em;
+    padding-bottom: 1em;
     display: flex;
     justify-content: space-evenly;
 }
@@ -472,6 +473,8 @@ nav{
         // justify-content: center;
         // align-items: center;
         text-align: center;
+        border: thin solid transparent;
+        transition: border ease 0.2s;
         &::placeholder {
           transition: color 0.1s ease-out;
         }
@@ -480,6 +483,9 @@ nav{
         }
         &:focus::placeholder {
           color: $light;
+        }
+        &:active, &:focus{
+            border: thin solid $blue-mid;
         }
 }
 
@@ -504,11 +510,15 @@ nav{
 //         }
 //     }
 // }
+// *{
+//     border: thin solid red;
+// }
+
 
 // Desktop View
 @media only screen and (min-width: 1300px){
     nav{
-        margin-right: 3em;
+        // margin-right: 3em;
         align-self: flex-start;
         a{
             height: 100%;
@@ -539,7 +549,7 @@ nav{
     }
     .sign-up-container{
         max-width: 28em;
-        // margin-right: 2em;
+        margin-left: 2em;
         h1{
             font-size: 2.5em;
             padding-bottom: 1em;
@@ -627,6 +637,8 @@ nav{
         flex-direction: column;
         width: 30%;
         margin: 0 auto;
+        padding-bottom: 0;
+        // border: thin solid red;
         h1{
             font-size: 2em;
             padding: 1em 0;

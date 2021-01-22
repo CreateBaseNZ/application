@@ -243,6 +243,18 @@
     width: 100%;
     padding-right: 3vw;
     overflow-y: scroll;
+
+}
+
+.notif-wrap-inbox{
+    &:empty::after {
+        content: 'You have no messages in your inbox';
+        width: 100%;
+        margin-top: 2rem;
+        text-align: center;
+        color: $light;
+        font-size: 0.75rem;
+      }
 }
 
 .action-btn{

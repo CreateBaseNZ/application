@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="/public/stylesheets/home.min.css" />
 </head>
 
-<body onload="recoverpass.initialise();">
+<!-- <body onload="recoverpass.initialise();"> -->
+<body>
   <div class="wrap">
     <nav>
       <a href="https://createbase.co.nz/"><img src="..\public\images\logo.svg" alt="logo"></a>
@@ -30,8 +31,21 @@
 
     <div class="recover-pass-container">
         <h1>Recover Password</h1>
+
+        <!-- <form action="#">
+            <h4 class="text-center mb-4">Enter your code</h4>
+            <div class="d-flex mb-3">
+              <input type="tel" maxlength="1" pattern="[0-9]" class="form-control">
+              <input type="tel" maxlength="1" pattern="[0-9]" class="form-control">
+              <input type="tel" maxlength="1" pattern="[0-9]" class="form-control">
+              <input type="tel" maxlength="1" pattern="[0-9]" class="form-control">
+              <input type="tel" maxlength="1" pattern="[0-9]" class="form-control">
+              <input type="tel" maxlength="1" pattern="[0-9]" class="form-control">
+            </div>
+            <button type="submit" class="w-100 btn btn-primary">Verify account</button>
+          </form> -->
         
-        <form id="recover-pass-form" action="" method="POST" autocomplete="off">
+        <form id="recover-pass-form" action="#" method="POST" autocomplete="off">
 
             <!-- Enter code here -->
             <div id="otp" class="">
@@ -41,22 +55,26 @@
                 <input class="code-input" type="text" id="fourth" maxlength="1" />
                 <input class="code-input" type="text" id="fifth" maxlength="1" />
                 <input class="code-input" type="text" id="sixth" maxlength="1" />
-              </div>
+            </div>
 
-          <div id="sign-up-password-error" class="user-input-container input-validation" data-error-msg="">
-            <!-- <label for="pass">Password</label> -->
-            <input autocomplete="new-password" type="password" id="new-password" name="new-password" minlength="8"
-              placeholder="Password" class="user-input password-input" required>
-            <span id="togglePassword"><i class="material-icons md-36">visibility</i></span>
-            <div id="sign-up-password-strength" class="pass-strength weak-pass"></div>
-          </div>
+            <div class="disclaimer-container">
+                <p class="small-text">Enter recovery code sent to your registered email</p>
+            </div>
 
-          <div id="sign-up-confirm-password-error" class="user-input-container input-validation" data-error-msg="">
-            <!-- <label for="confirm-pass">Confirm Password</label> -->
-            <input type="password" id="confirmPass" name="confirm-pass" minlength="8" placeholder="Confirm Password"
-              class="user-input password-input" required>
-            <span id="togglePasswordConfirm"><i class="material-icons md-36">visibility</i></span>
-          </div>
+            <div id="sign-up-password-error" class="user-input-container input-validation" data-error-msg="">
+                <!-- <label for="pass">Password</label> -->
+                <input autocomplete="new-password" type="password" id="new-password" name="new-password" minlength="8"
+                placeholder="Password" class="user-input password-input" required>
+                <span id="togglePassword"><i class="material-icons md-36">visibility</i></span>
+                <div id="sign-up-password-strength" class="pass-strength weak-pass"></div>
+            </div>
+
+            <div id="sign-up-confirm-password-error" class="user-input-container input-validation" data-error-msg="">
+                <!-- <label for="confirm-pass">Confirm Password</label> -->
+                <input type="password" id="confirmPass" name="confirm-pass" minlength="8" placeholder="Confirm Password"
+                class="user-input password-input" required>
+                <span id="togglePasswordConfirm"><i class="material-icons md-36">visibility</i></span>
+            </div>
         </form>
 
         <div class="user-btn-container">
