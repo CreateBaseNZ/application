@@ -294,7 +294,7 @@
           </div>
         </div>
         <!-- slide-up and slide-down animations for entrance and exit -->
-        <div class="selected-notif-btn-container slide-up">
+        <div class="selected-notif-btn-container slide-down hide">
           <div class="selected-button-container">
             <button class="cancel-btn selected-notif-btn">
               Cancel
@@ -314,7 +314,7 @@
         </div>
       </div>
       <div class="right-column">
-        <div class="inbox-detail-container scrollable">
+        <div id="inbox-detail-container" class="inbox-detail-container scrollable">
             <!--<div class="detail-container">
               <div class="detail-header">
                 <div class="header-text-container">
@@ -390,8 +390,8 @@
               </div>
             </div>-->
           </div>
-          <div class="hide archive-detail-container scrollable"></div>
-          <div class="hide bin-detail-container scrollable"></div>
+          <div id="archive-detail-container" class="hide inbox-detail-container scrollable"></div>
+          <div id="bin-detail-container" class="hide inbox-detail-container scrollable"></div>
         </div>
       </div>
     </div>

@@ -183,7 +183,7 @@ AccountSchema.statics.welcomeNotification = function (object = {}) {
       type: "standard",
       title: "Welcome to CreateBase",
       messange: "Hello World",
-      date: moment().tz("Pacific/Auckland").format(),
+      date: { inboxed: moment().tz("Pacific/Auckland").format() },
       opened: false,
       status: "inbox"
     }

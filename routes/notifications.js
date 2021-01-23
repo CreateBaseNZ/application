@@ -77,6 +77,22 @@ router.post("/notification-opened", /*verifiedContent,*/ async (req, res) => {
   return res.send({status: "succeeded", content: ""});
 });
 
+router.post("/notification-change-status", /*verifiedContent,*/ async (req, res) => {
+  // Declare variables
+  let account = req.user;
+  let id = mongoose.Types.ObjectId(req.body.id);
+  let status = req.body.status;
+  // Update notification
+  let notification;
+  try {
+    notification = await Notification.reformStatus({ id, owner: account._id, status });
+  } catch (data) {
+    return res.send(data);
+  }
+  // Success handler
+  return res.send({ status: "succeeded", content: notification });
+});
+
 /* ==========================================================
 EXPORT
 ========================================================== */

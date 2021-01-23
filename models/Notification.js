@@ -26,7 +26,11 @@ const NotificationSchema = new Schema({
   type: { type: String, required: true },
   title: { type: String, required: true },
   message: { type: [String], required: true },
-  date: { type: String, required: true },
+  date: { 
+    inboxed: { type: String, required: true },
+    archived: { type: String, default: "" },
+    binned: { type: String, default: "" }
+  },
   opened: { type: Boolean, required: true },
   status: { type: String, required: true }
 });
@@ -55,6 +59,38 @@ NotificationSchema.statics.build = function (object = {}, save = true) {
       }
     }
     // SUCCESS HANDLER
+    return resolve(notification);
+  });
+}
+
+NotificationSchema.statics.reformStatus = function (object = {}, save = true) {
+  return new Promise(async (resolve, reject) => {
+    // Validation
+
+    // Fetch the notification
+    let notification;
+    try {
+      notification = await this.findOne({ _id: object.id, owner: object.owner });
+    } catch (error) {
+      return reject({ status: "error", content: error });
+    }
+    // Update the notification
+    const date = moment().tz("Pacific/Auckland").format();
+    if (object.status === "archive") {
+      notification.date.archived = date;
+    } else if (object.status === "bin") {
+      notification.date.binned = date;
+    }
+    notification.status = object.status;
+    // Save the notification
+    if (save) {
+      try {
+        await notification.save();
+      } catch (error) {
+        return reject({ status: "error", content: error });
+      }
+    }
+    // Success handler
     return resolve(notification);
   });
 }
