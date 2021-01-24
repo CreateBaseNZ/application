@@ -133,9 +133,9 @@ dashboard.loadBadges = () => {
 }
 
 dashboard.loadProjects = () => {
-  global.createProjectCard(dashboard.recentContainer, 'small', new Project(ongoingEx))
+  // global.createProjectCard(dashboard.recentContainer, 'small', new Project(ongoingEx))
   global.createProjectCard(dashboard.recentContainer, 'small', new Project(completeEx))
-  global.createProjectCard(dashboard.recomContainer, 'large', new Project(recomEx))
+  global.createProjectCard(dashboard.recomContainer, 'large', new Project(completeEx))
 }
 
 /* ==========================================================

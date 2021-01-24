@@ -7,13 +7,13 @@ $dark: #786D97;
 $darker: #1A1039;
 $darkest: #000000;
 $gold: #FDD135;
-$blue-light: #36C4E8;
+$blue-light: #36c4e8;
 $blue-mid: #209CE2;
 $blue-dark: #0A73DC;
 $magenta-light: #B835CF;
-$green: #18DBAC;
+$green: #18dbac;
 $red: #fa6f6f;
-$orange: #FF9F46;
+$orange: #ff9f46;
 $bg-grey: #FBFBFB;
 
 $horiz-space-mobile: 5vw;
@@ -85,7 +85,6 @@ body {
 
 .ui-container {
   display: flex;
-  min-height: 72vh;
   margin: $vert-space-mobile 0;
   flex: 1 0 auto;
   padding: 0 $horiz-space-mobile $vert-space-mobile $horiz-space-mobile;
@@ -343,7 +342,7 @@ span {
   grid-template-columns: auto min-content;
   grid-template-rows: min-content auto;
   position: relative;
-  padding: 1.5rem;
+  padding: 1rem;
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -368,6 +367,7 @@ span {
       justify-content: center;
       align-items: center;
       font-size: 0.7rem;
+      font-weight: 500;
       margin-right: 0.5em;
       padding: 0.4em 1.5em;
       border-radius: 999px;
@@ -764,7 +764,17 @@ body {
 .ui-container {
   flex: 1 1 0;
   margin: 0;
+  min-height: 72vh;
   padding: 0 $horiz-space-tablet $vert-space-tablet $horiz-space-tablet;
+}
+
+.project-card {
+  padding: 1.5rem;
+  .tags-container {
+    .project-tag {
+      font-size: 0.7rem;
+    }
+  }
 }
 
 }
@@ -782,5 +792,7 @@ body {
 .ui-container {
   padding: 0 $horiz-space-desktop $vert-space-desktop $horiz-space-desktop;
 }
+
+
 
 }

@@ -205,8 +205,11 @@ h1 {
     align-self: center;
     opacity: 0.5;
   }
+  .project-card:first-child {
+    margin-right: 1vw;
+  }
   .project-card:last-child {
-    display: none;
+    margin-left: 1vw;
   }
 }
 
@@ -437,13 +440,7 @@ h1 {
 
 
 .recent-container  {
-  .project-card:first-child {
-    margin-right: 1vw;
-  }
-  .project-card:last-child {
-    margin-left: 1vw;
-    display: grid;
-  }
+
 }
 
 .db-right {
