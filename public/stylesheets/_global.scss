@@ -124,7 +124,7 @@ i { color: inherit; }
 h1 {
   font-weight: 600;
   letter-spacing: 0.02rem;
-  font-size: 3em;
+  font-size: 2rem;
 }
 
 .small-caps {
@@ -692,13 +692,6 @@ span {
   }
 }
 
-// .badge.trophy::after { content: attr('caption'); }
-// .badge.medal::after { content: 'Medal'; }
-// .badge.console::after { content: 'Console'; }
-// .badge.loyal::after { content: 'Loyal'; }
-// .badge.graduation::after { content: 'Grad'; }
-
-
 .scrollable {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -745,6 +738,10 @@ span {
 }
 
 @media only screen and (min-width: 768px) {
+
+h1 {
+  font-size: 3rem;
+}
 
 body {
   position: static;

@@ -37,7 +37,7 @@ h1 {
   width: 100%;
   .avatar {
     position: absolute;
-    top: calc(-5rem - 2vh - 1rem);
+    top: calc(-5rem - 2vh - 0.5rem);
     right: $horiz-space-mobile;
     object-fit: cover;
     height: 5rem;
