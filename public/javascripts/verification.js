@@ -1,3 +1,65 @@
+/* ==========================================================
+VARIABLES
+========================================================== */
+
+let verification = {
+  initialise: undefined,
+  listeners: undefined,
+  collect: undefined,
+  resend: undefined
+}
+
+/* ==========================================================
+FUNCTIONS
+========================================================== */
+
+verification.initialise = () => {
+  // Add the event listeners
+  verification.listeners();
+}
+
+verification.listeners = () => {
+  document.querySelector("#resend-code").addEventListener("click", verification.resend);
+}
+
+verification.resend = async () => {
+  // Clear the error field
+  document.querySelector(".error-p").innerHTML = "";
+  // Disable "Resend Code" button
+  document.querySelector("#resend-code").setAttribute("disabled", "");
+  // Send the request to the backend
+  let data;
+  try {
+    data = (await axios.post("/verification/resend-code"))["data"];
+  } catch (error) {
+    data = { status: "error", content: error };
+  }
+  // Handle any incoming failures or errors
+  if (data.status === "failed") {
+    // Enable "Resend Code" button
+    document.querySelector("#resend-code").removeAttribute("disabled");
+    // Display the failure message
+    document.querySelector(".error-p").innerHTML = data.content;
+    return;
+  } else if (data.status === "error") {
+    // Enable "Resend Code" button
+    document.querySelector("#resend-code").removeAttribute("disabled");
+    // TEMPORARY: Display the error on the console
+    console.log(data.content);
+    return;
+  }
+  // Success handler
+  // Enable "Resend Code" button
+  document.querySelector("#resend-code").removeAttribute("disabled");
+  // TEMPORARY: Display the success message on the console
+  console.log("The code has been sent successfully");
+  return;
+}
+
+/* ==========================================================
+END
+========================================================== */
+
 // Code inputs functionality
 const form = document.querySelector('.input-form')
 const inputs = form.querySelectorAll('.code-input')
