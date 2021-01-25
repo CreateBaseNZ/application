@@ -25,6 +25,8 @@ let inbox = {
   selectInbox: undefined,
   selectArchive: undefined,
   selectBin: undefined,
+  selectAll: undefined,
+  selectedStatus: "inbox",
   selectedInbox: [],
   selectedArchive: [],
   selectedBin: [],
@@ -82,9 +84,18 @@ inbox.populate = (objects = []) => {
     const momentNow = moment();
     let momentDate;
     switch (object.status) {
-      case "inbox": momentDate = moment(object.date.inboxed); break;
-      case "archive": momentDate = moment(object.date.archived); break;
-      case "bin": momentDate = moment(object.date.binned); break;
+      case "inbox":
+        momentDate = moment(object.date.inboxed);
+        inbox.allInbox.push(object.id);
+        break;
+      case "archive":
+        momentDate = moment(object.date.archived);
+        inbox.allArchive.push(object.id);
+        break;
+      case "bin":
+        momentDate = moment(object.date.binned);
+        inbox.allBin.push(object.id);
+        break;
       default: return console.log("Invalid notification type");
     }
     const difference = momentNow.dayOfYear() - momentDate.dayOfYear();
@@ -143,7 +154,7 @@ inbox.summary = (object = {}) => {
   <div id="summary-${object._id}" class="single-notif-container">
     <div class="checkbox-container">
       <label class="checkbox path">
-        <input type="checkbox" class="selec-checkbox" name="select" value="${object._id}" onchange="inbox.selectInbox(this.value, this.checked);">
+        <input type="checkbox" id="${object._id}-checkbox" class="selec-checkbox" name="select" value="${object._id}" onchange="inbox.selectInbox(this.value, this.checked);">
         <svg viewBox="0 0 21 21">
           <path
             d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186">
@@ -369,6 +380,7 @@ inbox.selectStatus = (status = "") => {
     document.querySelector("#archive-detail-container").classList.add("hide");
     document.querySelector("#bin-detail-container").classList.remove("hide");
   }
+  inbox.selectedStatus = status;
 }
 
 inbox.changeStatus = async (object = {}) => {
@@ -408,8 +420,35 @@ inbox.changeStatus = async (object = {}) => {
   return;
 }
 
-inbox.selectInbox = (id, select) => {
-  
+inbox.selectAll = (select, type = "checkbox") => {
+  if (inbox.selectedStatus === "inbox") {
+    for (let i = 0; i < inbox.allInbox.length; i++) {
+      const id = inbox.allInbox[i];
+      inbox.selectInbox(id, select, "auto");
+    }
+  } else if (inbox.selectedStatus === "archive") {
+    for (let i = 0; i < inbox.allArchive.length; i++) {
+      const id = inbox.allArchive[i];
+      inbox.selectInbox(id, select, "auto");
+    }
+  } else if (inbox.selectedStatus === "bin") {
+
+  }
+}
+
+inbox.selectInbox = (id, select, type = "checkbox") => {
+  if (type !== "checkbox") {
+    document.querySelector(`#${id}-checkbox`).checked = select;
+  }
+  if (select) {
+    if (selectedInbox.indexOf(id) === -1) {
+      selectedInbox.push(id);
+    }
+  } else {
+    if (selectedInbox.indexOf(id) !== -1) {
+      selectedInbox.splice(0, 1, id);
+    }
+  }
 }
 
 /* ==========================================================
