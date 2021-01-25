@@ -175,6 +175,7 @@ settings.loadEventListeners = () => {
     document.querySelectorAll('.section').forEach((section) => {
       section.classList.remove('mobile-hide');
     })
+    document.querySelector('.edit-mode').classList.remove('edit-mode')
   })
 
   document.querySelector('.badge-config-close').addEventListener('click', () => {
