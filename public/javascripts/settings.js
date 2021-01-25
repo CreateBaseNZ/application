@@ -2,6 +2,8 @@
 VARIABLES
 ========================================================== */
 
+// const e = require("express");
+
 let settings = {
   initialise: undefined,
   cacheData: undefined,
@@ -38,16 +40,16 @@ FUNCTIONS
 settings.initialise = async () => {
   // Fetch data
   const data = await settings.fetch();
-  // Validate incoming data
-  if (data.status === "error") {
-    console.log(data.content);
-  } else if (data.status === "failed") {
-    console.log(data.content);
-  }
+  // // Validate incoming data
+  // if (data.status === "error") {
+  //   console.log(data.content);
+  // } else if (data.status === "failed") {
+  //   console.log(data.content);
+  // }
   // Load badges
   settings.loadBadges()
-  // Populate fields
-  settings.populate(data.content.account, data.content.user, data.content.notification);
+  // // Populate fields
+  // settings.populate(data.content.account, data.content.user, data.content.notification);
   // Add event listeners
   settings.loadEventListeners()
   // Cache data
@@ -172,15 +174,36 @@ settings.loadEventListeners = () => {
   document.querySelectorAll('.section').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
-        // Save button - enable edit mode
-        this.classList.toggle('edit-mode');
+        // Save button - exit edit mode
+        this.classList.remove('edit-mode');
+        document.querySelectorAll('.mobile-hide').forEach((section) => {
+          section.classList.remove('mobile-hide')
+        })
       } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
         // Cancel button - disable edit mode
         this.classList.remove('edit-mode');
+        document.querySelectorAll('.mobile-hide').forEach((section) => {
+          section.classList.remove('mobile-hide')
+        })
       } else if (!this.classList.contains('edit-mode')) {
-        // Anywhere else - enable edit mode
-        this.classList.add('edit-mode');
+        document.querySelectorAll('.section-container').forEach((section) => {
+          console.log(section)
+          el === section ? el.classList.add('edit-mode') : section.classList.add('mobile-hide')
+        })
       }
+    })
+  })
+
+  // Cancel button to go back to main sections
+  document.querySelectorAll('.back-to-sections').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      // Leave edit mode
+      document.querySelector('.edit-mode').classList.remove('edit-mode')
+      // Show all the other sections
+      document.querySelectorAll('.mobile-hide').forEach((section) => {
+        section.classList.remove('mobile-hide')
+      })
     })
   })
 

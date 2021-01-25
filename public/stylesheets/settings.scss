@@ -9,14 +9,18 @@ $bez: cubic-bezier(.15,.51,.51,.97);
   cursor: grabbing !important; /* W3C standards syntax, should come least */
 }
 
+.section-container.mobile-hide {
+  display: none;
+}
+
 // ==========================================
 // UI CONTAINER
 // ==========================================
 
 .ui-container {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-  column-gap: $horiz-space-mobile;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding-top: $vert-space-mobile;
   width: 100%;
   max-width: 100%;
@@ -33,21 +37,157 @@ h2 {
 }
 
 h3 {
-  font-size: 1.125em;
-  letter-spacing: 0.05em;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  color: $light;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
-input[type=text],
-input[type=password] {
-  font-size: 1em;
+h4 {
+  font-size: 1.125rem;
+  font-weight: inherit;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0.35rem 0;
+  h3 {
+    display: none;
+  }
+  input {
+    background: $lighter;
+    font-size: 1rem;
+    line-height: 200%;
+    font-weight: 400;
+    padding: 0.75em 1.5em;
+    border-radius: 0.75em;
+    &::placeholder {
+      font-size: inherit;
+      font-weight: 300;
+      opacity: 0.5;
+      color: $light;
+    }
+    &:focus::placeholder {
+      opacity: 0.25;
+    }
+  }
+}
+
+// ==========================================
+// BUTTONS & ICONS
+// ==========================================
+
+// .switch-container {
+//   height: 5.5rem;
+//   padding: 0.75em 1.5em;
+//   justify-content: center;
+//   background: $lighter;
+//   border-radius: 0.75rem;
+
+//   .switch-opt {
+//     align-self: flex-start;
+//     width: 100%;
+//     justify-content: flex-start;
+//     h3 {
+//       display: block;
+//     }
+//     span {
+//       opacity: 1;
+//       font-weight: 400;
+//       color: $light;
+//     }
+//     .switch-custom {
+//       background: transparent;
+//       border: thin solid $lightest;
+//       transition: background-color 0.3s ease-out, border 0.3s ease-out;
+//     }
+//     input:checked ~ .switch-custom {
+//       border: thin solid transparent;
+//     }
+//   }
+// }
+.switch-opt {
+  height: 5.5rem;
+  padding: 0.75em 1.5em;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  .switch-bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $lighter;
+    border-radius: 0.75rem;
+    transition: background-color 0.2s ease-out;
+  }
+  h3 {
+    display: block;
+    width: 100%;
+  }
+  span {
+    opacity: 1;
+    font-weight: 400;
+    color: $light;
+    margin: 0;
+  }
+  .switch-custom {
+    background: transparent;
+    border: thin solid $light;
+    transition: background-color 0.3s ease-out, border 0.3s ease-out;
+    &::after {
+      background: $light;
+    }
+  }
+  input:checked {
+    & ~ .switch-bg {
+      background: $orange;
+    }
+    & ~ h3, & ~ span {
+      color: $lightest;
+    }
+    & ~ .switch-custom {
+      border: thin solid $lightest;
+      &::after {
+        background: $lightest;
+      }
+    } 
+  }
+}
+
+.btn-to-input {
+  width: 100%;
+  padding: 0.75em 1.5em;
+  border-radius: 0.75rem;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
   line-height: 200%;
-  font-weight: 500;
-  transition: color 1s ease-out, background-color 1s ease-out;
-  &::placeholder {
+  margin: 0.35rem 0;
+  i {
     font-size: inherit;
-    font-weight: inherit;
-    color: inherit;
+  }
+  &:hover, &:focus, &:active {
+    filter: brightness(0.9);
+  }
+}
+
+.icon-container {
+  height: calc(#{$field-height} * 0.75);
+  width: calc(#{$field-height} * 0.75);
+  border-radius: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  i {
+    font-size: 1.5em;
   }
 }
 
@@ -57,9 +197,10 @@ input[type=password] {
 
 .section {
   cursor: pointer;
+  display: flex;
+  width: 100%;
   margin-bottom: $horiz-space-mobile;
   padding: 1.25rem;
-  display: flex;
   font-size: 1rem;
   border-radius: 1em;
   background: $lightest;
@@ -94,7 +235,7 @@ input[type=password] {
     font-size: 1rem;
     padding: 0.75em;
     border-radius: 33%;
-    margin-bottom: 2.4rem;
+    margin-bottom: 1rem;
   }
   p {
     font-size: 0.5rem;
@@ -110,104 +251,87 @@ input[type=password] {
 }
 
 .panel-right {
-  width: 80%;
-  border-left: medium solid $lighter;
-  padding-left: 5vw;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: calc(#{$field-height} * 0.75);
-  transition: width 0.4s $bez, border-left 0.4s $bez, padding-left 0.4s $bez;
-  .input-container {
-    height: $field-height;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .mobile-subheading {
+    order: -2;
     display: flex;
-    flex-direction: column;
-    transition: height 0.4s $bez;
-    input {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+    .back-to-sections {
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      opacity: 0.5;
+      color: $light;
       background: transparent;
-      border-radius: 0.75em;
-      transition: background-color 0.4s ease-out, line-height 0.4s $bez, padding-left 0.4s $bez;
+      i {
+        margin-right: 0.25em;
+        font-size: 1.2em;
+        color: inherit;
+      }
+      &:active, &:focus {
+        opacity: 1;
+      }
     }
   }
   .btn-container {
-    grid-column-start: 1;
-    grid-column-end: 4;
+    margin-top: 1.5rem;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    overflow: hidden;
-    padding-top: 2px;
-    height: 0;
-    opacity: 0;
-    transition: height 0.4s $bez, opacity 0.4s ease-out;
     button {
-      visibility: hidden;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75em;
+      font-size: 0.75rem;
       letter-spacing: 0.15em;
-      padding: 1em 1.75em;
-      border-radius: 1.25em;
+      border-radius: 1rem;
+      height: calc(#{$field-height} + 0.5rem);
     }
     .save-btn {
+      width: 100%;
       color: $lightest;
       font-weight: 600;
-      margin-left: 1em;
-      transition: margin 0.1s ease-out, box-shadow 0.1s ease-out;
       &::after {
         content: 'Save';
         margin-left: 0.5em;
+        text-transform: uppercase;
       }
-      &:hover {
+      &:active, &:focus, &:hover {
         margin-top: -2px;
         margin-bottom: 2px;
       }
     }
     .cancel-btn {
-      opacity: 0.5;
-      color: $dark;
-      background: transparent;
-      border: thin solid $lighter;
-      transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
-      &::after {
-        content: 'Cancel';
-      }
-      &:hover {
-        background: $lighter;
-        opacity: 1;
-      }
+      display: none;
     }
   }
 }
 
-.panel-right {
-  display: none;
-}
-
 // ==========================================
-// BUTTONS & ICONS
+// SECTION EDIT MODE
 // ==========================================
 
-.switch-opt {
-  align-self: flex-start;
-  width: auto;
-  justify-content: flex-start;
-  span {
-    opacity: 1;
-    font-weight: 500;
+.edit-mode {
+  cursor: auto;
+  background: transparent;
+  padding: 0;
+  .edit-btn {
+    display: none;
   }
-}
-
-.icon-container {
-  height: calc(#{$field-height} * 0.75);
-  width: calc(#{$field-height} * 0.75);
-  border-radius: 33%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  i {
-    font-size: 1.5em;
+  .panel-left {
+    display: none;
+  }
+  .panel-right {
+    display: flex;
   }
 }
 
@@ -216,19 +340,71 @@ input[type=password] {
 // ==========================================
 
 .profile-container {
-  h3 {
-    color: $green;
-  }
   .panel-left > i {
     color: $green;
     background: rgba(24,219,172,0.05);
   }
-  .edit-btn {
-    color: $green; 
+  .edit-btn, h4 {
+    color: $green;
   }
-  &:hover,
-  &.edit-mode {
-    box-shadow: 0 2em 4em -4em $green;
+  .avatar {
+    order: -1;
+    width: 35vw;
+    height: 35vw;
+    border-radius: 0.75rem;
+    object-fit: cover;
+    margin: 0.5rem 0;
+  }
+  .badges-container {
+    order: -1;
+    width: 100%;
+    height: calc(#{$field-height} * 2 + 1.5em);
+    border-radius: 0.75rem;
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    padding-right: 2.5rem;
+    background: $lighter;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    position: relative;
+    .badge {
+      width: $field-height;
+      height: $field-height;
+      padding: calc(#{$field-height} * 0.15);
+    }
+    i {
+      font-size: 1rem;
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translate(50%, -50%);
+      color: $green;
+    }
+    &::after {
+      content: 'CONFIGURE';
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      font-size: 0.625em;
+      color: $green;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      padding: 0.75em 1.25em;
+      border-radius: 999px;
+      border: thin solid $green;
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+    }
+    &:hover {
+      .badge {
+        opacity: 0.5;
+      }
+      &::after {
+        opacity: 1;
+      }
+    }
   }
   .btn-container > .save-btn { 
     background: $green;
@@ -237,102 +413,6 @@ input[type=password] {
     }
   }
 }
-
-.avatar {
-  width: calc(#{$field-height} * 1.75);
-  height: calc(#{$field-height} * 1.75);
-  border-radius: 50%;
-  object-fit: cover;
-  grid-row-start: 1;
-  grid-row-end: 3;
-  transition: height 0.4s $bez, width 0.4s $bez;
-}
-
-.badges-container {
-  width: calc(#{$field-height} * 2.5);
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  position: relative;
-  transition: width 0.4s $bez;
-  .badge {
-    width: calc(#{$field-height}/2);
-    height: calc(#{$field-height}/2);
-    padding: calc(#{$field-height}/2 * 0.15);
-    transition: width 0.4s $bez, height 0.4s $bez, opacity 0.2s ease-out;
-  }
-  &::after {
-    content: 'CONFIGURE';
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    font-size: 0.625em;
-    color: $green;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    padding: 0.75em 1.25em;
-    border-radius: 999px;
-    border: thin solid $green;
-    opacity: 0;
-    transition: opacity 0.2s ease-out;
-  }
-  &:hover {
-    .badge {
-      opacity: 0.5;
-    }
-    &::after {
-      opacity: 1;
-    }
-  }
-}
-
-.pass-container {
-  position: relative;
-  .vis-icon {
-    position: absolute;
-    top: 2.7em;
-    right: 1.2em;
-    transform: translateY(-50%);
-    color: $light;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
-    i {
-      cursor: pointer;
-      opacity: 0.5;
-      z-index: 1;
-      transition: opacity 0.2s ease-out;
-      &:hover {
-        opacity: 0.75;
-      }
-    }
-    i.visible {
-      opacity: 1;
-    }
-  }
-}
-
-.input-container.pass-conf-container {
-  display: none;
-  height: 0;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.4s ease-out;
-}
-
-// .icon-container.paypal {
-//   background: rgba(0, 113, 187, 0.1);
-//   i {
-//     color: #0079C1;
-//   }
-// }
-// .icon-container.stripe {
-//   background: rgba(103, 114, 229, 0.1);
-//   i {
-//     color: #6772E5;
-//   }
-// }
 
 // ==========================================
 // ACCOUNT SECTION
@@ -343,18 +423,52 @@ input[type=password] {
     color: $blue-light; 
     background: rgba(54,196,232,0.05);
   }
-  .edit-btn {
+  .edit-btn, h4 {
     color: $blue-light; 
-  }
-  &:hover,
-  &.edit-mode {
-    box-shadow: 0 2em 4em -4em $blue-light;
   }
   .btn-container > .save-btn {
     background: $blue-light; 
     &:hover {
       box-shadow: 0 0.5em 1em -0.5em $blue-light;
     }
+  }
+  .btn-to-input {
+    color: $blue-light;
+    background: $lightbluetint;
+  }
+  .pass-container, .email-container {
+    display: none;
+  }
+  .pass-container {
+    position: relative;
+    .vis-icon {
+      position: absolute;
+      top: 2.7em;
+      right: 1.2em;
+      transform: translateY(-50%);
+      color: $light;
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+      i {
+        cursor: pointer;
+        opacity: 0.5;
+        z-index: 1;
+        transition: opacity 0.2s ease-out;
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+      i.visible {
+        opacity: 1;
+      }
+    }
+  }
+  .input-container.pass-conf-container {
+    display: none;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
   }
 }
 
@@ -363,19 +477,12 @@ input[type=password] {
 // ==========================================
 
 .notifications-container {
-  grid-column-start: 1;
-  grid-column-end: 3;
   .panel-left > i {
     color: $orange;
     background: rgba(255,159,70,0.05);
-    margin-bottom: 1rem;
   }
-  .edit-btn {
+  .edit-btn, h4 {
     color: $orange; 
-  }
-  &:hover,
-  &.edit-mode {
-    box-shadow: 0 1.5em 4em -3em $orange;
   }
   .btn-container > .save-btn {
     background: $orange; 
@@ -383,6 +490,7 @@ input[type=password] {
       box-shadow: 0 0.5em 1em -0.5em $orange;
     }
   }
+
 }
 
 // ==========================================
@@ -396,7 +504,9 @@ input[type=password] {
   display: flex;
   justify-content: space-between;
   background: transparent;
-  margin-top: calc(#{$vert-space-mobile} * 2);
+  margin-top: calc(#{$horiz-space-mobile} * 0.5);
+  padding-top: #{$horiz-space-mobile};
+  border-top: thin solid $lighter;
   button {
     width: calc((100% - #{$horiz-space-mobile}) / 2);
     cursor: pointer;
@@ -420,83 +530,12 @@ input[type=password] {
       text-align: left;
       opacity: 0.75;
     }
-    &:hover {
-      color: $red;
-    }
   }
   .deactivate-btn:hover {
-    color: $red;
+    color: $orange;
   }
   .delete-btn:hover {
     color: $red;
-  }
-}
-
-// ==========================================
-// SECTION EDIT MODE
-// ==========================================
-
-.section.edit-mode {
-  cursor: auto;
-  margin-top: -2px;
-  margin-bottom: calc(2vw + 2px);
-  .edit-btn {
-    opacity: 0;
-  }
-  .panel-left {
-    width: 0;
-    opacity: 0;
-  }
-  .panel-right {
-    width: 100%;
-    border-left: thin solid transparent;
-    padding-left: 0;
-    .input-container {
-      height: calc(#{$field-height} * 1.5);
-      input[type=text],
-      input[type=password] {
-        background: $lighter;
-        line-height: 2.5em;
-        padding-left: 1.2em;
-        transition: color 0.1s ease-out, background-color 0.1s ease-out;
-        &::placeholder {
-          opacity: 0;
-        }
-        &:hover {
-          background: $lightbluetint;
-          color: $blue-light;
-        }
-      }
-    }
-    .btn-container {
-      height: $field-height;
-      opacity: 1;
-      button {
-        visibility: visible;
-      }
-    }
-    .pass-container > .vis-icon {
-      opacity: 1;
-    }
-    .pass-conf-container {
-      display: flex;
-      visibility: visible;
-      opacity: 1;
-      height: $field-height;
-    }
-    .avatar {
-      height: calc(#{$field-height} * 1.5 * 1.75);
-      width: calc(#{$field-height} * 1.5 * 1.75);
-    }
-    .badges-container {
-      cursor: pointer;
-      position: relative;
-      width: calc(#{$field-height} * 2.5 * 1.5);
-      .badge {
-        width: calc(#{$field-height}/2 * 1.5);
-        height: calc(#{$field-height}/2 * 1.5);
-      }
-    } 
   }
 }
 
@@ -813,18 +852,16 @@ input[type=password] {
 
 @media only screen and (min-width: 768px) {
 
-.ui-container {
+.section-container.mobile-hide {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  grid-template-columns: auto;
-  column-gap: normal;
+}
+
+.ui-container {
   padding-top: 0;
   margin-right: calc(#{$horiz-space-desktop} / 2);
   padding-right: calc(#{$horiz-space-desktop} / 2);
   padding-bottom: 0;
-  flex: 1 0 auto;
+  flex: 1 0 0;
 }
 
 h2 {
@@ -833,18 +870,71 @@ h2 {
 
 h3 {
   font-size: 0.75em;
-  letter-spacing: 0.1em;
   color: $light;
-  text-transform: uppercase;
 }
 
-input[type=text],
-input[type=password] {
+.input-container {
+  height: $field-height;
+  margin: 0;
+  transition: height 0.4s $bez;
+  h3 {
+    display: block;
+  }
+  input {
+    font-size: 1em;
+    font-weight: 500;
+    background: transparent;
+    padding: 0;
+    transition: background-color 0.4s ease-out, line-height 0.4s $bez, padding 0.4s $bez;
+    &::placeholder {
+      color: transparent;
+    }
+  }
+}
 
+
+.switch-opt {
+  padding: 0;
+  background: transparent;
+  align-content: flex-start;
+  justify-content: flex-start;
+  .switch-bg {
+    display: none;
+  }
+  span {
+    color: $darker;
+    font-weight: 500;
+    margin-right: 3em;
+    line-height: 200%;
+  }
+  .switch-custom {
+    background: $lighter;
+    border: none;
+    &::after {
+      background: $lightest;
+    }
+  }
+  input:checked {
+    & ~ h3 {
+      color: $light;
+    }
+    & ~ span {
+      color: $darker;
+    }
+    & ~ .switch-custom {
+      border: none;
+      &::after {
+        background: $lightest;
+      }
+    }
+  }
+}
+
+.btn-to-input {
+  display: none;
 }
 
 .section {
-  width: 100%;
   margin-bottom: 2vw;
   padding: 2.5em 4vw 1.5em 3vw;
   box-shadow: none;
@@ -884,7 +974,103 @@ input[type=password] {
 }
 
 .panel-right {
+  width: 80%;
+  flex-direction: row;
+  align-items: flex-start;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: calc(#{$field-height} * 0.75);
+  padding-left: 5vw;
+  border-left: medium solid $lighter;
+  transition: width 0.4s $bez, border-left 0.4s $bez, padding-left 0.4s $bez;
+  .mobile-subheading {
+    display: none;
+  }
+  .btn-container {
+    margin: 0;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    overflow: hidden;
+    padding-top: 2px;
+    height: 0;
+    opacity: 0;
+    transition: height 0.4s $bez, opacity 0.4s ease-out;
+    button {
+      visibility: hidden;
+    }
+  }
+}
+
+.edit-mode {
+  margin-top: -2px;
+  margin-bottom: calc(2vw + 2px);
+  background: $lightest;
+  padding: 2.5em 4vw 1.5em 3vw;
+  .edit-btn {
+    display: flex;
+    opacity: 0;
+  }
+  .panel-left {
+    display: flex;
+    width: 0;
+    opacity: 0;
+  }
+  .panel-right {
+    display: grid;
+    border-left: thin solid transparent;
+    padding-left: 0;
+    width: 100%;
+    .input-container {
+      height: calc(#{$field-height} * 1.5);
+      input {
+        background: $lighter;
+        line-height: 2.5em;
+        padding-left: 1.2em;
+        transition: color 0.1s ease-out, background-color 0.1s ease-out;
+        &::placeholder {
+          opacity: 0;
+        }
+        &:hover {
+          background: $lightbluetint;
+          color: $blue-light;
+        }
+      }
+    }
+    .btn-container {
+      margin: 0;
+      height: $field-height;
+      opacity: 1;
+      button {
+        visibility: visible;
+        border-radius: 1.25em;
+        padding: 1em 1.75em;
+        height: auto;
+      }
+      .save-btn {
+        width: auto;
+        margin-left: 1em;
+        transition: margin-top 0.1s ease-out, margin-bottom 0.1s ease-out, box-shadow 0.1s ease-out;
+        &::after {
+          text-transform: none;
+        }
+      }
+      .cancel-btn {
+        display: flex;
+        opacity: 0.5;
+        color: $dark;
+        background: transparent;
+        border: thin solid $lighter;
+        transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+        &::after {
+          content: 'Cancel';
+        }
+        &:hover {
+          background: $lighter;
+          opacity: 1;
+        }
+      }
+    }
+  }
 }
 
 .de-container {
@@ -895,6 +1081,8 @@ input[type=password] {
   justify-content: flex-end;
   margin-top: 0;
   margin-bottom: 0.5em;
+  padding: 0;
+  border: none;
   button {
     width: auto;
     align-items: flex-end;
@@ -920,6 +1108,53 @@ input[type=password] {
   .panel-left > i {
     background: transparent;
   }
+  .avatar {
+    order: 0;
+    margin: 0;
+    height: calc(#{$field-height} * 1.75);
+    width: calc(#{$field-height} * 1.75);
+    border-radius: 50%;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    transition: height 0.4s ease-out, width 0.4s ease-out;
+  }
+  .badges-container {
+    order: 0;
+    width: calc(#{$field-height} * 2.5);
+    height: 100%;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    transition: width 0.4s $bez;
+    .badge {
+      width: calc(#{$field-height}/2);
+      height: calc(#{$field-height}/2);
+      padding: calc(#{$field-height}/2 * 0.15);
+      transition: width 0.4s $bez, height 0.4s $bez, opacity 0.2s ease-out;
+    }
+    i {
+      display: none;
+    }
+  }
+  &:hover {
+    box-shadow: 0 2em 4em -4em $green;
+  }
+  &.edit-mode {
+    box-shadow: 0 2em 4em -4em $green;
+    .avatar {
+      height: calc(#{$field-height} * 1.5 * 1.75);
+      width: calc(#{$field-height} * 1.5 * 1.75);
+    }
+    .badges-container {
+      cursor: pointer;
+      position: relative;
+      width: calc(#{$field-height} * 2.5 * 1.5);
+      .badge {
+        width: calc(#{$field-height}/2 * 1.5);
+        height: calc(#{$field-height}/2 * 1.5);
+      }
+    }
+  }
 }
 
 .acc-container {
@@ -929,19 +1164,52 @@ input[type=password] {
   .panel-left > i {
     background: transparent;
   }
+  .pass-container, .input-container {
+    display: flex;
+  }
+  &:hover {
+    box-shadow: 0 2em 4em -4em $blue-light;
+  }
+  &.edit-mode {
+    box-shadow: 0 2em 4em -4em $blue-light;
+    .pass-container > .vis-icon {
+      opacity: 1;
+    }
+    .pass-conf-container {
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+      height: $field-height;
+    }
+  }
 }
 
 .notifications-container {
-  flex: 1 1 auto;
-  grid-column-start: auto;
-  grid-column-end: auto;
   h3 {
     color: $light;
   }
   .panel-left > i {
-    margin-bottom: 0.25em;
     background: transparent;
+  }
+  &:hover {
+    box-shadow: 0 1.5em 4em -3em $orange;
+  }
+  &.edit-mode {
+    box-shadow: 0 1.5em 4em -3em $orange;
   }
 }
 
 }
+
+// .icon-container.paypal {
+//   background: rgba(0, 113, 187, 0.1);
+//   i {
+//     color: #0079C1;
+//   }
+// }
+// .icon-container.stripe {
+//   background: rgba(103, 114, 229, 0.1);
+//   i {
+//     color: #6772E5;
+//   }
+// }
