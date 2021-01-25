@@ -239,9 +239,11 @@ input{
     // visibility: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
     max-width: 25em;
     padding-bottom: 4em;
+    height: 100%;
     h1{
         font-size: 2em;
         padding: 1em 0;
