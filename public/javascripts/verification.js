@@ -1,5 +1,5 @@
 // Code inputs functionality
-const form = document.querySelector('#recover-pass-form')
+const form = document.querySelector('.input-form')
 const inputs = form.querySelectorAll('.code-input')
 const KEYBOARDS = {
   backspace: 8,

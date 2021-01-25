@@ -28,6 +28,9 @@ nav{
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
+input{
+    -webkit-user-select: text;
+}
 
 .user-input{
     background-color: $lightbluetint;
@@ -58,6 +61,12 @@ nav{
         display: block;
     }
 }
+
+.error-p{
+    color: $red;
+    font-size: 0.8em;
+}
+
 .shake{
     animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
 }
@@ -71,7 +80,7 @@ nav{
     color: $red;
 }
 
-.password-input{
+.password-input-home{
     padding: 1.3em 3.3em 1.3em 1.3em;
 }
 
@@ -198,7 +207,32 @@ nav{
     }
 }
 
-.recover-pass-container{
+// .recover-pass-container{
+//     // visibility: hidden;
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+//     max-width: 25em;
+//     padding-bottom: 4em;
+//     h1{
+//         font-size: 2em;
+//         padding: 1em 0;
+//     }
+//     form{
+//         display: flex;
+//         flex-direction: column;
+//     }
+//     .disclaimer-container{
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         padding: 0.5em 0 1.5em;
+//         line-height: 130%;
+//         text-align: center;
+//     }
+// }
+
+.verify-container{
     // visibility: hidden;
     display: flex;
     flex-direction: column;
@@ -636,7 +670,7 @@ nav{
         }
     }
 
-    .recover-pass-container{
+    .verify-container{
         // visibility: hidden;
         display: flex;
         flex-direction: column;

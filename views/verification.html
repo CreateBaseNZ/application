@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="icon" href="/public/images/logo-icon.png" />
+  <title id="profile-title">Verify Account • App</title>
+  <meta name="description"
+    content="Welcome back, Creator. See your recent projects or get started on a recommend project. Browse all projects. Shop the latest range of kits. &#169; 2020 CreateBase.">
+  <!-- =========================CSS========================== -->
+  <!-- -----------------------SOURCED------------------------ -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+    rel="stylesheet">
+  <!-- ------------------------CUSTOM------------------------ -->
+  <link rel="stylesheet" href="/public/stylesheets/home.min.css" />
+</head>
+
+<!-- <body onload="verification.initialise();"> -->
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="https://createbase.co.nz/"><img src="..\public\images\logo.svg" alt="logo"></a>
+    </nav>
+
+    <div class="verify-container">
+        <h1>Verify Account</h1>
+        <form id="verify-form" class="input-form" action="#" method="POST" autocomplete="off">
+            <!-- Enter code here -->
+            <div id="otp">
+                <input class="code-input" type="text" id="first" maxlength="1"  autofocus/>
+                <input class="code-input" type="text" id="second" maxlength="1" />
+                <input class="code-input" type="text" id="third" maxlength="1" />
+                <input class="code-input" type="text" id="fourth" maxlength="1" />
+                <input class="code-input" type="text" id="fifth" maxlength="1" />
+                <input class="code-input" type="text" id="sixth" maxlength="1" />
+            </div>
+
+            <div class="disclaimer-container">
+                <p class="small-text">Enter the verification code sent to your registered email</p>
+                <p class="error-p hide">Error - Please try again</p>
+            </div>
+        </form>
+
+        <div class="user-btn-container">
+          <button id="verify-btn" class="user-input main-cta cta-button" onclick="">Confirm</button>
+        </div>
+        <div class="user-btn-container">
+            <button id="resend-code" class="user-input secondary-cta cta-button" onclick="">Resend Code</button>
+        </div>
+      </div>
+  </div>
+
+  <div class="background">
+    <div class="wave topleft bg-item">
+      <img src="..\public\images\home\squiggle-thin.svg" alt="squiggle">
+    </div>
+    <div class="wave botright bg-item">
+      <img src="..\public\images\home\squiggle.svg" alt="squiggle">
+    </div>
+    <div class="bg-circle bg-item"></div>
+    <div class="box-grid bg-item">
+      <img src="..\public\images\home\box-grid.svg" alt="box-grid">
+    </div>
+    <div class="bg-triangle bg-item">
+      <img src="..\public\images\home\triangle.svg" alt="triangle">
+    </div>
+    <div class="bg-triangle-outline bg-item">
+      <img src="..\public\images\home\triangle-outline.svg" alt="triangle">
+    </div>
+    <div class="box-grid-sml bg-item">
+      <img src="..\public\images\home\box-grid-sml.svg" alt="box-grid">
+    </div>
+    <p class="copyright-text bg-item">&#169; CreateBase 2021</p>
+  </div>
+
+  <!-- ==========================JS========================== -->
+  <!-- -----------------------SOURCED------------------------ -->
+  <script async src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- ------------------------CUSTOM------------------------ -->
+  <!-- <script async src="/public/javascripts/nav.min.js"></script> -->
+  <!-- <script async src="/public/javascripts/home.min.js"></script> -->
+  <script async src="/public/javascripts/global.js"></script>
+  <!-- <script async src="/public/javascripts/home.js"></script> -->
+  <script async src="/public/javascripts/verification.js"></script>
+</body>
+
+</html>
