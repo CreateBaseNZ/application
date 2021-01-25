@@ -86,6 +86,7 @@ input{
 
 .cta-button{
     cursor: pointer;
+    // max-width: 15em;
 }
 .main-cta{
     background-color: $blue-mid;
@@ -108,7 +109,6 @@ input{
 .back-btn{
     background-color: transparent;
     display: flex;
-    transform: translateX(-1em);
     cursor: pointer;
     i{
         color: $blue-light;
@@ -156,6 +156,8 @@ input{
 
 .user-btn-container{
     padding-bottom: 0.8rem;
+    display: flex;
+    justify-content: center;
     button{
         letter-spacing: 0.1em;
     }
@@ -197,14 +199,15 @@ input{
         display: flex;
         flex-direction: column;
     }
-    .disclaimer-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0.5em 0 1.5em;
-        line-height: 130%;
-        text-align: center;
-    }
+}
+
+.disclaimer-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0 1.5em;
+    line-height: 130%;
+    text-align: center;
 }
 
 // .recover-pass-container{
@@ -236,9 +239,11 @@ input{
     // visibility: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
     max-width: 25em;
     padding-bottom: 4em;
+    height: 100%;
     h1{
         font-size: 2em;
         padding: 1em 0;
@@ -246,14 +251,6 @@ input{
     form{
         display: flex;
         flex-direction: column;
-    }
-    .disclaimer-container{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0.5em 0 1.5em;
-        line-height: 130%;
-        text-align: center;
     }
 }
 
@@ -313,7 +310,7 @@ input{
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 5%;
+    top: 10vh;
     width: 100%;
     h2{
         font-size: 2em;
@@ -327,6 +324,30 @@ input{
     .back-btn{
         width: 100%;
         height: 100%;
+    }
+}
+
+.code-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10vh;
+    width: 100%;
+    h2{
+        font-size: 2em;
+        font-weight: 600;
+        padding: 0.5em 0 1em;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    .back-btn{
+        width: 100%;
+        height: 100%;
+    }
+    #otp{
+        padding-bottom: 2em;
     }
 }
 
@@ -573,9 +594,14 @@ input{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: stretch;
         width: 100vw;
         z-index: 10;
         overflow-y: scroll;
+    }
+    .user-form-wrap{
+        margin-left: 2em;
+        padding-bottom: 2em;
     }
     .copyright-text{
         display: inline-block;
@@ -588,7 +614,8 @@ input{
     }
     .sign-up-container{
         max-width: 28em;
-        margin-left: 2em;
+        font-size: 0.8vw;
+        padding-bottom: 5em;
         h1{
             font-size: 2.5em;
             padding-bottom: 1em;
@@ -596,28 +623,24 @@ input{
         }
     }
     .login-container{
-        // max-width: 28em;
-        // width: 25vw;
-        // top:50%;
-        // margin: 0 5vw;
         width: 100%;
         top: 20%;
-        // transform: translateY(-50%);
-        // padding-right: 2em;
         h2{
             font-size: 2.5em;
             padding: 0.5em 0 1em;
         }
     }
     .recover-container{
-        // max-width: 28em;
-        // margin-right: 2em;
         width: 100%;
         top: 25%;
-        // top:50%;
-        // margin: 0 5vw;
-        // transform: translateY(-50%);
-        // border: thin solid blue;
+        h2{
+            font-size: 2.5em;
+            padding: 0.5em 0 1em;
+        }
+    }
+    .code-container{
+        width: 100%;
+        top: 25%;
         h2{
             font-size: 2.5em;
             padding: 0.5em 0 1em;
@@ -625,18 +648,28 @@ input{
     }
     .demo{
         display: flex;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
+        flex-direction: column;
+        align-items: stretch;
+        // justify-content: center;
         width: 50%;
-        margin:1.5em 1em 0 7em;
+        margin:12.5vmin 1em 0 7em;
     }
     .demo-img{
         animation: fade-up 2.3s cubic-bezier(.17,.67,.42,1);
         position: relative;
-        .stats-hover{
-            position: absolute;
-            top: 0;
-            right: -2em;
-        }
+        background-image: url(../images/home/demo.png);
+        // background-size: contain;
+        background-repeat: no-repeat;
+        width: 38em;
+        height: 26em;
+        // border: thin solid red;
+        display: flex;
+        justify-content: flex-end;
+        // .stats-hover{
+        //     border: thin solid black;
+        //     // align-self: ;
+        // }
         .first-stat{
             transform: translateX(3em);
             animation: shift-right-first 1.5s cubic-bezier(.17,.67,.42,1);
@@ -662,12 +695,16 @@ input{
         width: 90%;
         .tagline{
             opacity: 1;
-            font-size: 1.7em;
+            font-size: 1.5vmax;
             letter-spacing: 0.02em;
             font-weight: 500;
             color: $dark;
             animation: fade-up-short 3s cubic-bezier(.17,.67,.42,1);
         }
+    }
+
+    .back-btn{
+        transform: translateX(-1em);
     }
 
     .verify-container{
@@ -686,14 +723,15 @@ input{
             display: flex;
             flex-direction: column;
         }
-        .disclaimer-container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0.5em 0 1.5em;
-            line-height: 130%;
-            text-align: center;
-        }
+    }
+
+    .disclaimer-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 0 1.5em;
+        line-height: 130%;
+        text-align: center;
     }
 
     @-webkit-keyframes fade-up {

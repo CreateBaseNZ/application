@@ -23,7 +23,7 @@
 </head>
 
 <body onload="home.initialise();">
-  <div class="wrap">
+  <div class="wrap scrollable">
     <nav>
       <a href="https://createbase.co.nz/"><img src="..\public\images\logo.svg" alt="logo"></a>
     </nav>
@@ -136,20 +136,32 @@
         </div>
       </div>
 
-      <div class="recover-container left-input-container inactive">
+      <div class="code-container left-input-container inactive">
         <div class="title-container">
-          <button id="recover-back-btn" class="back-btn"><i class="material-icons md-36">arrow_back_ios</i></button>
-          <h2>Recover Password</h2>
+          <button id="code-back-btn" class="back-btn"><i class="material-icons md-36">arrow_back_ios</i></button>
+          <h2>Enter recovery code</h2>
         </div>
-        <form action="post">
-          <div id="change-password-email-error" class="user-input-container input-validation" data-error-msg="">
-            <input type="text" id="recover-email" name="recover-email" placeholder="Email Address" class="user-input">
+
+        <form id="code-form" class="input-form" action="#" method="POST" autocomplete="off">
+          <!-- Enter code here -->
+          <div id="otp">
+              <input class="code-input" type="text" id="first" maxlength="1" />
+              <input class="code-input" type="text" id="second" maxlength="1" />
+              <input class="code-input" type="text" id="third" maxlength="1" />
+              <input class="code-input" type="text" id="fourth" maxlength="1" />
+              <input class="code-input" type="text" id="fifth" maxlength="1" />
+              <input class="code-input" type="text" id="sixth" maxlength="1" />
+          </div>
+
+          <div class="disclaimer-container">
+              <p class="small-text">Enter the verification code sent to your registered email</p>
+              <p class="error-p hide">Error - Please try again</p>
           </div>
         </form>
 
-        <div class="user-btn-container">
-          <button id="recover-pass-btn" class="user-input main-cta cta-button"
-            onclick="forgotPassword.initiate();">Email recovery link</button>
+        <div class="user-btn-container ">
+          <button id="submit-code-btn" class="user-input main-cta cta-button"
+            onclick="">Confirm</button>
         </div>
 
         <div class="recover-msg-container">
@@ -160,7 +172,7 @@
 
     <div class="demo">
       <div class="demo-img">
-        <img src="..\public\images\home\demo.png" alt="demo">
+        <!-- <img src="..\public\images\home\demo.png" alt="demo"> -->
         <div class="stats-hover">
           <div class="stat-item first-stat">
             <img src="..\public\images\home\stat-red.png" alt="stat">
@@ -212,6 +224,7 @@
   <!-- <script async src="/public/javascripts/nav.min.js"></script> -->
   <!-- <script async src="/public/javascripts/home.min.js"></script> -->
   <script async src="/public/javascripts/global.js"></script>
+  <script async src="/public/javascripts/input-code.js"></script>
   <script async src="/public/javascripts/home.js"></script>
 </body>
 

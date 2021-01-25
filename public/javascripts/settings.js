@@ -2,6 +2,8 @@
 VARIABLES
 ========================================================== */
 
+// const e = require("express");
+
 let settings = {
   initialise: undefined,
   cacheData: undefined,
@@ -38,16 +40,16 @@ FUNCTIONS
 settings.initialise = async () => {
   // Fetch data
   const data = await settings.fetch();
-  // Validate incoming data
-  if (data.status === "error") {
-    console.log(data.content);
-  } else if (data.status === "failed") {
-    console.log(data.content);
-  }
+  // // Validate incoming data
+  // if (data.status === "error") {
+  //   console.log(data.content);
+  // } else if (data.status === "failed") {
+  //   console.log(data.content);
+  // }
   // Load badges
   settings.loadBadges()
-  // Populate fields
-  settings.populate(data.content.account, data.content.user, data.content.notification);
+  // // Populate fields
+  // settings.populate(data.content.account, data.content.user, data.content.notification);
   // Add event listeners
   settings.loadEventListeners()
   // Cache data
@@ -73,6 +75,7 @@ settings.loadBadges = () => {
     // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
+    el.dataset.name = badge.charAt(0).toUpperCase() + badge.slice(1);
     if (ind < 4) {
       document.querySelector('.' + badge + '-details').classList.add('badge-achieved')
     } else {
@@ -98,6 +101,11 @@ settings.loadBadges = () => {
         document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
       }
     })
+    var i = document.createElement('i');
+    i.className = "material-icons-round"
+    i.innerHTML = 'drag_indicator'
+    el.appendChild(i)
+    // temp
     ind < 4 ? document.querySelector('.badge-achieved-section').appendChild(el) : document.querySelector('.badge-not-achieved-section').appendChild(el)
   })
 }
@@ -106,8 +114,11 @@ settings.loadEventListeners = () => {
 
   settings.trophyCase.addEventListener('click', () => {
     // Show badge config screen
-    settings.badgeConfigScreen.classList.toggle('hide')
-    global.darkenOverlay.classList.toggle('hide')
+    global.darkenOverlay.classList.add('desktop-show')
+    settings.badgeConfigScreen.classList.remove('hide')
+    document.querySelectorAll('.section').forEach((section) => {
+      section.classList.add('mobile-hide')
+    })
   })
 
   document.querySelector('#acc-pass-vis').addEventListener('click', function (e) {
@@ -159,28 +170,56 @@ settings.loadEventListeners = () => {
     settings.saveBadges()
     // TO DO: update badge preview
     // TO DO: update cache
-    settings.badgeConfigScreen.classList.toggle('hide');
-    global.darkenOverlay.classList.toggle('hide');
+    global.darkenOverlay.classList.remove('desktop-show')
+    settings.badgeConfigScreen.classList.add('hide');
+    document.querySelectorAll('.section').forEach((section) => {
+      section.classList.remove('mobile-hide');
+    })
+    document.querySelector('.edit-mode').classList.remove('edit-mode')
   })
 
   document.querySelector('.badge-config-close').addEventListener('click', () => {
     // TO DO: revert to cached badge config
-    settings.badgeConfigScreen.classList.toggle('hide');
-    global.darkenOverlay.classList.toggle('hide');
+    global.darkenOverlay.classList.remove('desktop-show')
+    settings.badgeConfigScreen.classList.add('hide');
+    document.querySelectorAll('.section').forEach((section) => {
+      section.classList.remove('mobile-hide');
+    })
   })
 
   document.querySelectorAll('.section').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
-        // Save button - enable edit mode
-        this.classList.toggle('edit-mode');
+        // Save button - exit edit mode
+        this.classList.remove('edit-mode');
+        document.querySelectorAll('.mobile-hide').forEach((section) => {
+          section.classList.remove('mobile-hide')
+        })
       } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
         // Cancel button - disable edit mode
         this.classList.remove('edit-mode');
+        document.querySelectorAll('.mobile-hide').forEach((section) => {
+          section.classList.remove('mobile-hide')
+        })
       } else if (!this.classList.contains('edit-mode')) {
-        // Anywhere else - enable edit mode
-        this.classList.add('edit-mode');
+        document.querySelectorAll('.section-container').forEach((section) => {
+          console.log(section)
+          el === section ? el.classList.add('edit-mode') : section.classList.add('mobile-hide')
+        })
       }
+    })
+  })
+
+  // Cancel button to go back to main sections
+  document.querySelectorAll('.back-to-main-sections').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      // Leave edit mode
+      document.querySelector('.edit-mode').classList.remove('edit-mode')
+      // Show all the other sections
+      document.querySelectorAll('.mobile-hide').forEach((section) => {
+        section.classList.remove('mobile-hide')
+      })
     })
   })
 
