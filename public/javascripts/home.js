@@ -34,6 +34,13 @@ let forgotPassword = {
   container: document.querySelector('.recover-container')
 }
 
+// Testing - check correct
+let recoverPassword = {
+  loadEventListeners: undefined,
+
+  container: document.querySelector('.code-container')
+}
+
 /* ==========================================================
 FUNCTIONS
 ========================================================== */
@@ -42,6 +49,8 @@ home.initialise = () => {
   signup.loadEventListeners()
   login.loadEventListeners()
   forgotPassword.loadEventListeners()
+  // Testing
+  recoverPassword.loadEventListeners()
 }
 
 /* ----------------------------------------------------------
@@ -277,6 +286,7 @@ login.loadEventListeners = () => {
     login.rememberText.classList.toggle('nonactive-p');
   });
   login.rememberText.addEventListener('click', function (e) {
+    login.rememberText.classList.toggle('nonactive-p');
     login.rememberMe.checked = !login.rememberMe.checked;
   });
 
@@ -373,35 +383,102 @@ forgotPassword.loadEventListeners = () => {
   })
 
   // Enter key
-  global.enterKeyPress(document.querySelector('#recover-email'), forgotPassword.initiate)
+  // global.enterKeyPress(document.querySelector('#recover-email'), forgotPassword.initiate)
 }
 
-forgotPassword.initiate = async () => {
-  const email = document.querySelector("#recover-email").value;
-  let error = "";
-  let emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  // Validate inputs
-  if (!email) {
-    valid = false;
-    error = "Email required";
-  } else if (!emailRE.test(String(email).toLowerCase())) {
-    valid = false;
-    error = "Invalid email";
-  }
-  // Send request for password change
-  let data;
-  try {
-    data = (await axios.post("/change-password/request", { email }))["data"];
-  } catch (error) {
-    data = { status: "error", content: error };
-  }
-  if (data.status === "failed") {
-    error = data.content;
-  } else if (data.status === "error") {
-    console.log(data.content);
-  }
-  // Update the error field
-  document.querySelector("#change-password-email-error").setAttribute("data-error-msg", error);
-  // Success handler
-  return;
+// forgotPassword.initiate = async () => {
+//   const email = document.querySelector("#recover-email").value;
+//   let error = "";
+//   let emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//   // Validate inputs
+//   if (!email) {
+//     valid = false;
+//     error = "Email required";
+//   } else if (!emailRE.test(String(email).toLowerCase())) {
+//     valid = false;
+//     error = "Invalid email";
+//   }
+//   // Send request for password change
+//   let data;
+//   try {
+//     data = (await axios.post("/change-password/request", { email }))["data"];
+//   } catch (error) {
+//     data = { status: "error", content: error };
+//   }
+//   if (data.status === "failed") {
+//     error = data.content;
+//   } else if (data.status === "error") {
+//     console.log(data.content);
+//   }
+//   // Update the error field
+//   document.querySelector("#change-password-email-error").setAttribute("data-error-msg", error);
+//   // Success handler
+//   return;
+// }
+
+/* ----------------------------------------------------------
+RECOVER PASSWORD
+---------------------------------------------------------- */
+
+recoverPassword.loadEventListeners = () => {
+    //  Recover password back to Forgot password
+    document.querySelector('#code-back-btn').addEventListener('click', function (e) {
+      // Testing animations - optimise later
+      recoverPassword.container.classList.add('slide-right');
+      recoverPassword.container.classList.add('no-interaction');
+  
+      forgotPassword.container.classList.add('enter-screen-left');
+      forgotPassword.container.classList.remove('inactive');
+      forgotPassword.container.classList.add('no-interaction');
+  
+      setTimeout(function () {
+        forgotPassword.container.classList.remove('no-interaction');
+        recoverPassword.container.classList.add('inactive');
+        forgotPassword.container.classList.remove('enter-screen-left');
+        recoverPassword.container.classList.remove('slide-right');
+      }, 900)
+    })
+  // Recover -> code input
+  document.querySelector('#recover-pass-btn').addEventListener('click', function (e) {
+    // Testing animations - optimise later
+    forgotPassword.container.classList.add('slide-left');
+    forgotPassword.container.classList.add('no-interaction');
+
+    recoverPassword.container.classList.remove('slide-right');
+    recoverPassword.container.classList.remove('inactive');
+
+    recoverPassword.container.classList.add('enter-screen-right');
+    recoverPassword.container.classList.add('no-interaction');
+
+    setTimeout(function () {
+      recoverPassword.container.classList.remove('no-interaction');
+      recoverPassword.container.classList.remove('enter-screen-right');
+
+      forgotPassword.container.classList.add('inactive');
+      forgotPassword.container.classList.remove('slide-left');
+      document.querySelector('#first').focus();
+    }, 900);
+
+  });
 }
+
+  // Login -> recover
+  // document.querySelector('.forgot-password-container').addEventListener('click', function (e) {
+  //   // Testing animations - optimise later
+  //   login.container.classList.add('slide-left');
+  //   login.container.classList.add('no-interaction');
+
+  //   forgotPassword.container.classList.remove('slide-right');
+  //   forgotPassword.container.classList.remove('inactive');
+
+  //   forgotPassword.container.classList.add('enter-screen-right');
+  //   forgotPassword.container.classList.add('no-interaction');
+
+  //   setTimeout(function () {
+  //     forgotPassword.container.classList.remove('no-interaction');
+  //     forgotPassword.container.classList.remove('enter-screen-right');
+
+  //     login.container.classList.add('inactive');
+  //     login.container.classList.remove('slide-left');
+  //   }, 900);
+  // });
