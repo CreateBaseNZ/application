@@ -36,7 +36,7 @@ global.navInit = () => {
 
   moreMenuBtn.addEventListener('click', function(e) {
     e.preventDefault()
-    global.darkenOverlay.classList.toggle('hide')
+    global.darkenOverlay.classList.toggle('hide-overlay')
     moreMenu.classList.toggle('hide')
     this.querySelector('input').checked = !this.querySelector('input').checked
   })
@@ -44,14 +44,14 @@ global.navInit = () => {
   global.darkenOverlay.addEventListener('click', function() {
     if (!moreMenu.classList.contains('hide')) {
       moreMenu.classList.add('hide')
-      document.querySelector('.darken-overlay').classList.add('hide')
+      global.darkenOverlay.classList.add('hide-overlay')
       moreMenuBtn.querySelector('input').checked = false
     }
   })
 
   document.querySelector('.nav-more-close').addEventListener('click', () => {
     moreMenu.classList.add('hide')
-    document.querySelector('.darken-overlay').classList.add('hide')
+    global.darkenOverlay.classList.add('hide-overlay')
     moreMenuBtn.querySelector('input').checked = false
   })
 }

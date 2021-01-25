@@ -108,6 +108,9 @@ body {
   width: 100%;
   background: $darkest;
   opacity: 0.25;
+  &.hide-overlay {
+    display: none;
+  }
 }
 
 // ----- ICONS -----

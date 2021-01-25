@@ -75,6 +75,7 @@ settings.loadBadges = () => {
     // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
+    el.dataset.name = badge.charAt(0).toUpperCase() + badge.slice(1);
     if (ind < 4) {
       document.querySelector('.' + badge + '-details').classList.add('badge-achieved')
     } else {
@@ -100,6 +101,11 @@ settings.loadBadges = () => {
         document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
       }
     })
+    var i = document.createElement('i');
+    i.className = "material-icons-round"
+    i.innerHTML = 'drag_indicator'
+    el.appendChild(i)
+    // temp
     ind < 4 ? document.querySelector('.badge-achieved-section').appendChild(el) : document.querySelector('.badge-not-achieved-section').appendChild(el)
   })
 }
@@ -108,8 +114,11 @@ settings.loadEventListeners = () => {
 
   settings.trophyCase.addEventListener('click', () => {
     // Show badge config screen
-    settings.badgeConfigScreen.classList.toggle('hide')
-    global.darkenOverlay.classList.toggle('hide')
+    global.darkenOverlay.classList.add('desktop-show')
+    settings.badgeConfigScreen.classList.remove('hide')
+    document.querySelectorAll('.section').forEach((section) => {
+      section.classList.add('mobile-hide')
+    })
   })
 
   document.querySelector('#acc-pass-vis').addEventListener('click', function (e) {
@@ -161,14 +170,20 @@ settings.loadEventListeners = () => {
     settings.saveBadges()
     // TO DO: update badge preview
     // TO DO: update cache
-    settings.badgeConfigScreen.classList.toggle('hide');
-    global.darkenOverlay.classList.toggle('hide');
+    global.darkenOverlay.classList.remove('desktop-show')
+    settings.badgeConfigScreen.classList.add('hide');
+    document.querySelectorAll('.section').forEach((section) => {
+      section.classList.remove('mobile-hide');
+    })
   })
 
   document.querySelector('.badge-config-close').addEventListener('click', () => {
     // TO DO: revert to cached badge config
-    settings.badgeConfigScreen.classList.toggle('hide');
-    global.darkenOverlay.classList.toggle('hide');
+    global.darkenOverlay.classList.remove('desktop-show')
+    settings.badgeConfigScreen.classList.add('hide');
+    document.querySelectorAll('.section').forEach((section) => {
+      section.classList.remove('mobile-hide');
+    })
   })
 
   document.querySelectorAll('.section').forEach(function (el) {
@@ -195,7 +210,7 @@ settings.loadEventListeners = () => {
   })
 
   // Cancel button to go back to main sections
-  document.querySelectorAll('.back-to-sections').forEach((btn) => {
+  document.querySelectorAll('.back-to-main-sections').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation()
       // Leave edit mode
