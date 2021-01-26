@@ -86,6 +86,9 @@ app.use(settingsRouter);
 const notificationsRouter = require("./routes/notifications.js");
 app.use(notificationsRouter);
 
+const verificationRouter = require("./routes/verification.js");
+app.use(verificationRouter);
+
 /* ==========================================================
 END
 ========================================================== */

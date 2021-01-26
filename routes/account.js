@@ -23,12 +23,10 @@ ROUTES
 ========================================================== */
 
 // @route   POST /signup/submit
-// @desc    TEMPORARY current success redirect is pointing towards
-//          dashboard, but ideally, it redirects to verification page,
-//          and failure redirect ideally points to signup.
+// @desc    
 // @access  STRICTLY PUBLIC
 router.post("/signup/submit", passport.authenticate("local-account-signup", {
-  successRedirect: "/dashboard", failureRedirect: "/"
+  successRedirect: "/verification", failureRedirect: "/"
 }));
 
 // @route   POST /signup/validate
@@ -88,7 +86,11 @@ router.post("/login/submit", passport.authenticate("local-account-login", {
   } else {
     req.session.cookie.expires = false;
   }
-  return res.redirect("/dashboard");
+  if (req.user.verification.status) {
+    return res.redirect("/dashboard");
+  } else {
+    return res.redirect("/verification");
+  }
 });
 
 // @route   POST /login/validate
