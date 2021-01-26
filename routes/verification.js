@@ -50,6 +50,19 @@ router.post("/verification/resend-code", strictlyUnverifiedContent, async (req, 
   return res.send({ status: "succeeded", content: "" });
 });
 
+router.post("/verification/verify-account", strictlyUnverifiedContent, async (req, res) => {
+  // Declare variables
+  const email = req.user.email;
+  const code = req.body.code;
+  // Verify account
+  try {
+    await Account.verify({ email, code });
+  } catch (data) {
+    
+  }
+  // Success handler
+});
+
 /* ==========================================================
 EXPORT
 ========================================================== */

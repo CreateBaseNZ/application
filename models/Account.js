@@ -719,7 +719,7 @@ AccountSchema.statics.draftVerificationEmail = function (account = {}, user = {}
 // @desc
 AccountSchema.statics.verify = function (object = {}, save = true) {
   return new Promise(async (resolve, reject) => {
-    // VALIDATE
+    // Validate inputs
     // Validate email
     let account;
     try {

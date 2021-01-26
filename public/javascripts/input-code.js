@@ -6,7 +6,8 @@ let verification = {
   initialise: undefined,
   listeners: undefined,
   collect: undefined,
-  resend: undefined
+  resend: undefined,
+  confirm: undefined
 }
 
 /* ==========================================================
@@ -53,6 +54,55 @@ verification.resend = async () => {
   document.querySelector("#resend-code").removeAttribute("disabled");
   // TEMPORARY: Display the success message on the console
   console.log("The code has been sent successfully");
+  return;
+}
+
+verification.collect = () => {
+  const codeObject = {
+    first: String(document.querySelector("#first").value),
+    second: String(document.querySelector("#second").value),
+    third: String(document.querySelector("#third").value),
+    fourth: String(document.querySelector("#fourth").value),
+    fifth: String(document.querySelector("#fifth").value),
+    sixth: String(document.querySelector("#sixth").value)
+  }
+  const code = codeObject.first + codeObject.second + codeObject.third +
+  codeObject.fourth + codeObject.fifth + codeObject.sixth;
+  return code;
+}
+
+verification.confirm = async () => {
+  // Clear the error messages
+  document.querySelector(".error-p").innerHTML = "";
+  // Disable the "Confirm" button
+  document.querySelector("#verify-btn").setAttribute("disabled", "");
+  // Collect code input
+  const code = verification.collect();
+  // Validate code input
+
+  // Send request to the backend
+  let data;
+  try {
+    data = (await axios.post("/verification/verify-account"))["data"];
+  } catch (error) {
+    data = { status: "error", content: error };
+  }
+  // Validate the response from the request
+  if (data.status === "failed") {
+    // Enable "Resend Code" button
+    document.querySelector("#verify-btn").removeAttribute("disabled");
+    // Display the failure message
+    document.querySelector(".error-p").innerHTML = data.content;
+    return;
+  } else if (data.status === "error") {
+    // Enable "Resend Code" button
+    document.querySelector("#verify-btn").removeAttribute("disabled");
+    // TEMPORARY: Display the error on the console
+    console.log(data.content);
+    return;
+  }
+  // Success handler - redirect to the dashboard
+  window.assign("/dashboard");
   return;
 }
 
