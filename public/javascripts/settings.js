@@ -30,6 +30,9 @@ let settings = {
   cache: undefined,
   pass: document.querySelector('#acc-pass'),
   passConf: document.querySelector('#acc-pass-conf'),
+  profileSaveBtn: document.querySelector('.profile-save'),
+  accountSaveBtn: document.querySelector('.account-save'),
+  notificationsSaveBtn: document.querySelector('.notifications-save'),
   trophyCase: document.querySelector('.badges-container')
 }
 
@@ -133,6 +136,12 @@ settings.loadEventListeners = () => {
     const type = settings.passConf.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.passConf.setAttribute('type', type);
     this.classList.toggle('visible');
+  })
+
+  document.querySelector('.profile-container').querySelectorAll('.input-container').forEach((container) => {
+    container.querySelector('input').addEventListener('input', function() {
+      inputGeneral.checkChange(this.value, 'testing', settings.profileSaveBtn)
+    })
   })
 
   document.querySelector('.profile-save').addEventListener('click', () => {
