@@ -182,9 +182,15 @@ settings.loadEventListeners = () => {
     // TO DO: revert to cached badge config
     global.darkenOverlay.classList.remove('desktop-show')
     settings.badgeConfigScreen.classList.add('hide');
-    document.querySelectorAll('.section').forEach((section) => {
-      section.classList.remove('mobile-hide');
-    })
+    document.querySelector('.edit-mode').classList.remove('mobile-hide')
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !settings.badgeConfigScreen.classList.contains('hide')) {
+      global.darkenOverlay.classList.remove('desktop-show')
+      settings.badgeConfigScreen.classList.add('hide');
+      document.querySelector('.edit-mode').classList.remove('mobile-hide')
+    }
   })
 
   document.querySelectorAll('.section').forEach(function (el) {
@@ -203,7 +209,6 @@ settings.loadEventListeners = () => {
         })
       } else if (!this.classList.contains('edit-mode')) {
         document.querySelectorAll('.section-container').forEach((section) => {
-          console.log(section)
           el === section ? el.classList.add('edit-mode') : section.classList.add('mobile-hide')
         })
       }

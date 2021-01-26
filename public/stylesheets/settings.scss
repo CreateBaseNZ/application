@@ -153,24 +153,32 @@ h4 {
 
 .btn-to-input {
   width: 100%;
-  padding: 0.75em 1.5em;
+  padding: 1em 1.5em;
   border-radius: 0.75rem;
   position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   font-size: 1rem;
+  font-weight: 600;
   line-height: 200%;
   margin: 0.35rem 0;
+  .current-email {
+    color: $darker;
+    font-weight: 400;
+  }
   i {
+    position: absolute;
+    top: 50%;
+    right: 1.5em;
     font-size: inherit;
+    transform: translateY(-50%);
   }
   &:hover, &:focus, &:active {
     filter: brightness(0.9);
   }
 }
-
-
 
 .icon-container {
   height: calc(#{$field-height} * 0.75);
@@ -910,7 +918,8 @@ h3 {
   }
 }
 
-.cancel-back {
+.cancel-back,
+.btn-to-input {
   display: none;
 }
 
