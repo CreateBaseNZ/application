@@ -210,30 +210,31 @@ input{
     text-align: center;
 }
 
-// .recover-pass-container{
-//     // visibility: hidden;
-//     display: flex;
-//     flex-direction: column;
-//     width: 100%;
-//     max-width: 25em;
-//     padding-bottom: 4em;
-//     h1{
-//         font-size: 2em;
-//         padding: 1em 0;
-//     }
-//     form{
-//         display: flex;
-//         flex-direction: column;
-//     }
-//     .disclaimer-container{
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         padding: 0.5em 0 1.5em;
-//         line-height: 130%;
-//         text-align: center;
-//     }
-// }
+.recover-pass-container{
+    // visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 25em;
+    padding-bottom: 4em;
+    padding-top: 3vh;
+    h1{
+        font-size: 2em;
+        padding: 1em 0;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+    .disclaimer-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5em 0 1.5em;
+        line-height: 130%;
+        text-align: center;
+    }
+}
 
 .verify-container{
     // visibility: hidden;
@@ -629,6 +630,11 @@ input{
             font-size: 2.5em;
             padding: 0.5em 0 1em;
         }
+    }
+    .recover-pass-container{
+        margin: 0 auto;
+        padding-bottom: 4em;
+        padding-top: 8vh;
     }
     .recover-container{
         width: 100%;
