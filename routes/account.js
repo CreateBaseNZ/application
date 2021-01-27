@@ -37,39 +37,37 @@ router.post("/signup/validate", async (req, res) => {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
+  // Perform validation
   let valid = true;
   let error = { email: "", name: "", password: "" };
-  // Perform validation
+  // Email Validation
   try {
-    account = await Account.validateEmail(email, false);
+    await Account.validateEmail(email, false);
   } catch (data) {
     if (data.status === "failed") {
       valid = false;
       error.email = data.content;
-    } else {
-      return res.redirect("/"); // Ideally redirects to error page
-    }
+    } else if (data.status === "error") return res.send(data);
   }
+  // Name Validation
   try {
     await User.validateName(name);
   } catch (data) {
     if (data.status === "failed") {
       valid = false;
       error.name = data.content;
-    } else {
-      return res.redirect("/"); // Ideally redirects to error page
-    }
+    } else if (data.status === "error") return res.send(data);
   }
+  // Password Validation
   try {
     await Account.validatePassword(password);
   } catch (data) {
     if (data.status === "failed") {
       valid = false;
       error.password = data.content;
-    } else {
-      return res.redirect("/"); // Ideally redirects to error page
-    }
+    } else if (data.status === "error") return res.send(data);
   }
+  // Check if validation failed
   if (!valid) return res.send({ status: "failed", content: error });
   // Success handler
   return res.send({ status: "succeeded", content: "" });

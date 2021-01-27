@@ -106,8 +106,8 @@ signup.loadEventListeners = () => {
 }
 
 
-// @type    STANDARD
-// @desc
+// @type  TANDARD
+// @desc  This function collects all the inputs from the signup form
 signup.collect = () => {
   const name = document.querySelector("#name").value;
   const email = document.querySelector("#email").value;
@@ -168,12 +168,13 @@ signup.validate = (object = {}) => {
 // @type    ASYNC
 // @desc    
 signup.submit = async () => {
+  // Disable "Signup" Button
   document.querySelector("#signUp").setAttribute("disabled", "");
-  // Collect inputs
+  // Collect Input
   const object = signup.collect();
-  // Client-side validation
+  // Validate Inputs: Client-side
   if (!signup.validate(object)) return document.querySelector("#signUp").removeAttribute("disabled");
-  // Server-side validation
+  // Validate Inputs: Backend-side
   let data;
   try {
     data = (await axios.post("/signup/validate", object))["data"];
@@ -181,16 +182,24 @@ signup.submit = async () => {
     data = { status: "error", content: error };
   }
   if (data.status === "error") {
+    // Error handling
     console.log(data.content);
-    return document.querySelector("#signUp").removeAttribute("disabled");
+    // Enable "Signup" Button
+    document.querySelector("#signUp").removeAttribute("disabled");
+    // Abort
+    return;
   } else if (data.status === "failed") {
+    // Display Failure Messages (if any)
     const error = data.content;
     document.querySelector("#sign-up-email-error").setAttribute("data-error-msg", error.email);
     document.querySelector("#sign-up-name-error").setAttribute("data-error-msg", error.name);
     document.querySelector("#sign-up-password-error").setAttribute("data-error-msg", error.password);
-    return document.querySelector("#signUp").removeAttribute("disabled");
+    // Enable "Signup" Button
+    document.querySelector("#signUp").removeAttribute("disabled");
+    // Abort
+    return;
   }
-  // Success handler
+  // Submit the Signup Form
   return document.querySelector("#sign-up-form").submit();
 }
 
