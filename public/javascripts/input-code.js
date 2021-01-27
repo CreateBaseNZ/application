@@ -21,6 +21,7 @@ verification.initialise = () => {
 
 verification.listeners = () => {
   document.querySelector("#resend-code").addEventListener("click", verification.resend);
+  document.querySelector("#verify-btn").addEventListener("click", verification.confirm);
 }
 
 verification.resend = async () => {
@@ -83,7 +84,7 @@ verification.confirm = async () => {
   // Send request to the backend
   let data;
   try {
-    data = (await axios.post("/verification/verify-account"))["data"];
+    data = (await axios.post("/verification/verify-account", { code }))["data"];
   } catch (error) {
     data = { status: "error", content: error };
   }
@@ -102,7 +103,7 @@ verification.confirm = async () => {
     return;
   }
   // Success handler - redirect to the dashboard
-  window.assign("/dashboard");
+  window.location.assign("/dashboard");
   return;
 }
 

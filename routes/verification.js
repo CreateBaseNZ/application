@@ -58,9 +58,10 @@ router.post("/verification/verify-account", strictlyUnverifiedContent, async (re
   try {
     await Account.verify({ email, code });
   } catch (data) {
-    
+    return res.send(data);
   }
   // Success handler
+  return res.send({ status: "succeeded", content: "" });
 });
 
 /* ==========================================================

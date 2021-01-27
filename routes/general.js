@@ -69,27 +69,27 @@ router.get("/verification", strictlyUnverifiedAccess, (req, res) => res.sendFile
 // @route   GET /dashboard
 // @desc
 // @access  VERIFIED PRIVATE
-router.get("/dashboard", /*verifiedAccess,*/ (req, res) => res.sendFile("dashboard.html", options));
+router.get("/dashboard", verifiedAccess, (req, res) => res.sendFile("dashboard.html", options));
 
 // @route   GET /projects
 // @desc
 // @access  VERIFIED PRIVATE
-router.get("/projects", /*verifiedAccess,*/ (req, res) => res.sendFile("projects.html", options));
+router.get("/projects", verifiedAccess, (req, res) => res.sendFile("projects.html", options));
 
 // @route   GET /inbox
 // @desc
 // @access  VERIFIED PRIVATE
-router.get("/inbox", /*verifiedAccess,*/ (req, res) => res.sendFile("inbox.html", options));
+router.get("/inbox", verifiedAccess, (req, res) => res.sendFile("inbox.html", options));
 
 // @route   GET /orders
 // @desc
 // @access  VERIFIED PRIVATE
-router.get("/orders", /*verifiedAccess,*/ (req, res) => res.sendFile("orders.html", options));
+router.get("/orders", verifiedAccess, (req, res) => res.sendFile("orders.html", options));
 
 // @route   GET /settings
 // @desc
 // @access  VERIFIED PRIVATE
-router.get("/settings", /*verifiedAccess,*/ (req, res) => res.sendFile("settings.html", options));
+router.get("/settings", verifiedAccess, (req, res) => res.sendFile("settings.html", options));
 
 // @route   GET /logout
 // @desc

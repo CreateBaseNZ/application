@@ -19,8 +19,6 @@ FUNCTIONS
 
 email.send = (object = {}) => {
   return new Promise(async (resolve, reject) => {
-    console.log(object);
-    console.log(process.env);
     const transporterOptions = {
       host: process.env.AWS_SMTP_HOST,
       port: process.env.AWS_SMTP_PORT,

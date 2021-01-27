@@ -17,7 +17,7 @@ MODEL
 const UserSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
-  displayName: { type: String, default: "" },
+  displayName: { type: String, required: true },
   displayEmail: { type: String, default: "" },
   address: {
     unit: { type: String, default: "" },

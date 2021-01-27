@@ -96,7 +96,7 @@ AccountSchema.statics.build = function (object = {}, save = true) {
     // CREATE THE ACCOUNT
     const account = new this(object);
     // CREATE USER
-    const userObject = { owner: account._id, name: object.name };
+    const userObject = { owner: account._id, name: object.name, displayName: object.name };
     let user;
     try {
       user = await User.build(userObject, false);
@@ -121,18 +121,6 @@ AccountSchema.statics.build = function (object = {}, save = true) {
     emailObject.email = account.email;
     try {
       await email.send(emailObject);
-    } catch (data) {
-      return reject(data);
-    }
-    // TEMPORARY (TO BE PLACED AFTER VERIFICATION)
-    try {
-      await Mail.subscribe({ email: account.email, owner: account._id });
-    } catch (data) {
-      return reject(data);
-    }
-    // TEMPORARY (TO BE PLACED AFTER VERIFICATION)
-    try {
-      await this.welcomeNotification({ id: account._id });
     } catch (data) {
       return reject(data);
     }
@@ -195,6 +183,66 @@ AccountSchema.statics.welcomeNotification = function (object = {}) {
     }
     // Success handler
     return resolve();
+  });
+}
+
+// @func  welcomeEmail
+// @type  STATICS - PROMISE - ASYNC
+// @desc
+AccountSchema.statics.welcomeEmail = function (object = {}) {
+  return new Promise(async (resolve, reject) => {
+    // Draft the email
+    let emailObject;
+    try {
+      emailObject = await this.draftWelcomeEmail(object);
+    } catch (data) {
+      return reject(data);
+    }
+    // Send the email
+    try {
+      await email.send(emailObject);
+    } catch (data) {
+      return reject(data);
+    }
+    // Success handler
+    return resolve();
+  });
+}
+
+// @func  draftWelcomeEmail
+// @type  STATICS - PROMISE - ASYNC
+// @desc
+AccountSchema.statics.draftWelcomeEmail = function (object = {}) {
+  return new Promise(async (resolve, reject) => {
+    // Fetch user
+    let user;
+    try {
+      user = await User.findOne({ owner: object.id });
+    } catch (error) {
+      return reject({ status: "error", content: error });
+    }
+    // Create the Subject
+    const subject = `Welcome to CreateBase ${user.name}`;
+    // Create the Text
+    const text = ``;
+    // Create the HTML
+    const html = `<div>Hello</div>`;
+    // Create the CSS Styling
+    const css = `<style>div{font-size: 14px;color: #322D41;}</style>`;
+    // Combine the HTML and CSS
+    const combined = html + css;
+    // Inline the CSS
+    const inlineCSSOptions = {
+      url: "/",
+    };
+    let inline;
+    try {
+      inline = await inlineCSS(combined, inlineCSSOptions);
+    } catch (error) {
+      return reject({ status: "error", content: error });
+    }
+    // Return the email object
+    return resolve({ email: object.email, subject, text, html: inline });
   });
 }
 
@@ -742,7 +790,25 @@ AccountSchema.statics.verify = function (object = {}, save = true) {
       }
     }
     // SUCCESS
-    return resolve();
+    resolve();
+    // Subscribe users to the newsletter
+    try {
+      await Mail.subscribe({ email: account.email, owner: account._id });
+    } catch (data) {
+      console.log(data);
+    }
+    // Create the welcome notification
+    try {
+      await this.welcomeNotification({ id: account._id });
+    } catch (data) {
+      console.log(data);
+    }
+    // Send a welcome email
+    try {
+      await this.welcomeEmail({ id: account._id, email: account.email });
+    } catch (data) {
+      console.log(data);
+    }
   });
 }
 
