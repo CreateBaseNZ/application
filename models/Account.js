@@ -32,7 +32,7 @@ const AccountSchema = new Schema({
   password: { type: String, required: true },
   verification: {
     status: { type: Boolean, default: false },
-    code: { type: String, required: true }
+    code: { type: String, default: "" }
   },
   changePassword: {
     status: { type: Boolean, default: false },
@@ -71,31 +71,32 @@ STATICS
 // @desc  This function creates the base of the account document
 AccountSchema.statics.build = function (object = {}, save = true) {
   return new Promise(async (resolve, reject) => {
-    // VALIDATION
+    // Validate Inputs
+    // Type Validation
     try {
       await this.validateType(object.type);
     } catch (data) {
       return reject(data);
     }
+    // Email Validation
     try {
       await this.validateEmail(object.email, false);
     } catch (data) {
       return reject(data);
     }
+    // Password Validation
     try {
       await this.validatePassword(object.password);
     } catch (data) {
       return reject(data);
     }
-    // GENERATE VERIFICATION CODE
-    const verificationCode = this.generateCode();
-    object.verification = { code: verificationCode };
-    // SET DATES
+    // Create required variables
+    // Date
     const date = moment().tz("Pacific/Auckland").format();
     object.date = { created: date, visited: date };
-    // CREATE THE ACCOUNT
+    // Create the Account Instance
     const account = new this(object);
-    // CREATE USER
+    // Build the User Instance
     const userObject = { owner: account._id, name: object.name, displayName: object.name };
     let user;
     try {
@@ -111,21 +112,16 @@ AccountSchema.statics.build = function (object = {}, save = true) {
         return reject({ status: "error", content: error });
       }
     }
-    // SEND ACCOUNT VERIFICATION EMAIL
-    let emailObject;
+    // Success handler
+    resolve(account);
+    // Send Verification Email
     try {
-      emailObject = await this.draftVerificationEmail(account, user);
+      await this.sendVerificationEmail(account.email);
     } catch (data) {
-      return reject(data);
+      return console.log(data);
     }
-    emailObject.email = account.email;
-    try {
-      await email.send(emailObject);
-    } catch (data) {
-      return reject(data);
-    }
-    // SUCCESS HANDLER
-    return resolve(account);
+    // Exit function
+    return;
   });
 };
 
