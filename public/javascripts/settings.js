@@ -5,24 +5,23 @@ VARIABLES
 // const e = require("express");
 
 let settings = {
-  initialise: undefined,
   cacheData: undefined,
   cancelAccount: undefined,
   cancelBadges: undefined,
   cancelNotifications: undefined,
   cancelProfile: undefined,
-  fetch: undefined,
   fromPreviousPage: undefined,
+  initialise: undefined,
   loadBadges: undefined,
   loadEventListeners: undefined,
   populate: undefined,
+  updateCache: undefined,
+
+  fetch: undefined,
   saveAccount: undefined,
   saveBadges: undefined,
   saveNotifications: undefined,
   saveProfile: undefined,
-  subscribe: undefined,
-  temp: undefined,
-  updateCache: undefined,
 
   // TO DO: check if variables can be scoped as const
   badgeConfigScreen: document.querySelector('.badge-edit-screen'),
@@ -40,6 +39,14 @@ let settings = {
 FUNCTIONS
 ========================================================== */
 
+/**
+ * Reduces a sequence of names to initials.
+ * @param  {String} name  Space Delimited sequence of names.
+ * @param  {String} sep   A period separating the initials.
+ * @param  {String} trail A period ending the initials.
+ * @param  {String} hyph  A hypen separating double names.
+ * @return {String}       Properly formatted initials.
+ */
 settings.initialise = async () => {
   // Fetch data
   const data = await settings.fetch();
@@ -113,6 +120,16 @@ settings.loadBadges = () => {
   })
 }
 
+
+
+/**
+ * Reduces a sequence of names to initials.
+ * @param  {String} name  Space Delimited sequence of names.
+ * @param  {String} sep   A period separating the initials.
+ * @param  {String} trail A period ending the initials.
+ * @param  {String} hyph  A hypen separating double names.
+ * @return {String}       Properly formatted initials.
+ */
 settings.loadEventListeners = () => {
 
   settings.trophyCase.addEventListener('click', () => {
@@ -318,6 +335,14 @@ settings.cancelNotifications = () => {
 BACKEND REQUEST
 ========================================================== */
 
+/**
+ * Reduces a sequence of names to initials.
+ * @param  {String} name  Space Delimited sequence of names.
+ * @param  {String} sep   A period separating the initials.
+ * @param  {String} trail A period ending the initials.
+ * @param  {String} hyph  A hypen separating double names.
+ * @return {String}       Properly formatted initials.
+ */
 settings.fetch = () => {
   return new Promise(async (resolve, reject) => {
     // Fetch data
@@ -331,6 +356,14 @@ settings.fetch = () => {
   });
 }
 
+/**
+ * Reduces a sequence of names to initials.
+ * @param  {String} name  Space Delimited sequence of names.
+ * @param  {String} sep   A period separating the initials.
+ * @param  {String} trail A period ending the initials.
+ * @param  {String} hyph  A hypen separating double names.
+ * @return {String}       Properly formatted initials.
+ */
 settings.saveProfile = async () => {
   // Collect input
   let userUpdate = {
@@ -358,6 +391,14 @@ settings.saveProfile = async () => {
   return;
 }
 
+/**
+ * Reduces a sequence of names to initials.
+ * @param  {String} name  Space Delimited sequence of names.
+ * @param  {String} sep   A period separating the initials.
+ * @param  {String} trail A period ending the initials.
+ * @param  {String} hyph  A hypen separating double names.
+ * @return {String}       Properly formatted initials.
+ */
 settings.saveBadges = async () => {
   let data = [];
   document.querySelector('.badge-achieved-section').querySelectorAll('.config-badge').forEach((badge) => {
@@ -368,6 +409,14 @@ settings.saveBadges = async () => {
   settings.updateCache();
 }
 
+/**
+ * Reduces a sequence of names to initials.
+ * @param  {String} name  Space Delimited sequence of names.
+ * @param  {String} sep   A period separating the initials.
+ * @param  {String} trail A period ending the initials.
+ * @param  {String} hyph  A hypen separating double names.
+ * @return {String}       Properly formatted initials.
+ */
 settings.saveAccount = async () => {
   // Collect input
   let userUpdate = {
