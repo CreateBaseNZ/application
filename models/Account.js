@@ -764,6 +764,7 @@ AccountSchema.statics.draftVerificationEmail = function (account = {}, user = {}
 AccountSchema.statics.verify = function (object = {}, save = true) {
   return new Promise(async (resolve, reject) => {
     // Validate inputs
+    // TO DO: Validate code (Regex)
     // Validate email
     let account;
     try {
@@ -805,6 +806,8 @@ AccountSchema.statics.verify = function (object = {}, save = true) {
     } catch (data) {
       console.log(data);
     }
+    // Exit function
+    return;
   });
 }
 

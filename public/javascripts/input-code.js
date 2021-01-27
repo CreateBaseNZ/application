@@ -92,7 +92,7 @@ verification.confirm = async () => {
   // Collect code input
   const code = verification.collect();
   // Validate code input
-
+  // TO DO
   // Send request to the backend
   let data;
   try {
@@ -106,12 +106,14 @@ verification.confirm = async () => {
     document.querySelector("#verify-btn").removeAttribute("disabled");
     // Display the failure message
     document.querySelector(".error-p").innerHTML = data.content;
+    // Abort
     return;
   } else if (data.status === "error") {
     // Enable "Resend Code" button
     document.querySelector("#verify-btn").removeAttribute("disabled");
     // TEMPORARY: Display the error on the console
     console.log(data.content);
+    // Abort
     return;
   }
   // Success handler - redirect to the dashboard
