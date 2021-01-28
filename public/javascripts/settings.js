@@ -312,7 +312,7 @@ settings.populate = (account = {}, user = {}, notification = {}) => {
 /**
  * TO DO
  */
-settings.cacheData = () => {
+settings.initCache = () => {
   // TO DO: cache data coming in
 
 }
