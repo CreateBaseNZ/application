@@ -132,6 +132,8 @@ settings.loadBadges = () => {
  * 
  * | **Invoked by**
  * | :func:`settings.initialise`
+ * 
+ * @see {@link https://github.com/SortableJS/Sortable|SortableJS}
  */
 settings.loadEventListeners = () => {
 
@@ -319,7 +321,7 @@ settings.initCache = () => {
 
 
 /**
- * Checks ``sessionStorage`` for references from previous page, and styles the page accordingly.
+ * Checks ``sessionStorage`` for references from previous page and styles the page accordingly; cleared after.
  * 
  * | **Invoked by**
  * | :func:`settings.initialise`
