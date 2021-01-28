@@ -5,12 +5,12 @@ VARIABLES
 // const e = require("express");
 
 let settings = {
-  cacheData: undefined,
   cancelAccount: undefined,
   cancelBadges: undefined,
   cancelNotifications: undefined,
   cancelProfile: undefined,
   fromPreviousPage: undefined,
+  initCache: undefined,
   initialise: undefined,
   loadBadges: undefined,
   loadEventListeners: undefined,
@@ -42,11 +42,8 @@ FUNCTIONS
 /**
  * Gets called on DOM load and initialises the Settings page. User data is fetched from backend to populate the page with relevant markup. Event listeners are attached and user data is cached. Session storage is checked for any references from the previous page.
  * 
- * **Invokes**
- * 
- * :func:`settings.fetch`, :func:`settings.loadBadges`
- * 
- * 
+ * | **Invokes**
+ * | :func:`settings.fetch`, :func:`settings.loadBadges`, :func:`settings.loadEventListeners`, :func:`settings.initCache`, :func:`settings.fromPreviousPage`
  */
 settings.initialise = async () => {
   // Fetch data
@@ -64,7 +61,7 @@ settings.initialise = async () => {
   // Add event listeners
   settings.loadEventListeners()
   // Cache data
-  settings.cacheData()
+  settings.initCache()
   // Check if coming from another page
   settings.fromPreviousPage()
 }
@@ -72,10 +69,8 @@ settings.initialise = async () => {
 /**
  * TO DO: description
  * 
- * | **Invoked from**
+ * | **Invoked by**
  * | :func:`settings.initialise`
- * 
- * 
  */
 settings.loadBadges = () => {
 
@@ -129,10 +124,14 @@ settings.loadBadges = () => {
   })
 }
 
-
-
 /**
  * Attaches event listeners to all DOM objects.
+ * 
+ * | **Invokes**
+ * | @see {@link https://github.com/SortableJS/Sortable}, :func:`inputGeneral.checkChange`, :func:`settings.saveProfile`, :func:`settings.saveAccount`, :func:`settings.saveNotifications`, :func:`settings.saveBadges`, :func:`settings.cancelProfile`, :func:`settings.cancelAccount`, :func:`settings.cancelNotifications`, :func:`settings.cancelBadges`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.initialise`
  */
 settings.loadEventListeners = () => {
 
@@ -282,6 +281,16 @@ settings.loadEventListeners = () => {
   })
 }
 
+/**
+ * Populates input fields with user settings.
+ * 
+ * @param {*} account 
+ * @param {*} user 
+ * @param {*} notification 
+ * 
+ * | **Invokes**
+ * | :func:`settings.initialise`
+ */
 settings.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
   document.querySelector("#prof-name").value = user.displayName ? user.displayName : "";
@@ -300,47 +309,74 @@ settings.populate = (account = {}, user = {}, notification = {}) => {
   document.querySelector("#mail").checked = notification.newsletter;
 }
 
-// TO DO: cache data coming in
+/**
+ * TO DO
+ */
 settings.cacheData = () => {
+  // TO DO: cache data coming in
 
 }
 
-// Load styles 
+
+/**
+ * Checks ``sessionStorage`` for references from previous page, and styles the page accordingly.
+ * 
+ * | **Invoked by**
+ * | :func:`settings.initialise`
+ */
 settings.fromPreviousPage = () => {
+  // Check if coming from Dashboard
   const badge = sessionStorage.getItem('dashboard')
   if (badge) {
+    // Display relevant badge
     settings.badgeConfigScreen.classList.toggle('hide')
     global.darkenOverlay.classList.toggle('hide')
     if (badge !== 'empty') {
       document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
       document.querySelector('.config-badge.' + badge).classList.add('badge-focus')
     }
+    // Clear storage
     sessionStorage.clear()
   }
 }
 
-// TO DO: update cache
+/**
+ * TO DO
+ */
 settings.updateCache = () => {
+  // TO DO: update cache
 
 }
 
-// TO DO: load cached account data
+/**
+ * TO DO
+ */
 settings.cancelAccount = () => {
+  // TO DO: load cached account data
   
 }
 
-// TO DO: load cached badges data
+/**
+ * TO DO
+ */
 settings.cancelBadges = () => {
+  // TO DO: load cached badges data
 
 }
 
-// TO DO: load cached profile data
+/**
+ * TO DO
+ */
 settings.cancelProfile = () => {
+  // TO DO: load cached profile data
 
 }
 
-// TO DO: load cached notifications data
+/**
+ * TO DO
+ */
 settings.cancelNotifications = () => {
+  // TO DO: load cached notifications data
 
 }
 
@@ -352,7 +388,14 @@ BACKEND REQUEST
 
 /**
  * Fetches user data from the database.
- * @return {Promise}      User data.
+ * 
+ * @return {Promise} User data.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.initialise`
  */
 settings.fetch = () => {
   return new Promise(async (resolve, reject) => {
@@ -368,12 +411,13 @@ settings.fetch = () => {
 }
 
 /**
- * Reduces a sequence of names to initials.
- * @param  {String} name  Space Delimited sequence of names.
- * @param  {String} sep   A period separating the initials.
- * @param  {String} trail A period ending the initials.
- * @param  {String} hyph  A hypen separating double names.
- * @return {String}       Properly formatted initials.
+ * Posts Profile section changes to the database; these include the display name, display email, and display location. If successful, the local cache is updated.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`, :func:`settings.updateCache`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.loadEventListeners`
  */
 settings.saveProfile = async () => {
   // Collect input
@@ -403,12 +447,13 @@ settings.saveProfile = async () => {
 }
 
 /**
- * Reduces a sequence of names to initials.
- * @param  {String} name  Space Delimited sequence of names.
- * @param  {String} sep   A period separating the initials.
- * @param  {String} trail A period ending the initials.
- * @param  {String} hyph  A hypen separating double names.
- * @return {String}       Properly formatted initials.
+ * Posts badge configuration to the database. If successful, the local cache is updated.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`, :func:`settings.updateCache`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.loadEventListeners`
  */
 settings.saveBadges = async () => {
   let data = [];
@@ -421,12 +466,13 @@ settings.saveBadges = async () => {
 }
 
 /**
- * Reduces a sequence of names to initials.
- * @param  {String} name  Space Delimited sequence of names.
- * @param  {String} sep   A period separating the initials.
- * @param  {String} trail A period ending the initials.
- * @param  {String} hyph  A hypen separating double names.
- * @return {String}       Properly formatted initials.
+ * Posts Account section changes to the database; these include the account name and location. If successful, the local cache is updated.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`, :func:`settings.updateCache`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.loadEventListeners`
  */
 settings.saveAccount = async () => {
   // Collect input
@@ -461,6 +507,15 @@ settings.saveAccount = async () => {
   return;
 }
 
+/**
+ * Posts mailing list changes to the database. If successful, the local cache is updated.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`, :func:`settings.updateCache`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.loadEventListeners`
+ */
 settings.saveNotifications = async () => {
   // Collect input
   let notificationUpdate = {
