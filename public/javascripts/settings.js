@@ -40,8 +40,7 @@ FUNCTIONS
 ========================================================== */
 
 /**
- * Initialises the Settings page.
- * @return {undefined}      
+ * Gets called on DOM load and initialises the Settings page. User data is fetched from backend to populate the page with relevant markup. Event listeners are attached and user data is cached. Session storage is checked for any references from the previous page.
  */
 settings.initialise = async () => {
   // Fetch data
