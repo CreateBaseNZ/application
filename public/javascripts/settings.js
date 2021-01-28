@@ -40,11 +40,7 @@ FUNCTIONS
 ========================================================== */
 
 /**
- * Reduces a sequence of names to initials.
- * @param  {String} name  Space Delimited sequence of names.
- * @param  {String} sep   A period separating the initials.
- * @param  {String} trail A period ending the initials.
- * @param  {String} hyph  A hypen separating double names.
+ * Initialises the Settings page.
  * @return {undefined}      
  */
 settings.initialise = async () => {
