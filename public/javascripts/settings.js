@@ -133,7 +133,7 @@ settings.loadBadges = () => {
  * | **Invoked by**
  * | :func:`settings.initialise`
  * 
- * @see [SortableJS]{@link https://github.com/SortableJS/Sortable}
+ * @see `SortableJS <https://github.com/SortableJS/Sortable>`_
  */
 settings.loadEventListeners = () => {
 
