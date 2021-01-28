@@ -41,6 +41,12 @@ FUNCTIONS
 
 /**
  * Gets called on DOM load and initialises the Settings page. User data is fetched from backend to populate the page with relevant markup. Event listeners are attached and user data is cached. Session storage is checked for any references from the previous page.
+ * 
+ * **Invokes**
+ * :func:`settings.fetch`
+ * 
+ * @see {@link settings.fetch}
+ * 
  */
 settings.initialise = async () => {
   // Fetch data
@@ -118,17 +124,12 @@ settings.loadBadges = () => {
 
 
 /**
- * Reduces a sequence of names to initials.
- * @param  {String} name  Space Delimited sequence of names.
- * @param  {String} sep   A period separating the initials.
- * @param  {String} trail A period ending the initials.
- * @param  {String} hyph  A hypen separating double names.
- * @return {String}       Properly formatted initials.
+ * Attaches event listeners to all DOM objects.
  */
 settings.loadEventListeners = () => {
 
+  // Show badge config screen
   settings.trophyCase.addEventListener('click', () => {
-    // Show badge config screen
     global.darkenOverlay.classList.add('desktop-show')
     settings.badgeConfigScreen.classList.remove('hide')
     document.querySelectorAll('.section').forEach((section) => {
@@ -136,56 +137,62 @@ settings.loadEventListeners = () => {
     })
   })
 
+  // Toggle password visibility
   document.querySelector('#acc-pass-vis').addEventListener('click', function (e) {
-    // Toggle password visibility
     const type = settings.pass.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.pass.setAttribute('type', type);
     this.classList.toggle('visible');
   })
 
+  // Toggle confirm password visibility
   document.querySelector('#acc-pass-conf-vis').addEventListener('click', function (e) {
-    // Toggle confirm password visibility
     const type = settings.passConf.getAttribute('type') === 'password' ? 'text' : 'password';
     settings.passConf.setAttribute('type', type);
     this.classList.toggle('visible');
   })
 
+  // Check for changes in Profile inputs 
   document.querySelector('.profile-container').querySelectorAll('.input-container').forEach((container) => {
     container.querySelector('input').addEventListener('input', function() {
       inputGeneral.checkChange(this.value, 'testing', settings.profileSaveBtn)
     })
   })
 
+  // TO DO: check for changes in Account inputs
+  
+  // TO DO: check for changes in Notification inputs
+
+  // Save Profile settings
   document.querySelector('.profile-save').addEventListener('click', () => {
-    // Save Profile settings and update cache
     settings.saveProfile();
   })
   
+  // Cancel Profile settings
   document.querySelector('.profile-cancel').addEventListener('click', () => {
-    // Cancel Profile settings
     settings.cancelProfile();
   })
 
+  // Save Account settings
   document.querySelector('.account-save').addEventListener('click', () => {
-    // Save Account settings
     settings.saveAccount();
   })
   
+  // Cancel Account settings
   document.querySelector('.account-cancel').addEventListener('click', () => {
-    // Cancel Account settings
     settings.cancelAccount();
   })
 
+  // Save Notifications settings
   document.querySelector('.notifications-save').addEventListener('click', () => {
-    // Save Notifications settings
     settings.saveNotifications();
   })
   
+  // Cancel Notifications settings
   document.querySelector('.notifications-cancel').addEventListener('click', () => {
-    // Cancel Notifications settings
     settings.cancelNotifications();
   })
 
+  // Saving badge configuration
   document.querySelector('.badge-config-done').addEventListener('click', () => {
     // TO DO: post new badge config
     settings.saveBadges()
@@ -199,6 +206,7 @@ settings.loadEventListeners = () => {
     document.querySelector('.edit-mode').classList.remove('edit-mode')
   })
 
+  // Closing the badge configuration menu
   document.querySelector('.badge-config-close').addEventListener('click', () => {
     // TO DO: revert to cached badge config
     global.darkenOverlay.classList.remove('desktop-show')
@@ -206,6 +214,7 @@ settings.loadEventListeners = () => {
     document.querySelector('.edit-mode').classList.remove('mobile-hide')
   })
 
+  // Escape key exits badge configuration menu
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !settings.badgeConfigScreen.classList.contains('hide')) {
       global.darkenOverlay.classList.remove('desktop-show')
@@ -214,6 +223,7 @@ settings.loadEventListeners = () => {
     }
   })
 
+  // Enabling and exiting edit mode
   document.querySelectorAll('.section').forEach(function (el) {
     el.addEventListener('click', function (e) {
       if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
@@ -223,12 +233,13 @@ settings.loadEventListeners = () => {
           section.classList.remove('mobile-hide')
         })
       } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
-        // Cancel button - disable edit mode
+        // Cancel button - exit edit mode
         this.classList.remove('edit-mode');
         document.querySelectorAll('.mobile-hide').forEach((section) => {
           section.classList.remove('mobile-hide')
         })
       } else if (!this.classList.contains('edit-mode')) {
+        // Clicking anywhere else on the container enables edit mode if not already enabled
         document.querySelectorAll('.section-container').forEach((section) => {
           el === section ? el.classList.add('edit-mode') : section.classList.add('mobile-hide')
         })
@@ -236,7 +247,7 @@ settings.loadEventListeners = () => {
     })
   })
 
-  // Cancel button to go back to main sections
+  // Cancel button to go back to main sections (mobile only)
   document.querySelectorAll('.back-to-main-sections').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation()
@@ -249,6 +260,7 @@ settings.loadEventListeners = () => {
     })
   })
 
+  // Drag and drop menu using SortableJS library
   new Sortable(document.querySelector('.badge-achieved-section'), {
     animation: 150,
     ghostClass: 'sortable-ghost',
@@ -331,12 +343,8 @@ BACKEND REQUEST
 ========================================================== */
 
 /**
- * Reduces a sequence of names to initials.
- * @param  {String} name  Space Delimited sequence of names.
- * @param  {String} sep   A period separating the initials.
- * @param  {String} trail A period ending the initials.
- * @param  {String} hyph  A hypen separating double names.
- * @return {String}       Properly formatted initials.
+ * Fetches user data from the database.
+ * @return {Promise}      User data.
  */
 settings.fetch = () => {
   return new Promise(async (resolve, reject) => {
