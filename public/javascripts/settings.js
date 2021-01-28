@@ -45,7 +45,7 @@ FUNCTIONS
  * @param  {String} sep   A period separating the initials.
  * @param  {String} trail A period ending the initials.
  * @param  {String} hyph  A hypen separating double names.
- * @return {String}       Properly formatted initials.
+ * @return {undefined}      
  */
 settings.initialise = async () => {
   // Fetch data
