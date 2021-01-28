@@ -45,7 +45,7 @@ FUNCTIONS
  * **Invokes**
  * :func:`settings.fetch`
  * 
- * @see {@link settings.fetch}
+ * @see settings.fetch
  * 
  */
 settings.initialise = async () => {
