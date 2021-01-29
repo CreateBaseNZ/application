@@ -2,10 +2,6 @@
 VARIABLES
 ========================================================== */
 
-let inputGeneral = {
-  checkChange: undefined
-}
-
 let verification = {
   initialise: undefined,
   listeners: undefined,
@@ -17,14 +13,6 @@ let verification = {
 /* ==========================================================
 FUNCTIONS
 ========================================================== */
-
-inputGeneral.checkChange = (inputValue, cachedValue, saveBtn) => {
-  if (saveBtn.classList.contains('hide') && inputValue !== cachedValue) {
-    saveBtn.classList.remove('hide')
-  } else if (inputValue === cachedValue) {
-    saveBtn.classList.add('hide')
-  }
-}
 
 verification.initialise = () => {
   // Add the event listeners

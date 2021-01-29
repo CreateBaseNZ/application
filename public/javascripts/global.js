@@ -5,8 +5,17 @@ VARIABLES
 let global = {
   confettiConfig: undefined,
   createProjectCard: undefined,
-  enterKeyPress: undefined,
+
+  events: {
+    enterKeyPress: undefined
+  },
+
   initialise: undefined,
+
+  inputs: {
+    checkChange: undefined
+  },
+
   navInit: undefined,
   unreadStatus: undefined,
 
@@ -152,7 +161,7 @@ global.createProjectCard = (parentContainer, size, project) => {
   if (project.status === 'completed') card.addEventListener('mouseenter', () => confetti(card, global.confettiConfig))
 }
 
-global.enterKeyPress = (input, func) => {
+global.events.enterKeyPress = (input, func) => {
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       func()
@@ -194,5 +203,17 @@ global.unreadStatus = async () => {
     document.querySelector(".inbox-tab").classList.add("unread");
   } else {
     document.querySelector(".inbox-tab").classList.remove("unread");
+  }
+}
+
+global.inputs.checkChange = (dict, btn) => {
+  for (var key in dict) {
+    // If any unmatched, show save button and return
+    if (dict[key].value !== dict[key].cache) {
+      btn.classList.remove('hide');
+      return;
+    }
+    // Otherwise, no changes - hide save button
+    btn.classList.add('hide');
   }
 }
