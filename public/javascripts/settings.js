@@ -42,11 +42,13 @@ let settings = {
   profileInputsCheck: undefined,
   sortableJSInit: undefined,
 
-  fetch: undefined,
-  accountSave: undefined,
-  badgesSave: undefined,
-  notificationsSave: undefined,
-  profileSave: undefined,
+  backend: {
+    fetch: undefined,
+    accountSave: undefined,
+    badgesSave: undefined,
+    notificationsSave: undefined,
+    profileSave: undefined,
+  },
 
   // TO DO: check if variables can be scoped as const
   badgeConfigScreen: document.querySelector('.badge-edit-screen'),
@@ -69,11 +71,11 @@ INIT FUNCTIONS
  * Gets called on DOM load and initialises the Settings page. User data is fetched from backend to populate the page with relevant markup. Event listeners are attached and user data is cached. Session storage is checked for any references from the previous page.
  * 
  * | **Invokes**
- * | :func:`settings.fetch`, :func:`settings.init.loadBadges`, :func:`settings.init.attachAllListeners`, :func:`settings.init.cacheInit`, :func:`settings.init.sessionStorageCheck`
+ * | :func:`settings.backend.fetch`, :func:`settings.init.loadBadges`, :func:`settings.init.attachAllListeners`, :func:`settings.init.cacheInit`, :func:`settings.init.sessionStorageCheck`
  */
 settings.init.init = async () => {
   // Fetch data
-  const data = await settings.fetch();
+  const data = await settings.backend.fetch();
   // Validate incoming data
   if (data.status === "error") {
     console.log(data.content);
@@ -175,12 +177,10 @@ settings.init.sortableJSInit = () => {
  * Attaches event listeners to all DOM objects.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`, :func:`settings.profileSave`, :func:`settings.accountSave`, :func:`settings.notificationsSave`, :func:`settings.badgesSave`, :func:`settings.profileCancel`, :func:`settings.accountCancel`, :func:`settings.notificationsCancel`, :func:`settings.badgesCancel`
+ * | :func:`global.inputs.checkChange`, :func:`settings.backend.profileSave`, :func:`settings.backend.accountSave`, :func:`settings.backend.notificationsSave`, :func:`settings.backend.badgesSave`, :func:`settings.profileCancel`, :func:`settings.accountCancel`, :func:`settings.notificationsCancel`, :func:`settings.badgesCancel`
  * 
  * | **Invoked by**
  * | :func:`settings.init.init`
- * 
- * @see `SortableJS <https://github.com/SortableJS/Sortable>`_
  */
 settings.init.attachAllListeners = () => {
   // Show badge config screen
@@ -202,19 +202,19 @@ settings.init.attachAllListeners = () => {
     input.addEventListener('input', settings.notificationsInputsCheck)
   })
   // Save Profile settings
-  document.querySelector('.profile-save').addEventListener('click', settings.profileSave)
+  document.querySelector('.profile-save').addEventListener('click', settings.backend.profileSave)
   // Cancel Profile settings
   document.querySelector('.profile-cancel').addEventListener('click', settings.profileCancel)
   // Cancel Profile settings (mobile)
   document.querySelector('.profile-container').querySelector('.back-to-main-sections').addEventListener('click', settings.events.profileCancelMobile)
   // Save Account settings
-  document.querySelector('.account-save').addEventListener('click', settings.accountSave)
+  document.querySelector('.account-save').addEventListener('click', settings.backend.accountSave)
   // Cancel Account settings
   document.querySelector('.account-cancel').addEventListener('click', settings.accountCancel)
   // Cancel Account settings (mobile)
   document.querySelector('.acc-container').querySelector('.back-to-main-sections').addEventListener('click', settings.events.accountCancelMobile)
   // Save Notifications settings
-  document.querySelector('.notifications-save').addEventListener('click', settings.notificationsSave)
+  document.querySelector('.notifications-save').addEventListener('click', settings.backend.notificationsSave)
   // Cancel Notifications settings
   document.querySelector('.notifications-cancel').addEventListener('click', settings.notificationsCancel)
   // Cancel Notifications settings (mobile)
@@ -443,7 +443,7 @@ settings.profileInputsCheck = () => {
       cache: settings.cache.location
     }
   }
-  global.inputs.checkChange(dict, settings.profileSaveBtn);
+  global.inputs.checkChange(dict, settings.backend.profileSaveBtn);
 }
 
 /**
@@ -490,7 +490,7 @@ settings.accountInputsCheck = () => {
       cache: settings.cache.country
     }
   }
-  global.inputs.checkChange(dict, settings.accountSaveBtn);
+  global.inputs.checkChange(dict, settings.backend.accountSaveBtn);
 }
 
 /**
@@ -509,7 +509,7 @@ settings.notificationsInputsCheck = function() {
       cache: settings.cache.mailing
     }
   }
-  global.inputs.checkChange(dict, settings.notificationsSaveBtn);
+  global.inputs.checkChange(dict, settings.backend.notificationsSaveBtn);
 }
 
 /* ==========================================================
@@ -608,14 +608,14 @@ settings.events.notificationsCancelMobile = (e) => {
  * Sends badge configuration to back-end, closes badge configuration menu, and exits Profile edit mode.
  * 
  * | **Invokes**
- * | :func:`settings.badgesSave`, :func:`settings.badgeConfigMenuClose`, :func:`settings.events.badgeConfigMenuSave`
+ * | :func:`settings.backend.badgesSave`, :func:`settings.badgeConfigMenuClose`, :func:`settings.events.badgeConfigMenuSave`
  * 
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
 settings.events.badgeConfigMenuSave = () => {
   // Send badges to back-end
-  settings.badgesSave();
+  settings.backend.badgesSave();
   // Close the config menu
   settings.badgeConfigMenuClose();
   // Exit Profile edit mode
@@ -715,7 +715,7 @@ BACKEND REQUEST
  * 
  * @return {Object} Promise - User data.
  */
-settings.fetch = () => {
+settings.backend.fetch = () => {
   return new Promise(async (resolve, reject) => {
     // Fetch data
     let data;
@@ -737,7 +737,7 @@ settings.fetch = () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.profileSave = async () => {
+settings.backend.profileSave = async () => {
   // Collect input
   let userUpdate = {
     displayName: document.querySelector("#prof-name").value,
@@ -773,7 +773,7 @@ settings.profileSave = async () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.badgesSave = async () => {
+settings.backend.badgesSave = async () => {
   let data = [];
   document.querySelector('.badge-achieved-section').querySelectorAll('.config-badge').forEach((badge) => {
     data.push(badge.classList[1])
@@ -795,7 +795,7 @@ settings.badgesSave = async () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.accountSave = async () => {
+settings.backend.accountSave = async () => {
   // Collect input
   let userUpdate = {
     name: document.querySelector("#acc-name").value,
@@ -837,7 +837,7 @@ settings.accountSave = async () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.notificationsSave = async () => {
+settings.backend.notificationsSave = async () => {
   // Collect input
   let notificationUpdate = {
     newsletter: document.querySelector("#mail").checked
