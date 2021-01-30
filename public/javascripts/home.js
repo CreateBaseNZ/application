@@ -101,7 +101,7 @@ signup.loadEventListeners = () => {
 
   // Enter key
   document.querySelector('#sign-up-form').querySelectorAll('input').forEach((input) => {
-    global.events.enterKeyPress(input, signup.submit)
+    global.event.enterKeyPress(input, signup.submit)
   })
 }
 
@@ -301,7 +301,7 @@ login.loadEventListeners = () => {
 
   // Enter key
   document.querySelector('#login-form').querySelectorAll('input').forEach((input) => {
-    global.events.enterKeyPress(input, login.submit)
+    global.event.enterKeyPress(input, login.submit)
   })
 }
 
@@ -392,7 +392,7 @@ forgotPassword.loadEventListeners = () => {
   })
 
   // Enter key
-  // global.events.enterKeyPress(document.querySelector('#recover-email'), forgotPassword.initiate)
+  // global.event.enterKeyPress(document.querySelector('#recover-email'), forgotPassword.initiate)
 }
 
 // forgotPassword.initiate = async () => {

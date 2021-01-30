@@ -3,70 +3,102 @@ VARIABLES
 ========================================================== */
 
 let global = {
-  confettiConfig: undefined,
   createProjectCard: undefined,
 
-  events: {
-    enterKeyPress: undefined
+  elem: {
+    darkenOverlay: document.querySelector('.darken-overlay'),
+    inboxTab: document.querySelector('.inbox-tab'),
+    moreMenu: document.querySelector('.nav-more-menu'),
+    moreMenuBtn: document.querySelector('.more-tab')
   },
 
-  initialise: undefined,
+  event: {
+    darkenOverlayClick: undefined,
+    enterKeyPress: undefined,
+    moreMenuClick: undefined,
+    navMoreHide: undefined
+  },
 
-  inputs: {
+  init: {
+    init: undefined,
+    navInit: undefined,
+    unreadStatus: undefined
+  },
+
+  input: {
     checkChange: undefined
   },
 
-  navInit: undefined,
-  unreadStatus: undefined,
-
-  darkenOverlay: document.querySelector('.darken-overlay')
+  var: {
+    confettiConfig: {
+      angle: 0,
+      spread: 90,
+      startVelocity: 20,
+      elementCount: 20,
+      width: "10px",
+      height: "10px",
+      perspective: "200px",
+      colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+      duration: 2000,
+      stagger: 3,
+      dragFriction: 0.12,
+      random: Math.random
+    }
+  }
 }
 
 /* ==========================================================
 FUNCTIONS
 ========================================================== */
 
-global.initialise = () => {
-  global.navInit();
-  global.unreadStatus();
+/**
+ * Initialises global functions.
+ * 
+ * | **Invokes**
+ * | :func:`global.init.navInit`, :func:`global.init.unreadStatus`
+ */
+global.init.init = () => {
+  global.init.navInit();
+  global.init.unreadStatus();
 }
 
-global.navInit = () => {
+/**
+ * Initialises the navigation system. Toggles the ``active-tab`` and ``active-more-tab`` classes on relevant tabs. Attaches event listeners.
+ * 
+ * | **Invokes**
+ * | :func:`global.event.moreMenuClick`, :func:`global.event.darkenOverlayClick`, :func:`global.event.navMoreHide`
+ * 
+ * | **Invoked by**
+ * | :func:`global.init.init`
+ */
+global.init.navInit = () => {
   const route = window.location.pathname.split('/')[1]
   document.querySelectorAll('.' + route + '-tab').forEach((tab) => {
-    tab.classList.add('active-tab')
+    tab.classList.add('active-tab');
   })
   if (document.querySelector('.more-' + route)) {
-    document.querySelector('.more-' + route).classList.add('active-more-tab')
+    document.querySelector('.more-' + route).classList.add('active-more-tab');
   }
 
-  const moreMenu = document.querySelector('.nav-more-menu')
-  const moreMenuBtn = document.querySelector('.more-tab')
+  global.elem.moreMenuBtn.addEventListener('click', global.event.moreMenuClick);
 
-  moreMenuBtn.addEventListener('click', function(e) {
-    e.preventDefault()
-    global.darkenOverlay.classList.toggle('hide-overlay')
-    moreMenu.classList.toggle('hide')
-    this.querySelector('input').checked = !this.querySelector('input').checked
-  })
+  global.elem.darkenOverlay.addEventListener('click', global.event.darkenOverlayClick);
 
-  global.darkenOverlay.addEventListener('click', function() {
-    if (!moreMenu.classList.contains('hide')) {
-      moreMenu.classList.add('hide')
-      global.darkenOverlay.classList.add('hide-overlay')
-      moreMenuBtn.querySelector('input').checked = false
-    }
-  })
-
-  document.querySelector('.nav-more-close').addEventListener('click', () => {
-    moreMenu.classList.add('hide')
-    global.darkenOverlay.classList.add('hide-overlay')
-    moreMenuBtn.querySelector('input').checked = false
-  })
+  document.querySelector('.nav-more-close').addEventListener('click', global.event.navMoreHide);
 }
 
+/**
+ * Creates a project card.
+ * 
+ * | **Invoked by**
+ * | TO DO
+ * 
+ * @param {Object} parentContainer  Project card container.
+ * @param {Object} size             Card size, can be ``small`` or ``large``.
+ * @param {Object} project          Project details.
+ */
 global.createProjectCard = (parentContainer, size, project) => {
-
+  // Project tags
   var card = document.createElement('div');
   card.className = 'project-card ' + project.status + ' ' + size + ' ' + project.colour
   var tagsContainer = document.createElement('div')
@@ -80,20 +112,17 @@ global.createProjectCard = (parentContainer, size, project) => {
   progressSpan.innerHTML = project.progress * 100 + '%'
   progressTag.appendChild(progressSpan)
   tagsContainer.appendChild(progressTag)
-
   project.tags.forEach((tag) => {
     const tagEl = document.createElement('div')
     tagEl.className = 'project-tag'
     tagEl.innerHTML = tag
     tagsContainer.appendChild(tagEl)
   })
-
   tagsContainer.addEventListener('wheel', function(e) {
     this.scrollLeft += e.deltaY * 0.25;
   })
-
   card.appendChild(tagsContainer)
-
+  // Top right icons
   var status = document.createElement('div')
   status.className = 'status-container'
   var lightbulb = document.createElement('i')
@@ -113,7 +142,7 @@ global.createProjectCard = (parentContainer, size, project) => {
   trophyContainer.appendChild(trophyFront)
   status.appendChild(trophyContainer)
   card.appendChild(status)
-
+  // Name, about, current task
   var info = document.createElement('div')
   info.className = 'project-info'
   var rating = document.createElement('div')
@@ -145,23 +174,31 @@ global.createProjectCard = (parentContainer, size, project) => {
   task.appendChild(taskIcon)
   info.appendChild(task)
   card.appendChild(info)
-
+  // Large progress number
   var number = document.createElement('div')
   number.className = 'progress-number'
   number.innerHTML = project.progress * 100 + '%'
   card.appendChild(number)
-
+  // Progress bar
   var bar = document.createElement('div')
   bar.className = 'progress-bar'
   bar.style.width = project.progress * 100 + '%'
   card.appendChild(bar)
-
   parentContainer.appendChild(card)
-
-  if (project.status === 'completed') card.addEventListener('mouseenter', () => confetti(card, global.confettiConfig))
+  // Confetti
+  if (project.status === 'completed') card.addEventListener('mouseenter', () => confetti(card, global.var.confettiConfig))
 }
 
-global.events.enterKeyPress = (input, func) => {
+/**
+ * Listens for ``Enter`` keypress on ``input`` and executes ``func``.
+ * 
+ * | **Invoked by**
+ * | TO DO
+ * 
+ * @param {Object} input  Input element.
+ * @param {Object} func   Function that is executed on ``Enter`` keypress.
+ */
+global.event.enterKeyPress = (input, func) => {
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       func()
@@ -169,22 +206,60 @@ global.events.enterKeyPress = (input, func) => {
   })
 }
 
-global.confettiConfig = {
-  angle: 0,
-  spread: 90,
-  startVelocity: 20,
-  elementCount: 20,
-  width: "10px",
-  height: "10px",
-  perspective: "200px",
-  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
-  duration: 2000,
-  stagger: 3,
-  dragFriction: 0.12,
-  random: Math.random
-};
 
-global.unreadStatus = async () => {
+/**
+ * Toggles view for navigation menu on mobile.
+ * 
+ * | **Invoked by**
+ * | :func:`global.init.navInit`
+ * 
+ * @param {Object} e  Event object.
+ */
+global.event.moreMenuClick = function(e) {
+  e.preventDefault();
+  global.elem.darkenOverlay.classList.toggle('hide-overlay');
+  global.elem.moreMenu.classList.toggle('hide');
+  this.querySelector('input').checked = !this.querySelector('input').checked;
+}
+
+/**
+ * Hides navigation menu on mobile.
+ * 
+ * | **Invoked by**
+ * | :func:`global.init.navInit`
+ * 
+ * @param {Object} e  Event object.
+ */
+global.event.darkenOverlayClick = () => {
+  if (!global.elem.moreMenu.classList.contains('hide')) {
+    global.event.navMoreHide();
+  }
+}
+
+/**
+ * Hides navigation menu on mobile.
+ * 
+ * | **Invoked by**
+ * | :func:`global.init.navInit`
+ * 
+ * @param {Object} e  Event object.
+ */
+global.event.navMoreHide = () => {
+  global.elem.moreMenu.classList.add('hide');
+  global.elem.darkenOverlay.classList.add('hide-overlay');
+  global.elem.moreMenuBtn.querySelector('input').checked = false;
+}
+
+/**
+ * Sets the unread messages flag on Inbox tab.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`
+ * 
+ * | **Invoked by**
+ * | :func:`global.init.init`
+ */
+global.init.unreadStatus = async () => {
   // Fetch data
   let data;
   try {
@@ -200,13 +275,19 @@ global.unreadStatus = async () => {
   }
   // Execute actions
   if (data.content) {
-    document.querySelector(".inbox-tab").classList.add("unread");
+    global.elem.inboxTab.classList.add("unread");
   } else {
-    document.querySelector(".inbox-tab").classList.remove("unread");
+    global.elem.inboxTab.classList.remove("unread");
   }
 }
 
-global.inputs.checkChange = (dict, btn) => {
+/**
+ * Compares a group of input values with cached values. If any values within a group do not match with the corresponding cached value, the ``hide`` class is added to ``btn``. Otherwise, if no matches, the ``hide`` class is removed from ``btn``.
+ * 
+ * | **Invoked by**
+ * | TO DO
+ */
+global.input.checkChange = (dict, btn) => {
   for (var key in dict) {
     // If any unmatched, show save button and return
     if (dict[key].value !== dict[key].cache) {

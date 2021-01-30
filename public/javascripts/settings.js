@@ -16,7 +16,7 @@ let settings = {
     sortableJSInit: undefined
   },
 
-  events: {
+  event: {
     accountCancelMobile: undefined,
     badgeConfigMenuCancel: undefined,
     badgeConfigMenuEscape: undefined,
@@ -51,10 +51,8 @@ let settings = {
   },
   
   var: {
-    /**
-     * A badge variable
-     */
-    badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
+    // temp
+    badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], 
     cache: {},
   },
   
@@ -268,9 +266,9 @@ settings.init.attachAllListeners = () => {
  * | **Invoked by**
  * | :func:`settings.init.init`
  * 
- * @param {Object} account       - User account settings.
- * @param {Object} user          - User profile settings.
- * @param {Object} notification  - User notification settings.
+ * @param {Object} account       User account settings.
+ * @param {Object} user          User profile settings.
+ * @param {Object} notification  User notification settings.
  */
 settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
@@ -287,7 +285,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
   settings.elem.stateInput.value = user.address.suburb ? user.address.suburb : "";
   settings.elem.countryInput.value = user.address.country ? user.address.country : "";
   // Notifications
-  settings.elem.mailing.checked = notification.newsletter;
+  settings.elem.mailingInput.checked = notification.newsletter;
 }
 
 /**
@@ -375,7 +373,7 @@ settings.cacheUpdate = (section) => {
     settings.var.cache = {...settings.var.cache, ...accountCache};
   } else if (section === 'notifications') {
     const notificationsCache = {
-      mailing: settings.elem.mailing.checked
+      mailing: settings.elem.mailingInput.checked
     };
     settings.var.cache = {...settings.var.cache, ...notificationsCache};
   }
@@ -433,7 +431,7 @@ settings.profileCancel = () => {
  */
 settings.notificationsCancel = () => {
   // Revert to cached settings and hide save button
-  settings.elem.mailing.checked = settings.var.cache.mailing;
+  settings.elem.mailingInput.checked = settings.var.cache.mailing;
   settings.elem.notificationsSaveBtn.classList.add('hide');
 }
 
@@ -444,7 +442,7 @@ settings.notificationsCancel = () => {
  * | :func:`settings.init.attachAllListeners`, :func:`settings.init.sessionStorageCheck`
  */
 settings.badgeConfigMenuShow = () => {
-  global.darkenOverlay.classList.add('desktop-show');
+  global.elem.darkenOverlay.classList.add('desktop-show');
   settings.elem.badgeConfigScreen.classList.remove('hide');
   document.querySelectorAll('.section').forEach((section) => {
     section.classList.add('mobile-hide');
@@ -458,7 +456,7 @@ settings.badgeConfigMenuShow = () => {
  * | :func:`settings.event.badgeConfigMenuCancel`, :func:`settings.event.badgeConfigMenuEscape`, :func:`settings.event.badgeConfigMenuSave`
  */
 settings.badgeConfigMenuClose = () => {
-  global.darkenOverlay.classList.remove('desktop-show')
+  global.elem.darkenOverlay.classList.remove('desktop-show')
   settings.elem.badgeConfigScreen.classList.add('hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
@@ -469,7 +467,7 @@ settings.badgeConfigMenuClose = () => {
  * | **Invoked by**
  * | :func:`settings.event.badgeConfigMenuSave`, :func:`settings.init.attachAllListeners`, :func:`settings.event.sectionClick`, :func:`settings.event.sectionCancelMobile`
  * 
- * @param {Object} selected - A section container.
+ * @param {Object} selected A section container.
  */
 settings.editModeExit = (selected) => {
   selected.classList.remove('edit-mode');
@@ -564,7 +562,7 @@ settings.accountInputsCheck = () => {
 settings.notificationsInputsCheck = function() {
   const dict = {
     mailing: {
-      value: settings.elem.mailing.checked,
+      value: settings.elem.mailingInput.checked,
       cache: settings.var.cache.mailing
     }
   }
@@ -584,7 +582,7 @@ EVENTS FUNCTIONS
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  * 
- * @param {Object} e - An event object.
+ * @param {Object} e An event object.
  */
 settings.event.sectionClick = function(e) {
   if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
@@ -615,7 +613,7 @@ settings.event.sectionClick = function(e) {
  * | **Invoked by**
  * | :func:`settings.profileCancel`, :func:`settings.editModeExit`
  * 
- * @param {Object} e - An event object.
+ * @param {Object} e An event object.
  */
 settings.event.profileCancelMobile = (e) => {
   e.stopPropagation();
@@ -634,7 +632,7 @@ settings.event.profileCancelMobile = (e) => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  * 
- * @param {Object} e - An event object.
+ * @param {Object} e An event object.
  */
 settings.event.accountCancelMobile = (e) => {
   e.stopPropagation();
@@ -653,7 +651,7 @@ settings.event.accountCancelMobile = (e) => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  * 
- * @param {Object} e - An event object.
+ * @param {Object} e An event object.
  */
 settings.event.notificationsCancelMobile = (e) => {
   e.stopPropagation();
@@ -690,7 +688,7 @@ settings.event.badgeConfigMenuSave = () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  * 
- * @param {Object} e - An event object.
+ * @param {Object} e An event object.
  */
 settings.event.badgeConfigMenuEscape = (e) => {
   if (e.key === 'Escape' && !settings.elem.badgeConfigScreen.classList.contains('hide')) {
@@ -903,7 +901,7 @@ settings.backend.accountSave = async () => {
 settings.backend.notificationsSave = async () => {
   // Collect input
   let notificationUpdate = {
-    newsletter: settings.elem.mailing.checked
+    newsletter: settings.elem.mailingInput.checked
   }
   // Validate input
 
