@@ -49,18 +49,41 @@ let settings = {
     notificationsSave: undefined,
     profileSave: undefined,
   },
-
-  // TO DO: check if variables can be scoped as const
-  badgeConfigScreen: document.querySelector('.badge-edit-screen'),
-  badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
-  cache: {},
-  inputChanges: 0,
-  pass: document.querySelector('#acc-pass'),
-  passConf: document.querySelector('#acc-pass-conf'),
-  profileSaveBtn: document.querySelector('.profile-save'),
-  accountSaveBtn: document.querySelector('.account-save'),
-  notificationsSaveBtn: document.querySelector('.notifications-save'),
-  trophyCase: document.querySelector('.badges-container')
+  
+  var: {
+    /**
+     * A badge variable
+     */
+    badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
+    cache: {},
+  },
+  
+  elem: {
+    badgeConfigScreen: document.querySelector('.badge-edit-screen'),
+    badgePreviewContainer: document.querySelector('.badges-container'),
+    accountSaveBtn: document.querySelector('.account-save'),
+    notificationsSaveBtn: document.querySelector('.notifications-save'),
+    profileSaveBtn: document.querySelector('.profile-save'),
+    displayNameInput: document.querySelector('#prof-name'),
+    displayEmailInput: document.querySelector('#prof-email'),
+    locationInput: document.querySelector('#prof-loc'),
+    nameInput: document.querySelector('#acc-name'),
+    emailInput: document.querySelector('#acc-email'),
+    streetInput: document.querySelector('#acc-street'),
+    unitInput: document.querySelector('#acc-unit'),
+    cityInput: document.querySelector('#acc-city'),
+    stateInput: document.querySelector('#acc-state'),
+    zipInput: document.querySelector('#acc-zip'),
+    countryInput: document.querySelector('#acc-country'),
+    mailingInput: document.querySelector('#mail'),
+    profileSection: document.querySelector('.profile-section'),
+    accountSection: document.querySelector('.account-section'),
+    notificationsSection: document.querySelector('.notifications-section'),
+    badgeAchievedSection: document.querySelector('.badge-achieved-section'),
+    badgeNotAchievedSection: document.querySelector('.badge-not-achieved-section'),
+    passwordInput: document.querySelector('#acc-pass'),
+    passwodConfirmInput: document.querySelector('#acc-pass-conf')
+  }
 }
 
 /* ==========================================================
@@ -100,7 +123,7 @@ settings.init.init = async () => {
  * Creates the badge elements in preview (Profile container) and on the badge configuration menu. Badges in preview are created in the order of the user-set configuration. Badges on the configuration menu are separated by achievement into the relevant containers. The badges that have been achieved are again sorted by the previous set configuration. Event listeners for the badges are also attached here.
  * 
  * | **Invokes**
- * | :func:`settings.events.badgeConfigToggle`
+ * | :func:`settings.event.badgeConfigToggle`
  * 
  * | **Invoked by**
  * | :func:`settings.init.init`
@@ -108,17 +131,17 @@ settings.init.init = async () => {
 settings.init.loadBadges = () => {
 
   for (var i = 0; i < 4; i++) {
-    badge = settings.badges[i]
+    badge = settings.var.badges[i]
     var el = document.createElement('div');
     el.className = 'badge ' + badge;
     el.setAttribute('caption', badge);
     var img = document.createElement('img');
     img.src = '/public/images/badges/' + badge + '.png';
     el.appendChild(img);
-    settings.trophyCase.appendChild(el);
+    settings.elem.badgePreviewContainer.appendChild(el);
   }
 
-  settings.badges.forEach((badge, ind) => {
+  settings.var.badges.forEach((badge, ind) => {
     // TO DO: load config badges
     var el = document.createElement('div');
     el.className = 'config-badge ' + badge;
@@ -144,11 +167,15 @@ settings.init.loadBadges = () => {
     el.appendChild(i)
 
     // temp
-    ind < 4 ? document.querySelector('.badge-achieved-section').appendChild(el) : document.querySelector('.badge-not-achieved-section').appendChild(el)
+    ind < 4 ? settings.elem.badgeAchievedSection.appendChild(el) : settings.elem.badgeNotAchievedSection.appendChild(el)
+
+    // TO DO: add to achieved section
+
+    // TO DO: add to not achieved section
 
     // badgeName is used in the badgeConfigToggle function
     input.badgeName = badge;
-    input.addEventListener('change', settings.events.badgeConfigToggle);
+    input.addEventListener('change', settings.event.badgeConfigToggle);
   })
 }
 
@@ -160,7 +187,7 @@ settings.init.loadBadges = () => {
  */
 settings.init.sortableJSInit = () => {
   // Drag and drop menu using SortableJS library
-  new Sortable(document.querySelector('.badge-achieved-section'), {
+  new Sortable(settings.elem.badgeAchievedSection, {
     animation: 150,
     ghostClass: 'sortable-ghost',
     forceFallback: true,
@@ -184,54 +211,54 @@ settings.init.sortableJSInit = () => {
  */
 settings.init.attachAllListeners = () => {
   // Show badge config screen
-  settings.trophyCase.addEventListener('click', settings.badgeConfigMenuShow)
+  settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigMenuShow)
   // Toggle password visibility
-  document.querySelector('#acc-pass-vis').addEventListener('click', settings.events.passVisToggle)
+  document.querySelector('#acc-pass-vis').addEventListener('click', settings.event.passVisToggle)
   // Toggle confirm password visibility
-  document.querySelector('#acc-pass-conf-vis').addEventListener('click', settings.events.confirmPassVisToggle)
+  document.querySelector('#acc-pass-conf-vis').addEventListener('click', settings.event.confirmPassVisToggle)
   // Check for changes in Profile inputs 
-  document.querySelector('.profile-container').querySelectorAll('input').forEach((input) => {
+  settings.elem.profileSection.querySelectorAll('input').forEach((input) => {
     input.addEventListener('input', settings.profileInputsCheck)
   })
   // Check for changes in Account inputs
-  document.querySelector('.acc-container').querySelectorAll('input').forEach((input) => {
+  settings.elem.accountSection.querySelectorAll('input').forEach((input) => {
     input.addEventListener('input', settings.accountInputsCheck)
   })
   // Check for changes in Notification inputs
-  document.querySelector('.notifications-container').querySelectorAll('input').forEach((input) => {
+  settings.elem.notificationsSection.querySelectorAll('input').forEach((input) => {
     input.addEventListener('input', settings.notificationsInputsCheck)
   })
   // Save Profile settings
-  document.querySelector('.profile-save').addEventListener('click', settings.backend.profileSave)
+  settings.elem.profileSaveBtn.addEventListener('click', settings.backend.profileSave)
   // Cancel Profile settings
   document.querySelector('.profile-cancel').addEventListener('click', settings.profileCancel)
   // Cancel Profile settings (mobile)
-  document.querySelector('.profile-container').querySelector('.back-to-main-sections').addEventListener('click', settings.events.profileCancelMobile)
+  settings.elem.profileSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.profileCancelMobile)
   // Save Account settings
-  document.querySelector('.account-save').addEventListener('click', settings.backend.accountSave)
+  settings.elem.accountSaveBtn.addEventListener('click', settings.backend.accountSave)
   // Cancel Account settings
   document.querySelector('.account-cancel').addEventListener('click', settings.accountCancel)
   // Cancel Account settings (mobile)
-  document.querySelector('.acc-container').querySelector('.back-to-main-sections').addEventListener('click', settings.events.accountCancelMobile)
+  settings.elem.accountSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.accountCancelMobile)
   // Save Notifications settings
-  document.querySelector('.notifications-save').addEventListener('click', settings.backend.notificationsSave)
+  settings.elem.notificationsSaveBtn.addEventListener('click', settings.backend.notificationsSave)
   // Cancel Notifications settings
   document.querySelector('.notifications-cancel').addEventListener('click', settings.notificationsCancel)
   // Cancel Notifications settings (mobile)
-  document.querySelector('.notifications-container').querySelector('.back-to-main-sections').addEventListener('click', settings.events.notificationsCancelMobile)
+  settings.elem.notificationsSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.notificationsCancelMobile)
   // Saving badge configuration
-  document.querySelector('.badge-config-done').addEventListener('click', settings.events.badgeConfigMenuSave)
+  document.querySelector('.badge-config-done').addEventListener('click', settings.event.badgeConfigMenuSave)
   // Closing the badge configuration menu
-  document.querySelector('.badge-config-close').addEventListener('click', settings.events.badgeConfigMenuCancel)
+  document.querySelector('.badge-config-close').addEventListener('click', settings.event.badgeConfigMenuCancel)
   // Escape key exits badge configuration menu
-  document.addEventListener('keydown', settings.events.badgeConfigMenuEscape)
+  document.addEventListener('keydown', settings.event.badgeConfigMenuEscape)
   // Enabling and exiting edit mode
   document.querySelectorAll('.section').forEach(function (section) {
-    section.addEventListener('click', settings.events.sectionClick)
+    section.addEventListener('click', settings.event.sectionClick)
   })
   // Cancel button to go back to main sections (mobile only)
   document.querySelectorAll('.back-to-main-sections').forEach((btn) => {
-    btn.addEventListener('click', settings.events.sectionCancelMobile)
+    btn.addEventListener('click', settings.event.sectionCancelMobile)
   })
 }
 
@@ -247,20 +274,20 @@ settings.init.attachAllListeners = () => {
  */
 settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
-  document.querySelector("#prof-name").value = user.displayName ? user.displayName : "";
-  document.querySelector("#prof-email").value = user.displayEmail ? user.displayName : "";
-  document.querySelector("#prof-loc").value = user.location ? user.location : "";
+  settings.elem.displayNameInput.value = user.displayName ? user.displayName : "";
+  settings.elem.displayEmailInput.value = user.displayEmail ? user.displayName : "";
+  settings.elem.locationInput.value = user.location ? user.location : "";
   // Account
-  document.querySelector("#acc-name").value = user.name;
-  document.querySelector("#acc-email").value = account.email;
-  document.querySelector("#acc-street").value = user.address.street ? user.address.street : "";
-  document.querySelector("#acc-city").value = user.address.city ? user.address.city : "";
-  document.querySelector("#acc-zip").value = user.address.postcode ? user.address.postcode : "";
-  document.querySelector("#acc-unit").value = user.address.unit ? user.address.unit : "";
-  document.querySelector("#acc-state").value = user.address.suburb ? user.address.suburb : "";
-  document.querySelector("#acc-country").value = user.address.country ? user.address.country : "";
+  settings.elem.nameInput.value = user.name;
+  settings.elem.emailInput.value = account.email;
+  settings.elem.streetInput.value = user.address.street ? user.address.street : "";
+  settings.elem.cityInput.value = user.address.city ? user.address.city : "";
+  settings.elem.zipInput.value = user.address.postcode ? user.address.postcode : "";
+  settings.elem.unitInput.value = user.address.unit ? user.address.unit : "";
+  settings.elem.stateInput.value = user.address.suburb ? user.address.suburb : "";
+  settings.elem.countryInput.value = user.address.country ? user.address.country : "";
   // Notifications
-  document.querySelector("#mail").checked = notification.newsletter;
+  settings.elem.mailing.checked = notification.newsletter;
 }
 
 /**
@@ -270,7 +297,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
  * | :func:`settings.init.init`
  */
 settings.init.cacheInit = (data) => {
-  settings.cache = {
+  settings.var.cache = {
     city: data.user.address.suburb,
     displayName: data.user.displayName,
     displayEmail: data.user.displayEmail,
@@ -315,31 +342,63 @@ FRONT-END FUNCTIONS
 ========================================================== */
 
 /**
- * TO DO
+ * Updates the cache with current inputs.
+ * 
+ * | **Invoked by**
+ * | :func:`settings.backend.accountSave`, :func:`settings.backend.profileSave`, :funct:`settings.backend.badgesSave`, :func:`settings.backend.notificationsSave`
  */
-settings.cacheUpdate = () => {
-  // TO DO: update cache
+settings.cacheUpdate = (section) => {
+  if (section === 'profile') {
+    const profileCache = {
+      displayName: settings.elem.displayNameInput.value,
+      displayEmail: settings.elem.displayEmailInput.value,
+      location: settings.elem.locationInput.value,
+    };
+    settings.var.cache = {...settings.var.cache, ...profileCache};
+  } else if (section === 'badges') {
+    // TO DO: cache badge config
+    const badgesCache = {
 
+    }
+    settings.var.cache = {...settings.var.cache, ...badgesCache};
+  } else if (section === 'account') {
+    const accountCache = {
+      name: settings.elem.nameInput.value,
+      email: settings.elem.emailInput.value,
+      street: settings.elem.streetInput.value,
+      unit: settings.elem.unitInput.value,
+      city: settings.elem.cityInput.value,
+      state: settings.elem.stateInput.value,
+      zip: settings.elem.zipInput.value,
+      country: settings.elem.countryInput.value
+    };
+    settings.var.cache = {...settings.var.cache, ...accountCache};
+  } else if (section === 'notifications') {
+    const notificationsCache = {
+      mailing: settings.elem.mailing.checked
+    };
+    settings.var.cache = {...settings.var.cache, ...notificationsCache};
+  }
 }
 
 /**
  * Reverts account to cached settings and hides the save button.
  * 
  * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`, :func:`settings.events.accountCancelMobile`
+ * | :func:`settings.init.attachAllListeners`, :func:`settings.event.accountCancelMobile`
  * }
  */
 settings.accountCancel = () => {
   // Revert to cached settings and hide save button
-  document.querySelector('#acc-name').value = settings.cache.name;
-  document.querySelector('#acc-email').value = settings.cache.email;
-  document.querySelector('#acc-street').value = settings.cache.street;
-  document.querySelector('#acc-unit').value = settings.cache.unit;
-  document.querySelector('#acc-city').value = settings.cache.city;
-  document.querySelector('#acc-state').value = settings.cache.state;
-  document.querySelector('#acc-zip').value = settings.cache.zip;
-  document.querySelector('#acc-country').value = settings.cache.country;
-  document.querySelector('.account-save').classList.add('hide');
+  settings.elem.nameInput.value = settings.var.cache.name;
+  settings.elem.emailInput.value = settings.var.cache.email;
+  settings.elem.streetInput.value = settings.var.cache.street;
+  settings.elem.unitInput.value = settings.var.cache.unit;
+  settings.elem.cityInput.value = settings.var.cache.city;
+  settings.elem.stateInput.value = settings.var.cache.state;
+  settings.elem.zipInput.value = settings.var.cache.zip;
+  settings.elem.countryInput.value = settings.var.cache.country;
+  settings.elem.accountSaveBtn.classList.add('hide');
 }
 
 /**
@@ -354,28 +413,28 @@ settings.badgesCancel = () => {
  * Reverts profile to cached settings and hides the save button.
  * 
  * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`, :func:`settings.events.profileCancelMobile`
+ * | :func:`settings.init.attachAllListeners`, :func:`settings.event.profileCancelMobile`
  * }
  */
 settings.profileCancel = () => {
   // Revert to cached settings and hide save button
-  document.querySelector('#prof-name').value = settings.cache.displayName;
-  document.querySelector('#prof-email').value = settings.cache.displayEmail;
-  document.querySelector('#prof-loc').value = settings.cache.location;
-  document.querySelector('.profile-save').classList.add('hide');
+  settings.elem.displayNameInput.value = settings.var.cache.displayName;
+  settings.elem.displayEmailInput.value = settings.var.cache.displayEmail;
+  settings.elem.locationInput.value = settings.var.cache.location;
+  settings.elem.profileSaveBtn.classList.add('hide');
 }
 
 /**
  * Reverts notifications to cached settings and hides the save button.
  * 
  * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`, :func:`settings.events.notificationsCancelMobile`
+ * | :func:`settings.init.attachAllListeners`, :func:`settings.event.notificationsCancelMobile`
  * }
  */
 settings.notificationsCancel = () => {
   // Revert to cached settings and hide save button
-  document.querySelector('#mail').checked = settings.cache.mailing;
-  document.querySelector('.notifications-save').classList.add('hide');
+  settings.elem.mailing.checked = settings.var.cache.mailing;
+  settings.elem.notificationsSaveBtn.classList.add('hide');
 }
 
 /**
@@ -386,7 +445,7 @@ settings.notificationsCancel = () => {
  */
 settings.badgeConfigMenuShow = () => {
   global.darkenOverlay.classList.add('desktop-show');
-  settings.badgeConfigScreen.classList.remove('hide');
+  settings.elem.badgeConfigScreen.classList.remove('hide');
   document.querySelectorAll('.section').forEach((section) => {
     section.classList.add('mobile-hide');
   })
@@ -396,11 +455,11 @@ settings.badgeConfigMenuShow = () => {
  * Closes the badge configuration menu.
  * 
  * | **Invoked by**
- * | :func:`settings.events.badgeConfigMenuCancel`, :func:`settings.events.badgeConfigMenuEscape`, :func:`settings.events.badgeConfigMenuSave`
+ * | :func:`settings.event.badgeConfigMenuCancel`, :func:`settings.event.badgeConfigMenuEscape`, :func:`settings.event.badgeConfigMenuSave`
  */
 settings.badgeConfigMenuClose = () => {
   global.darkenOverlay.classList.remove('desktop-show')
-  settings.badgeConfigScreen.classList.add('hide');
+  settings.elem.badgeConfigScreen.classList.add('hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
 
@@ -408,7 +467,7 @@ settings.badgeConfigMenuClose = () => {
  * Exits editing mode for ``selected`` and returns the user to the main Settings page if on mobile.
  * 
  * | **Invoked by**
- * | :func:`settings.events.badgeConfigMenuSave`, :func:`settings.init.attachAllListeners`, :func:`settings.events.sectionClick`, :func:`settings.events.sectionCancelMobile`
+ * | :func:`settings.event.badgeConfigMenuSave`, :func:`settings.init.attachAllListeners`, :func:`settings.event.sectionClick`, :func:`settings.event.sectionCancelMobile`
  * 
  * @param {Object} selected - A section container.
  */
@@ -431,19 +490,19 @@ settings.editModeExit = (selected) => {
 settings.profileInputsCheck = () => {
   const dict = {
     displayName: {
-      value: document.querySelector('#prof-name').value,
-      cache: settings.cache.displayName
+      value: settings.elem.displayNameInput.value,
+      cache: settings.var.cache.displayName
     },
     displayEmail: {
-      value: document.querySelector('#prof-email').value,
-      cache: settings.cache.displayEmail
+      value: settings.elem.displayEmailInput.value,
+      cache: settings.var.cache.displayEmail
     },
     location: {
-      value: document.querySelector('#prof-loc').value,
-      cache: settings.cache.location
+      value: settings.elem.locationInput.value,
+      cache: settings.var.cache.location
     }
   }
-  global.inputs.checkChange(dict, settings.backend.profileSaveBtn);
+  global.inputs.checkChange(dict, settings.elem.profileSaveBtn);
 }
 
 /**
@@ -458,39 +517,39 @@ settings.profileInputsCheck = () => {
 settings.accountInputsCheck = () => {
   const dict = {
     name: {
-      value: document.querySelector('#acc-name').value,
-      cache: settings.cache.name
+      value: settings.elem.nameInput.value,
+      cache: settings.var.cache.name
     },
     email: {
-      value: document.querySelector('#acc-email').value,
-      cache: settings.cache.email
+      value: settings.elem.emailInput.value,
+      cache: settings.var.cache.email
     },
     street: {
-      value: document.querySelector('#acc-street').value,
-      cache: settings.cache.street
+      value: settings.elem.streetInput.value,
+      cache: settings.var.cache.street
     },
     unit: {
-      value: document.querySelector('#acc-unit').value,
-      cache: settings.cache.unit
+      value: settings.elem.unitInput.value,
+      cache: settings.var.cache.unit
     },
     city: {
-      value: document.querySelector('#acc-city').value,
-      cache: settings.cache.city
+      value: settings.elem.cityInput.value,
+      cache: settings.var.cache.city
     },
     state: {
-      value: document.querySelector('#acc-state').value,
-      cache: settings.cache.state
+      value: settings.elem.stateInput.value,
+      cache: settings.var.cache.state
     },
     zip: {
-      value: document.querySelector('#acc-zip').value,
-      cache: settings.cache.zip
+      value: settings.elem.zipInput.value,
+      cache: settings.var.cache.zip
     },
     country: {
-      value: document.querySelector('#acc-country').value,
-      cache: settings.cache.country
+      value: settings.elem.countryInput.value,
+      cache: settings.var.cache.country
     }
   }
-  global.inputs.checkChange(dict, settings.backend.accountSaveBtn);
+  global.inputs.checkChange(dict, settings.elem.accountSaveBtn);
 }
 
 /**
@@ -505,11 +564,11 @@ settings.accountInputsCheck = () => {
 settings.notificationsInputsCheck = function() {
   const dict = {
     mailing: {
-      value: document.querySelector('#mail').checked,
-      cache: settings.cache.mailing
+      value: settings.elem.mailing.checked,
+      cache: settings.var.cache.mailing
     }
   }
-  global.inputs.checkChange(dict, settings.backend.notificationsSaveBtn);
+  global.inputs.checkChange(dict, settings.elem.notificationsSaveBtn);
 }
 
 /* ==========================================================
@@ -527,7 +586,7 @@ EVENTS FUNCTIONS
  * 
  * @param {Object} e - An event object.
  */
-settings.events.sectionClick = function(e) {
+settings.event.sectionClick = function(e) {
   if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
     // Save button - exit edit mode
     settings.editModeExit(this)
@@ -558,7 +617,7 @@ settings.events.sectionClick = function(e) {
  * 
  * @param {Object} e - An event object.
  */
-settings.events.profileCancelMobile = (e) => {
+settings.event.profileCancelMobile = (e) => {
   e.stopPropagation();
   // Revert to cached settings
   settings.profileCancel();
@@ -577,7 +636,7 @@ settings.events.profileCancelMobile = (e) => {
  * 
  * @param {Object} e - An event object.
  */
-settings.events.accountCancelMobile = (e) => {
+settings.event.accountCancelMobile = (e) => {
   e.stopPropagation();
   // Revert to cached settings
   settings.accountCancel();
@@ -596,7 +655,7 @@ settings.events.accountCancelMobile = (e) => {
  * 
  * @param {Object} e - An event object.
  */
-settings.events.notificationsCancelMobile = (e) => {
+settings.event.notificationsCancelMobile = (e) => {
   e.stopPropagation();
   // Revert to cached settings
   settings.notificationsCancel();
@@ -608,18 +667,18 @@ settings.events.notificationsCancelMobile = (e) => {
  * Sends badge configuration to back-end, closes badge configuration menu, and exits Profile edit mode.
  * 
  * | **Invokes**
- * | :func:`settings.backend.badgesSave`, :func:`settings.badgeConfigMenuClose`, :func:`settings.events.badgeConfigMenuSave`
+ * | :func:`settings.backend.badgesSave`, :func:`settings.badgeConfigMenuClose`, :func:`settings.event.badgeConfigMenuSave`
  * 
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.events.badgeConfigMenuSave = () => {
+settings.event.badgeConfigMenuSave = () => {
   // Send badges to back-end
   settings.backend.badgesSave();
   // Close the config menu
   settings.badgeConfigMenuClose();
   // Exit Profile edit mode
-  settings.editModeExit(document.querySelector('profile-container'))
+  settings.editModeExit(settings.elem.profileSection)
 }
 
 /**
@@ -633,8 +692,8 @@ settings.events.badgeConfigMenuSave = () => {
  * 
  * @param {Object} e - An event object.
  */
-settings.events.badgeConfigMenuEscape = (e) => {
-  if (e.key === 'Escape' && !settings.badgeConfigScreen.classList.contains('hide')) {
+settings.event.badgeConfigMenuEscape = (e) => {
+  if (e.key === 'Escape' && !settings.elem.badgeConfigScreen.classList.contains('hide')) {
     // TO DO: revert to cached badge configuration
 
     settings.badgeConfigMenuClose();
@@ -650,7 +709,7 @@ settings.events.badgeConfigMenuEscape = (e) => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.events.badgeConfigMenuCancel = () => {
+settings.event.badgeConfigMenuCancel = () => {
   // TO DO: revert to cached badge configuration
 
   settings.badgeConfigMenuClose();
@@ -662,9 +721,9 @@ settings.events.badgeConfigMenuCancel = () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.events.passVisToggle = function() {
-  const type = settings.pass.getAttribute('type') === 'password' ? 'text' : 'password';
-  settings.pass.setAttribute('type', type);
+settings.event.passVisToggle = function() {
+  const type = settings.elem.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  settings.elem.passwordInput.setAttribute('type', type);
   this.classList.toggle('visible');
 }
 
@@ -674,9 +733,9 @@ settings.events.passVisToggle = function() {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.events.confirmPassVisToggle = function() {
-  const type = settings.passConf.getAttribute('type') === 'password' ? 'text' : 'password';
-  settings.passConf.setAttribute('type', type);
+settings.event.confirmPassVisToggle = function() {
+  const type = settings.elem.passwordConfirmInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  settings.elem.passwordConfirmInput.setAttribute('type', type);
   this.classList.toggle('visible');
 }
 
@@ -686,7 +745,7 @@ settings.events.confirmPassVisToggle = function() {
  * | **Invoked by**
  * | :func:`settings.init.loadBadges`
  */
-settings.events.badgeConfigToggle = function() {
+settings.event.badgeConfigToggle = function() {
   // Deselect currently select badge (if any)
   if (document.querySelector('.badge-details-show')) {
     document.querySelector('.badge-details-show').classList.remove('badge-details-show');
@@ -740,9 +799,9 @@ settings.backend.fetch = () => {
 settings.backend.profileSave = async () => {
   // Collect input
   let userUpdate = {
-    displayName: document.querySelector("#prof-name").value,
-    displayEmail: document.querySelector("#prof-email").value,
-    location: document.querySelector("#prof-loc").value
+    displayName: settings.elem.displayNameInput.value,
+    displayEmail: settings.elem.displayEmailInput.value,
+    location: settings.elem.locationInput.value
   }
   // Validate input
   
@@ -759,8 +818,10 @@ settings.backend.profileSave = async () => {
   } else if (data.status === "error") {
     return console.log(data.content);
   }
-  // Success handler
-  settings.cacheUpdate();
+  // Update cache
+  settings.cacheUpdate('profile');
+  // Hide save button
+  settings.elem.profileSaveBtn.classList.add('hide');
   return;
 }
 
@@ -775,13 +836,13 @@ settings.backend.profileSave = async () => {
  */
 settings.backend.badgesSave = async () => {
   let data = [];
-  document.querySelector('.badge-achieved-section').querySelectorAll('.config-badge').forEach((badge) => {
+  settings.elem.badgeAchievedSection.querySelectorAll('.config-badge').forEach((badge) => {
     data.push(badge.classList[1])
   })
   console.log(data)
   // TO DO: Post badge configuration
 
-  settings.cacheUpdate();
+  settings.cacheUpdate('badges');
   // TO DO: update badge preview
 
 }
@@ -798,14 +859,14 @@ settings.backend.badgesSave = async () => {
 settings.backend.accountSave = async () => {
   // Collect input
   let userUpdate = {
-    name: document.querySelector("#acc-name").value,
+    name: settings.elem.nameInput.value,
     address: {
-      unit: document.querySelector("#acc-unit").value,
-      street: document.querySelector("#acc-street").value,
-      suburb: document.querySelector("#acc-state").value,
-      city: document.querySelector("#acc-city").value,
-      postcode: document.querySelector("#acc-zip").value,
-      country: document.querySelector("#acc-country").value
+      unit: settings.elem.unitInput.value,
+      street: settings.elem.streetInput.value,
+      suburb: settings.elem.stateInput.value,
+      city: settings.elem.cityInput.value,
+      postcode: settings.elem.zipInput.value,
+      country: settings.elem.countryInput.value
     }
   }
   // Validate input
@@ -823,8 +884,10 @@ settings.backend.accountSave = async () => {
   } else if (data.status === "error") {
     return console.log(data.content);
   }
-  // Success handler
-  settings.cacheUpdate();
+  // Update cache
+  settings.cacheUpdate('account');
+  // Hide save button
+  settings.elem.accountSaveBtn.classList.add('hide');
   return;
 }
 
@@ -840,7 +903,7 @@ settings.backend.accountSave = async () => {
 settings.backend.notificationsSave = async () => {
   // Collect input
   let notificationUpdate = {
-    newsletter: document.querySelector("#mail").checked
+    newsletter: settings.elem.mailing.checked
   }
   // Validate input
 
@@ -857,7 +920,9 @@ settings.backend.notificationsSave = async () => {
   } else if (data.status === "error") {
     return console.log(data.content);
   }
-  // Success handler
-  settings.cacheUpdate();
+  // Update cache
+  settings.cacheUpdate('notifications');
+  // Hide save button
+  settings.elem.notificationsSaveBtn.classList.add('hide');
   return;
 }
