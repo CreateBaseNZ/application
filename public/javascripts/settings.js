@@ -796,19 +796,24 @@ settings.backend.fetch = () => {
  */
 settings.backend.profileSave = async () => {
   // Collect input
-  let userUpdate = {
-    displayName: settings.elem.displayNameInput.value,
-    displayEmail: settings.elem.displayEmailInput.value,
-    location: settings.elem.locationInput.value
+  let input;
+  const file = document.querySelector("#");
+  if (file.files.length !== 0) {
+    input = await global.compressImage("", "", 400);
+  } else {
+    input = new FormData();
   }
+  input.append("displayName", settings.elem.displayNameInput.value);
+  input.append("displayEmail", settings.elem.displayEmailInput.value);
+  input.append("location", settings.elem.locationInput.value);
   // Validate input
   
   // Send update request
   let data;
   try {
-    data = (await axios.post("/settings/update", { userUpdate }))["data"];
+    data = (await axios.post("/settings/update-profile", input))["data"];
   } catch (error) {
-    data = {status: "error", content: error};
+    data = { status: "error", content: error };
   }
   // Validation
   if (data.status === "failed") {
