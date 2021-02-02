@@ -103,6 +103,10 @@ router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
   return res.send({status: "succeeded", content: ""});
 });
 
+router.post("/settings/update-profile", verifiedContent, async (req, res) => {
+  
+});
+
 /* ==========================================================
 EXPORT
 ========================================================== */
