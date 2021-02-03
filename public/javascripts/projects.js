@@ -1,3 +1,30 @@
+/* ==========================================================
+VARIABLES
+========================================================== */
+
+let projects = {
+  
+  init: {
+    init: undefined
+  }
+}
+
+/* ==========================================================
+INIT FUNCTIONS
+========================================================== */
+
+projects.init.init = async = () => {
+  // Global Initialisation
+  global.init.init();
+
+  // When initialisation is complete "unhide" the body element
+  document.querySelector("body").classList.remove("hide");
+}
+
+/* ==========================================================
+END
+========================================================== */
+
 document.getElementById('sort-filter-btn').addEventListener('click', () => {
   document.getElementById('sort-filter-btn').classList.toggle('focus')
   document.getElementById('sort-filter-btn').style.pointerEvents = 'none'
