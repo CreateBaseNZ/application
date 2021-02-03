@@ -20,6 +20,7 @@ FUNCTIONS
  * @param {Event} e 
  */
 verification.enterPress = (e) => {
+  console.log(e);
   if (e.key === "Enter") verification.confirm;
 }
 
