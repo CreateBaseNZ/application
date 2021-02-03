@@ -40,6 +40,8 @@ FUNCTIONS
 ========================================================== */
 
 inbox.initialise = async () => {
+  // Global Initialisation
+  global.init.init();
   const data = await inbox.fetch();
   // Validate incoming data
   if (data.status === "error") {
@@ -58,6 +60,8 @@ inbox.initialise = async () => {
   inbox.populate(inboxNotifications);
   inbox.populate(archiveNotifications);
   inbox.populate(binNotifications);
+  // When initialisation is complete "unhide" the body element
+  document.querySelector("body").classList.remove("hide");
 }
 
 inbox.fetch = () => {

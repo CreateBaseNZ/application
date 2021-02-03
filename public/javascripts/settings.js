@@ -95,6 +95,8 @@ INIT FUNCTIONS
  * | :func:`settings.backend.fetch`, :func:`settings.init.loadBadges`, :func:`settings.init.attachAllListeners`, :func:`settings.init.cacheInit`, :func:`settings.init.sessionStorageCheck`
  */
 settings.init.init = async () => {
+  // Global Initialisation
+  global.init.init();
   // Fetch data
   const data = await settings.backend.fetch();
   // Validate incoming data
@@ -104,17 +106,19 @@ settings.init.init = async () => {
     console.log(data.content);
   }
   // Load badges
-  settings.init.loadBadges()
+  settings.init.loadBadges();
   // Populate fields
   settings.init.populate(data.content.account, data.content.user, data.content.notification);
   // Add event listeners
-  settings.init.attachAllListeners()
+  settings.init.attachAllListeners();
   // Initialise SortableJS
-  settings.init.sortableJSInit()
+  settings.init.sortableJSInit();
   // Cache data
-  settings.init.cacheInit(data.content)
+  settings.init.cacheInit(data.content);
   // Check if coming from another page
-  settings.init.sessionStorageCheck()
+  settings.init.sessionStorageCheck();
+  // When initialisation is complete "unhide" the body element
+  document.querySelector("body").classList.remove("hide");
 }
 
 /**

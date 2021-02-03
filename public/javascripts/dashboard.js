@@ -94,6 +94,8 @@ FUNCTIONS
 ========================================================== */
 
 dashboard.initialise = async () => {
+  // Global Initialisation
+  global.init.init();
   // Fetch data
   // const data = await dashboard.fetch();
   // Validate incoming data
