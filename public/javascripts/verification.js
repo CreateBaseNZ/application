@@ -3,6 +3,7 @@ VARIABLES
 ========================================================== */
 
 let verification = {
+  enterPress: undefined,
   initialise: undefined,
   listeners: undefined,
   collect: undefined,
@@ -14,6 +15,14 @@ let verification = {
 FUNCTIONS
 ========================================================== */
 
+/**
+ * Evaluates if the enter key has been pressed, and execute a function.
+ * @param {Event} e 
+ */
+verification.enterPress = (e) => {
+  if (e.key === "Enter") verification.confirm;
+}
+
 verification.initialise = () => {
   // Add the event listeners
   verification.listeners();
@@ -22,6 +31,12 @@ verification.initialise = () => {
 verification.listeners = () => {
   document.querySelector("#resend-code").addEventListener("click", verification.resend);
   document.querySelector("#verify-btn").addEventListener("click", verification.confirm);
+  document.querySelector("#first").addEventListener("keypress", verification.enterPress);
+  document.querySelector("#second").addEventListener("keypress", verification.enterPress);
+  document.querySelector("#third").addEventListener("keypress", verification.enterPress);
+  document.querySelector("#fourth").addEventListener("keypress", verification.enterPress);
+  document.querySelector("#fifth").addEventListener("keypress", verification.enterPress);
+  document.querySelector("#sixth").addEventListener("keypress", verification.enterPress);
 }
 
 verification.resend = async () => {
@@ -76,7 +91,13 @@ verification.confirm = async () => {
   // Clear the error messages
   document.querySelector(".error-p").innerHTML = "";
   // Disable the "Confirm" button
-  document.querySelector("#verify-btn").setAttribute("disabled", "");
+  document.querySelector("#verify-btn").removeEventListener("click", verification.confirm);
+  document.querySelector("#first").removeEventListener("keypress", verification.enterPress);
+  document.querySelector("#second").removeEventListener("keypress", verification.enterPress);
+  document.querySelector("#third").removeEventListener("keypress", verification.enterPress);
+  document.querySelector("#fourth").removeEventListener("keypress", verification.enterPress);
+  document.querySelector("#fifth").removeEventListener("keypress", verification.enterPress);
+  document.querySelector("#sixth").removeEventListener("keypress", verification.enterPress);
   // Collect code input
   const code = verification.collect();
   // Validate code input
@@ -91,14 +112,26 @@ verification.confirm = async () => {
   // Validate the response from the request
   if (data.status === "failed") {
     // Enable "Resend Code" button
-    document.querySelector("#verify-btn").removeAttribute("disabled");
+    document.querySelector("#verify-btn").addEventListener("click", verification.confirm);
+    document.querySelector("#first").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#second").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#third").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#fourth").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#fifth").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#sixth").addEventListener("keypress", verification.enterPress);
     // Display the failure message
     document.querySelector(".error-p").innerHTML = data.content;
     // Abort
     return;
   } else if (data.status === "error") {
     // Enable "Resend Code" button
-    document.querySelector("#verify-btn").removeAttribute("disabled");
+    document.querySelector("#verify-btn").addEventListener("click", verification.confirm);
+    document.querySelector("#first").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#second").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#third").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#fourth").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#fifth").addEventListener("keypress", verification.enterPress);
+    document.querySelector("#sixth").addEventListener("keypress", verification.enterPress);
     // TEMPORARY: Display the error on the console
     console.log(data.content);
     // Abort
