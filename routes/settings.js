@@ -9,6 +9,7 @@ VARIABLES
 ========================================================== */
 
 const router = new express.Router();
+const upload = require("../configs/upload.js");
 
 /* ==========================================================
 MODELS
@@ -103,7 +104,7 @@ router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
   return res.send({status: "succeeded", content: ""});
 });
 
-router.post("/settings/update-profile", verifiedContent, async (req, res) => {
+router.post("/settings/update-profile", upload.single(""), verifiedContent, async (req, res) => {
   
 });
 

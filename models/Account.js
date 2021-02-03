@@ -138,7 +138,7 @@ AccountSchema.statics.reform = function (object = {}, save = true) {
       return reject({status: "error", content: error});
     }
     // Validate if account is found
-    if (!account) return reject({status: "failed", content: "No account found"});
+    if (!account) return reject({status: "error", content: "There is no account found with the provided id"});
     // Update account
     for (const property in object.update) {
       account[property] = object.update[property];
@@ -254,9 +254,9 @@ AccountSchema.statics.validateType = function (type = "") {
     // Define the account types
     const types = ["admin", "user"];
     // Check for type input
-    if (!type) return reject({ status: "failed", content: "type is required" });
+    if (!type) return reject({ status: "failed", content: "Please provide the type of the account" });
     // Check if input is valid
-    if ((types.indexOf(type)) == -1) return reject({ status: "failed", content: "invalid type" });
+    if ((types.indexOf(type)) == -1) return reject({ status: "failed", content: "This type is not valid" });
     // Success handler
     return resolve();
   });
@@ -268,8 +268,8 @@ AccountSchema.statics.validateType = function (type = "") {
 AccountSchema.statics.validateEmail = function (email = "", exist = true) {
   return new Promise(async (resolve, reject) => {
     let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!email) return reject({ status: "failed", content: "email is required" });
-    if (!regex.test(String(email).toLowerCase())) return reject({ status: "failed", content: "invalid email" });
+    if (!email) return reject({ status: "failed", content: "Please enter your email address" });
+    if (!regex.test(String(email).toLowerCase())) return reject({ status: "failed", content: "Please enter your email address in format: yourname@example.com" });
     let account;
     try {
       account = await this.findOne({ email });
@@ -278,10 +278,10 @@ AccountSchema.statics.validateEmail = function (email = "", exist = true) {
     }
     if (exist) {
       // Check if email doesn't exist
-      if (!account) return reject({ status: "failed", content: "email is not registered" });
+      if (!account) return reject({ status: "failed", content: "This email address is not registered" });
     } else {
       // Check if email is already in use
-      if (account) return reject({ status: "failed", content: "email is already registered" });
+      if (account) return reject({ status: "failed", content: "This email address is already registered" });
     }
     // Success handler
     return resolve(account);
@@ -294,7 +294,7 @@ AccountSchema.statics.validateEmail = function (email = "", exist = true) {
 AccountSchema.statics.validatePassword = function (password = "") {
   return new Promise(async (resolve, reject) => {
     // CHECK FOR PASSWORD INPUT
-    if (!password) return reject({ status: "failed", content: "password is required" });
+    if (!password) return reject({ status: "failed", content: "Please enter your password" });
     // CHECK IF PASSWORD HAS VALID STRENGTH
     // calculate score
     let score = 0;
@@ -316,7 +316,7 @@ AccountSchema.statics.validatePassword = function (password = "") {
       variationCount += (variations[check] == true) ? 1 : 0;
     }
     score += (variationCount - 1) * 10;
-    if (score <= 40) return reject({ status: "failed", content: "password is too weak" });
+    if (score <= 40) return reject({ status: "failed", content: "This password is too weak" });
     // SUCCESS HANDLER
     return resolve();
   });
@@ -539,8 +539,8 @@ AccountSchema.statics.changePassword = function (object = {}, save = true) {
     }
     // Validate code
     const match = account.changePassword.code === object.code;
-    if (!match) return reject({ status: "failed", content: "Incorrect code" });
-    if (!account.changePassword.status) return reject({ status: "failed", content: "Code expired" });
+    if (!match) return reject({ status: "failed", content: "This code is incorrect" });
+    if (!account.changePassword.status) return reject({ status: "failed", content: "This code has expried. Please send a new change password request" });
     // UPDATE
     account.password = object.password;
     account.changePassword.status = false;
@@ -773,9 +773,9 @@ AccountSchema.statics.verify = function (object = {}, save = true) {
       return reject(data);
     }
     // Validate code
-    if (account.verification.status) return reject({ status: "failed", content: "Account is already verified" });
+    if (account.verification.status) return reject({ status: "failed", content: "This account is already verified" });
     const match = account.verification.code === object.code;
-    if (!match) return reject({ status: "failed", content: "Incorrect code" });
+    if (!match) return reject({ status: "failed", content: "This code is incorrect" });
     // UPDATE
     account.verification.status = true;
     // Save

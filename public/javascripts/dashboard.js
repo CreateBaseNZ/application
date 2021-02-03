@@ -108,6 +108,8 @@ dashboard.initialise = async () => {
   dashboard.loadProjects()
   // Populate fields
   // document.querySelector("#h1-name").innerHTML = data.content.user.displayName ? data.content.user.displayName : "";
+  // When initialisation is complete "unhide" the body element
+  document.querySelector("body").classList.remove("hide");
 }
 
 dashboard.loadBadges = () => {
