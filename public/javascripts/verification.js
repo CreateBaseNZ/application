@@ -90,7 +90,8 @@ verification.collect = () => {
 
 verification.confirm = async () => {
   // Clear the error messages
-  document.querySelector(".error-p").innerHTML = "";
+    document.querySelector("#otp").classList.remove("shake");
+    document.querySelector(".error-p").innerHTML = "";
   // Disable the "Confirm" button
   document.querySelector("#verify-btn").removeEventListener("click", verification.confirm);
   document.querySelector("#first").removeEventListener("keypress", verification.enterPress);
@@ -121,6 +122,7 @@ verification.confirm = async () => {
     document.querySelector("#fifth").addEventListener("keypress", verification.enterPress);
     document.querySelector("#sixth").addEventListener("keypress", verification.enterPress);
     // Display the failure message
+    document.querySelector("#otp").classList.add("shake");
     document.querySelector(".error-p").innerHTML = data.content;
     // Abort
     return;
