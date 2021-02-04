@@ -23,10 +23,6 @@ Setup
 
     > pip install sphinx-js
 
-4. Install sphinxemoji::
-
-    > pip install sphinxemoji
-
 To compile, navigate to the ``docs`` directory and run::
 
     > make html
