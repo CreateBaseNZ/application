@@ -14,6 +14,8 @@ Welcome to the CreateBase App documentation!
     global/index.rst
     settings/index.rst
 
+.. _javascript-docstring-guide:
+
 JavaScript Docstring Guide
 --------------------------
 
