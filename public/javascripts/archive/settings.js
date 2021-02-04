@@ -277,7 +277,7 @@ settings.init.attachAllListeners = () => {
 settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
   settings.elem.displayNameInput.value = user.displayName ? user.displayName : "";
-  settings.elem.displayEmailInput.value = user.displayEmail ? user.displayName : "";
+  settings.elem.displayEmailInput.value = user.displayEmail ? user.displayEmail : "";
   settings.elem.locationInput.value = user.location ? user.location : "";
   // Account
   settings.elem.nameInput.value = user.name;
@@ -481,7 +481,7 @@ settings.editModeExit = (selected) => {
  * Checks for changes in profile settings.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`
+ * | :func:`global.input.checkChange`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -501,14 +501,14 @@ settings.profileInputsCheck = () => {
       cache: settings.var.cache.location
     }
   }
-  global.inputs.checkChange(dict, settings.elem.profileSaveBtn);
+  global.input.checkChange(dict, settings.elem.profileSaveBtn);
 }
 
 /**
  * Checks for changes in account settings.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`
+ * | :func:`global.input.checkChange`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -548,14 +548,14 @@ settings.accountInputsCheck = () => {
       cache: settings.var.cache.country
     }
   }
-  global.inputs.checkChange(dict, settings.elem.accountSaveBtn);
+  global.input.checkChange(dict, settings.elem.accountSaveBtn);
 }
 
 /**
  * Checks for changes in notifications settings.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`
+ * | :func:`global.input.checkChange`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -567,7 +567,7 @@ settings.notificationsInputsCheck = function() {
       cache: settings.var.cache.mailing
     }
   }
-  global.inputs.checkChange(dict, settings.elem.notificationsSaveBtn);
+  global.input.checkChange(dict, settings.elem.notificationsSaveBtn);
 }
 
 // ==========================================================

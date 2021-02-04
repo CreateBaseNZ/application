@@ -339,13 +339,54 @@ h4 {
   .edit-btn, h4 {
     color: $green;
   }
-  .avatar {
+  .avatar-form {
     order: -1;
     width: 35vw;
     height: 35vw;
-    border-radius: 0.75rem;
-    object-fit: cover;
     margin: 0.5rem 0;
+    border-radius: 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    .avatar-edit {
+      z-index: 1;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: inherit;
+      opacity: 0;
+      cursor: pointer;
+      color: $lightest;
+      transition: opacity 0.2s ease-out;
+      input {
+        display: none;
+      }
+      &:hover {
+        opacity: 1;
+        & ~ .avatar-preview {
+          filter: brightness(0.75);
+        }
+      }
+    }
+    .avatar-preview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      transition: opacity 0.8s ease-out, filter 0.2s ease-out;
+      &.fade {
+        opacity: 0;
+        transition: none;
+      }
+    }
   }
   .badges-container {
     order: -1;
@@ -1104,7 +1145,7 @@ h3 {
   .panel-left > i {
     background: transparent;
   }
-  .avatar {
+  .avatar-form {
     order: 0;
     margin: 0;
     height: calc(#{$field-height} * 1.75);
@@ -1137,7 +1178,7 @@ h3 {
   }
   &.edit-mode {
     box-shadow: 0 2em 4em -4em $green;
-    .avatar {
+    .avatar-form {
       height: calc(#{$field-height} * 1.5 * 1.75);
       width: calc(#{$field-height} * 1.5 * 1.75);
     }

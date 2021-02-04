@@ -18,6 +18,7 @@ let settings = {
 
   event: {
     accountCancelMobile: undefined,
+    avatarPreview: undefined,
     badgeConfigMenuCancel: undefined,
     badgeConfigMenuEscape: undefined,
     badgeConfigMenuSave: undefined,
@@ -57,6 +58,7 @@ let settings = {
   },
   
   elem: {
+    avatarPreview: document.querySelector('.avatar-preview'),
     badgeConfigScreen: document.querySelector('.badge-edit-screen'),
     badgePreviewContainer: document.querySelector('.badges-container'),
     accountSaveBtn: document.querySelector('.account-save'),
@@ -92,7 +94,7 @@ let settings = {
  * Gets called on DOM load and initialises the Settings page. User data is fetched from backend to populate the page with relevant markup. Event listeners are attached and user data is cached. Session storage is checked for any references from the previous page.
  * 
  * | **Invokes**
- * | :func:`settings.backend.fetch`, :func:`settings.init.loadBadges`, :func:`settings.init.populate`, :func:`settings.init.attachAllListeners`, :func:`settings.init.sortableJSInit`, :func:`settings.init.cacheInit`, :func:`settings.init.sessionStorageCheck`
+ * | :func:`settings.backend.fetch` :func:`settings.init.loadBadges` :func:`settings.init.populate` :func:`settings.init.attachAllListeners` :func:`settings.init.sortableJSInit` :func:`settings.init.cacheInit` :func:`settings.init.sessionStorageCheck`
  */
 settings.init.init = async () => {
   // Global Initialisation
@@ -206,12 +208,14 @@ settings.init.sortableJSInit = () => {
  * Attaches event listeners to all DOM objects.
  * 
  * | **Invokes**
- * | :func:`settings.badgeConfigMenuShow`, :func:`settings.event.passVisToggle`, :func:`settings.event.confirmPassVisToggle`, :func:`settings.profileInputsCheck`, :func:`settings.accountInputsCheck`, :func:`settings.notificationsInputsCheck`, :func:`settings.backend.profileSave`, :func:`settings.profileCancel`, :func:`settings.event.profileCancelMobile`, :func:`settings.backend.accountSave`, :func:`settings.accountCancel`, :func:`settings.event.accountCancelMobile`, :func:`settings.backend.notificationsSave`, :func:`settings.notificationsCancel`, :func:`settings.event.notificationsCancelMobile`, :func:`settings.event.badgeConfigMenuSave`, :func:`settings.event.badgeConfigMenuCancel`, :func:`settings.event.badgeConfigMenuEscape`, :func:`settings.event.sectionClick`, :func:`settings.event.sectionCancelMobile`
+ * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigMenuShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.event.profileCancelMobile` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.event.accountCancelMobile` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.notificationsCancelMobile` :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuCancel` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.sectionClick` :func:`settings.event.sectionCancelMobile`
  *
  * | **Invoked by**
  * | :func:`settings.init.init`
  */
 settings.init.attachAllListeners = () => {
+  // Previews new avatar
+  document.querySelector('#avatar-input').addEventListener('change', settings.event.avatarPreview)
   // Show badge config screen
   settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigMenuShow)
   // Toggle password visibility
@@ -277,7 +281,7 @@ settings.init.attachAllListeners = () => {
 settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
   settings.elem.displayNameInput.value = user.displayName ? user.displayName : "";
-  settings.elem.displayEmailInput.value = user.displayEmail ? user.displayName : "";
+  settings.elem.displayEmailInput.value = user.displayEmail ? user.displayEmail : "";
   settings.elem.locationInput.value = user.location ? user.location : "";
   // Account
   settings.elem.nameInput.value = user.name;
@@ -481,7 +485,7 @@ settings.editModeExit = (selected) => {
  * Checks for changes in profile settings.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`
+ * | :func:`global.input.checkChange`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -501,14 +505,14 @@ settings.profileInputsCheck = () => {
       cache: settings.var.cache.location
     }
   }
-  global.inputs.checkChange(dict, settings.elem.profileSaveBtn);
+  global.input.checkChange(dict, settings.elem.profileSaveBtn);
 }
 
 /**
  * Checks for changes in account settings.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`
+ * | :func:`global.input.checkChange`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -548,14 +552,14 @@ settings.accountInputsCheck = () => {
       cache: settings.var.cache.country
     }
   }
-  global.inputs.checkChange(dict, settings.elem.accountSaveBtn);
+  global.input.checkChange(dict, settings.elem.accountSaveBtn);
 }
 
 /**
  * Checks for changes in notifications settings.
  * 
  * | **Invokes**
- * | :func:`global.inputs.checkChange`
+ * | :func:`global.input.checkChange`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -567,7 +571,7 @@ settings.notificationsInputsCheck = function() {
       cache: settings.var.cache.mailing
     }
   }
-  global.inputs.checkChange(dict, settings.elem.notificationsSaveBtn);
+  global.input.checkChange(dict, settings.elem.notificationsSaveBtn);
 }
 
 // ==========================================================
@@ -628,7 +632,7 @@ settings.event.profileCancelMobile = (e) => {
  * Cancel button on mobile to go back to main Settings page.
  * 
  * | **Invokes**
- * | :func:`settings.accountCancel`, :func:`settings.editModeExit`
+ * | :func:`settings.accountCancel` :func:`settings.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -647,7 +651,7 @@ settings.event.accountCancelMobile = (e) => {
  * Cancel button on mobile to go back to main Settings page.
  * 
  * | **Invokes**
- * | :func:`settings.notificationsCancel`, :func:`settings.editModeExit`
+ * | :func:`settings.notificationsCancel` :func:`settings.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -666,7 +670,7 @@ settings.event.notificationsCancelMobile = (e) => {
  * Sends badge configuration to back-end, closes badge configuration menu, and exits Profile edit mode.
  * 
  * | **Invokes**
- * | :func:`settings.backend.badgesSave`, :func:`settings.badgeConfigMenuClose`, :func:`settings.event.editModeExit`
+ * | :func:`settings.backend.badgesSave` :func:`settings.badgeConfigMenuClose` :func:`settings.event.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -757,6 +761,21 @@ settings.event.badgeConfigToggle = function() {
   }
 }
 
+/**
+ * Previews the uploaded avatar image. The original image is hidden until the new image is loaded, at which point it will fade in.
+ */
+settings.event.avatarPreview = function() {
+  if (this.files && this.files[0]) {
+    settings.elem.avatarPreview.classList.add('fade')
+    var reader = new FileReader();
+    reader.onload = (e) => {
+      settings.elem.avatarPreview.style.backgroundImage = "url('" + e.target.result + "')";
+      settings.elem.avatarPreview.classList.remove('fade')
+    }
+    reader.readAsDataURL(this.files[0]);
+  }
+}
+
 
 // ==========================================================
 // BACKEND REQUEST
@@ -790,7 +809,7 @@ settings.backend.fetch = () => {
  * Posts Profile section changes to the database; these include the display name, display email, and display location. If successful, the local cache is updated.
  * 
  * | **Invokes**
- * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -833,7 +852,7 @@ settings.backend.profileSave = async () => {
  * Posts badge configuration to the database. If successful, the local cache and preview badges are updated.
  * 
  * | **Invokes**
- * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate`
  *
  * | **Invoked by**
  * | :func:`settings.event.badgeConfigMenuSave`
@@ -855,7 +874,7 @@ settings.backend.badgesSave = async () => {
  * Posts Account section changes to the database; these include the account name and location. If successful, the local cache is updated.
  * 
  * | **Invokes**
- * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -899,7 +918,7 @@ settings.backend.accountSave = async () => {
  * Posts mailing list changes to the database. If successful, the local cache is updated.
  * 
  * | **Invokes**
- * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`

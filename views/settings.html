@@ -116,7 +116,13 @@
             <button class="cancel-back back-to-main-sections"><i class="material-icons-round">arrow_back_ios</i> Cancel</button>
             <h4>Profile</h4>
           </div>
-          <img src="/public/images/dp-example.jpg" class="avatar" alt="Avatar">
+          <form action="" class="avatar-form">
+            <label for="avatar-input" class="avatar-edit">
+              <i class="material-icons-round">add_photo_alternate</i>
+              <input type="file" id="avatar-input" accept=".png, .jpg, .jpeg">
+            </label>
+            <div class="avatar-preview"></div>
+          </form>
           <div class="input-container">
             <h3>Display Name</h3>
             <input type="text" id="prof-name" placeholder="Display Name">
