@@ -157,8 +157,6 @@ global.init.navInit = () => {
 /**
  * Creates a project card.
  * 
- * | **Invoked by**
- * | TO DO
  * 
  * @param {Object} parentContainer  Project card container.
  * @param {Object} size             Card size, can be ``small`` or ``large``.
@@ -259,8 +257,6 @@ global.createProjectCard = (parentContainer, size, project) => {
 /**
  * Listens for ``Enter`` keypress on ``input`` and executes ``func``.
  * 
- * | **Invoked by**
- * | TO DO
  * 
  * @param {Object} input  Input element.
  * @param {Object} func   Function that is executed on ``Enter`` keypress.
@@ -351,8 +347,6 @@ global.init.unreadStatus = async () => {
 /**
  * Compares a group of input values with cached values. If any values within a group do not match with the corresponding cached value, the ``hide`` class is added to ``btn``. Otherwise, if no matches, the ``hide`` class is removed from ``btn``.
  * 
- * | **Invoked by**
- * | TO DO
  */
 global.input.checkChange = (dict, btn) => {
   for (var key in dict) {

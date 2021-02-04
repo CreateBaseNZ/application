@@ -126,6 +126,9 @@ settings.init.init = async () => {
  * 
  * | **Invokes**
  * | :func:`settings.event.badgeConfigToggle`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  */
 settings.init.loadBadges = () => {
 
@@ -180,6 +183,9 @@ settings.init.loadBadges = () => {
 
 /**
  * Initialises the SortableJS for drag and drop functionality on the badge configuration menu.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  */
 settings.init.sortableJSInit = () => {
   // Drag and drop menu using SortableJS library
@@ -201,6 +207,9 @@ settings.init.sortableJSInit = () => {
  * 
  * | **Invokes**
  * | :func:`settings.badgeConfigMenuShow`, :func:`settings.event.passVisToggle`, :func:`settings.event.confirmPassVisToggle`, :func:`settings.profileInputsCheck`, :func:`settings.accountInputsCheck`, :func:`settings.notificationsInputsCheck`, :func:`settings.backend.profileSave`, :func:`settings.profileCancel`, :func:`settings.event.profileCancelMobile`, :func:`settings.backend.accountSave`, :func:`settings.accountCancel`, :func:`settings.event.accountCancelMobile`, :func:`settings.backend.notificationsSave`, :func:`settings.notificationsCancel`, :func:`settings.event.notificationsCancelMobile`, :func:`settings.event.badgeConfigMenuSave`, :func:`settings.event.badgeConfigMenuCancel`, :func:`settings.event.badgeConfigMenuEscape`, :func:`settings.event.sectionClick`, :func:`settings.event.sectionCancelMobile`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  */
 settings.init.attachAllListeners = () => {
   // Show badge config screen
@@ -257,6 +266,9 @@ settings.init.attachAllListeners = () => {
 
 /**
  * Populates input fields with user settings.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  * 
  * @param {Object} account       User account settings.
  * @param {Object} user          User profile settings.
@@ -282,6 +294,9 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
 
 /**
  * Initialises the cache with user data.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  */
 settings.init.cacheInit = (data) => {
   settings.var.cache = {
@@ -305,6 +320,9 @@ settings.init.cacheInit = (data) => {
  * 
  * | **Invokes**
  * | :func:`settings.badgeConfigMenuShow`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  */
 settings.init.sessionStorageCheck = () => {
   // Check if coming from Dashboard
@@ -327,6 +345,9 @@ settings.init.sessionStorageCheck = () => {
 
 /**
  * Updates the cache with current inputs.
+ *
+ * | **Invoked by**
+ * | :func:`settings.backend.profileSave` :func:`settings.backend.badgesSave` :func:`settings.backend.accountSave` :func:`settings.backend.notificationsSave`
  */
 settings.cacheUpdate = (section) => {
   if (section === 'profile') {
@@ -364,6 +385,9 @@ settings.cacheUpdate = (section) => {
 
 /**
  * Reverts account to cached settings and hides the save button.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners` :func:`settings.event.accountCancelMobile`
  */
 settings.accountCancel = () => {
   // Revert to cached settings and hide save button
@@ -388,6 +412,9 @@ settings.badgesCancel = () => {
 
 /**
  * Reverts profile to cached settings and hides the save button.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.profileCancel = () => {
   // Revert to cached settings and hide save button
@@ -399,6 +426,9 @@ settings.profileCancel = () => {
 
 /**
  * Reverts notifications to cached settings and hides the save button.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners` :func:`settings.event.notificationsCancelMobile`
  */
 settings.notificationsCancel = () => {
   // Revert to cached settings and hide save button
@@ -408,6 +438,9 @@ settings.notificationsCancel = () => {
 
 /**
  * Shows the configure badge menu when the preview badge container is clicked.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners` :func:`settings.init.sessionStorageCheck`
  */
 settings.badgeConfigMenuShow = () => {
   global.elem.darkenOverlay.classList.add('desktop-show');
@@ -419,6 +452,9 @@ settings.badgeConfigMenuShow = () => {
 
 /**
  * Closes the badge configuration menu.
+ *
+ * | **Invoked by**
+ * | :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.badgeConfigMenuCancel`
  */
 settings.badgeConfigMenuClose = () => {
   global.elem.darkenOverlay.classList.remove('desktop-show')
@@ -428,6 +464,9 @@ settings.badgeConfigMenuClose = () => {
 
 /**
  * Exits editing mode for ``selected`` and returns the user to the main Settings page if on mobile.
+ *
+ * | **Invoked by**
+ * | :func:`settings.event.sectionClick` :func:`settings.event.profileCancelMobile` :func:`settings.event.accountCancelMobile` :func:`settings.event.notificationsCancelMobile`
  * 
  * @param {Object} selected A section container.
  */
@@ -443,6 +482,9 @@ settings.editModeExit = (selected) => {
  * 
  * | **Invokes**
  * | :func:`global.inputs.checkChange`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.profileInputsCheck = () => {
   const dict = {
@@ -467,6 +509,9 @@ settings.profileInputsCheck = () => {
  * 
  * | **Invokes**
  * | :func:`global.inputs.checkChange`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.accountInputsCheck = () => {
   const dict = {
@@ -511,6 +556,9 @@ settings.accountInputsCheck = () => {
  * 
  * | **Invokes**
  * | :func:`global.inputs.checkChange`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.notificationsInputsCheck = function() {
   const dict = {
@@ -531,6 +579,9 @@ settings.notificationsInputsCheck = function() {
  * 
  * | **Invokes**
  * | :func:`settings.editModeExit`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
@@ -559,6 +610,9 @@ settings.event.sectionClick = function(e) {
  * 
  * | **Invokes**
  * | :func:`settings.editModeExit`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
@@ -575,6 +629,9 @@ settings.event.profileCancelMobile = (e) => {
  * 
  * | **Invokes**
  * | :func:`settings.accountCancel`, :func:`settings.editModeExit`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
@@ -591,6 +648,9 @@ settings.event.accountCancelMobile = (e) => {
  * 
  * | **Invokes**
  * | :func:`settings.notificationsCancel`, :func:`settings.editModeExit`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
@@ -607,6 +667,9 @@ settings.event.notificationsCancelMobile = (e) => {
  * 
  * | **Invokes**
  * | :func:`settings.backend.badgesSave`, :func:`settings.badgeConfigMenuClose`, :func:`settings.event.editModeExit`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.event.badgeConfigMenuSave = () => {
   // Send badges to back-end
@@ -622,6 +685,9 @@ settings.event.badgeConfigMenuSave = () => {
  * 
  * | **Invokes**
  * | :func:`settings.badgeConfigMenuClose`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
@@ -638,6 +704,9 @@ settings.event.badgeConfigMenuEscape = (e) => {
  * 
  * | **Invokes**
  * | :func:`settings.badgeConfigMenuClose`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.event.badgeConfigMenuCancel = () => {
   // TO DO: revert to cached badge configuration
@@ -647,6 +716,9 @@ settings.event.badgeConfigMenuCancel = () => {
 
 /**
  * Toggles password visibility.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.event.passVisToggle = function() {
   const type = settings.elem.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -656,6 +728,9 @@ settings.event.passVisToggle = function() {
 
 /**
  * Toggles confirm password visibility.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.event.confirmPassVisToggle = function() {
   const type = settings.elem.passwordConfirmInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -665,6 +740,9 @@ settings.event.confirmPassVisToggle = function() {
 
 /**
  * Focuses the configuration badge being selected and shows the respective badge details. Also unfocus the previously selected badge (if any).
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.loadBadges`
  */
 settings.event.badgeConfigToggle = function() {
   // Deselect currently select badge (if any)
@@ -689,6 +767,9 @@ settings.event.badgeConfigToggle = function() {
  * 
  * | **Invokes**
  * | :func:`axios.post`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
  * 
  * @return {Object} Promise - User data.
  */
@@ -710,6 +791,9 @@ settings.backend.fetch = () => {
  * 
  * | **Invokes**
  * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.backend.profileSave = async () => {
   // Collect input
@@ -750,6 +834,9 @@ settings.backend.profileSave = async () => {
  * 
  * | **Invokes**
  * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ *
+ * | **Invoked by**
+ * | :func:`settings.event.badgeConfigMenuSave`
  */
 settings.backend.badgesSave = async () => {
   let data = [];
@@ -769,6 +856,9 @@ settings.backend.badgesSave = async () => {
  * 
  * | **Invokes**
  * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.backend.accountSave = async () => {
   // Collect input
@@ -810,6 +900,9 @@ settings.backend.accountSave = async () => {
  * 
  * | **Invokes**
  * | :func:`axios.post`, :func:`settings.cacheUpdate`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
  */
 settings.backend.notificationsSave = async () => {
   // Collect input

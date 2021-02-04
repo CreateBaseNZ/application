@@ -9,6 +9,7 @@ Welcome to CreateBase Web Dev's documentation!
 .. toctree::
     :caption: Pages
     :maxdepth: 1
+    :numbered: 2
 
     global/index.rst
     settings/index.rst
