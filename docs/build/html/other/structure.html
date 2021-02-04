@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3.1. Code Structure &mdash; CreateBase App 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2. Code Review" href="code-review.html" />
+    <link rel="prev" title="3. Other" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CreateBase App
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Pages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../global/index.html">1. Global</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../settings/index.html">2. Settings</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">3. Other</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. Code Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nesting-objects">Nesting Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#declaration">Declaration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#event-handler-functions">Event Handler Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="code-review.html">3.2. Code Review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">3.3. Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#javascript-docstring-guide">3.4. JavaScript Docstring Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#useful-links">3.5. Useful Links</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CreateBase App</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">3. </span>Other</a> &raquo;</li>
+        
+      <li><span class="section-number">3.1. </span>Code Structure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/other/structure.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="code-structure">
+<h1><span class="section-number">3.1. </span>Code Structure<a class="headerlink" href="#code-structure" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="nesting-objects">
+<h2>Nesting Objects<a class="headerlink" href="#nesting-objects" title="Permalink to this headline">¶</a></h2>
+<p>Reasons for using nested objects include:</p>
+<ul class="simple">
+<li><p>Understandability</p></li>
+<li><p>Better structure</p></li>
+<li><p>Organised documentation</p></li>
+</ul>
+</div>
+<div class="section" id="declaration">
+<h2>Declaration<a class="headerlink" href="#declaration" title="Permalink to this headline">¶</a></h2>
+<p>Every JavaScript file should be initialised as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">main</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">backend</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+
+  <span class="n">init</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">attachAllListeners</span><span class="p">:</span> <span class="n">undefined</span><span class="p">,</span>
+    <span class="n">init</span><span class="p">:</span> <span class="n">undefined</span><span class="p">,</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+
+  <span class="n">elem</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+
+  <span class="n">event</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+
+  <span class="n">var</span><span class="p">:</span> <span class="p">{</span>
+    <span class="o">...</span>
+  <span class="p">},</span>
+
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Some notes:</p>
+<ul class="simple">
+<li><p>Unused constructors should not be declared</p></li>
+<li><p>Additional constructors can be used for tidier code (e.g. <code class="docutils literal notranslate"><span class="pre">global.nav</span></code> in <code class="docutils literal notranslate"><span class="pre">global</span></code>)</p></li>
+<li><p>Functions that belong to the main constructor should be declared below constructor declarations</p></li>
+<li><p>All declarations should be in alphabetical order, with the point above being the only exception</p></li>
+</ul>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Constructor</p></th>
+<th class="head"><p>Rule</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_.backend</span></code></p></td>
+<td><p>All functions that handle backend operations
+(e.g. <code class="docutils literal notranslate"><span class="pre">axios.post</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_.init</span></code></p></td>
+<td><p>All functions that are invoked in
+<code class="docutils literal notranslate"><span class="pre">_.init.init()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_.elem</span></code></p></td>
+<td><p>All queried elements that are invoked more
+than once.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">_.event</span></code></p></td>
+<td><p>All functions that are passed to event
+listeners. These functions should only ever
+be invoked once and passed as a handle, or
+otherwise belong in another constructor or
+outside the <code class="docutils literal notranslate"><span class="pre">_.event</span></code> constructor.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">_.var</span></code></p></td>
+<td><p>Variables or constants that are used
+throughout the file.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="event-handler-functions">
+<h2>Event Handler Functions<a class="headerlink" href="#event-handler-functions" title="Permalink to this headline">¶</a></h2>
+<p>Every event listener is passed exactly one event handler function. This function <em>should</em> belong to <code class="docutils literal notranslate"><span class="pre">_.event</span></code>, but this decision is ultimately at your discretion. Here are some pointers you may want to consider when deciding:</p>
+<ul class="simple">
+<li><p>If the function invokes another function while only adding a few extra lines of code, <strong>do</strong> put it in the constructor</p></li>
+<li><p>If the function is specific to the functionality of one event listener, <strong>do</strong> put it in the constructor</p></li>
+<li><p>If the function is invoked more than once, do <strong>not</strong> put it in the constructor</p></li>
+<li><p>If the function contributes more to a different functionality (e.g. backend), put it in <strong>another constructor</strong> (e.g. <code class="docutils literal notranslate"><span class="pre">_.backend</span></code>)</p></li>
+</ul>
+<p>To use <code class="docutils literal notranslate"><span class="pre">this</span></code>, the function must be declared using <code class="docutils literal notranslate"><span class="pre">function()</span></code> and not with the arrow function <code class="docutils literal notranslate"><span class="pre">=&gt;</span></code>.</p>
+<p>To use the event object/<code class="docutils literal notranslate"><span class="pre">e</span></code>/<code class="docutils literal notranslate"><span class="pre">evt</span></code>, simply pass it as a parameter in the function declaration. Both <code class="docutils literal notranslate"><span class="pre">function(e)</span></code> and <code class="docutils literal notranslate"><span class="pre">(e)</span> <span class="pre">=&gt;</span></code> will work.</p>
+<p>Sometimes we may want to invoke a function whilst passing it a parameter. However, as only function handles are passed to event listeners, parameters must be passed through other means. Below is an example of the correct and incorrect method of doing so:</p>
+<p>❌ Incorrect:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">main</span><span class="o">.</span><span class="n">generalFunction</span><span class="p">(</span><span class="s1">&#39;a button&#39;</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>✔️ Correct:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">main</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">buttonClick</span><span class="p">)</span>
+
+<span class="n">main</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">buttonClick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">main</span><span class="o">.</span><span class="n">generalFunction</span><span class="p">(</span><span class="s1">&#39;a button&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This comes at the cost of longer files and more code, however, the upsides include:</p>
+<ul class="simple">
+<li><p>Ability to easily add and remove event listeners</p></li>
+<li><p>Easier to track invokations</p></li>
+<li><p>Easier to document</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="code-review.html" class="btn btn-neutral float-right" title="3.2. Code Review" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="3. Other" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lin, Velasco, Young.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

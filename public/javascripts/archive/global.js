@@ -46,6 +46,14 @@ let global = {
       dragFriction: 0.12,
       random: Math.random
     }
+  },
+
+  validate: {
+    email: undefined
+  },
+
+  test: {
+    sendEmail: undefined
   }
 }
 
@@ -359,3 +367,68 @@ global.input.checkChange = (dict, btn) => {
     btn.classList.add('hide');
   }
 }
+
+/* ----------------------------------------------------------
+VALIDATE
+---------------------------------------------------------- */
+
+/**
+ * Validates an email string.
+ * @param {String} email 
+ */
+global.validate.email = (email = "") => {
+  // Declare variables
+  let valid = true;
+  let message = "";
+  let emailRE = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // Validation
+  if (!email) {
+    valid = false;
+    message = "Empty input";
+  } else if (!emailRE.test(String(email).toLowerCase())) {
+    valid = false;
+    message = "Invalid input";
+  }
+  // Success handler
+  return { valid, message };
+}
+
+/* ----------------------------------------------------------
+TEST
+---------------------------------------------------------- */
+
+/**
+ * Sends an email.
+ */
+global.test.sendEmail = async (object = {}) => {
+  // Declare variables
+  let validation = {
+    subject: { valid: true, message: "" },
+    text: { valid: true, message: "" },
+    html: { valid: true, message: "" },
+    css: { valid: true, message: "" },
+    email: { valid: true, message: "" }
+  }
+  // Validate inputs
+  if (!object.subject) validation.subject = { valid: false, message: "Empty input" };
+  if (!object.text) validation.text = { valid: false, message: "Empty input" };
+  if (!object.html) validation.html = { valid: false, message: "Empty input" };
+  if (!object.css) validation.css = { valid: false, message: "Empty input" };
+  validation.email = global.validate.email(object.email);
+  if (!validation.subject.valid || !validation.html.valid || !validation.css.valid || !validation.email.valid) return console.log(validation);
+  // Send email
+  let data;
+  try {
+    data = (await axios.post("/test/send-email", object))["data"];
+  } catch (error) {
+    data = { status: "error", content: error };
+  }
+  // Validate request
+  if (data.status === "failed" || data.status === "error") return console.log(data);
+  // Success handler
+  return console.log("The email has been sent");
+}
+
+/* ==========================================================
+END
+========================================================== */

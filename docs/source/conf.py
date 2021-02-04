@@ -32,7 +32,8 @@ release = '0.0.1'
 # ones.
 extensions = [
   'invoked_by',
-  'sphinx_js'
+  'sphinx_js',
+  # 'sphinxemoji.sphinxemoji'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -44,6 +45,8 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 primary_domain = 'js'
+
+# sphinxemoji_style = 'twemoji'
 
 # -- Options for HTML output -------------------------------------------------
 
