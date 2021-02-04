@@ -1,9 +1,9 @@
-.. CreateBase Web Dev documentation master file, created by
+.. CreateBase App documentation master file, created by
    sphinx-quickstart on Thu Feb  4 14:54:25 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to CreateBase Web Dev's documentation!
+Welcome to the CreateBase App documentation!
 ==============================================
 
 .. toctree::
@@ -14,9 +14,8 @@ Welcome to CreateBase Web Dev's documentation!
     global/index.rst
     settings/index.rst
 
------
-
-.. rubric:: JavaScript Docstring Guide
+JavaScript Docstring Guide
+--------------------------
 
 This is the standard docstring template we use::
 
@@ -79,8 +78,6 @@ Some things to note:
   | other objects          | ``"object"``    |
   +------------------------+-----------------+
 
-
-
 If all goes well, when rendered, the function will look something like this:
 
 .. function:: someFunction(name, name2)
@@ -97,9 +94,8 @@ If all goes well, when rendered, the function will look something like this:
     :param Type name2: Tab-aligned descriptions are easier to read, but don't affect how the doc is rendered.
     :return: **Type** -- name - Tab-aligned descriptions are easier to read, but don't affect how the doc is rendered.
 
+Setup
 -----
-
-.. rubric:: Setup
 
 1. Clone `CreateBase/Documentation <https://github.com/CreateBaseNZ/Documentation>`_ to your local machine
 2. Open the repository root folder in VS Code
@@ -155,9 +151,8 @@ If all goes well, when rendered, the function will look something like this:
       > cd docs
       > make html
 
-----
-
-.. rubric:: Useful Links
+Useful Links
+------------
 
 - `rst CheatSheet <https://bashtage.github.io/sphinx-material/rst-cheatsheet/rst-cheatsheet.html>`_
 - `Jsdoc cheatsheet <https://devhints.io/jsdoc>`_

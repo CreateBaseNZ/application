@@ -17,7 +17,7 @@ sys.path.append(os.path.abspath('./_extensions'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'CreateBase Web Dev'
+project = 'CreateBase App'
 copyright = '2021, Lin, Velasco, Young'
 author = 'Lin, Velasco, Young'
 
