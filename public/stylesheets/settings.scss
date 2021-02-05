@@ -28,7 +28,7 @@ $bez: cubic-bezier(.15,.51,.51,.97);
   padding-top: $vert-space-mobile;
   width: 100%;
   max-width: 100%;
-  flex: 0 0 auto;
+  flex: 1 0 auto;
 }
 
 // ==========================================
@@ -200,6 +200,7 @@ h4 {
   cursor: pointer;
   display: flex;
   width: 100%;
+  height: 100%;
   margin-bottom: $horiz-space-mobile;
   padding: 1.25rem;
   font-size: 1rem;
@@ -256,6 +257,7 @@ h4 {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
   .mobile-subheading {
     order: -2;
     display: flex;
@@ -267,10 +269,12 @@ h4 {
   }
   .btn-container {
     margin-top: 1.5rem;
+    flex: 1 0 auto;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
-    align-items: flex-start;
+    align-items: center;
     button {
       cursor: pointer;
       display: flex;
@@ -328,7 +332,7 @@ h4 {
 }
 
 // ==========================================
-// ACCOUNT SECTION
+// PROFILE SECTION
 // ==========================================
 
 .profile-section {
@@ -441,6 +445,7 @@ h4 {
   }
   .btn-container > .save-btn { 
     background: $green;
+    box-shadow: 0 0.5em 1.2em -0.4em $green;
     &:hover {
       box-shadow: 0 0.5em 1em -0.5em $green;
     }
@@ -460,7 +465,8 @@ h4 {
     color: $blue-light; 
   }
   .btn-container > .save-btn {
-    background: $blue-light; 
+    background: $blue-light;
+    box-shadow: 0 0.5em 1.2em -0.4em $blue-light;
     &:hover {
       box-shadow: 0 0.5em 1em -0.5em $blue-light;
     }
@@ -519,6 +525,7 @@ h4 {
   }
   .btn-container > .save-btn {
     background: $orange; 
+    box-shadow: 0 0.5em 1.2em -0.4em $orange;
     &:hover {
       box-shadow: 0 0.5em 1em -0.5em $orange;
     }
@@ -582,6 +589,7 @@ h4 {
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
+  height: 100%;
 }
 
 .badge-edit-window {
@@ -589,6 +597,7 @@ h4 {
   display: flex;
   align-items: flex-start;
   overflow: hidden;
+  height: 100%;
   width: 100%;
   .badge-config-close {
     position: absolute;
@@ -619,15 +628,13 @@ h4 {
       align-items: flex-start;
       width: 100%;
       padding: 1.5rem 0;
-      border-bottom: thin solid $lighter;
     }
     .badge-not-achieved-section {
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
       width: 100%;
-      padding-top: 1.5rem;
     }
   }
   .badge-info {
@@ -702,6 +709,7 @@ h4 {
 }
 
 .badge-edit-btn {
+  justify-self: flex-end;
   margin: 2rem 0;
   display: flex;
   align-items: center;
@@ -723,6 +731,7 @@ h4 {
     background: $green;
     transition: filter 0.2s ease-out;
     text-transform: uppercase;
+    box-shadow: 0 0.5em 1.2em -0.4em $green;
     i {
       font-size: 18px;
       margin-right: 0.5em;
@@ -972,6 +981,7 @@ h3 {
 }
 
 .section {
+  height: auto;
   margin-bottom: 2vw;
   padding: 2.5em 4vw 1.5em 3vw;
   box-shadow: none;
@@ -1012,6 +1022,7 @@ h3 {
 
 .panel-right {
   width: 80%;
+  height: auto;
   flex-direction: row;
   align-items: flex-start;
   display: grid;
@@ -1024,10 +1035,14 @@ h3 {
     display: none;
   }
   .btn-container {
+    flex: 1 1 auto;
     margin: 0;
     grid-column-start: 1;
     grid-column-end: 4;
     overflow: hidden;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
     padding-top: 2px;
     height: 0;
     opacity: 0;
@@ -1085,7 +1100,7 @@ h3 {
       }
       .save-btn {
         width: auto;
-        margin-left: 1em;
+        margin: 0 1em;
         transition: margin-top 0.1s ease-out, margin-bottom 0.1s ease-out, box-shadow 0.1s ease-out;
         &::after {
           text-transform: none;
@@ -1242,6 +1257,7 @@ h3 {
   left: calc(50% + 75px);
   transform: translate(-50%, -50%);
   width: auto;
+  height: auto;
 }
 
 .badge-edit-window {
@@ -1286,9 +1302,9 @@ h3 {
       border: none;
     }
     .badge-not-achieved-section {
+      display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      padding: 0;
     }
   }
   .badge-info {
@@ -1337,6 +1353,7 @@ h3 {
 }
 
 .badge-edit-btn {
+  justify-self: auto;
   margin-bottom: 0;
   width: auto;
   .badge-config-done {
