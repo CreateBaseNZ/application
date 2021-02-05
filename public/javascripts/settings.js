@@ -304,7 +304,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
  */
 settings.init.cacheInit = (data) => {
   settings.var.cache = {
-    city: data.user.address.suburb,
+    city: data.user.address.city,
     displayName: data.user.displayName,
     displayEmail: data.user.displayEmail,
     location: data.user.location,
@@ -312,7 +312,7 @@ settings.init.cacheInit = (data) => {
     email: data.account.email,
     street: data.user.address.street,
     unit: data.user.address.unit,
-    state: data.user.address.city,
+    state: data.user.address.suburb,
     zip: data.user.address.postcode,
     country: data.user.address.country,
     mailing: data.notification.newsletter
@@ -403,7 +403,7 @@ settings.accountCancel = () => {
   settings.elem.stateInput.value = settings.var.cache.state;
   settings.elem.zipInput.value = settings.var.cache.zip;
   settings.elem.countryInput.value = settings.var.cache.country;
-  settings.elem.accountSaveBtn.classList.add('hide');
+  settings.elem.accountSaveBtn.classList.remove('unsaved-changes');
 }
 
 /**
@@ -425,7 +425,7 @@ settings.profileCancel = () => {
   settings.elem.displayNameInput.value = settings.var.cache.displayName;
   settings.elem.displayEmailInput.value = settings.var.cache.displayEmail;
   settings.elem.locationInput.value = settings.var.cache.location;
-  settings.elem.profileSaveBtn.classList.add('hide');
+  settings.elem.profileSaveBtn.classList.remove('unsaved-changes');
 }
 
 /**
@@ -437,7 +437,7 @@ settings.profileCancel = () => {
 settings.notificationsCancel = () => {
   // Revert to cached settings and hide save button
   settings.elem.mailingInput.checked = settings.var.cache.mailing;
-  settings.elem.notificationsSaveBtn.classList.add('hide');
+  settings.elem.notificationsSaveBtn.classList.remove('unsaved-changes');
 }
 
 /**
@@ -505,7 +505,7 @@ settings.profileInputsCheck = () => {
       cache: settings.var.cache.location
     }
   }
-  global.input.checkChange(dict, settings.elem.profileSaveBtn);
+  global.input.checkChange(dict, settings.elem.profileSaveBtn, 'unsaved-changes');
 }
 
 /**
@@ -552,7 +552,8 @@ settings.accountInputsCheck = () => {
       cache: settings.var.cache.country
     }
   }
-  global.input.checkChange(dict, settings.elem.accountSaveBtn);
+  console.log(dict)
+  global.input.checkChange(dict, settings.elem.accountSaveBtn, 'unsaved-changes');
 }
 
 /**
@@ -571,7 +572,7 @@ settings.notificationsInputsCheck = function() {
       cache: settings.var.cache.mailing
     }
   }
-  global.input.checkChange(dict, settings.elem.notificationsSaveBtn);
+  global.input.checkChange(dict, settings.elem.notificationsSaveBtn, 'unsaved-changes');
 }
 
 // ==========================================================
@@ -844,7 +845,7 @@ settings.backend.profileSave = async () => {
   // Update cache
   settings.cacheUpdate('profile');
   // Hide save button
-  settings.elem.profileSaveBtn.classList.add('hide');
+  settings.elem.profileSaveBtn.classList.remove('unsaved-changes');
   return;
 }
 
@@ -910,7 +911,7 @@ settings.backend.accountSave = async () => {
   // Update cache
   settings.cacheUpdate('account');
   // Hide save button
-  settings.elem.accountSaveBtn.classList.add('hide');
+  settings.elem.accountSaveBtn.classList.remove('unsaved-changes');
   return;
 }
 
@@ -946,6 +947,6 @@ settings.backend.notificationsSave = async () => {
   // Update cache
   settings.cacheUpdate('notifications');
   // Hide save button
-  settings.elem.notificationsSaveBtn.classList.add('hide');
+  settings.elem.notificationsSaveBtn.classList.remove('unsaved-changes');
   return;
 }
