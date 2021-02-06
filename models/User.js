@@ -77,6 +77,7 @@ UserSchema.statics.build = function (object = {}, save = true) {
 // @desc  
 UserSchema.statics.reform = function (object = {}, save = true) {
   return new Promise (async (resolve, reject) => {
+    console.log(object);
     // Fetch the user
     let user;
     try {
@@ -94,10 +95,12 @@ UserSchema.statics.reform = function (object = {}, save = true) {
         }
       }
       if (property === "avatar") {
-        try {
-          await GridFS.remove({ _id: customer.picture, root: "fs" });
-        } catch (error) {
-          return res.send({ status: "error", content: error });
+        if (user[property]) {
+          try {
+            await GridFS.remove({ _id: customer.picture, root: "fs" });
+          } catch (error) {
+            return reject({ status: "error", content: error });
+          }
         }
       }
       user[property] = object.update[property];
@@ -111,6 +114,7 @@ UserSchema.statics.reform = function (object = {}, save = true) {
       }
     }
     // Success handler
+    console.log(user);
     return resolve(user);
   });
 }

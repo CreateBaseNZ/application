@@ -14,6 +14,9 @@ const storage = new GridFsStorage({
   url: process.env.MONGODB_URL,
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
+    // Remove file name extension
+    // TO DO
+    // Return object containing updated properties
     return {
       filename: file.originalname,
       contentType: file.mimetype

@@ -121,10 +121,14 @@ router.post("/settings/update-profile", upload.single("avatar"), verifiedContent
   let update = req.body;
   // Check if there is a new upload
   if (req.file) update.avatar = req.file.id;
+  console.log(update);
   // Update the user instance
   try {
-    await User.reform({ id: account._id, update });
+    await User.reform({ id: req.user._id, update });
   } catch (data) {
+    console.log(data);
+    // Delete the uploaded avatar if failed
+    // TO DO
     return res.send(data);
   }
   // Success handler
@@ -132,7 +136,6 @@ router.post("/settings/update-profile", upload.single("avatar"), verifiedContent
 });
 
 router.get("/settings/fetch-avatar", verifiedContent, async (req, res) => {
-  console.log("test");
   // Declare Variables
   const id = req.user._id;
   // Fetch user
@@ -142,8 +145,6 @@ router.get("/settings/fetch-avatar", verifiedContent, async (req, res) => {
   } catch (error) {
     return res.send({ status: "error", content: error });
   }
-  console.log(user);
-  console.log(user.avatar);
   if (user.avatar) {
     // Fetch image
     let image = undefined;
@@ -158,14 +159,12 @@ router.get("/settings/fetch-avatar", verifiedContent, async (req, res) => {
       return readstream.pipe(res);
     }
   }
-  console.log("temporary");
   // Else, Return Temporary Profile Picture
   try {
     file = await GridFS.files.findOne({ filename: "default-avatar" });
   } catch (error) {
     return res.send({ status: "error", content: error });
   }
-  console.log("rendering");
   let readstream = GridFS.createReadStream(file.filename);
   return readstream.pipe(res);
 });
