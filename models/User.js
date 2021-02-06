@@ -3,12 +3,24 @@ MODULES
 ========================================================== */
 
 const mongoose = require("mongoose");
+const gridFsStream = require("gridfs-stream");
 
 /* ==========================================================
 VARIABLES
 ========================================================== */
 
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const Schema = mongoose.Schema;
+let GridFS;
+
+mongoose.createConnection(process.env.MONGODB_URL,
+  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+  (error, client) => {
+    if (error) throw error;
+
+    GridFS = gridFsStream(client.db, mongoose.mongo);
+    GridFS.collection("fs");
+  });
 
 /* ==========================================================
 MODEL
@@ -16,6 +28,7 @@ MODEL
 
 const UserSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, required: true },
+  avatar: { type: Schema.Types.ObjectId },
   name: { type: String, required: true },
   displayName: { type: String, required: true },
   displayEmail: { type: String, default: "" },
@@ -78,6 +91,13 @@ UserSchema.statics.reform = function (object = {}, save = true) {
           await this.validateName(object.update.name);
         } catch (data) {
           return reject(data);
+        }
+      }
+      if (property === "avatar") {
+        try {
+          await GridFS.remove({ _id: customer.picture, root: "fs" });
+        } catch (error) {
+          return res.send({ status: "error", content: error });
         }
       }
       user[property] = object.update[property];

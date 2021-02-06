@@ -817,9 +817,9 @@ settings.backend.fetch = () => {
 settings.backend.profileSave = async () => {
   // Collect input
   let input;
-  const file = document.querySelector("#");
+  const file = document.querySelector("#avatar-input");
   if (file.files.length !== 0) {
-    input = await global.compressImage("", "", 400);
+    input = await global.compressImage(".avatar-form", "avatar", 400);
   } else {
     input = new FormData();
   }

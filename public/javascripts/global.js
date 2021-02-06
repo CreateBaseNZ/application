@@ -64,10 +64,10 @@ FUNCTIONS
 /**
  * Compresses an image file.
  */
-global.compressImage = async (id = "", name = "", compressSize = 300) => {
+global.compressImage = async (identifier = "", name = "", compressSize = 300) => {
   return new Promise(async (resolve) => {
     // Collect image
-    const element = document.getElementById(id);
+    const element = document.querySelector(identifier);
     let input = new FormData(element);
     const file = input.get(name);
     // Compress image

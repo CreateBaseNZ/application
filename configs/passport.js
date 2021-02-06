@@ -66,6 +66,8 @@ const LocalAccountLogin = new LocalStrategy({
   } catch (error) {
     return done(null, false);
   }
+  // Validate if the account exist
+  if (!account) return done(null, false);
   // Compare the entered password with the accounts password
   let match;
   try {

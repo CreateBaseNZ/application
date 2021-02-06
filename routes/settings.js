@@ -3,6 +3,8 @@ MODULES
 ========================================================== */
 
 const express = require("express");
+const mongoose = require("mongoose");
+const gridFsStream = require("gridfs-stream");
 
 /* ==========================================================
 VARIABLES
@@ -10,6 +12,16 @@ VARIABLES
 
 const router = new express.Router();
 const upload = require("../configs/upload.js");
+let GridFS;
+
+mongoose.createConnection(process.env.MONGODB_URL,
+  { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+  (error, client) => {
+    if (error) throw error;
+
+    GridFS = gridFsStream(client.db, mongoose.mongo);
+    GridFS.collection("fs");
+  });
 
 /* ==========================================================
 MODELS
@@ -104,8 +116,58 @@ router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
   return res.send({status: "succeeded", content: ""});
 });
 
-router.post("/settings/update-profile", upload.single(""), verifiedContent, async (req, res) => {
-  
+router.post("/settings/update-profile", upload.single("avatar"), verifiedContent, async (req, res) => {
+  // Declare Variables
+  let update = req.body;
+  // Check if there is a new upload
+  if (req.file) update.avatar = req.file.id;
+  // Update the user instance
+  try {
+    await User.reform({ id: account._id, update });
+  } catch (data) {
+    return res.send(data);
+  }
+  // Success handler
+  return res.send({ status: "succeeded", content: "" });
+});
+
+router.get("/settings/fetch-avatar", verifiedContent, async (req, res) => {
+  console.log("test");
+  // Declare Variables
+  const id = req.user._id;
+  // Fetch user
+  let user;
+  try {
+    user = await User.findOne({ owner: id });
+  } catch (error) {
+    return res.send({ status: "error", content: error });
+  }
+  console.log(user);
+  console.log(user.avatar);
+  if (user.avatar) {
+    // Fetch image
+    let image = undefined;
+    // If so, Send File to Front-End
+    try {
+      image = await GridFS.files.findOne({ _id: user.avatar });
+    } catch (error) {
+      return res.send({ status: "error", content: error });
+    }
+    if (image) {
+      let readstream = GridFS.createReadStream(image.filename);
+      return readstream.pipe(res);
+    }
+  }
+  console.log("temporary");
+  // Else, Return Temporary Profile Picture
+  try {
+    file = await GridFS.files.findOne({ filename: "default-avatar" });
+  } catch (error) {
+    return res.send({ status: "error", content: error });
+  }
+  console.log("rendering");
+  let readstream = GridFS.createReadStream(file.filename);
+  return readstream.pipe(res);
 });
 
 /* ==========================================================
