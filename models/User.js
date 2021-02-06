@@ -97,7 +97,7 @@ UserSchema.statics.reform = function (object = {}, save = true) {
       if (property === "avatar") {
         if (user[property]) {
           try {
-            await GridFS.remove({ _id: customer.picture, root: "fs" });
+            await GridFS.remove({ _id: user[property], root: "fs" });
           } catch (error) {
             return reject({ status: "error", content: error });
           }
