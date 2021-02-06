@@ -280,7 +280,6 @@ settings.init.attachAllListeners = () => {
  */
 settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Profile
-  settings.elem.avatarPreview.src = "/settings/fetch-avatar"
   settings.elem.displayNameInput.value = user.displayName ? user.displayName : "";
   settings.elem.displayEmailInput.value = user.displayEmail ? user.displayEmail : "";
   settings.elem.locationInput.value = user.location ? user.location : "";
@@ -771,7 +770,8 @@ settings.event.avatarPreview = function() {
     settings.elem.avatarPreview.classList.add('fade')
     var reader = new FileReader();
     reader.onload = (e) => {
-      settings.elem.avatarPreview.src = "url('" + e.target.result + "')";
+      console.log(e.target.result)
+      settings.elem.avatarPreview.src = e.target.result;
       settings.elem.avatarPreview.classList.remove('fade')
     }
     reader.readAsDataURL(this.files[0]);
