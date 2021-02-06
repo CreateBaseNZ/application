@@ -64,6 +64,7 @@ let settings = {
     accountSaveBtn: document.querySelector('.account-save'),
     notificationsSaveBtn: document.querySelector('.notifications-save'),
     profileSaveBtn: document.querySelector('.profile-save'),
+    avatarInput: document.querySelector('#avatar-input'),
     displayNameInput: document.querySelector('#prof-name'),
     displayEmailInput: document.querySelector('#prof-email'),
     locationInput: document.querySelector('#prof-loc'),
@@ -304,6 +305,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
  */
 settings.init.cacheInit = (data) => {
   settings.var.cache = {
+    avatar: "/settings/fetch-avatar",
     city: data.user.address.city,
     displayName: data.user.displayName,
     displayEmail: data.user.displayEmail,
@@ -422,6 +424,7 @@ settings.badgesCancel = () => {
  */
 settings.profileCancel = () => {
   // Revert to cached settings and hide save button
+  settings.elem.avatarPreview.src = "settings/fetch-avatar"
   settings.elem.displayNameInput.value = settings.var.cache.displayName;
   settings.elem.displayEmailInput.value = settings.var.cache.displayEmail;
   settings.elem.locationInput.value = settings.var.cache.location;
@@ -492,6 +495,10 @@ settings.editModeExit = (selected) => {
  */
 settings.profileInputsCheck = () => {
   const dict = {
+    avatar: {
+      value: settings.elem.avatarPreview.src,
+      cache: settings.var.cache.avatar
+    },
     displayName: {
       value: settings.elem.displayNameInput.value,
       cache: settings.var.cache.displayName
@@ -552,7 +559,6 @@ settings.accountInputsCheck = () => {
       cache: settings.var.cache.country
     }
   }
-  console.log(dict)
   global.input.checkChange(dict, settings.elem.accountSaveBtn, 'unsaved-changes');
 }
 
@@ -593,18 +599,18 @@ settings.notificationsInputsCheck = function() {
 settings.event.sectionClick = function(e) {
   if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
     // Save button - exit edit mode
-    settings.editModeExit(this)
+    settings.editModeExit(this);
   } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
     // Cancel button - exit edit mode
-    settings.editModeExit(this)
+    settings.editModeExit(this);
   } else if (!this.classList.contains('edit-mode')) {
     // Clicking anywhere else on the container enables edit mode if not already enabled
     document.querySelectorAll('.section-container').forEach((section) => {
       if (this === section) {
-        this.classList.add('edit-mode')
-        this.classList.remove('mobile-hide')
+        this.classList.add('edit-mode');
+        this.classList.remove('mobile-hide');
       } else {
-        section.classList.add('mobile-hide')
+        section.classList.add('mobile-hide');
       }
     })
   }
@@ -682,7 +688,7 @@ settings.event.badgeConfigMenuSave = () => {
   // Close the config menu
   settings.badgeConfigMenuClose();
   // Exit Profile edit mode
-  settings.editModeExit(settings.elem.profileSection)
+  settings.editModeExit(settings.elem.profileSection);
 }
 
 /**
@@ -767,12 +773,11 @@ settings.event.badgeConfigToggle = function() {
  */
 settings.event.avatarPreview = function() {
   if (this.files && this.files[0]) {
-    settings.elem.avatarPreview.classList.add('fade')
+    settings.elem.avatarPreview.classList.add('fade');
     var reader = new FileReader();
     reader.onload = (e) => {
-      console.log(e.target.result)
       settings.elem.avatarPreview.src = e.target.result;
-      settings.elem.avatarPreview.classList.remove('fade')
+      settings.elem.avatarPreview.classList.remove('fade');
     }
     reader.readAsDataURL(this.files[0]);
   }

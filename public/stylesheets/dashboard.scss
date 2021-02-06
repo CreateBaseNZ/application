@@ -292,7 +292,7 @@ h1 {
     top: auto;
     right: auto;
     height: 18vh;
-    width: 18vh;
+    flex: 0 0 18vh;
     box-shadow: 0 10px 30px -20px $darkest;
   }
   .trophy-case {
