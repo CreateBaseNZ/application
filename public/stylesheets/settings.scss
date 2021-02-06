@@ -393,9 +393,7 @@ h4 {
       left: 0;
       height: 100%;
       width: 100%;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
+      object-fit: cover;
       transition: opacity 0.8s ease-out, filter 0.2s ease-out;
       &.fade {
         opacity: 0;
