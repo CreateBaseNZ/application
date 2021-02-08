@@ -61,8 +61,11 @@ let settings = {
     avatarPreview: document.querySelector('.avatar-preview'),
     badgeConfigScreen: document.querySelector('.badge-edit-screen'),
     badgePreviewContainer: document.querySelector('.badges-container'),
+    accountCancelBtn: document.querySelector('.account-cancel'),
     accountSaveBtn: document.querySelector('.account-save'),
+    notificationsCancelBtn: document.querySelector('.notifications-cancel'),
     notificationsSaveBtn: document.querySelector('.notifications-save'),
+    profileCancelBtn: document.querySelector('.profile-cancel'),
     profileSaveBtn: document.querySelector('.profile-save'),
     avatarInput: document.querySelector('#avatar-input'),
     displayNameInput: document.querySelector('#prof-name'),
@@ -238,19 +241,19 @@ settings.init.attachAllListeners = () => {
   // Save Profile settings
   settings.elem.profileSaveBtn.addEventListener('click', settings.backend.profileSave)
   // Cancel Profile settings
-  document.querySelector('.profile-cancel').addEventListener('click', settings.profileCancel)
+  settings.elem.profileCancelBtn.addEventListener('click', settings.profileCancel)
   // Cancel Profile settings (mobile)
   settings.elem.profileSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.profileCancelMobile)
   // Save Account settings
   settings.elem.accountSaveBtn.addEventListener('click', settings.backend.accountSave)
   // Cancel Account settings
-  document.querySelector('.account-cancel').addEventListener('click', settings.accountCancel)
+  settings.elem.accountCancelBtn.addEventListener('click', settings.accountCancel)
   // Cancel Account settings (mobile)
   settings.elem.accountSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.accountCancelMobile)
   // Save Notifications settings
   settings.elem.notificationsSaveBtn.addEventListener('click', settings.backend.notificationsSave)
   // Cancel Notifications settings
-  document.querySelector('.notifications-cancel').addEventListener('click', settings.notificationsCancel)
+  settings.elem.notificationsCancelBtn.addEventListener('click', settings.notificationsCancel)
   // Cancel Notifications settings (mobile)
   settings.elem.notificationsSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.notificationsCancelMobile)
   // Saving badge configuration
@@ -496,7 +499,7 @@ settings.editModeExit = (selected) => {
 settings.profileInputsCheck = () => {
   const dict = {
     avatar: {
-      value: settings.elem.avatarPreview.src,
+      value: settings.elem.avatarPreview.getAttribute('src'),
       cache: settings.var.cache.avatar
     },
     displayName: {
@@ -512,7 +515,7 @@ settings.profileInputsCheck = () => {
       cache: settings.var.cache.location
     }
   }
-  global.input.checkChange(dict, settings.elem.profileSaveBtn, 'unsaved-changes');
+  global.input.checkChange(dict, [settings.elem.profileSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
 /**
@@ -559,7 +562,7 @@ settings.accountInputsCheck = () => {
       cache: settings.var.cache.country
     }
   }
-  global.input.checkChange(dict, settings.elem.accountSaveBtn, 'unsaved-changes');
+  global.input.checkChange(dict, [settings.elem.accountSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
 /**
@@ -578,7 +581,7 @@ settings.notificationsInputsCheck = function() {
       cache: settings.var.cache.mailing
     }
   }
-  global.input.checkChange(dict, settings.elem.notificationsSaveBtn, 'unsaved-changes');
+  global.input.checkChange(dict, [settings.elem.notificationsSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
 // ==========================================================

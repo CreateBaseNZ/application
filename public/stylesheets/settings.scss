@@ -80,6 +80,45 @@ h4 {
   }
 }
 
+.input-container.btn-to-input {
+  background: transparent;
+  h3, input {
+    display: none;
+  }
+  button {
+    cursor: pointer;
+    width: 100%;
+    padding: 1em 1.5em;
+    border-radius: 0.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 200%;
+    transition: filter 0.1 ease-out;
+    .current {
+      color: $darker;
+      font-weight: 400;
+    }
+    i {
+      position: absolute;
+      top: 50%;
+      right: 1.5em;
+      font-size: inherit;
+      transform: translateY(-50%);
+      &.pen {
+        display: none;
+      }
+    }
+    &:hover, &:focus, &:active {
+      filter: brightness(0.97);
+    }
+  }
+}
+
 // ==========================================
 // BUTTONS & ICONS
 // ==========================================
@@ -90,9 +129,9 @@ h4 {
   flex-direction: row;
   flex-wrap: wrap;
   position: relative;
+  align-content: center;
   .switch-bg {
     position: absolute;
-    z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
@@ -102,16 +141,20 @@ h4 {
     transition: background-color 0.2s ease-out;
   }
   h3 {
+    z-index: 2;
     display: block;
     width: 100%;
   }
   span {
+    z-index: 2;
     opacity: 1;
     font-weight: 400;
     color: $light;
     margin: 0;
+    line-height: 200%;
   }
   .switch-custom {
+    z-index: 2;
     background: transparent;
     border: thin solid $light;
     transition: background-color 0.3s ease-out, border 0.3s ease-out;
@@ -151,35 +194,6 @@ h4 {
   }
 }
 
-.btn-to-input {
-  width: 100%;
-  padding: 1em 1.5em;
-  border-radius: 0.75rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 200%;
-  margin: 0.35rem 0;
-  .current-email {
-    color: $darker;
-    font-weight: 400;
-  }
-  i {
-    position: absolute;
-    top: 50%;
-    right: 1.5em;
-    font-size: inherit;
-    transform: translateY(-50%);
-  }
-  &:hover, &:focus, &:active {
-    filter: brightness(0.9);
-  }
-}
-
 .save-btn {
   display: flex;
   align-items: center;
@@ -188,13 +202,10 @@ h4 {
   letter-spacing: 0.15em;
   border-radius: 1rem;
   height: calc(#{$field-height} + 0.5rem);
-  pointer-events: none;
-  cursor: default;
   width: 100%;
   color: $lightest;
   font-weight: 500;
-  opacity: 0.25;
-  transition: opacity 0.2s ease-out, box-shadow 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out;
   i {
     color: $lightest;
   }
@@ -204,15 +215,6 @@ h4 {
     text-transform: uppercase;
     color: $lightest;
     letter-spacing: 0.25em;
-  }
-}
-.save-btn.unsaved-changes {
-  pointer-events: auto;
-  cursor: pointer;
-  opacity: 1;
-  box-shadow: 0 0.5em 1.2em -0.4em;
-  &:hover {
-    box-shadow: 0 0.5em 1em -0.5em;
   }
 }
 
@@ -301,25 +303,31 @@ h4 {
 }
 
 .btn-container {
+  pointer-events: none;
   margin-top: 1.5rem;
   flex: 1 0 auto;
   width: 100%;
+  opacity: 0.25;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  button {
-    cursor: pointer;
-
-  }
-  .save-btn {
-
-  }
-  .save-btn.unsaved-changes {
-
-  }
+  transition: opacity 0.2s ease-out;
   .cancel-btn {
     display: none;
+  }
+  &.unsaved-changes {
+    opacity: 1;
+    button {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .save-btn {
+      box-shadow: 0 0.5em 1.2em -0.4em;
+    }
+    &:hover > .save-btn {
+      box-shadow: 0 0.5em 1em -0.5em;
+    }
   }
 }
 
@@ -454,11 +462,10 @@ h4 {
     color: $blue-light;
   }
   .btn-to-input {
-    color: $blue-light;
-    background: $lightbluetint;
-  }
-  .pass-container, .email-container {
-    display: none;
+    button {
+      color: $blue-light;
+      background: $lightbluetint;
+    }
   }
   .pass-container {
     position: relative;
@@ -869,6 +876,10 @@ h2 {
   font-size: 1.5em;
 }
 
+h3 {
+  font-size: 0.625rem;
+}
+
 .ui-container {
   padding-top: 0;
   padding-right: $horiz-space-tablet;
@@ -879,6 +890,27 @@ h2 {
 .input-container {
   margin: 0.5rem 0;
   width: calc(50% - 0.5rem);
+  input {
+    background: $bg-grey;
+    transition: background-color 0.1s ease-out;
+    &:hover {
+      background: $lighter;
+    }
+  }
+}
+
+.input-container.btn-to-input {
+  button {
+    padding: 0.75em 1.5em;
+    i {
+      display: none;
+    }
+    .caption {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+  }
 }
 
 .section {
@@ -936,7 +968,7 @@ h2 {
   .save-btn {
     width: auto;
     margin: 0 1em;
-    transition: margin-top 0.1s ease-out, margin-bottom 0.1s ease-out, box-shadow 0.1s ease-out;
+    transition: margin-top 0.1s ease-out, margin-bottom 0.1s ease-out, box-shadow 0.1s ease-out, opacity 0.1s ease-out;
     &::after {
       text-transform: none;
     }
@@ -973,6 +1005,9 @@ h2 {
 }
 
 .profile-section {
+  .panel-left > i {
+    background: transparent;
+  }
   .avatar-form {
     width: calc(100px + 10vw);
     height: calc(100px + 10vw);
@@ -1016,6 +1051,32 @@ h2 {
       }
     }
   }
+  .display-name-container {
+    width: 100%;
+  }
+}
+
+.account-section {
+  .panel-left > i {
+    background: transparent;
+  }
+  .email-container {
+    width: 100%;
+  }
+}
+
+.de-container {
+  padding: 0;
+  margin: 0;
+  border: none;
+  button {
+    width: auto;
+    line-height: normal;
+    font-size: 0.75rem;
+  }
+  .deactivate-btn {
+    margin-right: 2em;
+  }
 }
 
 .badge-edit-btn {
@@ -1040,6 +1101,12 @@ h2 {
     &:hover {
       filter: brightness(0.95);
     }
+  }
+}
+
+.notifications-section {
+  .panel-left > i {
+    background: transparent;
   }
 }
 
@@ -1079,10 +1146,38 @@ h3 {
     &::placeholder {
       color: transparent;
     }
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+.input-container.btn-to-input {
+  width: 100%;
+  height: calc(100% - 1em);
+  margin: 0;
+  h3 {
+    display: block;
+  }
+  button {
+    padding: 0;
+    .current {
+      font-weight: 500;
+      line-height: 200%;
+    }
+    .caption {
+      display: none;
+    }
+    i.pen {
+      display: block;
+      opacity: 0;
+      transition: opacity 0.1s ease-out;
+    }
   }
 }
 
 .switch-opt {
+  width: 100%;
   padding: 0;
   background: transparent;
   align-content: flex-start;
@@ -1119,8 +1214,8 @@ h3 {
   }
 }
 
-.cancel-back,
-.btn-to-input {
+.pass-conf-container,
+.cancel-back {
   display: none;
 }
 
@@ -1171,6 +1266,9 @@ h3 {
   button {
     visibility: hidden;
   }
+  .cancel-btn {
+    cursor: pointer;
+  }
 }
 
 .edit-mode {
@@ -1194,24 +1292,42 @@ h3 {
     .input-container {
       height: calc(#{$field-height} * 1.5);
       input {
-        background: $lighter;
-        line-height: 2.5em;
+        line-height: 3em;
         padding-left: 1.2em;
-        transition: color 0.1s ease-out, background-color 0.1s ease-out;
+        background: $bg-grey;
+        transition: background-color 0.1s ease-out, padding 0.1s ease-out, line-height 0.1s ease-out;
         &::placeholder {
           opacity: 0;
         }
         &:hover {
-          background: $lightbluetint;
-          color: $blue-light;
+          background: $lighter;
+        }
+      }
+    }
+    .input-container.btn-to-input {
+      button:hover {
+        i.pen {
+          display: block;
+          opacity: 1;
         }
       }
     }
     .btn-container {
+      pointer-events: auto;
       height: $field-height;
       opacity: 1;
       button {
         visibility: visible;
+      }
+      .save-btn {
+        opacity: 0.25;
+        pointer-events: none;
+      }
+      &.unsaved-changes {
+        .save-btn {
+          pointer-events: auto;
+          opacity: 1;
+        }
       }
     }
   }
@@ -1225,15 +1341,11 @@ h3 {
   justify-content: flex-end;
   margin-top: 0;
   margin-bottom: 0.5em;
-  padding: 0;
-  border: none;
   button {
     width: auto;
-    align-items: flex-end;
+    align-items: center;
     background: transparent;
     padding: 0;
-    margin: 0 1em;
-    font-size: 0.75rem;
     i {
       font-size: inherit;
       margin-right: 0.25em;
@@ -1303,8 +1415,26 @@ h3 {
   .panel-left > i {
     background: transparent;
   }
-  .pass-container, .input-container {
-    display: flex;
+  .btn-to-input {
+    button {
+      background: transparent;
+    }
+  }
+  .street-container {
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+  .email-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+  .pass-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
   }
   &:hover {
     box-shadow: 0 2em 4em -4em $blue-light;
@@ -1313,12 +1443,6 @@ h3 {
     box-shadow: 0 2em 4em -4em $blue-light;
     .pass-container > .vis-icon {
       opacity: 1;
-    }
-    .pass-conf-container {
-      display: flex;
-      visibility: visible;
-      opacity: 1;
-      height: $field-height;
     }
   }
 }

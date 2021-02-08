@@ -355,19 +355,22 @@ global.init.unreadStatus = async () => {
 /**
  * Compares a group of input values with cached values. If any values within a group do not match with the corresponding cached value, the ``className`` class is added to ``btn``. Otherwise, if no matches, ``className`` is removed from ``btn``.
  * 
- * @param {Object} dict       Dictionary of value-cache pair dictionaries.
- * @param {Object} btn        Element that is toggled.
- * @param {String} className  The class added to ``btn`` when changes are made to inputs.
+ * @param {Object} inputs   Dictionary of dictionaries containing value-cache pairs.
+ * @param {Object} buttons  Dictionary of button as keys and class as values.
  */
-global.input.checkChange = (dict, btn, className) => {
-  for (var key in dict) {
+global.input.checkChange = (inputs, buttons=[], classes=[]) => {
+  for (let key in inputs) {
     // If any unmatched, add class
-    if (dict[key].value !== dict[key].cache) {
-      btn.classList.add(className);
+    if (inputs[key].value !== inputs[key].cache) {
+      for (let [index, btn] of buttons.entries()) {
+        btn.classList.add(classes[index]);
+      }
       return;
-    }
-    // Otherwise, no changes - remove class
-    btn.classList.remove(className);
+    }     
+  }
+  // Otherwise, no changes - remove class
+  for (let [index, btn] of buttons.entries()) {
+    btn.classList.remove(classes[index]);
   }
 }
 
