@@ -37,6 +37,7 @@ let settings = {
   badgesCancel: undefined,
   cacheUpdate: undefined,
   editModeExit: undefined,
+  emailMenuShow: undefined,
   notificationsCancel: undefined,
   notificationsInputsCheck: undefined,
   profileCancel: undefined,
@@ -213,7 +214,7 @@ settings.init.sortableJSInit = () => {
  * Attaches event listeners to all DOM objects.
  * 
  * | **Invokes**
- * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigMenuShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.event.profileCancelMobile` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.event.accountCancelMobile` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.notificationsCancelMobile` :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuCancel` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.sectionClick` :func:`settings.event.sectionCancelMobile`
+ * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigMenuShow` :func:`settings.emailMenuShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.event.profileCancelMobile` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.event.accountCancelMobile` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.notificationsCancelMobile` :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuCancel` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.sectionClick` :func:`settings.event.sectionCancelMobile`
  *
  * | **Invoked by**
  * | :func:`settings.init.init`
@@ -223,6 +224,7 @@ settings.init.attachAllListeners = () => {
   document.querySelector('#avatar-input').addEventListener('change', settings.event.avatarPreview)
   // Show badge config screen
   settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigMenuShow)
+  document.querySelector('.email-container').querySelector('button').addEventListener('click', settings.emailMenuShow)
   // Toggle password visibility
   document.querySelector('#acc-pass-vis').addEventListener('click', settings.event.passVisToggle)
   // Toggle confirm password visibility
@@ -469,7 +471,7 @@ settings.badgeConfigMenuShow = () => {
  * | :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.badgeConfigMenuCancel`
  */
 settings.badgeConfigMenuClose = () => {
-  global.elem.darkenOverlay.classList.add('hide')
+  global.elem.darkenOverlay.classList.add('hide');
   settings.elem.badgeConfigScreen.classList.add('hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
@@ -487,6 +489,12 @@ settings.editModeExit = (selected) => {
   document.querySelectorAll('.mobile-hide').forEach((section) => {
     section.classList.remove('mobile-hide');
   })
+}
+
+settings.emailMenuShow = () => {
+  global.elem.darkenOverlay.classList.add('hide');
+  document.querySelector('.email-edit-screen').classList.remove('hide');
+  document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
 
 /**
