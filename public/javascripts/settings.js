@@ -73,6 +73,7 @@ let settings = {
     locationInput: document.querySelector('#prof-loc'),
     nameInput: document.querySelector('#acc-name'),
     emailInput: document.querySelector('#acc-email'),
+    emailStatic: document.querySelector('.email-static'),
     streetInput: document.querySelector('#acc-street'),
     unitInput: document.querySelector('#acc-unit'),
     cityInput: document.querySelector('#acc-city'),
@@ -290,6 +291,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Account
   settings.elem.nameInput.value = user.name;
   settings.elem.emailInput.value = account.email;
+  settings.elem.emailStatic.innerHTML = account.email;
   settings.elem.streetInput.value = user.address.street ? user.address.street : "";
   settings.elem.cityInput.value = user.address.city ? user.address.city : "";
   settings.elem.zipInput.value = user.address.postcode ? user.address.postcode : "";
@@ -482,7 +484,7 @@ settings.badgeConfigMenuClose = () => {
  */
 settings.editModeExit = (selected) => {
   selected.classList.remove('edit-mode');
-  document.querySelectorAll('.section').forEach((section) => {
+  document.querySelectorAll('.section-container').forEach((section) => {
     section.classList.remove('mobile-hide');
   })
 }

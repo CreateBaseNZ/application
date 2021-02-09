@@ -93,17 +93,6 @@
 
     <div class="ui-container scrollable">
 
-      <div class="de-container section-container">
-        <button class="deactivate-btn">
-          <i class="material-icons-outlined">block</i>
-          <span>Deactivate account</span>
-        </button>
-        <button class="delete-btn">
-          <i class="material-icons-outlined">person_off</i>
-          <span>Delete account</span>
-        </button>
-      </div>
-
       <div class="section profile-section section-container">
         <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
@@ -163,8 +152,8 @@
             <h3>Email</h3>
             <input type="text" id="acc-email" placeholder="Email">
             <button>
-              <span class="current current-email">jane.doe@gmail.com</span>
               <span class="caption">Change email</span>
+              <span class="current email-static"></span>
               <i class="material-icons-round arrow">arrow_forward_ios</i>
               <i class="material-icons-round pen">edit</i>
             </button>
@@ -188,7 +177,6 @@
             </button>
           </div>
 
-
           <div class="input-container street-container">
             <h3>Street address</h3>
             <input type="text" id="acc-street" placeholder="Street address">
@@ -198,7 +186,6 @@
             <input type="text" id="acc-unit" placeholder="Unit">
           </div>
 
-
           <div class="input-container city-container">
             <h3>Town / city</h3>
             <input type="text" id="acc-city" placeholder="Town / City">
@@ -207,8 +194,6 @@
             <h3>State</h3>
             <input type="text" id="acc-state" placeholder="State">
           </div>
-
-
 
           <div class="input-container">
             <h3>Zip code</h3>
@@ -257,20 +242,27 @@
           </div>
         </div>
       </div>
-    
-      <div class="badge-edit-screen hide">
 
-        <div class="badge-edit-window">
-          <div class="drag-tooltip">Drag to reorder</div>
-          <div class="badge-menu scrollable">
-            <div class="badge-achieved-section">
+      <div class="de-container section-container">
+        <button class="deactivate-btn">
+          <i class="material-icons-outlined">block</i>
+          <span>Deactivate account</span>
+        </button>
+        <button class="delete-btn">
+          <i class="material-icons-outlined">person_off</i>
+          <span>Delete account</span>
+        </button>
+      </div>
     
+      <div class="edit-screen badge-edit-screen hide">
+        <div class="badge-edit-window">
+          <div class="badge-menu scrollable">
+            <div class="drag-tooltip">Drag to reorder</div>
+            <div class="badge-achieved-section">
             </div>
             <div class="badge-not-achieved-section">
-    
             </div>
           </div>
-    
           <div class="badge-info scrollable">
             <div class="badge-details trophy-details">
               <div class="badge badge-showcase trophy">
@@ -392,6 +384,23 @@
             <i class="material-icons-round done">save</i>
           </div>
         </div>
+      </div>
+
+      <div class="edit-screen email-edit-screen hide">
+        <button class="cancel-back">
+          <i class="material-icons-round md-12">arrow_back_ios</i>
+          <span>Cancel</span>
+        </button>
+        <div class="save-btn email-done">
+          <i class="material-icons-round done">save</i>
+        </div>
+      </div>
+
+      <div class="edit-screen pass-edit-screen hide">
+        <button class="cancel-back">
+          <i class="material-icons-round md-12">arrow_back_ios</i>
+          <span>Cancel</span>
+        </button>
       </div>
     </div>
   </div>
