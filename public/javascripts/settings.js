@@ -455,9 +455,9 @@ settings.notificationsCancel = () => {
  * | :func:`settings.init.attachAllListeners` :func:`settings.init.sessionStorageCheck`
  */
 settings.badgeConfigMenuShow = () => {
-  global.elem.darkenOverlay.classList.add('desktop-show');
+  global.elem.darkenOverlay.classList.remove('hide');
   settings.elem.badgeConfigScreen.classList.remove('hide');
-  document.querySelectorAll('.section').forEach((section) => {
+  document.querySelectorAll('.section-container').forEach((section) => {
     section.classList.add('mobile-hide');
   })
 }
@@ -469,7 +469,7 @@ settings.badgeConfigMenuShow = () => {
  * | :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.badgeConfigMenuCancel`
  */
 settings.badgeConfigMenuClose = () => {
-  global.elem.darkenOverlay.classList.remove('desktop-show')
+  global.elem.darkenOverlay.classList.add('hide')
   settings.elem.badgeConfigScreen.classList.add('hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
@@ -484,7 +484,7 @@ settings.badgeConfigMenuClose = () => {
  */
 settings.editModeExit = (selected) => {
   selected.classList.remove('edit-mode');
-  document.querySelectorAll('.section-container').forEach((section) => {
+  document.querySelectorAll('.mobile-hide').forEach((section) => {
     section.classList.remove('mobile-hide');
   })
 }
@@ -616,6 +616,7 @@ settings.event.sectionClick = function(e) {
         this.classList.remove('mobile-hide');
       } else {
         section.classList.add('mobile-hide');
+        section.classList.remove('edit-mode');
       }
     })
   }
