@@ -16,7 +16,7 @@ const userOne = {
 const delay = (data = undefined, failed = false, error = false, duration = 2000) => {
   return new Promise(async (resolve, reject) => {
     setTimeout(() => {
-      if (!data) {
+      if (data === undefined) {
         return resolve({ status: "error", content: "No data output" });
       } else {
         if (!error && !failed) {
