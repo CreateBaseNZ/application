@@ -131,7 +131,7 @@
           </div>
           <div class="btn-container">
             <button class="cancel-btn profile-cancel"></button>
-            <button class="save-btn profile-save"><i class="material-icons-round md-18">save</i></button>
+            <button class="save-btn profile-save"><i class="material-icons-round md-18">check</i></button>
           </div>
         </div>
       </div>
@@ -150,7 +150,6 @@
 
           <div class="input-container email-container btn-to-input">
             <h3>Email</h3>
-            <input type="text" id="acc-email" placeholder="Email">
             <button>
               <span class="caption">Change email</span>
               <span class="current email-static"></span>
@@ -166,10 +165,6 @@
 
           <div class="input-container pass-container btn-to-input">
             <h3>Password</h3>
-            <input autocomplete="new-password" type="password" id="acc-pass" placeholder="">
-            
-            <div class="vis-icon"><i id="acc-pass-vis" class="material-icons-round md-18">visibility</i></div>
-
             <button>
               <span class="caption">Change password</span>
               <i class="material-icons-round arrow">arrow_forward_ios</i>
@@ -212,7 +207,7 @@
 
           <div class="btn-container">
             <button class="cancel-btn account-cancel"></button>
-            <button class="save-btn account-save"><i class="material-icons-round md-18">save</i></button>
+            <button class="save-btn account-save"><i class="material-icons-round md-18">check</i></button>
           </div>
         </div>
       </div>
@@ -238,7 +233,7 @@
           </label>
           <div class="btn-container">
             <button class="cancel-btn notifications-cancel"></button>
-            <button class="save-btn notifications-save"><i class="material-icons-round md-18">save</i></button>
+            <button class="save-btn notifications-save"><i class="material-icons-round md-18">check</i></button>
           </div>
         </div>
       </div>
@@ -257,7 +252,7 @@
       <div class="edit-screen badge-edit-screen hide">
         <div class="badge-edit-window">
           <div class="badge-menu scrollable">
-            <div class="drag-tooltip">Drag to reorder</div>
+            <div class="screen-tooltip">Drag to reorder</div>
             <div class="badge-achieved-section">
             </div>
             <div class="badge-not-achieved-section">
@@ -379,24 +374,47 @@
             <i class="material-icons-round md-24">close</i>
           </div>
         </div>
-        <div class="badge-edit-btn">
-          <div class="save-btn badge-config-done">
-            <i class="material-icons-round done">save</i>
-          </div>
+        <div class="save-btn badge-config-done">
+          <i class="material-icons-round done">check</i>
         </div>
       </div>
 
-      <div class="edit-screen email-edit-screen hide">
-        <button class="cancel-back">
-          <i class="material-icons-round md-12">arrow_back_ios</i>
-          <span>Cancel</span>
-        </button>
-
-        Editing email
-
-        <div class="save-btn email-done">
-          <i class="material-icons-round done">save</i>
+      <div class="edit-screen email-edit-screen hide on-step-one">
+        <div class="badge-config-close">
+          <button class="cancel-back">
+            <i class="material-icons-round md-12">arrow_back_ios</i>
+            <span>Cancel</span>
+          </button>
         </div>
+
+        <div class="step-one">
+          <div class="input-container pass-container">
+            <input autocomplete="new-password" type="password" id="acc-pass" placeholder="">
+            <div class="vis-icon"><i id="acc-pass-vis" class="material-icons-round md-18">visibility</i></div>
+          </div>
+          <div class="screen-tooltip">
+            To verify it's you, please enter your password
+          </div>
+          <div class="btn-container">
+            <div class="continue-btn email-done">
+              <i class="material-icons-round done">arrow_forward_ios</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-two">
+          <div class="input-container email-container">
+            <h3>Email</h3>
+            <input type="text" id="acc-email" placeholder="Email">
+          </div>
+          <div class="btn-container">
+            <div class="save-btn email-done">
+              <i class="material-icons-round done">check</i>
+            </div>
+          </div>
+        </div>
+
+
       </div>
 
       <div class="edit-screen pass-edit-screen hide">
@@ -405,10 +423,13 @@
           <span>Cancel</span>
         </button>
 
+        <div class="input-container">
+
+        </div>
         Editing password
 
         <div class="save-btn email-done">
-          <i class="material-icons-round done">save</i>
+          <i class="material-icons-round done">chekc</i>
         </div>
       </div>
 

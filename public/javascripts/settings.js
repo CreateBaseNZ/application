@@ -17,32 +17,32 @@ let settings = {
   },
 
   event: {
-    accountCancelMobile: undefined,
     avatarPreview: undefined,
-    badgeConfigMenuCancel: undefined,
-    badgeConfigMenuEscape: undefined,
-    badgeConfigMenuSave: undefined,
+    badgeConfigScreenCancel: undefined,
+    badgeConfigScreenEscape: undefined,
+    badgeConfigScreenSave: undefined,
     badgeConfigToggle: undefined,
     confirmPassVisToggle: undefined,
-    notificationsCancelMobile: undefined,
+    emailPassInputCheck: undefined,
     passVisToggle: undefined,
-    profileCancelMobile: undefined,
     sectionClick: undefined,
   },
 
   accountCancel: undefined,
   accountInputsCheck: undefined,
-  badgeConfigMenuClose: undefined,
-  badgeConfigMenuShow: undefined,
+  badgeConfigScreenClose: undefined,
+  badgeConfigScreenShow: undefined,
   badgesCancel: undefined,
   cacheUpdate: undefined,
   editModeExit: undefined,
-  emailMenuShow: undefined,
+  emailScreenShow: undefined,
+  emailScreenClose: undefined,
   notificationsCancel: undefined,
   notificationsInputsCheck: undefined,
   profileCancel: undefined,
   profileInputsCheck: undefined,
-  sortableJSInit: undefined,
+  screenClose: undefined,
+  screenShow: undefined,
 
   backend: {
     fetch: undefined,
@@ -75,6 +75,7 @@ let settings = {
     nameInput: document.querySelector('#acc-name'),
     emailInput: document.querySelector('#acc-email'),
     emailStatic: document.querySelector('.email-static'),
+    passwordInput: document.querySelector('#acc-pass'),
     streetInput: document.querySelector('#acc-street'),
     unitInput: document.querySelector('#acc-unit'),
     cityInput: document.querySelector('#acc-city'),
@@ -87,7 +88,7 @@ let settings = {
     notificationsSection: document.querySelector('.notifications-section'),
     badgeAchievedSection: document.querySelector('.badge-achieved-section'),
     badgeNotAchievedSection: document.querySelector('.badge-not-achieved-section'),
-    passwordInput: document.querySelector('#acc-pass'),
+    emailScreen: document.querySelector('.email-edit-screen'),
     passwodConfirmInput: document.querySelector('#acc-pass-conf')
   }
 }
@@ -214,7 +215,7 @@ settings.init.sortableJSInit = () => {
  * Attaches event listeners to all DOM objects.
  * 
  * | **Invokes**
- * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigMenuShow` :func:`settings.emailMenuShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.event.profileCancelMobile` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.event.accountCancelMobile` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.notificationsCancelMobile` :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuCancel` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.sectionClick` :func:`settings.event.sectionCancelMobile`
+ * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigScreenShow` :func:`settings.emailScreenShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.event.emailPassInputCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.badgeConfigScreenSave` :func:`settings.event.badgeConfigScreenCancel` :func:`settings.event.badgeConfigScreenEscape` :func:`settings.event.sectionClick`
  *
  * | **Invoked by**
  * | :func:`settings.init.init`
@@ -223,8 +224,8 @@ settings.init.attachAllListeners = () => {
   // Previews new avatar
   document.querySelector('#avatar-input').addEventListener('change', settings.event.avatarPreview)
   // Show badge config screen
-  settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigMenuShow)
-  document.querySelector('.email-container').querySelector('button').addEventListener('click', settings.emailMenuShow)
+  settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigScreenShow)
+  document.querySelector('.email-container').querySelector('button').addEventListener('click', settings.emailScreenShow)
   // Toggle password visibility
   document.querySelector('#acc-pass-vis').addEventListener('click', settings.event.passVisToggle)
   // Toggle confirm password visibility
@@ -241,37 +242,35 @@ settings.init.attachAllListeners = () => {
   settings.elem.notificationsSection.querySelectorAll('input').forEach((input) => {
     input.addEventListener('input', settings.notificationsInputsCheck)
   })
+  // Check for changes in change email step one (password) input
+  settings.elem.passwordInput.addEventListener('input', settings.event.emailPassInputCheck)
   // Save Profile settings
   settings.elem.profileSaveBtn.addEventListener('click', settings.backend.profileSave)
   // Cancel Profile settings
   settings.elem.profileCancelBtn.addEventListener('click', settings.profileCancel)
   // Cancel Profile settings (mobile)
-  settings.elem.profileSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.profileCancelMobile)
+  settings.elem.profileSection.querySelector('.back-to-main-sections').addEventListener('click', settings.profileCancel)
   // Save Account settings
   settings.elem.accountSaveBtn.addEventListener('click', settings.backend.accountSave)
   // Cancel Account settings
   settings.elem.accountCancelBtn.addEventListener('click', settings.accountCancel)
   // Cancel Account settings (mobile)
-  settings.elem.accountSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.accountCancelMobile)
+  settings.elem.accountSection.querySelector('.back-to-main-sections').addEventListener('click', settings.accountCancel)
   // Save Notifications settings
   settings.elem.notificationsSaveBtn.addEventListener('click', settings.backend.notificationsSave)
   // Cancel Notifications settings
   settings.elem.notificationsCancelBtn.addEventListener('click', settings.notificationsCancel)
   // Cancel Notifications settings (mobile)
-  settings.elem.notificationsSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.notificationsCancelMobile)
+  settings.elem.notificationsSection.querySelector('.back-to-main-sections').addEventListener('click', settings.notificationsCancel)
   // Saving badge configuration
-  document.querySelector('.badge-config-done').addEventListener('click', settings.event.badgeConfigMenuSave)
-  // Closing the badge configuration menu
-  document.querySelector('.badge-config-close').addEventListener('click', settings.event.badgeConfigMenuCancel)
-  // Escape key exits badge configuration menu
-  document.addEventListener('keydown', settings.event.badgeConfigMenuEscape)
+  document.querySelector('.badge-config-done').addEventListener('click', settings.event.badgeConfigScreenSave)
+  // Closing the badge configuration screen
+  document.querySelector('.badge-config-close').addEventListener('click', settings.event.badgeConfigScreenCancel)
+  // Escape key exits badge configuration screen
+  document.addEventListener('keydown', settings.event.badgeConfigScreenEscape)
   // Enabling and exiting edit mode
   document.querySelectorAll('.section').forEach(function (section) {
     section.addEventListener('click', settings.event.sectionClick)
-  })
-  // Cancel button to go back to main sections (mobile only)
-  document.querySelectorAll('.back-to-main-sections').forEach((btn) => {
-    btn.addEventListener('click', settings.event.sectionCancelMobile)
   })
 }
 
@@ -332,7 +331,7 @@ settings.init.cacheInit = (data) => {
  * Checks ``sessionStorage`` for references from previous page and styles the page accordingly; storage is cleared after.
  * 
  * | **Invokes**
- * | :func:`settings.badgeConfigMenuShow`
+ * | :func:`settings.badgeConfigScreenShow`
  *
  * | **Invoked by**
  * | :func:`settings.init.init`
@@ -341,7 +340,7 @@ settings.init.sessionStorageCheck = () => {
   // Check if coming from Dashboard
   const badge = sessionStorage.getItem('dashboard')
   if (badge) {
-    settings.badgeConfigMenuShow();
+    settings.badgeConfigScreenShow();
     // Display relevant badge
     if (badge !== 'empty') {
       document.querySelector('.' + badge + '-details').classList.add('badge-details-show')
@@ -397,86 +396,6 @@ settings.cacheUpdate = (section) => {
 }
 
 /**
- * Reverts account to cached settings and hides the save button.
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners` :func:`settings.event.accountCancelMobile`
- */
-settings.accountCancel = () => {
-  // Revert to cached settings and hide save button
-  settings.elem.nameInput.value = settings.var.cache.name;
-  settings.elem.emailInput.value = settings.var.cache.email;
-  settings.elem.streetInput.value = settings.var.cache.street;
-  settings.elem.unitInput.value = settings.var.cache.unit;
-  settings.elem.cityInput.value = settings.var.cache.city;
-  settings.elem.stateInput.value = settings.var.cache.state;
-  settings.elem.zipInput.value = settings.var.cache.zip;
-  settings.elem.countryInput.value = settings.var.cache.country;
-  settings.elem.accountSaveBtn.classList.remove('unsaved-changes');
-}
-
-/**
- * TO DO
- */
-settings.badgesCancel = () => {
-  // TO DO: load cached badges data
-
-}
-
-/**
- * Reverts profile to cached settings and hides the save button.
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- */
-settings.profileCancel = () => {
-  // Revert to cached settings and hide save button
-  settings.elem.avatarPreview.src = "settings/fetch-avatar"
-  settings.elem.displayNameInput.value = settings.var.cache.displayName;
-  settings.elem.displayEmailInput.value = settings.var.cache.displayEmail;
-  settings.elem.locationInput.value = settings.var.cache.location;
-  settings.elem.profileSaveBtn.classList.remove('unsaved-changes');
-}
-
-/**
- * Reverts notifications to cached settings and hides the save button.
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners` :func:`settings.event.notificationsCancelMobile`
- */
-settings.notificationsCancel = () => {
-  // Revert to cached settings and hide save button
-  settings.elem.mailingInput.checked = settings.var.cache.mailing;
-  settings.elem.notificationsSaveBtn.classList.remove('unsaved-changes');
-}
-
-/**
- * Shows the configure badge menu when the preview badge container is clicked.
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners` :func:`settings.init.sessionStorageCheck`
- */
-settings.badgeConfigMenuShow = () => {
-  global.elem.darkenOverlay.classList.remove('hide');
-  settings.elem.badgeConfigScreen.classList.remove('hide');
-  document.querySelectorAll('.section-container').forEach((section) => {
-    section.classList.add('mobile-hide');
-  })
-}
-
-/**
- * Closes the badge configuration menu.
- *
- * | **Invoked by**
- * | :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.badgeConfigMenuCancel`
- */
-settings.badgeConfigMenuClose = () => {
-  global.elem.darkenOverlay.classList.add('hide');
-  settings.elem.badgeConfigScreen.classList.add('hide');
-  document.querySelector('.edit-mode').classList.remove('mobile-hide');
-}
-
-/**
  * Exits editing mode for ``selected`` and returns the user to the main Settings page if on mobile.
  *
  * | **Invoked by**
@@ -491,10 +410,146 @@ settings.editModeExit = (selected) => {
   })
 }
 
-settings.emailMenuShow = () => {
+/**
+ * Shows a screen.
+ * 
+ * @param {Object} e        Event object.
+ * @param {Object} screen   Screen element shown.
+ */
+settings.screenShow = (e, screen) => {
+  console.log('screenShow')
+  // e.stopPropagation();
+  screen.classList.remove('hide');
+  global.elem.darkenOverlay.classList.remove('hide');
+  document.querySelectorAll('.section-container').forEach((section) => {
+    section.classList.add('mobile-hide');
+  })
+}
+
+/**
+ * Closese a screen.
+ * 
+ * @param {Object} e        Event object.
+ * @param {Object} screen   Screen element closed.
+ */
+settings.screenClose = (e, screen) => {
+  console.log('screenClose')
+  e.stopPropagation();
   global.elem.darkenOverlay.classList.add('hide');
-  document.querySelector('.email-edit-screen').classList.remove('hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
+  screen.classList.add('hide');
+}
+
+/**
+ * Reverts account to cached settings and hides the save button.
+ *
+ * | **Invokes**
+ * | :func:`settings.editModeExit`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners` :func:`settings.event.accountCancelMobile`
+ */
+settings.accountCancel = (e) => {
+  e.stopPropagation();
+  settings.editModeExit(settings.elem.accountSection);
+  settings.elem.accountSection.querySelector('.btn-container').classList.remove('unsaved-changes');
+  // Revert to cached settings and hide save button
+  settings.elem.nameInput.value = settings.var.cache.name;
+  settings.elem.emailInput.value = settings.var.cache.email;
+  settings.elem.streetInput.value = settings.var.cache.street;
+  settings.elem.unitInput.value = settings.var.cache.unit;
+  settings.elem.cityInput.value = settings.var.cache.city;
+  settings.elem.stateInput.value = settings.var.cache.state;
+  settings.elem.zipInput.value = settings.var.cache.zip;
+  settings.elem.countryInput.value = settings.var.cache.country;
+}
+
+/**
+ * TO DO
+ */
+settings.badgesCancel = () => {
+  // TO DO: load cached badges data
+
+}
+
+/**
+ * Reverts profile to cached settings and hides the save button.
+ *
+ * | **Invokes**
+ * | :func:`settings.editModeExit`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
+ */
+settings.profileCancel = (e) => {
+  e.stopPropagation();
+  settings.editModeExit(settings.elem.profileSection);
+  settings.elem.profileSection.querySelector('.btn-container').classList.remove('unsaved-changes');
+  // Revert to cached settings and hide save button
+  settings.elem.avatarPreview.src = "settings/fetch-avatar"
+  settings.elem.displayNameInput.value = settings.var.cache.displayName;
+  settings.elem.displayEmailInput.value = settings.var.cache.displayEmail;
+  settings.elem.locationInput.value = settings.var.cache.location;
+}
+
+/**
+ * Reverts notifications to cached settings and hides the save button.
+ *
+ * | **Invokes**
+ * | :func:`settings.editModeExit`
+ * 
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners` :func:`settings.event.notificationsCancelMobile`
+ */
+settings.notificationsCancel = (e) => {
+  e.stopPropagation();
+  settings.editModeExit(settings.elem.notificationsSection);
+  settings.elem.notificationsSection.querySelector('.btn-container').classList.remove('unsaved-changes');
+  // Revert to cached settings and hide save button
+  settings.elem.mailingInput.checked = settings.var.cache.mailing;
+}
+
+/**
+ * Shows the configure badge screen when the preview badge container is clicked.
+ * 
+ * | **Invokes**
+ * | :func:`settings.screenShow`
+ */
+settings.badgeConfigScreenShow = (e) => {
+  settings.screenShow(e, settings.elem.badgeConfigScreen)
+}
+
+/**
+ * Closes the badge configuration screen.
+ * 
+ * | **Invokes**
+ * | :func:`settings.screenClose`
+ *
+ * | **Invoked by**
+ * | :func:`settings.event.badgeConfigScreenSave` :func:`settings.event.badgeConfigScreenEscape` :func:`settings.event.badgeConfigScreenCancel`
+ */
+settings.badgeConfigScreenClose = (e) => {
+  settings.screenClose(e, settings.elem.badgeConfigScreen);
+}
+
+/**
+ * Shows the email editing screen.
+ * 
+ * | **Invokes**
+ * | :func:`settings.screenShow`
+ */
+settings.emailScreenShow = (e) => {
+  settings.screenShow(e, document.querySelector('.email-edit-screen'))
+}
+
+/**
+ * Closes the email editing screen.
+ * 
+ * | **Invokes**
+ * | :func:`settings.screenClose`
+ */
+settings.emailScreenClose = (e) => {
+  settings.screenClose(e, document.querySelector('.email-edit-screen'))
 }
 
 /**
@@ -584,7 +639,7 @@ settings.accountInputsCheck = () => {
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.notificationsInputsCheck = function() {
+settings.notificationsInputsCheck = () => {
   const dict = {
     mailing: {
       value: settings.elem.mailingInput.checked,
@@ -594,30 +649,31 @@ settings.notificationsInputsCheck = function() {
   global.input.checkChange(dict, [settings.elem.notificationsSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
+settings.event.emailPassInputCheck = () => {
+  const dict = {
+    mailing: {
+      value: settings.elem.passwordInput.value,
+      cache: ""
+    }
+  }
+  global.input.checkChange(dict, [settings.elem.emailScreen.querySelector('.btn-container')], ['unsaved-changes']);
+}
+
 // ==========================================================
 // EVENTS FUNCTIONS
 // ==========================================================
 
 /**
  * Handles all clicks on a section. Clicking the cancel or save button exits edit mode. Clicking anywhere on a section enables edit mode, if not already enabled.
- * 
- * | **Invokes**
- * | :func:`settings.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
-settings.event.sectionClick = function(e) {
-  if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
-    // Save button - exit edit mode
-    settings.editModeExit(this);
-  } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
-    // Cancel button - exit edit mode
-    settings.editModeExit(this);
-  } else if (!this.classList.contains('edit-mode')) {
-    // Clicking anywhere else on the container enables edit mode if not already enabled
+settings.event.sectionClick = function() {
+  console.log('sectionClick')
+  if (!this.classList.contains('edit-mode')) {
     document.querySelectorAll('.section-container').forEach((section) => {
       if (this === section) {
         this.classList.add('edit-mode');
@@ -631,96 +687,40 @@ settings.event.sectionClick = function(e) {
 }
 
 /**
- * Cancel button on mobile to go back to main Settings page.
+ * Sends badge configuration to back-end, closes badge configuration screen, and exits Profile edit mode.
  * 
  * | **Invokes**
- * | :func:`settings.editModeExit`
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- * 
- * @param {Object} e An event object.
- */
-settings.event.profileCancelMobile = (e) => {
-  e.stopPropagation();
-  // Revert to cached settings
-  settings.profileCancel();
-  // Leave edit mode (go back to main Settings page)
-  settings.editModeExit(document.querySelector('.edit-mode'));
-}
-
-/**
- * Cancel button on mobile to go back to main Settings page.
- * 
- * | **Invokes**
- * | :func:`settings.accountCancel` :func:`settings.editModeExit`
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- * 
- * @param {Object} e An event object.
- */
-settings.event.accountCancelMobile = (e) => {
-  e.stopPropagation();
-  // Revert to cached settings
-  settings.accountCancel();
-  // Leave edit mode (go back to main Settings page)
-  settings.editModeExit(document.querySelector('.edit-mode'));
-}
-
-/**
- * Cancel button on mobile to go back to main Settings page.
- * 
- * | **Invokes**
- * | :func:`settings.notificationsCancel` :func:`settings.editModeExit`
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- * 
- * @param {Object} e An event object.
- */
-settings.event.notificationsCancelMobile = (e) => {
-  e.stopPropagation();
-  // Revert to cached settings
-  settings.notificationsCancel();
-  // Leave edit mode (go back to main Settings page)
-  settings.editModeExit(document.querySelector('.edit-mode'));
-}
-
-/**
- * Sends badge configuration to back-end, closes badge configuration menu, and exits Profile edit mode.
- * 
- * | **Invokes**
- * | :func:`settings.backend.badgesSave` :func:`settings.badgeConfigMenuClose` :func:`settings.event.editModeExit`
+ * | :func:`settings.backend.badgesSave` :func:`settings.badgeConfigScreenClose` :func:`settings.event.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.event.badgeConfigMenuSave = () => {
+settings.event.badgeConfigScreenSave = (e) => {
   // Send badges to back-end
   settings.backend.badgesSave();
-  // Close the config menu
-  settings.badgeConfigMenuClose();
+  // Close the config screen
+  settings.badgeConfigScreenClose(e);
   // Exit Profile edit mode
   settings.editModeExit(settings.elem.profileSection);
 }
 
 /**
- * Closes the badge configuration menu if ``Esc`` key press. Also reverts to cached badge configuration.
+ * Closes the badge configuration screen if ``Esc`` key press. Also reverts to cached badge configuration.
  * 
  * | **Invokes**
- * | :func:`settings.badgeConfigMenuClose`
+ * | :func:`settings.badgeConfigScreenClose` :func:`settings.emailScreenClose`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  * 
  * @param {Object} e An event object.
  */
-settings.event.badgeConfigMenuEscape = (e) => {
-  if (e.key === 'Escape' && !settings.elem.badgeConfigScreen.classList.contains('hide')) {
+settings.event.badgeConfigScreenEscape = (e) => {
+  if (e.key === 'Escape') {
     // TO DO: revert to cached badge configuration
 
-    settings.badgeConfigMenuClose();
+    settings.badgeConfigScreenClose(e);
+    settings.emailScreenClose(e);
   }
 }
 
@@ -728,15 +728,15 @@ settings.event.badgeConfigMenuEscape = (e) => {
  * Closes the badge configuration (when X button is clicked). Also reverts to cached badge configuration.
  * 
  * | **Invokes**
- * | :func:`settings.badgeConfigMenuClose`
+ * | :func:`settings.badgeConfigScreenClose`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
  */
-settings.event.badgeConfigMenuCancel = () => {
+settings.event.badgeConfigScreenCancel = (e) => {
   // TO DO: revert to cached badge configuration
 
-  settings.badgeConfigMenuClose();
+  settings.badgeConfigScreenClose(e);
 }
 
 /**
@@ -830,7 +830,7 @@ settings.backend.fetch = () => {
  * Posts Profile section changes to the database; these include the display name, display email, and display location. If successful, the local cache is updated.
  * 
  * | **Invokes**
- * | :func:`axios.post` :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate` :func:`settings.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -864,8 +864,9 @@ settings.backend.profileSave = async () => {
   }
   // Update cache
   settings.cacheUpdate('profile');
+  settings.editModeExit(settings.elem.profileSection);
   // Hide save button
-  settings.elem.profileSaveBtn.classList.remove('unsaved-changes');
+  settings.elem.profileSection.querySelector('.btn-container').classList.remove('unsaved-changes');
   return;
 }
 
@@ -876,7 +877,7 @@ settings.backend.profileSave = async () => {
  * | :func:`axios.post` :func:`settings.cacheUpdate`
  *
  * | **Invoked by**
- * | :func:`settings.event.badgeConfigMenuSave`
+ * | :func:`settings.event.badgeConfigScreenSave`
  */
 settings.backend.badgesSave = async () => {
   let data = [];
@@ -895,7 +896,7 @@ settings.backend.badgesSave = async () => {
  * Posts Account section changes to the database; these include the account name and location. If successful, the local cache is updated.
  * 
  * | **Invokes**
- * | :func:`axios.post` :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate` :func:`settings.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -930,8 +931,9 @@ settings.backend.accountSave = async () => {
   }
   // Update cache
   settings.cacheUpdate('account');
+  settings.editModeExit(settings.elem.accountSection);
   // Hide save button
-  settings.elem.accountSaveBtn.classList.remove('unsaved-changes');
+  settings.elem.accountSection.querySelector('.btn-container').classList.remove('unsaved-changes');
   return;
 }
 
@@ -939,7 +941,7 @@ settings.backend.accountSave = async () => {
  * Posts mailing list changes to the database. If successful, the local cache is updated.
  * 
  * | **Invokes**
- * | :func:`axios.post` :func:`settings.cacheUpdate`
+ * | :func:`axios.post` :func:`settings.cacheUpdate` :func:`settings.editModeExit`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -966,7 +968,8 @@ settings.backend.notificationsSave = async () => {
   }
   // Update cache
   settings.cacheUpdate('notifications');
+  settings.editModeExit(settings.elem.notificationsSection);
   // Hide save button
-  settings.elem.notificationsSaveBtn.classList.remove('unsaved-changes');
+  settings.elem.notificationsSection.querySelector('.btn-container').classList.remove('unsaved-changes');
   return;
 }

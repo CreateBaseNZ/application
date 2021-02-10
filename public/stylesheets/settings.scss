@@ -13,7 +13,8 @@ $bez: cubic-bezier(.15,.51,.51,.97);
   display: none;
 }
 
-.section-container.mobile-hide {
+.section-container.mobile-hide,
+.section-container.edit-mode.mobile-hide {
   display: none;
 }
 
@@ -35,15 +36,6 @@ $bez: cubic-bezier(.15,.51,.51,.97);
   flex: 1 0 auto;
 }
 
-.edit-screen {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
-  height: 100%;
-}
-
 // ==========================================
 // GENERAL STYLES
 // ==========================================
@@ -62,8 +54,10 @@ h3 {
 }
 
 h4 {
-  font-size: 1.125rem;
+  font-size: 0.75rem;
   font-weight: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .input-container {
@@ -127,6 +121,11 @@ h4 {
     }
   }
   span.caption {
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 200%;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
     transition: box-shadow 0.2s ease-out;
   }
 }
@@ -153,12 +152,12 @@ h4 {
     transition: background-color 0.2s ease-out;
   }
   h3 {
-    z-index: 2;
+    z-index: 0;
     display: block;
     width: 100%;
   }
   span {
-    z-index: 2;
+    z-index: 0;
     opacity: 1;
     font-weight: 400;
     color: $light;
@@ -166,7 +165,7 @@ h4 {
     line-height: 200%;
   }
   .switch-custom {
-    z-index: 2;
+    z-index: 0;
     background: transparent;
     border: thin solid $light;
     transition: background-color 0.3s ease-out, border 0.3s ease-out;
@@ -207,7 +206,8 @@ h4 {
   }
 }
 
-.save-btn {
+.save-btn,
+.continue-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,6 +228,12 @@ h4 {
     text-transform: uppercase;
     color: $lightest;
     letter-spacing: 0.25em;
+  }
+}
+.continue-btn {
+  i {
+    font-size: 0.75rem;
+    margin-left: 0.5em;
   }
 }
 
@@ -328,9 +334,9 @@ h4 {
     display: none;
   }
   &.unsaved-changes {
+    pointer-events: auto;
     opacity: 1;
     button {
-      pointer-events: auto;
       cursor: pointer;
     }
     .save-btn {
@@ -444,8 +450,6 @@ h4 {
     span.caption {
       width: 100%;
       padding-left: 0.5em;
-      font-weight: 600;
-      line-height: 200%;
     }
   }
   .btn-container > .save-btn { 
@@ -474,30 +478,6 @@ h4 {
     button {
       color: $blue-light;
       background: $lightbluetint;
-    }
-  }
-  .pass-container {
-    position: relative;
-    .vis-icon {
-      position: absolute;
-      top: 2.7em;
-      right: 1.2em;
-      transform: translateY(-50%);
-      color: $light;
-      opacity: 0;
-      transition: opacity 0.4s ease-out;
-      i {
-        cursor: pointer;
-        opacity: 0.5;
-        z-index: 1;
-        transition: opacity 0.2s ease-out;
-        &:hover {
-          opacity: 0.75;
-        }
-      }
-      i.visible {
-        opacity: 1;
-      }
     }
   }
 }
@@ -565,31 +545,60 @@ h4 {
 }
 
 // ==========================================
-// BADGE CONFIG SCREEN
+// SCREENS
 // ==========================================
+
+.edit-screen,
+.step-one,
+.step-two {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+.edit-screen.on-step-one {
+  .step-two {
+    display: none;
+  }
+}
+.edit-screen.on-step-two {
+  .step-one {
+    display: none;
+  }
+}
+
+.screen-tooltip {
+  margin: 0.5rem;
+  font-size: 0.75rem;
+  color: $dark;
+  opacity: 0.5;
+  align-self: center;
+  width: 80%;
+  text-align: center;
+}
+
+.badge-config-close {
+  order: -1;
+  .md-24 {
+    display: none;
+  }
+}
 
 .badge-edit-window {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   overflow: hidden;
-  height: 100%;
+  flex: 1 1 0;
   width: 100%;
-  .badge-config-close {
+  .screen-tooltip {
     position: absolute;
     top: 0;
-    left: 0;
-    .md-24 {
-      display: none;
-    }
-  }
-  .drag-tooltip {
-    position: absolute;
-    top: 0.5em;
     right: 0;
-    font-size: 0.625rem;
-    color: $dark;
-    opacity: 0.35;
+    width: auto;
   }
   .badge-menu {
     position: relative;
@@ -684,17 +693,12 @@ h4 {
   opacity: 0.25;
 }
 
-.badge-edit-btn {
-  justify-self: flex-end;
-  margin: 2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.badge-config-done {
+  align-self: flex-end;
   width: 100%;
-  .badge-config-done {
-    background: $green;
-    color: $green;
-  }
+  margin-top: 1.5rem;
+  background: $green;
+  color: $green;
 }
 
 .badge-details {
@@ -743,6 +747,42 @@ h4 {
     line-height: 175%;
     margin-top: 0.6rem;
     animation: show-badge-about 2s forwards;
+  }
+}
+
+.email-edit-screen {
+  .cancel-back {
+    margin-bottom: 5vh;
+  }
+  .pass-container {
+    position: relative;
+    .vis-icon {
+      position: absolute;
+      top: calc(50% + 0.35rem);
+      right: 1.2em;
+      transform: translateY(-50%);
+      color: $light;
+      transition: opacity 0.4s ease-out;
+      i {
+        cursor: pointer;
+        opacity: 0.5;
+        z-index: 1;
+        transition: opacity 0.2s ease-out;
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+      i.visible {
+        opacity: 1;
+      }
+    }
+  }
+  .email-done {
+    background: $blue-light;
+    &::after {
+      order: -1;
+      content: 'Continue';
+    }
   }
 }
 
@@ -897,9 +937,7 @@ h3 {
     display: none;
   }
   span.caption {
-    text-transform: uppercase;
     font-size: 0.75rem;
-    letter-spacing: 0.1em;
   }
 }
 
@@ -1051,39 +1089,13 @@ h3 {
   }
 }
 
-.badge-edit-btn {
-  .badge-config-done {
-    cursor: pointer;
-    height: auto;
-    width: auto;
-    padding: 0.75rem 1.5rem;
-    transition: filter 0.2s ease-out;
-    border-radius: 999px;
-    box-shadow: 0 0.5em 1em 0em;
-    background: #29E9BA;
-    i {
-      font-size: 1.5rem;
-      margin-right: 0.15em;
-    }
-    &::after {
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: none;
-    }
-    &:hover {
-      filter: brightness(0.95);
-    }
-  }
-}
-
 .notifications-section {
   .panel-left > i {
     background: transparent;
   }
 }
 
-.badge-edit-screen {
+.edit-screen {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1092,26 +1104,29 @@ h3 {
   height: auto;
 }
 
+.badge-config-close {
+  position: absolute;
+  cursor: pointer;
+  top: 1.5rem;
+  right: 1.5rem;
+  .md-24 {
+    display: block;
+    color: $light;
+    transition: color 0.1s ease-out;
+    &:hover {
+      color: $red;
+    }
+  }
+}
+
 .badge-edit-window {
+  flex-direction: row;
   box-shadow: 0 1rem 2rem -1rem $dark;
-  height: 60vh;
   background: $lightest;
   border-radius: 2rem;
   width: auto;
-  .badge-config-close {
-    cursor: pointer;
-    top: 1.5rem;
-    left: auto;
-    right: 1.5rem;
-    .md-24 {
-      display: block;
-      color: $light;
-      transition: color 0.1s ease-out;
-      &:hover {
-        color: $red;
-      }
-    }
-  }
+  flex: 1 1 auto;
+  height: 60vh;
   .badge-menu {
     background: $lightest;
     width: 45vw;
@@ -1119,14 +1134,11 @@ h3 {
     max-width: none;
     height: 100%;
     overflow-y: auto;
-    .drag-tooltip {
-      position: absolute;
+    .screen-tooltip {
       top: 3rem;
       right: auto;
       left: 4rem;
       transform: translateY(-100%);
-      opacity: 0.5;
-      font-size: 0.75rem;
       z-index: 2;
     }
     .badge-achieved-section {
@@ -1187,12 +1199,27 @@ h3 {
   }
 }
 
-.badge-edit-btn {
-  justify-self: auto;
-  margin-bottom: 0;
+.badge-config-done {
+  cursor: pointer;
+  height: auto;
   width: auto;
-  .badge-config-done {
-
+  padding: 0.75rem 1.5rem;
+  transition: filter 0.2s ease-out;
+  border-radius: 999px;
+  box-shadow: 0 0.5em 1em 0em;
+  background: #29E9BA;
+  i {
+    font-size: 1.5rem;
+    margin-right: 0.15em;
+  }
+  &::after {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: none;
+  }
+  &:hover {
+    filter: brightness(0.95);
   }
 }
 
@@ -1453,11 +1480,11 @@ h3 {
   }
 }
 
-.badge-edit-screen {
+.edit-screen {
   left: calc(50% + 75px);
 }
 
-.badge-edit-windor {
+.badge-edit-window {
   .badge-menu {
     width: 50vw;
   }
