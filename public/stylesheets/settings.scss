@@ -9,11 +9,15 @@ $bez: cubic-bezier(.15,.51,.51,.97);
   cursor: grabbing !important; /* W3C standards syntax, should come least */
 }
 
+.pass-conf-container {
+  display: none;
+}
+
 .section-container.mobile-hide {
   display: none;
 }
 
-.darken-overlay.hide-overlay.desktop-show {
+.darken-overlay {
   display: none;
 }
 
@@ -29,6 +33,15 @@ $bez: cubic-bezier(.15,.51,.51,.97);
   width: 100%;
   max-width: 100%;
   flex: 1 0 auto;
+}
+
+.edit-screen {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
 }
 
 // ==========================================
@@ -80,6 +93,44 @@ h4 {
   }
 }
 
+.input-container.btn-to-input {
+  background: transparent;
+  h3, input {
+    display: none;
+  }
+  button {
+    cursor: pointer;
+    width: 100%;
+    padding: 1em 1.5em;
+    border-radius: 0.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 200%;
+  }
+  span.current {
+    color: $darker;
+    font-weight: 400;
+  }
+  i {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    font-size: inherit;
+    transform: translateY(-50%);
+    &.pen {
+      display: none;
+    }
+  }
+  span.caption {
+    transition: box-shadow 0.2s ease-out;
+  }
+}
+
 // ==========================================
 // BUTTONS & ICONS
 // ==========================================
@@ -90,9 +141,9 @@ h4 {
   flex-direction: row;
   flex-wrap: wrap;
   position: relative;
+  align-content: center;
   .switch-bg {
     position: absolute;
-    z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
@@ -102,16 +153,20 @@ h4 {
     transition: background-color 0.2s ease-out;
   }
   h3 {
+    z-index: 2;
     display: block;
     width: 100%;
   }
   span {
+    z-index: 2;
     opacity: 1;
     font-weight: 400;
     color: $light;
     margin: 0;
+    line-height: 200%;
   }
   .switch-custom {
+    z-index: 2;
     background: transparent;
     border: thin solid $light;
     transition: background-color 0.3s ease-out, border 0.3s ease-out;
@@ -143,40 +198,12 @@ h4 {
   color: $light;
   background: transparent;
   font-weight: 500;
+  transition: opacity 0.2s ease-out;
   i {
     font-size: 1em;
   }
   &:active, &:focus, &:hover {
     opacity: 1;
-  }
-}
-
-.btn-to-input {
-  width: 100%;
-  padding: 1em 1.5em;
-  border-radius: 0.75rem;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 200%;
-  margin: 0.35rem 0;
-  .current-email {
-    color: $darker;
-    font-weight: 400;
-  }
-  i {
-    position: absolute;
-    top: 50%;
-    right: 1.5em;
-    font-size: inherit;
-    transform: translateY(-50%);
-  }
-  &:hover, &:focus, &:active {
-    filter: brightness(0.9);
   }
 }
 
@@ -188,13 +215,10 @@ h4 {
   letter-spacing: 0.15em;
   border-radius: 1rem;
   height: calc(#{$field-height} + 0.5rem);
-  pointer-events: none;
-  cursor: default;
   width: 100%;
   color: $lightest;
   font-weight: 500;
-  opacity: 0.25;
-  transition: opacity 0.2s ease-out, box-shadow 0.2s ease-out;
+  transition: box-shadow 0.2s ease-out;
   i {
     color: $lightest;
   }
@@ -204,15 +228,6 @@ h4 {
     text-transform: uppercase;
     color: $lightest;
     letter-spacing: 0.25em;
-  }
-}
-.save-btn.unsaved-changes {
-  pointer-events: auto;
-  cursor: pointer;
-  opacity: 1;
-  box-shadow: 0 0.5em 1.2em -0.4em;
-  &:hover {
-    box-shadow: 0 0.5em 1em -0.5em;
   }
 }
 
@@ -263,7 +278,6 @@ h4 {
   justify-content: flex-end;
   align-items: flex-start;
   overflow: hidden;
-  transition: width 0.4s $bez, opacity 0.4s ease-out;
   i {
     font-size: 1rem;
     padding: 0.75em;
@@ -301,25 +315,30 @@ h4 {
 }
 
 .btn-container {
+  pointer-events: none;
   margin-top: 1.5rem;
   flex: 1 0 auto;
   width: 100%;
+  opacity: 0.25;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  button {
-    cursor: pointer;
-
-  }
-  .save-btn {
-
-  }
-  .save-btn.unsaved-changes {
-
-  }
   .cancel-btn {
     display: none;
+  }
+  &.unsaved-changes {
+    opacity: 1;
+    button {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .save-btn {
+      box-shadow: 0 0.5em 1.2em -0.4em;
+    }
+    &:hover > .save-btn {
+      box-shadow: 0 0.5em 1em -0.5em;
+    }
   }
 }
 
@@ -328,7 +347,6 @@ h4 {
 // ==========================================
 
 .edit-mode {
-  cursor: auto;
   background: transparent;
   padding: 0;
   .edit-btn {
@@ -403,32 +421,31 @@ h4 {
   }
   .badges-container {
     order: -1;
-    width: 100%;
-    height: calc(#{$field-height} * 2 + 1.5em);
+    height: calc(#{$field-height} * 2 + 3.5em);
     border-radius: 0.75rem;
-    margin: 0.5rem 0;
     padding: 0.75rem 1rem;
     padding-right: 2.5rem;
     background: $lighter;
-    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     overflow: hidden;
     position: relative;
+    color: $green;
+    cursor: pointer;
+    transition: filter 0.1s ease-out;
     .badge {
       width: $field-height;
       height: $field-height;
       padding: calc(#{$field-height} * 0.15);
     }
-    .badge-preview-arrow {
-      font-size: 1rem;
-      position: absolute;
-      right: 1.5rem;
-      top: 50%;
-      transform: translate(50%, -50%);
+    i.arrow {
       color: $green;
     }
-    .badge-preview-tune {
-      display: none;
+    span.caption {
+      width: 100%;
+      padding-left: 0.5em;
+      font-weight: 600;
+      line-height: 200%;
     }
   }
   .btn-container > .save-btn { 
@@ -454,11 +471,10 @@ h4 {
     color: $blue-light;
   }
   .btn-to-input {
-    color: $blue-light;
-    background: $lightbluetint;
-  }
-  .pass-container, .email-container {
-    display: none;
+    button {
+      color: $blue-light;
+      background: $lightbluetint;
+    }
   }
   .pass-container {
     position: relative;
@@ -483,13 +499,6 @@ h4 {
         opacity: 1;
       }
     }
-  }
-  .input-container.pass-conf-container {
-    display: none;
-    height: 0;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
   }
 }
 
@@ -517,9 +526,6 @@ h4 {
 // ==========================================
 
 .de-container {
-  order: 1;
-  grid-column-start: 1;
-  grid-column-end: 3;
   display: flex;
   justify-content: space-between;
   background: transparent;
@@ -561,15 +567,6 @@ h4 {
 // ==========================================
 // BADGE CONFIG SCREEN
 // ==========================================
-
-.badge-edit-screen {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
-  height: 100%;
-}
 
 .badge-edit-window {
   position: relative;
@@ -857,7 +854,7 @@ h4 {
   padding-bottom: 0;
 }
 
-.darken-overlay.hide-overlay.desktop-show {
+.darken-overlay {
   display: block;
 }
 
@@ -867,6 +864,10 @@ h4 {
 
 h2 {
   font-size: 1.5em;
+}
+
+h3 {
+  font-size: 0.625rem;
 }
 
 .ui-container {
@@ -879,6 +880,27 @@ h2 {
 .input-container {
   margin: 0.5rem 0;
   width: calc(50% - 0.5rem);
+  input {
+    background: $bg-grey;
+    transition: background-color 0.1s ease-out;
+    &:hover {
+      background: $lighter;
+    }
+  }
+}
+
+.input-container.btn-to-input {
+  button {
+    padding: 0.75em 1.5em;
+  }
+  i {
+    display: none;
+  }
+  span.caption {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
 }
 
 .section {
@@ -888,6 +910,11 @@ h2 {
   .edit-btn {
     display: none;
   }
+}
+
+.pass-conf-container,
+.cancel-back {
+  display: none;
 }
 
 .panel-left {
@@ -936,7 +963,7 @@ h2 {
   .save-btn {
     width: auto;
     margin: 0 1em;
-    transition: margin-top 0.1s ease-out, margin-bottom 0.1s ease-out, box-shadow 0.1s ease-out;
+    transition: margin-top 0.1s ease-out, margin-bottom 0.1s ease-out, box-shadow 0.1s ease-out, opacity 0.2s ease-out;
     &::after {
       text-transform: none;
     }
@@ -954,7 +981,7 @@ h2 {
     color: $dark;
     background: transparent;
     border: thin solid $lighter;
-    transition: opacity 0.1s ease-out, background-color 0.1s ease-out;
+    transition: opacity 0.2s ease-out, background-color 0.1s ease-out;
     &::after {
       content: 'Cancel';
     }
@@ -973,6 +1000,9 @@ h2 {
 }
 
 .profile-section {
+  .panel-left > i {
+    background: transparent;
+  }
   .avatar-form {
     width: calc(100px + 10vw);
     height: calc(100px + 10vw);
@@ -980,46 +1010,50 @@ h2 {
     margin: 1rem 2rem 1rem 0;
   }
   .badges-container {
-    cursor: pointer;
     margin-left: auto;
-    background: transparent;
     flex: 1 1 calc(100px + 10vw);
     height: auto;
     max-height: calc(100px + 10vw);
     padding: 1rem;
+    span.caption {
+      height: 2rem;
+    }
     .badge {
-      height: calc(((100px + 10vw) - 2rem) / 2);
-      width: calc(((100px + 10vw) - 2rem) / 2);
-      transition: opacity 0.2s ease-out;
+      height: calc(((100px + 10vw) - 4rem) / 2);
+      width: calc(((100px + 10vw) - 4rem) / 2);
     }
-    .badge-preview-arrow {
-      display: none;
-    }
-    .badge-preview-tune {
-      z-index: 1;
-      display: block;
-      color: $green;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      text-shadow: 0 2px 10px $green;
-      transition: opacity 0.2s ease-out;
-    }
-    &:hover {
-      .badge {
-        opacity: 0.5;
-      }
-      .badge-preview-tune {
-        opacity: 1;
-      }
-    }
+  }
+  .display-name-container {
+    width: 100%;
+  }
+}
+
+.account-section {
+  .panel-left > i {
+    background: transparent;
+  }
+  .email-container {
+    width: 100%;
+  }
+}
+
+.de-container {
+  padding: 0;
+  margin: 0;
+  border: none;
+  button {
+    width: auto;
+    line-height: normal;
+    font-size: 0.75rem;
+  }
+  .deactivate-btn {
+    margin-right: 2em;
   }
 }
 
 .badge-edit-btn {
   .badge-config-done {
+    cursor: pointer;
     height: auto;
     width: auto;
     padding: 0.75rem 1.5rem;
@@ -1043,305 +1077,16 @@ h2 {
   }
 }
 
-}
-
-@media only screen and (min-width: 1200px) {
-
-.main-page {
-  padding-right: $horiz-space-desktop;
-  padding-bottom: $vert-space-desktop;
-}
-
-h3 {
-  font-size: 0.75em;
-  color: $light;
-}
-
-.ui-container {
-  padding-right: calc(#{$horiz-space-desktop}/2);
-  padding-bottom: 0;
-}
-
-.input-container {
-  width: 100%;
-  height: $field-height;
-  margin: 0;
-  transition: height 0.4s $bez;
-  h3 {
-    display: block;
-  }
-  input {
-    font-size: 1em;
-    font-weight: 500;
-    background: transparent;
-    padding: 0;
-    transition: background-color 0.4s ease-out, line-height 0.4s $bez, padding 0.4s $bez;
-    &::placeholder {
-      color: transparent;
-    }
-  }
-}
-
-.switch-opt {
-  padding: 0;
-  background: transparent;
-  align-content: flex-start;
-  justify-content: flex-start;
-  .switch-bg {
-    display: none;
-  }
-  span {
-    color: $darker;
-    font-weight: 500;
-    margin-right: 3em;
-    line-height: 200%;
-  }
-  .switch-custom {
-    background: $lighter;
-    border: none;
-    &::after {
-      background: $lightest;
-    }
-  }
-  input:checked {
-    & ~ h3 {
-      color: $light;
-    }
-    & ~ span {
-      color: $darker;
-    }
-    & ~ .switch-custom {
-      border: none;
-      &::after {
-        background: $lightest;
-      }
-    }
-  }
-}
-
-.cancel-back,
-.btn-to-input {
-  display: none;
-}
-
-.section {
-  cursor: pointer;
-  flex-direction: row;
-  margin-bottom: 2vw;
-  padding: 2.5em 4vw 1.5em 3vw;
-  box-shadow: none;
-  transition: background-color 0.2s ease-out, margin 0.2s ease-out, box-shadow 0.2s ease-out;
-  &:hover {
-    margin-top: -2px;
-    margin-bottom: calc(2vw + 2px);
-    .edit-btn::after {
-      content: 'click to edit';
-      font-size: 0.75rem;
-    }
-  }
-}
-
-.panel-left {
-  width: 20%;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  margin-bottom: 0;
-  i {
-    margin: 0 0 0.25em 0;
-  }
-}
-
-.panel-right {
-  width: 80%;
-  align-items: flex-start;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: calc(#{$field-height} * 0.75);
-  padding-left: 5vw;
-  border-left: medium solid $lighter;
-  transition: width 0.4s $bez, border-left 0.4s $bez, padding-left 0.4s $bez;
-}
-
-.btn-container {
-  height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: height 0.4s $bez, opacity 0.4s ease-out;
-  button {
-    visibility: hidden;
-  }
-}
-
-.edit-mode {
-  cursor: auto;
-  margin-top: -2px;
-  margin-bottom: calc(2vw + 2px);
-  padding: 2.5em 4vw 1.5em 3vw;
-  .edit-btn {
-    display: flex;
-    opacity: 0;
-  }
-  .panel-left {
-    width: 0;
-    opacity: 0;
-  }
-  .panel-right {
-    display: grid;
-    border-left: none;
-    padding-left: 0;
-    width: 100%;
-    .input-container {
-      height: calc(#{$field-height} * 1.5);
-      input {
-        background: $lighter;
-        line-height: 2.5em;
-        padding-left: 1.2em;
-        transition: color 0.1s ease-out, background-color 0.1s ease-out;
-        &::placeholder {
-          opacity: 0;
-        }
-        &:hover {
-          background: $lightbluetint;
-          color: $blue-light;
-        }
-      }
-    }
-    .btn-container {
-      height: $field-height;
-      opacity: 1;
-      button {
-        visibility: visible;
-      }
-    }
-  }
-}
-
-.de-container {
-  order: 0;
-  width: 100%;
-  grid-column-start: auto;
-  grid-column-end: auto;
-  justify-content: flex-end;
-  margin-top: 0;
-  margin-bottom: 0.5em;
-  padding: 0;
-  border: none;
-  button {
-    width: auto;
-    align-items: flex-end;
-    background: transparent;
-    padding: 0;
-    margin: 0 1em;
-    font-size: 0.75rem;
-    i {
-      font-size: inherit;
-      margin-right: 0.25em;
-      opacity: 1;
-    }
-    span {
-      opacity: 1;
-    }
-  }
-}
-
-.profile-section {
-  h3 {
-    color: $light;
-  }
-  .panel-left > i {
-    background: transparent;
-  }
-  .avatar-form {
-    order: 0;
-    margin: 0;
-    height: calc(#{$field-height} * 1.75);
-    width: calc(#{$field-height} * 1.75);
-    grid-row-start: 1;
-    grid-row-end: 3;
-    transition: height 0.4s ease-out, width 0.4s ease-out;
-  }
-  .badges-container {
-    order: 0;
-    width: calc(#{$field-height} * 2.5);
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    transition: width 0.4s $bez;
-    .badge {
-      width: calc(#{$field-height}/2);
-      height: calc(#{$field-height}/2);
-      padding: calc(#{$field-height}/2 * 0.15);
-      transition: width 0.4s $bez, height 0.4s $bez, opacity 0.2s ease-out;
-    }
-  }
-  &:hover {
-    box-shadow: 0 2em 4em -4em $green;
-  }
-  &.edit-mode {
-    box-shadow: 0 2em 4em -4em $green;
-    .avatar-form {
-      height: calc(#{$field-height} * 1.5 * 1.75);
-      width: calc(#{$field-height} * 1.5 * 1.75);
-    }
-    .badges-container {
-      cursor: pointer;
-      position: relative;
-      width: calc(#{$field-height} * 2.5 * 1.5);
-      .badge {
-        width: calc(#{$field-height}/2 * 1.5);
-        height: calc(#{$field-height}/2 * 1.5);
-      }
-    }
-  }
-}
-
-.account-section {
-  h3 {
-    color: $light;
-  }
-  .panel-left > i {
-    background: transparent;
-  }
-  .pass-container, .input-container {
-    display: flex;
-  }
-  &:hover {
-    box-shadow: 0 2em 4em -4em $blue-light;
-  }
-  &.edit-mode {
-    box-shadow: 0 2em 4em -4em $blue-light;
-    .pass-container > .vis-icon {
-      opacity: 1;
-    }
-    .pass-conf-container {
-      display: flex;
-      visibility: visible;
-      opacity: 1;
-      height: $field-height;
-    }
-  }
-}
-
 .notifications-section {
-  h3 {
-    color: $light;
-  }
   .panel-left > i {
     background: transparent;
-  }
-  &:hover {
-    box-shadow: 0 1.5em 4em -3em $orange;
-  }
-  &.edit-mode {
-    box-shadow: 0 1.5em 4em -3em $orange;
   }
 }
 
 .badge-edit-screen {
   position: absolute;
   top: 50%;
-  left: calc(50% + 75px);
+  left: 50%;
   transform: translate(-50%, -50%);
   width: auto;
   height: auto;
@@ -1353,15 +1098,6 @@ h3 {
   background: $lightest;
   border-radius: 2rem;
   width: auto;
-  .drag-tooltip {
-    top: 3rem;
-    right: auto;
-    left: 4rem;
-    transform: translateY(-100%);
-    opacity: 0.5;
-    font-size: 0.75rem;
-    z-index: 2;
-  }
   .badge-config-close {
     cursor: pointer;
     top: 1.5rem;
@@ -1378,13 +1114,25 @@ h3 {
   }
   .badge-menu {
     background: $lightest;
-    width: 50vw;
+    width: 45vw;
     padding: 3rem;
     max-width: none;
+    height: 100%;
+    overflow-y: auto;
+    .drag-tooltip {
+      position: absolute;
+      top: 3rem;
+      right: auto;
+      left: 4rem;
+      transform: translateY(-100%);
+      opacity: 0.5;
+      font-size: 0.75rem;
+      z-index: 2;
+    }
     .badge-achieved-section {
       flex-direction: row;
       flex-wrap: wrap;
-      margin: 1em 0;
+      margin: 1em 0 2em 0;
       padding: 0;
       border: none;
     }
@@ -1445,6 +1193,273 @@ h3 {
   width: auto;
   .badge-config-done {
 
+  }
+}
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+.main-page {
+  padding-right: $horiz-space-desktop;
+  padding-bottom: $vert-space-desktop;
+}
+
+h3 {
+  font-size: 0.75em;
+  color: $light;
+  line-height: 2em;
+}
+
+.ui-container {
+  padding-right: calc(#{$horiz-space-desktop}/2);
+  padding-bottom: 0;
+}
+
+.input-container {
+  width: 100%;
+  height: $field-height;
+  margin: 0;
+  h3 {
+    display: block;
+  }
+  input {
+    font-size: 1em;
+    font-weight: 500;
+    background: transparent;
+    padding: 0;
+    transition: background-color 0.2s ease-out;
+    &::placeholder {
+      color: transparent;
+    }
+    &:hover {
+      background: transparent;
+    }
+  }
+}
+
+.input-container.btn-to-input {
+  width: 100%;
+  height: calc(100% - 1em);
+  margin: 0;
+  h3 {
+    display: block;
+  }
+  button {
+    padding: 0;
+    align-items: flex-start;
+    .current {
+      font-weight: 500;
+      line-height: 200%;
+    }
+  }
+  span.caption {
+    display: none;
+    font-size: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.4rem;
+    border: solid thin;
+    line-height: 1em;
+    margin-top: 0.2rem;
+    align-self: center;
+  }
+  i.pen {
+    display: block;
+    font-size: 0.75rem;
+    padding: 0.4rem;
+    border-radius: 0.4rem;
+    border: solid thin;
+    right: 0;
+    color: inherit;
+    transition: box-shadow 0.2s ease-out;
+  }
+  &:hover {
+    i.pen, span.caption {
+      box-shadow: 0 2px 10px -4px;
+    }
+  }
+}
+
+.switch-opt {
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  align-content: flex-start;
+  justify-content: flex-start;
+  .switch-bg {
+    display: none;
+  }
+  span {
+    color: $darker;
+    font-weight: 500;
+    margin-right: 3em;
+    line-height: 200%;
+  }
+  .switch-custom {
+    background: $lighter;
+    border: none;
+    &::after {
+      background: $lightest;
+    }
+  }
+  input:checked {
+    & ~ h3 {
+      color: $light;
+    }
+    & ~ span {
+      color: $darker;
+    }
+    & ~ .switch-custom {
+      border: none;
+      &::after {
+        background: $lightest;
+      }
+    }
+  }
+}
+
+.section {
+  margin-bottom: 2vw;
+  padding: 2em 4vw 1em 4vw;
+  h3 {
+    color: $light;
+  }
+}
+
+.panel-right {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: calc(#{$field-height} * 0.75);
+  .input-container {
+    height: calc(#{$field-height} * 1.5);
+    input {
+      line-height: 3em;
+      padding-left: 1.2em;
+      background: $bg-grey;
+      &::placeholder {
+        opacity: 0;
+      }
+      &:hover {
+        background: $lighter;
+      }
+    }
+  }
+}
+
+.btn-container {
+  height: $field-height;
+  .cancel-btn {
+    cursor: pointer;
+  }
+  .save-btn {
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  &.unsaved-changes {
+    .save-btn {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.edit-mode {
+  .panel-right {
+    display: grid;
+    width: 100%;
+  }
+}
+
+.de-container {
+  justify-content: flex-start;
+}
+
+.profile-section {
+  .panel-left > i {
+    background: transparent;
+  }
+  .avatar-form {
+    order: 0;
+    margin: 0;
+    height: calc(#{$field-height} * 1.5 * 1.75);
+    width: calc(#{$field-height} * 1.5 * 1.75);
+    grid-row-start: 1;
+    grid-row-end: 3;
+    align-self: center;
+    justify-self: center;
+  }
+  .badges-container {
+    order: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 2rem 0 0;
+    background: transparent;
+    .badge {
+      width: calc(#{$field-height}/2 * 1.5);
+      height: calc(#{$field-height}/2 * 1.5);
+      padding: calc(#{$field-height}/2 * 0.15);
+    }
+    i.pen {
+      right: 0.5em;
+    }
+  }
+}
+
+.account-section {
+  .panel-left > i {
+    background: transparent;
+  }
+  .btn-to-input {
+    button {
+      background: transparent;
+    }
+  }
+  .street-container {
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+  .email-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    .current {
+      text-align: left;
+      width: calc(100% - 2.5em);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+  .pass-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    i.pen {
+      display: none;
+    }
+    span.caption {
+      display: block;
+    }
+  }
+}
+
+.notifications-section {
+  .panel-left > i {
+    background: transparent;
+  }
+}
+
+.badge-edit-screen {
+  left: calc(50% + 75px);
+}
+
+.badge-edit-windor {
+  .badge-menu {
+    width: 50vw;
   }
 }
 

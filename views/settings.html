@@ -93,17 +93,6 @@
 
     <div class="ui-container scrollable">
 
-      <div class="de-container section-container">
-        <button class="deactivate-btn">
-          <i class="material-icons-outlined">block</i>
-          <span>Deactivate account</span>
-        </button>
-        <button class="delete-btn">
-          <i class="material-icons-outlined">person_off</i>
-          <span>Delete account</span>
-        </button>
-      </div>
-
       <div class="section profile-section section-container">
         <h3 class="edit-btn"><i class="material-icons-round">edit</i></h3>
         <div class="panel-left">
@@ -123,7 +112,7 @@
             </label>
             <img src="/settings/fetch-avatar" class="avatar-preview" alt="Avatar">
           </form>
-          <div class="input-container">
+          <div class="input-container display-name-container">
             <h3>Display Name</h3>
             <input type="text" id="prof-name" placeholder="Display Name">
           </div>
@@ -131,9 +120,10 @@
             <h3>Display Email</h3>
             <input type="text" id="prof-email" placeholder="Display Email">
           </div>
-          <div class="badges-container">
-            <i class="material-icons-round badge-preview-arrow">arrow_forward_ios</i>
-            <i class="material-icons-round badge-preview-tune md-36">tune</i>
+          <div class="input-container btn-to-input badges-container">
+            <i class="material-icons-round arrow">arrow_forward_ios</i>
+            <i class="material-icons-round pen">edit</i>
+            <span class="caption">Change badges</span>
           </div>
           <div class="input-container">
             <h3>Location</h3>
@@ -157,32 +147,46 @@
             <button class="cancel-back back-to-main-sections"><i class="material-icons-round">arrow_back_ios</i> Cancel</button>
             <h4>Account</h4>
           </div>
-          <div class="input-container">
+
+          <div class="input-container email-container btn-to-input">
+            <h3>Email</h3>
+            <input type="text" id="acc-email" placeholder="Email">
+            <button>
+              <span class="caption">Change email</span>
+              <span class="current email-static"></span>
+              <i class="material-icons-round arrow">arrow_forward_ios</i>
+              <i class="material-icons-round pen">edit</i>
+            </button>
+          </div>
+
+          <div class="input-container name-container">
             <h3>Name</h3>
             <input type="text" id="acc-name" placeholder="Name">
           </div>
-          <button class="btn-to-input btn-to-email">
-            <span class="current-email">jane.doe@gmail.com</span>
-            <span>Change email</span>
-            <i class="material-icons-round">arrow_forward_ios</i>
-          </button>
-          <button class="btn-to-input btn-to-pass">
-            <span>Change password</span>
-            <i class="material-icons-round">arrow_forward_ios</i>
-          </button>
-          <div class="input-container">
+
+          <div class="input-container pass-container btn-to-input">
+            <h3>Password</h3>
+            <input autocomplete="new-password" type="password" id="acc-pass" placeholder="">
+            
+            <div class="vis-icon"><i id="acc-pass-vis" class="material-icons-round md-18">visibility</i></div>
+
+            <button>
+              <span class="caption">Change password</span>
+              <i class="material-icons-round arrow">arrow_forward_ios</i>
+              <i class="material-icons-round pen">edit</i>
+            </button>
+          </div>
+
+          <div class="input-container street-container">
             <h3>Street address</h3>
             <input type="text" id="acc-street" placeholder="Street address">
           </div>
-          <div class="input-container">
+          <div class="input-container unit-container">
             <h3>Unit</h3>
             <input type="text" id="acc-unit" placeholder="Unit">
           </div>
-          <div class="input-container email-container">
-            <h3>Email</h3>
-            <input type="text" id="acc-email" placeholder="Email">
-          </div>
-          <div class="input-container">
+
+          <div class="input-container city-container">
             <h3>Town / city</h3>
             <input type="text" id="acc-city" placeholder="Town / City">
           </div>
@@ -190,11 +194,7 @@
             <h3>State</h3>
             <input type="text" id="acc-state" placeholder="State">
           </div>
-          <div class="input-container pass-container">
-            <h3>Password</h3>
-            <input autocomplete="new-password" type="password" id="acc-pass" placeholder="">
-            <div class="vis-icon"><i id="acc-pass-vis" class="material-icons-round md-18">visibility</i></div>
-          </div>
+
           <div class="input-container">
             <h3>Zip code</h3>
             <input type="text" id="acc-zip" placeholder="ZIP Code">
@@ -203,11 +203,13 @@
             <h3>Country</h3>
             <input type="text" id="acc-country" placeholder="Country">
           </div>
+
           <div class="input-container pass-container pass-conf-container">
             <h3>Confirm Password</h3>
             <input autocomplete="new-password" type="password" id="acc-pass-conf" placeholder="">
             <div class="vis-icon"><i id="acc-pass-conf-vis" class="material-icons-round md-18">visibility</i></div>
           </div>
+
           <div class="btn-container">
             <button class="cancel-btn account-cancel"></button>
             <button class="save-btn account-save"><i class="material-icons-round md-18">save</i></button>
@@ -229,10 +231,10 @@
           </div>
           <label for="mail" class="opt switch-opt orange-opt input-container">
             <input type="checkbox" id="mail" checked="checked">
+            <div class="switch-bg"></div>
             <h3>Mailing List</h3>
             <span>Subscribed</span>
             <div class="switch-custom"></div>
-            <div class="switch-bg"></div>
           </label>
           <div class="btn-container">
             <button class="cancel-btn notifications-cancel"></button>
@@ -240,20 +242,27 @@
           </div>
         </div>
       </div>
-    
-      <div class="badge-edit-screen hide">
 
-        <div class="badge-edit-window">
-          <div class="drag-tooltip">Drag to reorder</div>
-          <div class="badge-menu scrollable">
-            <div class="badge-achieved-section">
+      <div class="de-container section-container">
+        <button class="deactivate-btn">
+          <i class="material-icons-outlined">block</i>
+          <span>Deactivate account</span>
+        </button>
+        <button class="delete-btn">
+          <i class="material-icons-outlined">person_off</i>
+          <span>Delete account</span>
+        </button>
+      </div>
     
+      <div class="edit-screen badge-edit-screen hide">
+        <div class="badge-edit-window">
+          <div class="badge-menu scrollable">
+            <div class="drag-tooltip">Drag to reorder</div>
+            <div class="badge-achieved-section">
             </div>
             <div class="badge-not-achieved-section">
-    
             </div>
           </div>
-    
           <div class="badge-info scrollable">
             <div class="badge-details trophy-details">
               <div class="badge badge-showcase trophy">
@@ -376,12 +385,37 @@
           </div>
         </div>
       </div>
+
+      <div class="edit-screen email-edit-screen hide">
+        <button class="cancel-back">
+          <i class="material-icons-round md-12">arrow_back_ios</i>
+          <span>Cancel</span>
+        </button>
+
+        Editing email
+
+        <div class="save-btn email-done">
+          <i class="material-icons-round done">save</i>
+        </div>
+      </div>
+
+      <div class="edit-screen pass-edit-screen hide">
+        <button class="cancel-back">
+          <i class="material-icons-round md-12">arrow_back_ios</i>
+          <span>Cancel</span>
+        </button>
+
+        Editing password
+
+        <div class="save-btn email-done">
+          <i class="material-icons-round done">save</i>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div class="darken-overlay hide-overlay"></div>
-
-
+  <div class="darken-overlay hide"></div>
 
   </div>
   <!-- ==========================JS========================== -->

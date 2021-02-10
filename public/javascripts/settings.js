@@ -37,6 +37,7 @@ let settings = {
   badgesCancel: undefined,
   cacheUpdate: undefined,
   editModeExit: undefined,
+  emailMenuShow: undefined,
   notificationsCancel: undefined,
   notificationsInputsCheck: undefined,
   profileCancel: undefined,
@@ -61,14 +62,19 @@ let settings = {
     avatarPreview: document.querySelector('.avatar-preview'),
     badgeConfigScreen: document.querySelector('.badge-edit-screen'),
     badgePreviewContainer: document.querySelector('.badges-container'),
+    accountCancelBtn: document.querySelector('.account-cancel'),
     accountSaveBtn: document.querySelector('.account-save'),
+    notificationsCancelBtn: document.querySelector('.notifications-cancel'),
     notificationsSaveBtn: document.querySelector('.notifications-save'),
+    profileCancelBtn: document.querySelector('.profile-cancel'),
     profileSaveBtn: document.querySelector('.profile-save'),
+    avatarInput: document.querySelector('#avatar-input'),
     displayNameInput: document.querySelector('#prof-name'),
     displayEmailInput: document.querySelector('#prof-email'),
     locationInput: document.querySelector('#prof-loc'),
     nameInput: document.querySelector('#acc-name'),
     emailInput: document.querySelector('#acc-email'),
+    emailStatic: document.querySelector('.email-static'),
     streetInput: document.querySelector('#acc-street'),
     unitInput: document.querySelector('#acc-unit'),
     cityInput: document.querySelector('#acc-city'),
@@ -208,7 +214,7 @@ settings.init.sortableJSInit = () => {
  * Attaches event listeners to all DOM objects.
  * 
  * | **Invokes**
- * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigMenuShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.event.profileCancelMobile` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.event.accountCancelMobile` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.notificationsCancelMobile` :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuCancel` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.sectionClick` :func:`settings.event.sectionCancelMobile`
+ * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigMenuShow` :func:`settings.emailMenuShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.event.profileCancelMobile` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.event.accountCancelMobile` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.notificationsCancelMobile` :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuCancel` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.sectionClick` :func:`settings.event.sectionCancelMobile`
  *
  * | **Invoked by**
  * | :func:`settings.init.init`
@@ -218,6 +224,7 @@ settings.init.attachAllListeners = () => {
   document.querySelector('#avatar-input').addEventListener('change', settings.event.avatarPreview)
   // Show badge config screen
   settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigMenuShow)
+  document.querySelector('.email-container').querySelector('button').addEventListener('click', settings.emailMenuShow)
   // Toggle password visibility
   document.querySelector('#acc-pass-vis').addEventListener('click', settings.event.passVisToggle)
   // Toggle confirm password visibility
@@ -237,19 +244,19 @@ settings.init.attachAllListeners = () => {
   // Save Profile settings
   settings.elem.profileSaveBtn.addEventListener('click', settings.backend.profileSave)
   // Cancel Profile settings
-  document.querySelector('.profile-cancel').addEventListener('click', settings.profileCancel)
+  settings.elem.profileCancelBtn.addEventListener('click', settings.profileCancel)
   // Cancel Profile settings (mobile)
   settings.elem.profileSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.profileCancelMobile)
   // Save Account settings
   settings.elem.accountSaveBtn.addEventListener('click', settings.backend.accountSave)
   // Cancel Account settings
-  document.querySelector('.account-cancel').addEventListener('click', settings.accountCancel)
+  settings.elem.accountCancelBtn.addEventListener('click', settings.accountCancel)
   // Cancel Account settings (mobile)
   settings.elem.accountSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.accountCancelMobile)
   // Save Notifications settings
   settings.elem.notificationsSaveBtn.addEventListener('click', settings.backend.notificationsSave)
   // Cancel Notifications settings
-  document.querySelector('.notifications-cancel').addEventListener('click', settings.notificationsCancel)
+  settings.elem.notificationsCancelBtn.addEventListener('click', settings.notificationsCancel)
   // Cancel Notifications settings (mobile)
   settings.elem.notificationsSection.querySelector('.back-to-main-sections').addEventListener('click', settings.event.notificationsCancelMobile)
   // Saving badge configuration
@@ -286,6 +293,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
   // Account
   settings.elem.nameInput.value = user.name;
   settings.elem.emailInput.value = account.email;
+  settings.elem.emailStatic.innerHTML = account.email;
   settings.elem.streetInput.value = user.address.street ? user.address.street : "";
   settings.elem.cityInput.value = user.address.city ? user.address.city : "";
   settings.elem.zipInput.value = user.address.postcode ? user.address.postcode : "";
@@ -304,6 +312,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
  */
 settings.init.cacheInit = (data) => {
   settings.var.cache = {
+    avatar: "/settings/fetch-avatar",
     city: data.user.address.city,
     displayName: data.user.displayName,
     displayEmail: data.user.displayEmail,
@@ -422,6 +431,7 @@ settings.badgesCancel = () => {
  */
 settings.profileCancel = () => {
   // Revert to cached settings and hide save button
+  settings.elem.avatarPreview.src = "settings/fetch-avatar"
   settings.elem.displayNameInput.value = settings.var.cache.displayName;
   settings.elem.displayEmailInput.value = settings.var.cache.displayEmail;
   settings.elem.locationInput.value = settings.var.cache.location;
@@ -447,9 +457,9 @@ settings.notificationsCancel = () => {
  * | :func:`settings.init.attachAllListeners` :func:`settings.init.sessionStorageCheck`
  */
 settings.badgeConfigMenuShow = () => {
-  global.elem.darkenOverlay.classList.add('desktop-show');
+  global.elem.darkenOverlay.classList.remove('hide');
   settings.elem.badgeConfigScreen.classList.remove('hide');
-  document.querySelectorAll('.section').forEach((section) => {
+  document.querySelectorAll('.section-container').forEach((section) => {
     section.classList.add('mobile-hide');
   })
 }
@@ -461,7 +471,7 @@ settings.badgeConfigMenuShow = () => {
  * | :func:`settings.event.badgeConfigMenuSave` :func:`settings.event.badgeConfigMenuEscape` :func:`settings.event.badgeConfigMenuCancel`
  */
 settings.badgeConfigMenuClose = () => {
-  global.elem.darkenOverlay.classList.remove('desktop-show')
+  global.elem.darkenOverlay.classList.add('hide');
   settings.elem.badgeConfigScreen.classList.add('hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
@@ -476,9 +486,15 @@ settings.badgeConfigMenuClose = () => {
  */
 settings.editModeExit = (selected) => {
   selected.classList.remove('edit-mode');
-  document.querySelectorAll('.section').forEach((section) => {
+  document.querySelectorAll('.mobile-hide').forEach((section) => {
     section.classList.remove('mobile-hide');
   })
+}
+
+settings.emailMenuShow = () => {
+  global.elem.darkenOverlay.classList.add('hide');
+  document.querySelector('.email-edit-screen').classList.remove('hide');
+  document.querySelector('.edit-mode').classList.remove('mobile-hide');
 }
 
 /**
@@ -492,6 +508,10 @@ settings.editModeExit = (selected) => {
  */
 settings.profileInputsCheck = () => {
   const dict = {
+    avatar: {
+      value: settings.elem.avatarPreview.getAttribute('src'),
+      cache: settings.var.cache.avatar
+    },
     displayName: {
       value: settings.elem.displayNameInput.value,
       cache: settings.var.cache.displayName
@@ -505,7 +525,7 @@ settings.profileInputsCheck = () => {
       cache: settings.var.cache.location
     }
   }
-  global.input.checkChange(dict, settings.elem.profileSaveBtn, 'unsaved-changes');
+  global.input.checkChange(dict, [settings.elem.profileSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
 /**
@@ -552,8 +572,7 @@ settings.accountInputsCheck = () => {
       cache: settings.var.cache.country
     }
   }
-  console.log(dict)
-  global.input.checkChange(dict, settings.elem.accountSaveBtn, 'unsaved-changes');
+  global.input.checkChange(dict, [settings.elem.accountSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
 /**
@@ -572,7 +591,7 @@ settings.notificationsInputsCheck = function() {
       cache: settings.var.cache.mailing
     }
   }
-  global.input.checkChange(dict, settings.elem.notificationsSaveBtn, 'unsaved-changes');
+  global.input.checkChange(dict, [settings.elem.notificationsSection.querySelector('.btn-container')], ['unsaved-changes']);
 }
 
 // ==========================================================
@@ -593,18 +612,19 @@ settings.notificationsInputsCheck = function() {
 settings.event.sectionClick = function(e) {
   if (e.target.classList.contains('save-btn') && this.classList.contains('edit-mode')) {
     // Save button - exit edit mode
-    settings.editModeExit(this)
+    settings.editModeExit(this);
   } else if (e.target.classList.contains('cancel-btn') && this.classList.contains('edit-mode')) {
     // Cancel button - exit edit mode
-    settings.editModeExit(this)
+    settings.editModeExit(this);
   } else if (!this.classList.contains('edit-mode')) {
     // Clicking anywhere else on the container enables edit mode if not already enabled
     document.querySelectorAll('.section-container').forEach((section) => {
       if (this === section) {
-        this.classList.add('edit-mode')
-        this.classList.remove('mobile-hide')
+        this.classList.add('edit-mode');
+        this.classList.remove('mobile-hide');
       } else {
-        section.classList.add('mobile-hide')
+        section.classList.add('mobile-hide');
+        section.classList.remove('edit-mode');
       }
     })
   }
@@ -682,7 +702,7 @@ settings.event.badgeConfigMenuSave = () => {
   // Close the config menu
   settings.badgeConfigMenuClose();
   // Exit Profile edit mode
-  settings.editModeExit(settings.elem.profileSection)
+  settings.editModeExit(settings.elem.profileSection);
 }
 
 /**
@@ -767,12 +787,11 @@ settings.event.badgeConfigToggle = function() {
  */
 settings.event.avatarPreview = function() {
   if (this.files && this.files[0]) {
-    settings.elem.avatarPreview.classList.add('fade')
+    settings.elem.avatarPreview.classList.add('fade');
     var reader = new FileReader();
     reader.onload = (e) => {
-      console.log(e.target.result)
       settings.elem.avatarPreview.src = e.target.result;
-      settings.elem.avatarPreview.classList.remove('fade')
+      settings.elem.avatarPreview.classList.remove('fade');
     }
     reader.readAsDataURL(this.files[0]);
   }
