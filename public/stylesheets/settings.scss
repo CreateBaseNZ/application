@@ -450,6 +450,7 @@ h4 {
       }
     }
     .avatar-preview {
+      z-index: 0;
       position: absolute;
       top: 0;
       left: 0;
@@ -589,12 +590,14 @@ h4 {
 .edit-screen,
 .step-one,
 .step-two {
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
   height: 100%;
+}
+.edit-screen {
+  z-index: 11;
 }
 .edit-screen.on-step-one {
   .step-two {
@@ -1249,7 +1252,7 @@ h3 {
   width: auto;
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
-  box-shadow: 0 0.5em 1em 0em;
+  // box-shadow: 0 0.5em 1em 0em;
   margin-top: 1.5rem;
   background: #29E9BA;
   i {

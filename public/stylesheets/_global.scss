@@ -112,6 +112,7 @@ input{
   width: 100%;
   background: $darkest;
   opacity: 0.25;
+  z-index: 10;
   &.hide-overlay {
     display: none;
   }
