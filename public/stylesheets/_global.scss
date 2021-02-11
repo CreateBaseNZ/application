@@ -63,6 +63,10 @@ body {
   overflow: hidden;
 }
 
+input{
+  -webkit-user-select: text;
+}
+
 .main-page {
   position: fixed;
   display: flex;

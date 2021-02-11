@@ -777,13 +777,16 @@ h4 {
       }
     }
   }
-  .email-done {
+  .save-btn,
+  .continue-btn {
     background: $blue-light;
-    &::after {
-      order: -1;
-      content: 'Continue';
-    }
   }
+  // .email-done {
+  //   background: $blue-light;
+  //   &::after {
+  //     content: 'Continue';
+  //   }
+  // }
 }
 
 .badge-details-show { display: flex; }
