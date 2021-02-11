@@ -18,18 +18,17 @@ let settings = {
 
   event: {
     avatarPreview: undefined,
-    badgeConfigScreenCancel: undefined,
     badgeConfigScreenEscape: undefined,
     badgeConfigScreenSave: undefined,
     badgeConfigToggle: undefined,
-    confirmPassVisToggle: undefined,
     emailPassInputCheck: undefined,
-    passVisToggle: undefined,
+    emailInputCheck: undefined,
     sectionClick: undefined,
   },
 
   accountCancel: undefined,
   accountInputsCheck: undefined,
+  badgeConfigScreenCancel: undefined,
   badgeConfigScreenClose: undefined,
   badgeConfigScreenShow: undefined,
   badgesCancel: undefined,
@@ -37,8 +36,10 @@ let settings = {
   editModeExit: undefined,
   emailScreenShow: undefined,
   emailScreenClose: undefined,
+  emailScreenCancel: undefined,
   notificationsCancel: undefined,
   notificationsInputsCheck: undefined,
+  passVisToggle: undefined,
   profileCancel: undefined,
   profileInputsCheck: undefined,
   screenClose: undefined,
@@ -75,6 +76,7 @@ let settings = {
     nameInput: document.querySelector('#acc-name'),
     emailInput: document.querySelector('#acc-email'),
     emailStatic: document.querySelector('.email-static'),
+    emailPasswordInput: document.querySelector('#email-pass'),
     passwordInput: document.querySelector('#acc-pass'),
     streetInput: document.querySelector('#acc-street'),
     unitInput: document.querySelector('#acc-unit'),
@@ -215,7 +217,7 @@ settings.init.sortableJSInit = () => {
  * Attaches event listeners to all DOM objects.
  * 
  * | **Invokes**
- * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigScreenShow` :func:`settings.emailScreenShow` :func:`settings.event.passVisToggle` :func:`settings.event.confirmPassVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.event.emailPassInputCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.badgeConfigScreenSave` :func:`settings.event.badgeConfigScreenCancel` :func:`settings.event.badgeConfigScreenEscape` :func:`settings.event.sectionClick`
+ * | :func:`settings.event.avatarPreview` :func:`settings.badgeConfigScreenShow` :func:`settings.emailScreenShow` :func:`settings.passVisToggle` :func:`settings.profileInputsCheck` :func:`settings.accountInputsCheck` :func:`settings.notificationsInputsCheck` :func:`settings.event.emailPassInputCheck` :func:`settings.event.emailInputCheck` :func:`settings.backend.profileSave` :func:`settings.profileCancel` :func:`settings.backend.accountSave` :func:`settings.accountCancel` :func:`settings.backend.notificationsSave` :func:`settings.notificationsCancel` :func:`settings.event.badgeConfigScreenSave` :func:`settings.badgeConfigScreenCancel` :func:`settings.event.badgeConfigScreenEscape` :func:`settings.event.sectionClick`
  *
  * | **Invoked by**
  * | :func:`settings.init.init`
@@ -225,11 +227,12 @@ settings.init.attachAllListeners = () => {
   document.querySelector('#avatar-input').addEventListener('change', settings.event.avatarPreview)
   // Show badge config screen
   settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigScreenShow)
+  // Show edit email screen
   document.querySelector('.email-container').querySelector('button').addEventListener('click', settings.emailScreenShow)
   // Toggle password visibility
-  document.querySelector('#acc-pass-vis').addEventListener('click', settings.event.passVisToggle)
-  // Toggle confirm password visibility
-  document.querySelector('#acc-pass-conf-vis').addEventListener('click', settings.event.confirmPassVisToggle)
+  document.querySelectorAll('.vis-icon').forEach((btn) => {
+    btn.addEventListener('click', settings.passVisToggle)
+  })
   // Check for changes in Profile inputs 
   settings.elem.profileSection.querySelectorAll('input').forEach((input) => {
     input.addEventListener('input', settings.profileInputsCheck)
@@ -243,7 +246,9 @@ settings.init.attachAllListeners = () => {
     input.addEventListener('input', settings.notificationsInputsCheck)
   })
   // Check for changes in change email step one (password) input
-  settings.elem.passwordInput.addEventListener('input', settings.event.emailPassInputCheck)
+  settings.elem.emailPasswordInput.addEventListener('input', settings.event.emailPassInputCheck)
+  // Check for changes in change email step two (new email) input
+  settings.elem.emailInput.addEventListener('input', settings.event.emailInputCheck)
   // Save Profile settings
   settings.elem.profileSaveBtn.addEventListener('click', settings.backend.profileSave)
   // Cancel Profile settings
@@ -265,8 +270,12 @@ settings.init.attachAllListeners = () => {
   // Saving badge configuration
   document.querySelector('.badge-config-done').addEventListener('click', settings.event.badgeConfigScreenSave)
   // Closing the badge configuration screen
-  document.querySelector('.badge-config-close').addEventListener('click', settings.event.badgeConfigScreenCancel)
-  // Escape key exits badge configuration screen
+  settings.elem.badgeConfigScreen.querySelector('.screen-close').addEventListener('click', settings.badgeConfigScreenCancel)
+  // Closing the email edit screen
+  settings.elem.emailScreen.querySelector('.screen-close').addEventListener('click', settings.emailScreenCancel)
+  // Closing the edit email screen
+  settings.elem.emailScreen.querySelector('.cancel-back').addEventListener('click', settings.emailScreenCancel)
+  // Escape key exits all screens
   document.addEventListener('keydown', settings.event.badgeConfigScreenEscape)
   // Enabling and exiting edit mode
   document.querySelectorAll('.section').forEach(function (section) {
@@ -291,7 +300,7 @@ settings.init.populate = (account = {}, user = {}, notification = {}) => {
   settings.elem.locationInput.value = user.location ? user.location : "";
   // Account
   settings.elem.nameInput.value = user.name;
-  settings.elem.emailInput.value = account.email;
+  // settings.elem.emailInput.value = account.email;
   settings.elem.emailStatic.innerHTML = account.email;
   settings.elem.streetInput.value = user.address.street ? user.address.street : "";
   settings.elem.cityInput.value = user.address.city ? user.address.city : "";
@@ -473,6 +482,27 @@ settings.badgesCancel = () => {
 }
 
 /**
+ * Closes the badge configuration (when X button is clicked). Also reverts to cached badge configuration.
+ * 
+ * | **Invokes**
+ * | :func:`settings.badgeConfigScreenClose`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
+ */
+settings.badgeConfigScreenCancel = (e) => {
+  // TO DO: revert to cached badge configuration
+
+  settings.badgeConfigScreenClose(e);
+}
+
+settings.emailScreenCancel = (e) => {
+  settings.elem.emailInput.value = "";
+  settings.elem.emailPasswordInput.value = "";
+  settings.emailScreenClose(e);
+}
+
+/**
  * Reverts profile to cached settings and hides the save button.
  *
  * | **Invokes**
@@ -531,6 +561,7 @@ settings.badgeConfigScreenShow = (e) => {
 settings.badgeConfigScreenClose = (e) => {
   settings.screenClose(e, settings.elem.badgeConfigScreen);
 }
+
 
 /**
  * Shows the email editing screen.
@@ -652,11 +683,33 @@ settings.notificationsInputsCheck = () => {
 settings.event.emailPassInputCheck = () => {
   const dict = {
     mailing: {
-      value: settings.elem.passwordInput.value,
+      value: settings.elem.emailPasswordInput.value,
       cache: ""
     }
   }
-  global.input.checkChange(dict, [settings.elem.emailScreen.querySelector('.btn-container')], ['unsaved-changes']);
+  global.input.checkChange(dict, [settings.elem.emailScreen.querySelector('.step-one').querySelector('.continue-btn')], ['unsaved-changes']);
+}
+
+/**
+ * Toggles password visibility.
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
+ */
+settings.passVisToggle = function() {
+  const type = this.previousElementSibling.getAttribute('type') === 'password' ? 'text' : 'password';
+  this.previousElementSibling.setAttribute('type', type);
+  this.classList.toggle('visible');
+}
+
+settings.event.emailInputCheck = () => {
+  const dict = {
+    mailing: {
+      value: settings.elem.emailInput.value,
+      cache: ""
+    }
+  }
+  global.input.checkChange(dict, [settings.elem.emailScreen.querySelector('.step-two').querySelector('.save-btn')], ['unsaved-changes']);
 }
 
 // ==========================================================
@@ -677,7 +730,7 @@ settings.event.sectionClick = function() {
     document.querySelectorAll('.section-container').forEach((section) => {
       if (this === section) {
         this.classList.add('edit-mode');
-        this.classList.remove('mobile-hide');
+        // this.classList.remove('mobile-hide');
       } else {
         section.classList.add('mobile-hide');
         section.classList.remove('edit-mode');
@@ -708,7 +761,7 @@ settings.event.badgeConfigScreenSave = (e) => {
  * Closes the badge configuration screen if ``Esc`` key press. Also reverts to cached badge configuration.
  * 
  * | **Invokes**
- * | :func:`settings.badgeConfigScreenClose` :func:`settings.emailScreenClose`
+ * | :func:`settings.badgeConfigScreenCancel` :func:`settings.emailScreenCancel`
  *
  * | **Invoked by**
  * | :func:`settings.init.attachAllListeners`
@@ -717,50 +770,9 @@ settings.event.badgeConfigScreenSave = (e) => {
  */
 settings.event.badgeConfigScreenEscape = (e) => {
   if (e.key === 'Escape') {
-    // TO DO: revert to cached badge configuration
-
-    settings.badgeConfigScreenClose(e);
-    settings.emailScreenClose(e);
+    settings.badgeConfigScreenCancel(e);
+    settings.emailScreenCancel(e);
   }
-}
-
-/**
- * Closes the badge configuration (when X button is clicked). Also reverts to cached badge configuration.
- * 
- * | **Invokes**
- * | :func:`settings.badgeConfigScreenClose`
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- */
-settings.event.badgeConfigScreenCancel = (e) => {
-  // TO DO: revert to cached badge configuration
-
-  settings.badgeConfigScreenClose(e);
-}
-
-/**
- * Toggles password visibility.
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- */
-settings.event.passVisToggle = function() {
-  const type = settings.elem.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-  settings.elem.passwordInput.setAttribute('type', type);
-  this.classList.toggle('visible');
-}
-
-/**
- * Toggles confirm password visibility.
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- */
-settings.event.confirmPassVisToggle = function() {
-  const type = settings.elem.passwordConfirmInput.getAttribute('type') === 'password' ? 'text' : 'password';
-  settings.elem.passwordConfirmInput.setAttribute('type', type);
-  this.classList.toggle('visible');
 }
 
 /**

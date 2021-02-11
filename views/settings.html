@@ -366,7 +366,7 @@
               </div>
             </div>
           </div>
-          <div class="badge-config-close">
+          <div class="screen-close">
             <button class="cancel-back">
               <i class="material-icons-round md-12">arrow_back_ios</i>
               <span>Cancel</span>
@@ -374,50 +374,40 @@
             <i class="material-icons-round md-24">close</i>
           </div>
         </div>
-        <div class="save-btn badge-config-done">
+        <div class="save-btn screen-save-btn badge-config-done">
           <i class="material-icons-round done">check</i>
         </div>
       </div>
 
-      <div class="edit-screen email-edit-screen hide on-step-two">
-        <div class="badge-config-close">
+      <div class="edit-screen email-edit-screen hide on-step-one">
+        <div class="step-one">
+          <div class="input-container pass-container screen-window">
+            <h3>Password</h3>
+            <input autocomplete="new-password" type="password" id="email-pass" placeholder="">
+            <div class="vis-icon"><i id="email-pass-vis" class="material-icons-round md-18">visibility</i></div>
+            <div class="screen-tooltip">To verify it's you, please enter your password</div>
+          </div>
+          <div class="continue-btn screen-save-btn">
+            <i class="material-icons-round done">arrow_forward_ios</i>
+          </div>
+        </div>
+        <div class="step-two">
+          <div class="input-container email-container screen-window">
+            <h3>New Email</h3>
+            <input type="text" id="acc-email" placeholder="New email">
+            <div class="screen-tooltip">Enter your new email</div>
+          </div>
+          <div class="save-btn screen-save-btn">
+            <i class="material-icons-round done">check</i>
+          </div>
+        </div>
+        <div class="screen-close">
           <button class="cancel-back">
             <i class="material-icons-round md-12">arrow_back_ios</i>
             <span>Cancel</span>
           </button>
+          <i class="material-icons-round md-24">close</i>
         </div>
-
-        <div class="step-one">
-          <div class="input-container pass-container">
-            <input autocomplete="new-password" type="password" id="acc-pass" placeholder="">
-            <div class="vis-icon"><i id="acc-pass-vis" class="material-icons-round md-18">visibility</i></div>
-          </div>
-          <div class="screen-tooltip">
-            To verify it's you, please enter your password
-          </div>
-          <div class="btn-container">
-            <div class="continue-btn">
-              <i class="material-icons-round done">arrow_forward_ios</i>
-            </div>
-          </div>
-        </div>
-
-        <div class="step-two">
-          <div class="input-container email-container">
-            <h3>Email</h3>
-            <input type="text" id="acc-email" placeholder="New email">
-          </div>
-          <div class="screen-tooltip">
-            Enter your new email
-          </div>
-          <div class="btn-container">
-            <div class="save-btn">
-              <i class="material-icons-round done">check</i>
-            </div>
-          </div>
-        </div>
-
-
       </div>
 
       <div class="edit-screen pass-edit-screen hide">
