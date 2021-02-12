@@ -13,11 +13,11 @@ const userOne = {
   location: "Auckland, New Zealand"
 };
 
-const delay = (data = undefined, failed = false, error = false, duration = 2000) => {
+const delay = (data = undefined, failed = false, error = false, duration = 1000) => {
   return new Promise(async (resolve, reject) => {
     setTimeout(() => {
       if (data === undefined) {
-        return resolve({ status: "error", content: "No data output" });
+        return reject({ status: "error", content: "No data output" });
       } else {
         if (!error && !failed) {
           return resolve({ status: "succeeded", content: data });

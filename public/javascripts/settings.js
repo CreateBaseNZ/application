@@ -40,6 +40,7 @@ let settings = {
   notificationsCancel: undefined,
   notificationsInputsCheck: undefined,
   passVisToggle: undefined,
+  passwordScreenShow: undefined,
   profileCancel: undefined,
   profileInputsCheck: undefined,
   screenClose: undefined,
@@ -49,6 +50,7 @@ let settings = {
     fetch: undefined,
     accountSave: undefined,
     badgesSave: undefined,
+    emailPassVerification: undefined,
     notificationsSave: undefined,
     profileSave: undefined,
   },
@@ -227,8 +229,10 @@ settings.init.attachAllListeners = () => {
   document.querySelector('#avatar-input').addEventListener('change', settings.event.avatarPreview)
   // Show badge config screen
   settings.elem.badgePreviewContainer.addEventListener('click', settings.badgeConfigScreenShow)
-  // Show edit email screen
+  // Show change email screen
   document.querySelector('.email-container').querySelector('button').addEventListener('click', settings.emailScreenShow)
+  // Show change password screen
+  document.querySelector('.pass-container').querySelector('button').addEventListener('click', settings.passwordScreenShow)
   // Toggle password visibility
   document.querySelectorAll('.vis-icon').forEach((btn) => {
     btn.addEventListener('click', settings.passVisToggle)
@@ -281,6 +285,8 @@ settings.init.attachAllListeners = () => {
   document.querySelectorAll('.section').forEach(function (section) {
     section.addEventListener('click', settings.event.sectionClick)
   })
+  // Submit password for email validation
+  settings.elem.emailScreen.querySelector('.continue-btn').addEventListener('click', settings.backend.emailPassVerification)
 }
 
 /**
@@ -499,6 +505,10 @@ settings.badgeConfigScreenCancel = (e) => {
 settings.emailScreenCancel = (e) => {
   settings.elem.emailInput.value = "";
   settings.elem.emailPasswordInput.value = "";
+  settings.elem.emailScreen.classList.add('on-step-one')
+  settings.elem.emailScreen.classList.remove('on-step-two')
+  settings.elem.emailScreen.querySelector('.continue-btn').classList.remove('unsaved-changes')
+  settings.elem.emailScreen.querySelector('.save-btn').classList.remove('unsaved-changes')
   settings.emailScreenClose(e);
 }
 
@@ -571,6 +581,10 @@ settings.badgeConfigScreenClose = (e) => {
  */
 settings.emailScreenShow = (e) => {
   settings.screenShow(e, document.querySelector('.email-edit-screen'))
+}
+
+settings.passwordScreenShow = (e) => {
+  settings.screenShow(e, document.querySelector('.pass-edit-screen'))
 }
 
 /**
@@ -984,4 +998,26 @@ settings.backend.notificationsSave = async () => {
   // Hide save button
   settings.elem.notificationsSection.querySelector('.btn-container').classList.remove('unsaved-changes');
   return;
+}
+
+settings.backend.emailPassVerification = async () => {
+  let emailPass = settings.elem.emailPasswordInput.value;
+
+  let data;
+  try {
+    data = await delay(emailPass);
+  } catch(error) {
+    data = {status: "error", content: error};
+  }
+
+  // Validation
+  if (data.status === "failed") {
+    return console.log(data.content);
+  } else if (data.status === "error") {
+    return console.log(data.content);
+  }
+
+  settings.elem.emailScreen.classList.add('on-step-two');
+  settings.elem.emailScreen.classList.remove('on-step-one');
+  settings.elem.emailScreen.querySelector('.continue-btn').classList.remove('unsaved-changes');
 }

@@ -111,7 +111,8 @@ input{
   height: 100%;
   width: 100%;
   background: $darkest;
-  opacity: 0.25;
+  opacity: 0.5;
+  backdrop-filter: blur(4px);
   z-index: 10;
   &.hide-overlay {
     display: none;
