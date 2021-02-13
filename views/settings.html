@@ -375,10 +375,12 @@
 
       <div class="edit-screen email-edit-screen hide on-step-one">
         <div class="step-one">
-          <div class="input-container pass-container screen-window">
-            <h3>Password</h3>
-            <input autocomplete="new-password" type="password" id="email-pass" placeholder="">
-            <div class="vis-icon"><i id="email-pass-vis" class="material-icons-round md-18">visibility</i></div>
+          <div class="screen-window">
+            <div class="input-container pass-container">
+              <h3>Password</h3>
+              <input autocomplete="new-password" type="password" id="email-pass" placeholder="Password">
+              <div class="vis-icon"><i id="email-pass-vis" class="material-icons-round md-18">visibility</i></div>
+            </div>
             <div class="screen-tooltip">To verify it's you, please enter your password</div>
           </div>
           <div class="continue-btn screen-save-btn">
@@ -386,9 +388,11 @@
           </div>
         </div>
         <div class="step-two">
-          <div class="input-container screen-window">
-            <h3>New Email</h3>
-            <input type="text" id="acc-email" placeholder="New email">
+          <div class="screen-window">
+            <div class="input-container">
+              <h3>New Email</h3>
+              <input type="text" id="acc-email" placeholder="New email">
+            </div>
             <div class="screen-tooltip">Enter your new email</div>
           </div>
           <div class="save-btn screen-save-btn">
@@ -405,22 +409,42 @@
       </div>
 
       <div class="edit-screen pass-edit-screen hide on-step-one">
-        <div class="step-two">
+        <div class="step-one">
           <div class="screen-window">
-            <div class="input-container">
-              <h3>New password</h3>
-              <input autocomplete="new-password" type="password" id="pass-new" placeholder="">
-              <div class="vis-icon"><i class="material-icons-round md-18">visibility</i></div>
-            </div>
-            <div class="input-container">
-              <h3>Confirm password</h3>
-              <input autocomplete="new-password" type="password" id="pass-conf" placeholder="">
-              <div class="vis-icon"><i class="material-icons-round md-18">visibility</i></div>
-            </div>
-            <div class="screen-tooltip">Enter your new password</div>
+            <form class="input-form input-container verif-container" action="#" method="POST" autocomplete="off">
+              <h3>Verification</h3>
+              <div id="otp">
+                <input class="code-input" type="text" id="first" maxlength="1" />
+                <input class="code-input" type="text" id="second" maxlength="1" />
+                <input class="code-input" type="text" id="third" maxlength="1" />
+                <input class="code-input" type="text" id="fourth" maxlength="1" />
+                <input class="code-input" type="text" id="fifth" maxlength="1" />
+                <input class="code-input" type="text" id="sixth" maxlength="1" />
+              </div>
+            </form>
+            <p class="error-p hide">Error - Please try again</p>
+            <div class="screen-tooltip">Enter the verification code sent to your registered email</div>
           </div>
           <div class="continue-btn screen-save-btn">
             <i class="material-icons-round done">arrow_forward_ios</i>
+          </div>
+        </div>
+        <div class="step-two">
+          <div class="screen-window">
+            <div class="input-container pass-container">
+              <h3>New password</h3>
+              <input autocomplete="new-password" type="password" id="pass-new" placeholder="New password">
+              <div class="vis-icon"><i class="material-icons-round md-18">visibility</i></div>
+            </div>
+            <div class="input-container pass-container">
+              <h3>Confirm password</h3>
+              <input autocomplete="new-password" type="password" id="pass-conf" placeholder="Confirm password">
+              <div class="vis-icon"><i class="material-icons-round md-18">visibility</i></div>
+            </div>
+            <div class="screen-tooltip">Enter and confirm your new password</div>
+          </div>
+          <div class="save-btn screen-save-btn">
+            <i class="material-icons-round done">check</i>
           </div>
         </div>
         <div class="screen-close">
@@ -446,6 +470,7 @@
   <!-- ------------------------CUSTOM------------------------ -->
   <script async src="/public/javascripts/backend-simulator.js"></script>
   <script async src="/public/javascripts/global.js"></script>
+  <script async src="/public/javascripts/verification.js"></script>
   <script async src="/public/javascripts/settings.js"></script>
 </body>
 

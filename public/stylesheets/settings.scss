@@ -613,17 +613,42 @@ h4 {
 .screen-window {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
-.email-edit-screen {
+.email-edit-screen,
+.pass-edit-screen {
   .cancel-back {
     margin-bottom: 5vh;
+  }
+  .pass-container {
+    .vis-icon {
+      top: calc(50% + 0.35rem);
+    }
   }
   .save-btn,
   .continue-btn {
     color: $blue-light;
     background: $blue-light;
+  }
+}
+
+.verif-container {
+  justify-content: center;
+  align-items: center;
+  #otp {
+    width: 12.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .code-input {
+    text-align: center;
+    padding: 0.75em 1em;
+    width: 3.25em;
+    margin: 0.4em;
   }
 }
 
@@ -1141,20 +1166,14 @@ h3 {
   width: auto;
 }
 
-.screen-window,
-.input-container.screen-window {
+.screen-window {
   height: 25rem;
   width: 35rem;
   background: $lightest;
   border-radius: 2rem;
   padding: 0 6rem;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   margin: 0;
-  .vis-icon {
-    right: calc(6rem + 1.2em);
-  }
   .input-container {
     width: 100%;
   }
@@ -1252,6 +1271,30 @@ h3 {
     background: $lighter;
     label > img {
       margin: -2px -2px 0 0;
+    }
+  }
+}
+
+.verif-container {
+  justify-content: center;
+  align-items: flex-start;
+  #otp {
+    width: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .code-input {
+    text-align: center;
+    padding: 0.75em 1em;
+    width: 3.25em;
+    margin: 0.4em;
+    &:first-of-type {
+      margin-left: 0;
+    }
+    &:last-of-type {
+      margin-right: 0;
     }
   }
 }
