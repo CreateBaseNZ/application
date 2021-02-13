@@ -607,7 +607,8 @@ settings.profileCancel = (e) => {
  * @param {Object} screen   Screen element closed.
  */
 settings.screenClose = (screen) => {
-  global.elem.darkenOverlay.classList.add('hide');
+  global.elem.darkenOverlay.classList.add('hide-overlay');
+  global.elem.darkenOverlay.classList.remove('mobile-hide');
   document.querySelector('.edit-mode').classList.remove('mobile-hide');
   screen.classList.add('hide');
 }
@@ -619,9 +620,9 @@ settings.screenClose = (screen) => {
  * @param {Object} section  Section corresponding to the screen.
  */
 settings.screenShow = (screen, section) => {
-  console.log('screenShow')
   screen.classList.remove('hide');
-  global.elem.darkenOverlay.classList.remove('hide');
+  global.elem.darkenOverlay.classList.remove('hide-overlay');
+  global.elem.darkenOverlay.classList.add('mobile-hide');
   document.querySelectorAll('.section-container').forEach((section) => {
     section.classList.add('mobile-hide');
     section.classList.remove('edit-mode');
@@ -908,74 +909,6 @@ settings.event.verificationInputsEnter = (e) => {
 // ==========================================================
 
 /**
- * Fetches user data from the database.
- * 
- * | **Invokes**
- * | :func:`axios.post`
- *
- * | **Invoked by**
- * | :func:`settings.init.init`
- * 
- * @return {Object} Promise - User data.
- */
-settings.backend.fetch = () => {
-  return new Promise(async (resolve, reject) => {
-    // Fetch data
-    let data;
-    try {
-      data = (await axios.post("/settings"))["data"];
-    } catch (error) {
-      data = { status: "error", content: error };
-    }
-    return resolve(data);
-  });
-}
-
-/**
- * Posts Profile section changes to the database; these include the display name, display email, and display location. If successful, the local cache is updated.
- * 
- * | **Invokes**
- * | :func:`axios.post` :func:`settings.cacheUpdate` :func:`settings.editModeExit`
- *
- * | **Invoked by**
- * | :func:`settings.init.attachAllListeners`
- */
-settings.backend.profileSave = async () => {
-  // Collect input
-  let input;
-  const file = document.querySelector("#avatar-input");
-  if (file.files.length !== 0) {
-    input = await global.compressImage(".avatar-form", "avatar", 400);
-  } else {
-    input = new FormData();
-  }
-  input.append("displayName", settings.elem.displayNameInput.value);
-  input.append("displayEmail", settings.elem.displayEmailInput.value);
-  input.append("location", settings.elem.locationInput.value);
-  // Validate input
-  
-  // Send update request
-  let data;
-  try {
-    data = (await axios.post("/settings/update-profile", input))["data"];
-  } catch (error) {
-    data = { status: "error", content: error };
-  }
-  // Validation
-  if (data.status === "failed") {
-    return console.log(data.content);
-  } else if (data.status === "error") {
-    return console.log(data.content);
-  }
-  // Update cache
-  settings.cacheUpdate('profile');
-  settings.editModeExit(settings.elem.profileSection);
-  // Hide save button
-  settings.elem.profileSection.querySelector('.btn-container').classList.remove('unsaved-changes');
-  return;
-}
-
-/**
  * Posts Account section changes to the database; these include the account name and location. If successful, the local cache is updated.
  * 
  * | **Invokes**
@@ -1108,6 +1041,30 @@ settings.backend.emailSave = async () => {
 }
 
 /**
+ * Fetches user data from the database.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.init`
+ * 
+ * @return {Object} Promise - User data.
+ */
+settings.backend.fetch = () => {
+  return new Promise(async (resolve, reject) => {
+    // Fetch data
+    let data;
+    try {
+      data = (await axios.post("/settings"))["data"];
+    } catch (error) {
+      data = { status: "error", content: error };
+    }
+    return resolve(data);
+  });
+}
+
+/**
  * Posts mailing list changes to the database. If successful, the local cache is updated.
  * 
  * | **Invokes**
@@ -1204,4 +1161,48 @@ settings.backend.passwordSave = async () => {
   settings.elem.passwordScreen.classList.remove('on-step-two');
   settings.elem.passwordScreen.classList.add('on-step-one');
   settings.elem.passwordScreen.querySelector('.save-btn').classList.remove('unsaved-changes');
+}
+
+/**
+ * Posts Profile section changes to the database; these include the display name, display email, and display location. If successful, the local cache is updated.
+ * 
+ * | **Invokes**
+ * | :func:`axios.post` :func:`settings.cacheUpdate` :func:`settings.editModeExit`
+ *
+ * | **Invoked by**
+ * | :func:`settings.init.attachAllListeners`
+ */
+settings.backend.profileSave = async () => {
+  // Collect input
+  let input;
+  const file = document.querySelector("#avatar-input");
+  if (file.files.length !== 0) {
+    input = await global.compressImage(".avatar-form", "avatar", 400);
+  } else {
+    input = new FormData();
+  }
+  input.append("displayName", settings.elem.displayNameInput.value);
+  input.append("displayEmail", settings.elem.displayEmailInput.value);
+  input.append("location", settings.elem.locationInput.value);
+  // Validate input
+  
+  // Send update request
+  let data;
+  try {
+    data = (await axios.post("/settings/update-profile", input))["data"];
+  } catch (error) {
+    data = { status: "error", content: error };
+  }
+  // Validation
+  if (data.status === "failed") {
+    return console.log(data.content);
+  } else if (data.status === "error") {
+    return console.log(data.content);
+  }
+  // Update cache
+  settings.cacheUpdate('profile');
+  settings.editModeExit(settings.elem.profileSection);
+  // Hide save button
+  settings.elem.profileSection.querySelector('.btn-container').classList.remove('unsaved-changes');
+  return;
 }

@@ -159,7 +159,7 @@ global.init.navInit = () => {
 
   global.elem.darkenOverlay.addEventListener('click', global.event.darkenOverlayClick);
 
-  document.querySelector('.nav-more-close').addEventListener('click', global.event.navMoreHide);
+  document.querySelector('.nav-more-close').addEventListener('click', global.event.moreMenuClick);
 }
 
 /**
@@ -288,9 +288,9 @@ global.event.enterKeyPress = (input, func) => {
  */
 global.event.moreMenuClick = function(e) {
   e.preventDefault();
-  global.elem.darkenOverlay.classList.toggle('hide-overlay');
+  global.elem.darkenOverlay.classList.toggle('nav-more-shown');
   global.elem.moreMenu.classList.toggle('hide');
-  this.querySelector('input').checked = !this.querySelector('input').checked;
+  global.elem.moreMenuBtn.querySelector('input').checked = !global.elem.moreMenuBtn.querySelector('input').checked;
 }
 
 /**
@@ -301,9 +301,9 @@ global.event.moreMenuClick = function(e) {
  * 
  * @param {Object} e  Event object.
  */
-global.event.darkenOverlayClick = () => {
+global.event.darkenOverlayClick = (e) => {
   if (!global.elem.moreMenu.classList.contains('hide')) {
-    global.event.navMoreHide();
+    global.event.moreMenuClick(e);
   }
 }
 
