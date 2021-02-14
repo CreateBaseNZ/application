@@ -5,10 +5,14 @@ VARIABLES
 // const e = require("express");
 
 let dashboard = {
-  initialise: undefined,
-  fetch: undefined,
-  loadBadges: undefined,
-  loadProjects: undefined,
+  init: {
+    init: undefined,
+    loadBadges: undefined,
+    loadProjects: undefined
+  },
+  backend: {
+    fetch: undefined
+  },
 
   badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], // temp
   jekts: [{
@@ -93,28 +97,28 @@ const completeEx = {
 FUNCTIONS
 ========================================================== */
 
-dashboard.initialise = async () => {
+dashboard.init.init = async () => {
   // Global Initialisation
   global.init.init();
   // Fetch data
-  // const data = await dashboard.fetch();
+  const data = await dashboard.backend.fetch();
   // Validate incoming data
-  // if (data.status === "error") {
-  //   console.log(data.content);
-  // } else if (data.status === "failed") {
-  //   console.log(data.content);
-  // }
+  if (data.status === "error") {
+    console.log(data.content);
+  } else if (data.status === "failed") {
+    console.log(data.content);
+  }
   // Load badges
-  dashboard.loadBadges()
+  dashboard.init.loadBadges()
   // Load projects
-  dashboard.loadProjects()
+  dashboard.init.loadProjects()
   // Populate fields
-  // document.querySelector("#h1-name").innerHTML = data.content.user.displayName ? data.content.user.displayName : "";
+  document.querySelector("#h1-name").innerHTML = data.content.user.displayName ? data.content.user.displayName : "";
   // When initialisation is complete "unhide" the body element
   document.querySelector("body").classList.remove("hide");
 }
 
-dashboard.loadBadges = () => {
+dashboard.init.loadBadges = () => {
   // TO DO: load badges
   for (var i = 0; i < 8; i++) {
     const rand = Math.floor(Math.random() * dashboard.badges.length);
@@ -136,7 +140,7 @@ dashboard.loadBadges = () => {
   }
 }
 
-dashboard.loadProjects = () => {
+dashboard.init.loadProjects = () => {
   // global.createProjectCard(dashboard.recentContainer, 'small', new Project(ongoingEx))
   global.createProjectCard(dashboard.recentContainer, 'small', new Project(completeEx))
   global.createProjectCard(dashboard.recomContainer, 'large', new Project(completeEx))
@@ -146,7 +150,7 @@ dashboard.loadProjects = () => {
 BACKEND REQUESTS
 ========================================================== */
 
-dashboard.fetch = () => {
+dashboard.backend.fetch = () => {
   return new Promise(async (resolve, reject) => {
     // Fetch data
     let data;
