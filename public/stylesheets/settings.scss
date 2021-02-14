@@ -937,11 +937,6 @@ h4 {
   display: block;
 }
 
-.main-page {
-  padding-right: 0;
-  padding-bottom: 0;
-}
-
 .section-container.mobile-hide,
 .section-container.edit-mode.mobile-hide {
   display: flex;
@@ -956,9 +951,6 @@ h3 {
 }
 
 .ui-container {
-  padding-top: 0;
-  padding-right: $horiz-space-tablet;
-  padding-bottom: $vert-space-tablet;
   flex: 1 0 0;
 }
 

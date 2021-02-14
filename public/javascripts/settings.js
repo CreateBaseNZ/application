@@ -4,6 +4,10 @@
 
 // const e = require("express");
 
+// function initPlaces() {
+//   new google.maps.places.Autocomplete(settings.elem.streetInput, settings.places.options); 
+// }
+
 let settings = {
 
   init: {
@@ -11,6 +15,7 @@ let settings = {
     cacheInit: undefined,
     init: undefined,
     loadBadges: undefined,
+    placesInit: undefined,
     populate: undefined,
     sessionStorageCheck: undefined,
     sortableJSInit: undefined
@@ -64,7 +69,7 @@ let settings = {
   var: {
     // temp
     badges: ['trophy', 'medal', 'console', 'loyal', 'grad', 'love', 'review', 'tour', 'verified'], 
-    cache: {},
+    cache: {}
   },
   
   elem: {
@@ -101,6 +106,11 @@ let settings = {
     streetInput: document.querySelector('#acc-street'),
     unitInput: document.querySelector('#acc-unit'),
     zipInput: document.querySelector('#acc-zip')
+  },
+
+  places: {
+    center: {},
+    options: {}
   }
 }
 
@@ -221,6 +231,7 @@ settings.init.sortableJSInit = () => {
     }
   })
 }
+
 
 /**
  * Attaches event listeners to all DOM objects.
@@ -1206,3 +1217,31 @@ settings.backend.profileSave = async () => {
   settings.elem.profileSection.querySelector('.btn-container').classList.remove('unsaved-changes');
   return;
 }
+
+// ==========================================================
+// PLACES API
+// ==========================================================
+
+// Search bias
+settings.places.center = {
+  lat: -36.848461,
+  lng: 174.763336
+};
+
+
+settings.places.options = {
+  bounds: {
+    north: settings.places.center.lat + 0.1,
+    south: settings.places.center.lat - 0.1,
+    east: settings.places.center.lng + 0.1,
+    west: settings.places.center.lng - 0.1,
+  },
+  componentRestrictions: {
+    country: ["us", "au", "nz", "cn"]
+  },
+  fields: ["address_components"],
+  origin: settings.places.center,
+  strictBounds: false,
+  types: ["address"]
+}
+
