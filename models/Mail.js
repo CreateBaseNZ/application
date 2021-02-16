@@ -49,7 +49,7 @@ MailSchema.statics.build = function (object = {}, save = true) {
   });
 }
 
-MailSchema.statics.demolish = function (object = {}, save = true) {
+MailSchema.statics.demolish = function (object = {}) {
   return new Promise(async (resolve, reject) => {
     // Find mail
     let mail;

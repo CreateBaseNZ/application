@@ -77,7 +77,6 @@ UserSchema.statics.build = function (object = {}, save = true) {
 // @desc  
 UserSchema.statics.reform = function (object = {}, save = true) {
   return new Promise (async (resolve, reject) => {
-    console.log(object);
     // Fetch the user
     let user;
     try {
@@ -114,7 +113,6 @@ UserSchema.statics.reform = function (object = {}, save = true) {
       }
     }
     // Success handler
-    console.log(user);
     return resolve(user);
   });
 }

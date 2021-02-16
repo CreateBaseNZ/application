@@ -71,62 +71,37 @@ router.post("/settings", /*verifiedContent,*/ async (req, res) => {
   return res.send({ status: "succeeded", content: { account, user, notification } });
 });
 
-router.post("/settings/update", /*verifiedContent,*/ async (req, res) => {
+// @route   POST /settings/update-account
+// @desc
+// @access  VERIFIED CONTENT
+router.post("/settings/update-account", verifiedContent, async (req, res) => {
   // Declare variables
   let account = req.user;
-  let accountUpdate = req.body.accountUpdate;
-  let userUpdate = req.body.userUpdate;
-  let notificationUpdate = req.body.notificationUpdate;
-  // Update account
-  if (accountUpdate) {
-    try {
-      await Account.reform({id: account._id, update: accountUpdate});
-    } catch (data) {
-      return res.send(data);
-    }
-  }
+  let update = req.body;
   // Update user
-  if (userUpdate) {
-    try {
-      await User.reform({id: account._id, update: userUpdate});
-    } catch (data) {
-      return res.send(data);
-    }
-  }
-  // Update notification
-  if (notificationUpdate) {
-    // Update newsletter
-    if (notificationUpdate.newsletter !== undefined) {
-      if (notificationUpdate.newsletter) {
-        try {
-          await Mail.subscribe({ email: account.email, owner: account._id });
-        } catch (data) {
-          return res.send(data);
-        }
-      } else {
-        try {
-          await Mail.unsubscribe({ email: account.email });
-        } catch (daya) {
-          return res.send(data);
-        }
-      }
-    }
+  try {
+    await User.reform({ id: account._id, update });
+  } catch (data) {
+    // Delete the uploaded avatar if failed
+    // TO DO
+    return res.send(data);
   }
   // Success handler
   return res.send({status: "succeeded", content: ""});
 });
 
+// @route   POST /settings/update-profile
+// @desc
+// @access  VERIFIED CONTENT
 router.post("/settings/update-profile", upload.single("avatar"), verifiedContent, async (req, res) => {
   // Declare Variables
   let update = req.body;
   // Check if there is a new upload
   if (req.file) update.avatar = req.file.id;
-  console.log(update);
   // Update the user instance
   try {
     await User.reform({ id: req.user._id, update });
   } catch (data) {
-    console.log(data);
     // Delete the uploaded avatar if failed
     // TO DO
     return res.send(data);
@@ -135,6 +110,36 @@ router.post("/settings/update-profile", upload.single("avatar"), verifiedContent
   return res.send({ status: "succeeded", content: "" });
 });
 
+// @route   POST /settings/update-notification
+// @desc
+// @access  VERIFIED CONTENT
+router.post("/settings/update-notification", verifiedContent, async (req, res) => {
+  // Declare variables
+  let account = req.user;
+  let update = req.body;
+  // Update newsletter
+  if (update.newsletter !== undefined) {
+    if (update.newsletter) {
+      try {
+        await Mail.subscribe({ email: account.email, owner: account._id });
+      } catch (data) {
+        return res.send(data);
+      }
+    } else {
+      try {
+        await Mail.unsubscribe({ email: account.email });
+      } catch (daya) {
+        return res.send(data);
+      }
+    }
+  }
+  // Success handler
+  return res.send({status: "succeeded", content: ""});
+});
+
+// @route   POST /settings/fetch-avatar
+// @desc
+// @access  VERIFIED CONTENT
 router.get("/settings/fetch-avatar", verifiedContent, async (req, res) => {
   // Declare Variables
   const id = req.user._id;

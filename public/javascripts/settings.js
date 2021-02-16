@@ -930,7 +930,7 @@ settings.event.verificationInputsEnter = (e) => {
  */
 settings.backend.accountSave = async () => {
   // Collect input
-  let userUpdate = {
+  let input = {
     name: settings.elem.nameInput.value,
     address: {
       unit: settings.elem.unitInput.value,
@@ -946,7 +946,7 @@ settings.backend.accountSave = async () => {
   // Send update request
   let data;
   try {
-    data = (await axios.post("/settings/update", { userUpdate }))["data"];
+    data = (await axios.post("/settings/update-account", input))["data"];
   } catch (error) {
     data = {status: "error", content: error};
   }
@@ -1086,7 +1086,7 @@ settings.backend.fetch = () => {
  */
 settings.backend.notificationsSave = async () => {
   // Collect input
-  let notificationUpdate = {
+  let input = {
     newsletter: settings.elem.mailingInput.checked
   }
   // Validate input
@@ -1094,7 +1094,7 @@ settings.backend.notificationsSave = async () => {
   // Send update request
   let data;
   try {
-    data = (await axios.post("/settings/update", { notificationUpdate }))["data"];
+    data = (await axios.post("/settings/update-notification", input))["data"];
   } catch (error) {
     data = {status: "error", content: error};
   }
