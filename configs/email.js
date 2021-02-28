@@ -24,16 +24,22 @@ FUNCTIONS
  */
 email.build = (object = {}) => {
   return new Promise(async (resolve, reject) => {
-    // Combine the HTML and CSS
-    const combined = object.html + object.css;
-    // Inline the CSS
-    const inlineCSSOptions = { url: "/" };
     let inline;
-    try {
-      inline = await inlineCSS(combined, inlineCSSOptions);
-    } catch (error) {
-      return reject({ status: "error", content: error });
+    if (object.css) {
+      // Combine the HTML and CSS
+      const combined = object.html + object.css;
+      // Inline the CSS
+      const inlineCSSOptions = { url: "/" };
+      try {
+        inline = await inlineCSS(combined, inlineCSSOptions);
+      } catch (error) {
+        console.log(error);
+        return reject({ status: "error", content: error });
+      }
+    } else {
+      inline = object.html;
     }
+    
     // Return the email object
     return resolve({ email: object.email, subject: object.subject,
       text: object.text, html: inline });

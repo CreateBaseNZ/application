@@ -417,11 +417,9 @@ global.test.sendEmail = async (object = {}) => {
   }
   // Validate inputs
   if (!object.subject) validation.subject = { valid: false, message: "Empty input" };
-  if (!object.text) validation.text = { valid: false, message: "Empty input" };
   if (!object.html) validation.html = { valid: false, message: "Empty input" };
-  if (!object.css) validation.css = { valid: false, message: "Empty input" };
   validation.email = global.validate.email(object.email);
-  if (!validation.subject.valid || !validation.html.valid || !validation.css.valid || !validation.email.valid) return console.log(validation);
+  if (!validation.subject.valid || !validation.html.valid || !validation.email.valid) return console.log(validation);
   // Send email
   let data;
   try {
