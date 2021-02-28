@@ -21,7 +21,8 @@ MODEL
 
 const MailSchema = new Schema({
   email: { type: String, required: true },
-  owner: { type: Schema.Types.ObjectId }
+  owner: { type: Schema.Types.ObjectId },
+  received: { type: [String], default: [] }
 });
 
 /* ==========================================================
