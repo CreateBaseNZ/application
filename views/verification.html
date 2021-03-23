@@ -8,7 +8,7 @@
   <link rel="icon" href="/public/images/logo-icon.png" />
   <title id="profile-title">Verify Account • App</title>
   <meta name="description"
-    content="Welcome back, Creator. See your recent projects or get started on a recommend project. Browse all projects. Shop the latest range of kits. &#169; 2020 CreateBase.">
+    content="Welcome back, Creator. See your recent projects or get started on a recommend project. Browse all projects. Shop the latest range of kits. &#169; 2021 CreateBase.">
   <!-- =========================CSS========================== -->
   <!-- -----------------------SOURCED------------------------ -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -23,6 +23,7 @@
 </head>
 
 <!-- <body onload="verification.initialise();"> -->
+
 <body onload="verification.initialise();">
   <div class="wrap">
     <nav>
@@ -30,31 +31,31 @@
     </nav>
 
     <div class="verify-container">
-        <h1>Verify Account</h1>
-        <form id="verify-form" class="input-form" action="#" method="POST" autocomplete="off">
-            <!-- Enter code here -->
-            <div id="otp">
-                <input class="code-input" type="text" id="first" maxlength="1"  autofocus/>
-                <input class="code-input" type="text" id="second" maxlength="1" />
-                <input class="code-input" type="text" id="third" maxlength="1" />
-                <input class="code-input" type="text" id="fourth" maxlength="1" />
-                <input class="code-input" type="text" id="fifth" maxlength="1" />
-                <input class="code-input" type="text" id="sixth" maxlength="1" />
-            </div>
-
-            <div class="disclaimer-container">
-                <p class="small-text">Enter the verification code sent to your registered email</p>
-                <p class="error-p"></p>
-            </div>
-        </form>
-
-        <div class="user-btn-container">
-          <button id="verify-btn" class="user-input main-cta cta-button" onclick="">Confirm</button>
+      <h1>Verify Account</h1>
+      <form id="verify-form" class="input-form" action="#" method="POST" autocomplete="off">
+        <!-- Enter code here -->
+        <div id="otp">
+          <input class="code-input" type="text" id="first" maxlength="1" autofocus />
+          <input class="code-input" type="text" id="second" maxlength="1" />
+          <input class="code-input" type="text" id="third" maxlength="1" />
+          <input class="code-input" type="text" id="fourth" maxlength="1" />
+          <input class="code-input" type="text" id="fifth" maxlength="1" />
+          <input class="code-input" type="text" id="sixth" maxlength="1" />
         </div>
-        <div class="user-btn-container">
-            <button id="resend-code" class="user-input secondary-cta cta-button" onclick="">Resend Code</button>
+
+        <div class="disclaimer-container">
+          <p class="small-text">Enter the verification code sent to your registered email</p>
+          <p class="error-p"></p>
         </div>
+      </form>
+
+      <div class="user-btn-container">
+        <button id="verify-btn" class="user-input main-cta cta-button" onclick="">Confirm</button>
       </div>
+      <div class="user-btn-container">
+        <button id="resend-code" class="user-input secondary-cta cta-button" onclick="">Resend Code</button>
+      </div>
+    </div>
   </div>
 
   <div class="background">
